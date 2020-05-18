@@ -1,0 +1,298 @@
+# -- coding: utf-8 --
+from __future__ import division
+
+import time
+import random
+
+from proj.entity.map import Shape
+from proj.builtin.actions import BattleMoveAction
+from proj.builtin.actions import BattleSkillAction
+from proj.builtin.actions import BattleItemAction
+from proj.builtin.actions import BattleRestAction
+
+
+def huichun(p, q):
+    score = 0
+    if q.hp / q.hp_max <= 0.3:
+        score += max(3500, q.hp_max - q.hp)
+        if p == q:
+            score += 1000
+    return score
+    
+
+class SimpleAI(object):
+
+    EFFECT_MAP = {"EFFECT_HUICHUN": huichun,
+                  "EFFECT_HUICHUN_DA": huichun,
+                  "EFFECT_HUICHUN_XIAO": huichun}
+
+    def __init__(self, battle):
+        self.battle = battle
+        self.move_scope = []
+        self.connections = {}
+        self.loc_clc_map = {}
+
+    def skill_ranges(self, zhaoshies):
+        max_attack_range = {"Friends": -1, "Enemies": -1}
+        min_attack_range = {"Friends": 99, "Enemies": 99}
+        for zhaoshi in zhaoshies:
+            if zhaoshi.shape is None:
+                continue
+            tmp_range = zhaoshi.shape.attack_range()
+            keylist = []
+            if zhaoshi.targets != "Friends":
+                keylist.append("Enemies")
+            if zhaoshi.targets != "Enemies":
+                keylist.append("Friends")
+            for tkey in keylist:
+                if max_attack_range[tkey] < tmp_range[1]:
+                    max_attack_range[tkey] = tmp_range[1]
+                if min_attack_range[tkey] > tmp_range[0]:
+                    min_attack_range[tkey] = tmp_range[0]
+        max_attack_range["All"] = max(max_attack_range["Friends"], max_attack_range["Enemies"])
+        min_attack_range["All"] = min(min_attack_range["Friends"], min_attack_range["Enemies"])
+        return max_attack_range, min_attack_range
+
+    def do(self, p):
+        if not self.battle.map.silent:
+            self.move_scope, self.connections = self.battle.map.move_scope(p, style=p.move_style)
+        maybe = self.consider(p)
+        max_score = -1
+        submaybe = []
+        for may, score in maybe:
+            if score > max_score:
+                max_score = score
+                submaybe[:] = []
+        for may, score in maybe:
+            if score == max_score:
+                submaybe.append(may)
+        idx = random.randint(0, len(submaybe) - 1)
+        return submaybe[idx]
+
+    def consider(self, p):
+        maybe = []
+        maybe = self.do_emergency(p)
+        if len(maybe) > 0:
+            return maybe
+        if self.battle.silent:
+            clist = [self.do_attack_silent, self.do_item_silent, self.do_rest]
+        else:
+            clist = [self.do_attack, self.do_item, self.do_rest]
+        for func in clist:
+            m = func(p)
+            if m is not None:
+                for sm in m:
+                    maybe.append(sm)
+        return maybe
+
+    def do_emergency(self, p):
+        ret = []
+        equip_a = p.equipment[0]
+        skills_ava = self.battle.skill_available(p, check_cd=False)
+        if equip_a is None and len(skills_ava) == 0:
+            for itm in p.items:
+                if "Weapon" in itm.tags:
+                    tgt = self.battle.map.location(p)
+                    ret.append(([BattleItemAction(subject=p, battle=self.battle, target=tgt, 
+                                                  item=itm, objects=[p], scope=[tgt])], 10000))
+        return ret
+        
+    def do_attack_silent(self, p):
+        can_do = []
+        if self.battle.attacked[p.id]:
+            zhaoshies = []
+        else:
+            zhaoshies = self.battle.skill_available(p)
+        for zhaoshi in zhaoshies:               
+            q = random.sample(self.battle.enemies(p), 1)[0]
+            qloc = self.battle.map.entity_loc[q.id]
+            score = 0
+            if zhaoshi.power > 0:
+                score += zhaoshi.power * (min(1, 1 if zhaoshi.mp == 0 else p.mp / zhaoshi.mp))
+            else:
+                for effe in zhaoshi.effects:
+                    if effe.tpl_id not in SimpleAI.EFFECT_MAP:
+                        continue
+                    score += SimpleAI.EFFECT_MAP[effe.tpl_id](p, q)
+            if score == 0:
+                continue
+            action_list = [BattleSkillAction(subject=p, battle=self.battle, target=qloc, counter=False,
+                                             skill=zhaoshi, objects=[q], scope=[qloc])]
+            can_do.append((action_list, score))
+        return can_do
+
+    def do_attack(self, p):
+        if self.battle.moved[p.id]:
+            move_scope = []
+        else:
+            move_scope = self.move_scope
+        connections = self.connections
+        can_do = []
+        zs_tgt_map = {}
+        tmp_min_distance = 100
+        tmp_loc = None
+        if self.battle.attacked[p.id]:
+            zhaoshies = []
+        else:
+            zhaoshies = self.battle.skill_available(p)
+        max_attack_range, min_attack_range = self.skill_ranges(zhaoshies)
+        for loc in move_scope + [self.battle.map.location(p)]:
+            at_least_one = False
+            for q in self.battle.alive:
+                loc_p = loc
+                loc_q = self.battle.map.location(q)
+                tmp_distance = self.battle.map.distance(loc_p, loc_q)
+                if self.battle.is_enemy(p, q):                    
+                    if tmp_distance < tmp_min_distance:
+                        tmp_min_distance = tmp_distance
+                        tmp_loc = loc
+                    at_least_one = at_least_one or (tmp_distance <= max_attack_range["Enemies"] and \
+                                                    tmp_distance >= min_attack_range["Enemies"])
+                else:
+                    at_least_one = at_least_one or (tmp_distance <= max_attack_range["Friends"] and \
+                                                    tmp_distance >= min_attack_range["Friends"])
+
+            if not at_least_one:
+                continue
+
+            for zhaoshi in zhaoshies:
+                if (loc, zhaoshi.shape.scope, zhaoshi.shape.msputter) not in self.loc_clc_map:
+                    self.loc_clc_map[(loc, zhaoshi.shape.scope, zhaoshi.shape.msputter)] = \
+                      self.battle.map.shape_scope(loc, zhaoshi.shape) 
+                cset = self.loc_clc_map[(loc, zhaoshi.shape.scope, zhaoshi.shape.msputter)]
+                for scope in cset:
+                    score = 0
+                    ql = []
+                    if zhaoshi.shape.style == Shape.Point:
+                        if (zhaoshi.id, scope) not in zs_tgt_map:
+                            zs_tgt_map[(zhaoshi.id, scope)] = self.battle.map.shape(loc, scope, zhaoshi.shape)
+                        zshape = zs_tgt_map[(zhaoshi.id, scope)]
+                    else:
+                        zshape = self.battle.map.shape(loc, scope, zhaoshi.shape)
+                    for pt in zshape:
+                        q = self.battle.map.loc_entity.get(pt, None)
+                        if q == p and pt != loc:
+                             continue
+                        if pt == loc:
+                           q = p
+                        if q is None or not self.battle.skill_accept(zhaoshi, p, q):
+                            continue
+                        ql.append(q)
+                        if zhaoshi.power > 0:
+                            score += zhaoshi.power * (min(1, 1 if zhaoshi.mp == 0 else p.mp / zhaoshi.mp))
+                        else:
+                            for effe in zhaoshi.effects:
+                                if effe.tpl_id not in SimpleAI.EFFECT_MAP:
+                                    continue
+                                score += SimpleAI.EFFECT_MAP[effe.tpl_id](p, q)
+                    if score == 0:
+                        continue
+                    action_list = [BattleMoveAction(subject=p, battle=self.battle, target=loc, scope=move_scope, 
+                                                    path=self.battle.map.move_trace(loc, self.battle.map.location(p), connections)),
+                                   BattleSkillAction(subject=p, battle=self.battle, target=scope, counter=False,
+                                                     skill=zhaoshi, objects=ql, scope=zshape)]
+                    can_do.append((action_list, score)) 
+        if len(can_do) == 0:
+            can_do.append(([BattleMoveAction(subject=p,
+                                             battle=self.battle,
+                                             target=tmp_loc, 
+                                             scope=move_scope, 
+                                             path=self.battle.map.move_trace(tmp_loc, self.battle.map.location(p), connections)),
+                            BattleRestAction(subject=p, battle=self.battle)], int(p.mp_limit * p.mp_recover_rate_inferior)))
+        return can_do
+
+    def do_item_silent(self, p):  
+        can_do = []    
+        if self.battle.itemed[p.id]:
+            items = []
+        else:
+            items = p.items
+        for item in items:
+            q = random.sample(self.battle.enemies(p), 1)[0]
+            qloc = self.battle.map.entity_loc[q.id]
+            score = 0
+            for effe in item.effects:
+                if effe.tpl_id not in SimpleAI.EFFECT_MAP:
+                    continue
+                score += SimpleAI.EFFECT_MAP[effe.tpl_id](p, q)
+            if score == 0:
+                continue
+            action_list = [BattleItemAction(subject=p, battle=self.battle, target=qloc, 
+                                            item=item, objects=[q], scope=[qloc])]
+            can_do.append((action_list, score)) 
+        return can_do
+     
+    def do_item(self, p):                 
+        if self.battle.moved[p.id]:
+            move_scope = []
+        else:
+            move_scope = self.move_scope
+        connections = self.connections
+        can_do = []
+        zs_tgt_map = {}
+        tmp_min_distance = 100
+        tmp_loc = None
+        if self.battle.itemed[p.id]:
+            items = []
+        else:
+            items = p.items
+        max_attack_range, min_attack_range = self.skill_ranges(items)
+        for loc in move_scope + [self.battle.map.location(p)]:
+            at_least_one = False
+            for q in self.battle.alive:
+                loc_p = loc
+                loc_q = self.battle.map.location(q)               
+                tmp_distance = self.battle.map.distance(loc_p, loc_q) 
+                if self.battle.is_enemy(p, q):
+                    if tmp_distance < tmp_min_distance:
+                        tmp_min_distance = tmp_distance
+                        tmp_loc = loc
+                    at_least_one = at_least_one or (tmp_distance <= max_attack_range["Enemies"] and \
+                                                    tmp_distance >= min_attack_range["Enemies"])
+                else:
+                    at_least_one = at_least_one or (tmp_distance <= max_attack_range["Friends"] and \
+                                                    tmp_distance >= min_attack_range["Friends"])
+
+            if not at_least_one:
+                continue
+
+            for item in items:
+                if item.shape is None:
+                    continue
+                if (loc, item.shape.scope, item.shape.msputter) not in self.loc_clc_map:
+                    self.loc_clc_map[(loc, item.shape.scope, item.shape.msputter)] = \
+                      self.battle.map.shape_scope(loc, item.shape)
+                cset = self.loc_clc_map[(loc, item.shape.scope, item.shape.msputter)]
+                for scope in cset:
+                    score = 0
+                    ql = []
+                    if item.shape.style == Shape.Point:
+                        if (item.id, scope) not in zs_tgt_map:
+                            zs_tgt_map[(item.id, scope)] = self.battle.map.shape(loc, scope, item.shape)
+                        zshape = zs_tgt_map[(item.id, scope)]
+                    else:
+                        zshape = self.battle.map.shape(loc, scope, item.shape) 
+                    for pt in zshape:
+                        q = self.battle.map.loc_entity.get(pt, None)
+                        if q == p and pt != loc:
+                             continue
+                        if pt == loc:
+                           q = p
+                        if q is None or not self.battle.skill_accept(item, p, q):
+                            continue
+                        ql.append(q)
+                        for effe in item.effects:
+                            if effe.tpl_id not in SimpleAI.EFFECT_MAP:
+                                continue
+                            score += SimpleAI.EFFECT_MAP[effe.tpl_id](p, q)
+                    if score == 0:
+                        continue
+                    action_list = [BattleMoveAction(subject=p, battle=self.battle, target=loc, scope=move_scope, 
+                                                    path=self.battle.map.move_trace(loc, self.battle.map.location(p), connections)),
+                                   BattleItemAction(subject=p, battle=self.battle, target=scope, 
+                                                    item=item, objects=ql, scope=zshape)]
+                    can_do.append((action_list, score)) 
+        return can_do
+
+    def do_rest(self, p):
+        return [([BattleRestAction(subject=p, battle=self.battle)], int(p.mp_limit * p.mp_recover_rate))]

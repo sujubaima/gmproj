@@ -1,0 +1,145 @@
+# -- coding: utf-8 --
+from __future__ import division
+
+import platform
+import time
+
+from proj.console.ui import common as ui
+from proj.console import format as fmt
+
+from proj.entity.map import Terran
+from proj.entity.constants import BattleGroup
+from proj.entity.constants import BattleEvent
+
+
+class Map(ui.Interactive):
+    """
+    地图封装控件
+    """
+    GWIDTH = 17
+
+    HOR = "-"
+
+    VER = "|"
+
+    GROUP_COLOR = {BattleGroup.Player: "cyan",
+                   BattleGroup.Friends: "cyan",
+                   BattleGroup.Enemies: "red",
+                   BattleGroup.Thirds: "magemta"}
+
+    TERRAN_CHAR = {Terran.Water: ("~", {"color": "cyan", "attrs": ["bold"]}),
+                   Terran.Grass: (" ", {}),
+                   Terran.Forest: ("φ", {"color": "green"}),
+                   Terran.Hill: ("∩", {"color": "yellow", "attrs": ["dark"]}),
+                   Terran.Mountain: ("Λ", {"color": "yellow", "attrs": ["underline"]})}
+    #TERRAN_CHAR = {Terran.Water: ui.colored("~", color="cyan", attrs=["bold"]),
+    #               Terran.Grass: ui.colored(" "),
+    #               Terran.Forest: ui.colored("φ", color="green"),
+    #               Terran.Hill: ui.colored("∩", color="yellow", attrs=["dark"]),
+    #               Terran.Mountain: ui.colored("Λ", color="yellow", attrs=["underline"])}
+
+    def __init__(self, grids):
+        self.grids = grids
+        self.x = len(grids)
+        self.y = len(grids[0]) if self.x > 0 else 0
+
+    def render(self, persons=None, coordinates=None, coordinate_color="green", real_coordinate=False, show_trace=True, show_events=False):
+        #t1 = time.time()
+        if coordinates is None:
+            coordinates = set()
+        if persons is None:
+            persons = []
+        miss_info = {}
+        hp_info = {}
+        mp_info ={}
+        person_info = {}
+        trace_info = []
+        for p in persons:
+            loc = p["location"]
+            person_info[loc] = p
+            if "event" in p and BattleEvent.HPChanged in p["event"] and \
+               p["event"][BattleEvent.HPChanged]["value"] != 0:
+                hp_info[loc] = p["event"][BattleEvent.HPChanged]["value"]
+            if "event" in p and BattleEvent.MPChanged in p["event"] and \
+               p["event"][BattleEvent.MPChanged]["value"] != 0:
+                mp_info[loc] = p["event"][BattleEvent.MPChanged]["value"]
+            if "event" in p and BattleEvent.ACTMissed in p["event"]:
+                miss_info[loc] = 0
+            if "event" in p and BattleEvent.PositionMoved in p["event"]:
+                trace_info.extend(p["event"][BattleEvent.PositionMoved]["trace"])
+        plines = []
+        for j in range(self.y):
+            plines.append(Map.HOR * (Map.GWIDTH // 2 + 1) + Map.HOR * (self.x * (Map.GWIDTH + 1) + 1))
+            name_line = " " * ((Map.GWIDTH // 2 + 1) * (j % 2)) + Map.VER
+            qixue_line = " " * ((Map.GWIDTH // 2 + 1) * (j % 2)) + Map.VER
+            neili_line = " " * ((Map.GWIDTH // 2 + 1) * (j % 2)) + Map.VER
+            #addition_line = " " * ((Map.GWIDTH // 2 + 1) * (j % 2)) + Map.VER
+            for i in range(self.x):
+                show_name, qixue, neili = "", "", ""
+                g = self.grids[i][j]
+                if g.terran is not None:
+                    terran_char = Map.TERRAN_CHAR[g.terran][0]
+                    terran_color = Map.TERRAN_CHAR[g.terran][1]
+                else:
+                    terran_char = " "
+                    #terran_color = {}
+                if show_trace and (i, j) in trace_info:
+                    show_name = ui.colored("(%s, %s)" % (i, j), color="blue", attrs=["bold"])
+                #elif len(trace_info) > 0 and (i, j) == trace_info[0]:
+                #    show_name = ui.colored("(%s, %s)" % (i, j), color="blue", attrs=["bold"])
+                if (i, j) in coordinates:
+                    show_name = ui.colored("(%s, %s)" % (i, j), color=coordinate_color, attrs=["bold"])
+                if (i, j) in person_info:
+                    p = person_info[(i, j)]
+                    if "current" in p and platform.system() == "Windows":
+                        name_str = ui.colored(p["name"], on_color="on_%s" % Map.GROUP_COLOR[p["group"]], attrs=["bold"])
+                    elif "current" in p:
+                        name_str = ui.colored(p["name"], color=Map.GROUP_COLOR[p["group"]], attrs=["bold", "blink"])
+                    else:
+                        name_str = ui.colored(p["name"], color=Map.GROUP_COLOR[p["group"]], attrs=["bold"])
+                    show_name +=  name_str + fmt.vaka["direction"][str(p["direction"])]
+                    qixue = "%s：%s" % (fmt.aka["hp"], p["hp"] - hp_info.get((i, j), 0) if not show_events else p["hp"])
+                    neili = "%s：%s" % (fmt.aka["mp"], p["mp"] - mp_info.get((i, j), 0) if not show_events else p["mp"])
+                    if show_events and (i, j) in hp_info:
+                        qcolor = "red" if hp_info[(i, j)] < 0 else "green"
+                        showstr = hp_info[(i, j)] if hp_info[(i, j)] < 0 else "+%s" % hp_info[(i, j)]
+                        qixue += ui.colored("(%s)" % showstr, color=qcolor, attrs=["bold"])
+                    elif show_events and (i, j) in miss_info:
+                        qixue += ui.colored("(miss)", color="yellow", attrs=["bold"])
+                    else:
+                        qcolor = "red" if p["injury"] > 0 else None
+                        qixue += "/" + ui.colored(str(p["hp_limit"]), color=qcolor)
+                    if show_events and (i, j) in mp_info:
+                        showstr = mp_info[(i, j)] if mp_info[(i, j)] < 0 else "+%s" % mp_info[(i, j)]
+                        neili += ui.colored("(%s)" % showstr, color="blue", attrs=["bold"])
+                    else:
+                        ncolor = "red" if p["wound"] > 0 else None
+                        neili += "/" + ui.colored(str(p["mp_limit"]), color=ncolor)
+                elif g.object is not None:
+                    show_name += ui.colored(g.title(), color="grey", attrs=["bold"])
+                name_line += ui.fixed(Map.GWIDTH, n=show_name, bg=terran_char, **terran_color) + Map.VER
+                qixue_line += ui.fixed(Map.GWIDTH, n=qixue, bg=terran_char, **terran_color) + Map.VER
+                neili_line += ui.fixed(Map.GWIDTH, n=neili, bg=terran_char, **terran_color) + Map.VER
+                #name_line += ui.fixed(Map.GWIDTH, n=show_name, bg=terran_char) + Map.VER
+                #qixue_line += ui.fixed(Map.GWIDTH, n=qixue, bg=terran_char) + Map.VER
+                #neili_line += ui.fixed(Map.GWIDTH, n=neili, bg=terran_char) + Map.VER
+                #addition_line += ui.fixed(Map.GWIDTH, bg=terran_char) + Map.VER
+            for l in [name_line, qixue_line, neili_line]:
+                plines.append(l)
+        plines.append(Map.HOR * (Map.GWIDTH // 2 + 1) + Map.HOR * (self.x * (Map.GWIDTH + 1) + 1))
+        ui.echo(plines, attrs=None)
+        #t2 = time.time()
+        # ("Time used: %s" % (t2 - t1))
+
+    def input(self):
+        pass
+
+    def handle(self, ac):
+        pass
+
+
+def map(grids, persons=None, coordinates=None, coordinate_color="green", show_trace=True, show_events=False):
+    m = Map(grids)
+    m.render(persons=persons, coordinates=coordinates, \
+             coordinate_color=coordinate_color, show_trace=show_trace, show_events=show_events)
+    return m.done()

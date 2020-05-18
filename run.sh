@@ -1,0 +1,1 @@
+python ./proj/main.py

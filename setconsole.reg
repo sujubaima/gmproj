@@ -1,0 +1,5 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Console\%SystemRoot%_system32_cmd.exe]
+"ScreenBufferSize"=dword:1f4000b4
+"WindowSize"=dword:003000b4

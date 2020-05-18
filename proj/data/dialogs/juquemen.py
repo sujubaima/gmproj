@@ -1,0 +1,176 @@
+# -- coding: utf-8 --
+
+DIALOG_GENGZHUQIAO_1 = \
+    [{"style": "Speak", "talker": "",
+      "content": "（耿朱桥年约四十余岁，留着三绺长须，头上罩着一顶四方巾，看上去既不像武林人士，也不像朝廷命官，" +
+                 "反倒有几分闲散文人的样子。）"},
+     {"style": "Speak", "talker": "object",
+      "content": "这位少侠来此有何贵干？"},
+     {"style": "Speak", "talker": "subject",
+      "content": "在下初来江湖闯荡，始终不得门径。刚才在城中听说耿先生的大名，特地前来拜访，希望耿先生能为我指点一下迷津。"},
+     {"style": "Speak", "talker": "object",
+      "content": "哦？那少侠想了解些什么？"},
+     {"style": "Branch", "branches": [5, 11, 15, 19, 23, 33]},
+     #5
+     {"style": "Speak", "talker": "subject",
+      "content": "请问武学都有哪些门类？"},
+     {"style": "Speak", "talker": "object",
+      "content": ["武学大体可分为心法与套路两种；心法用于运转，可以给人带来属性或状态的加成；套路则用于实战攻击；",
+                  "套路共有搏击、剑法、刀法、长兵、暗器以及奇门六类。除搏击外，每种武学都要装备对应的武器方可施展。",
+                  "需要注意的是，奇门之下还细分短柄、软索两类，二者的兵刃并不互通。",
+                  "武学的威力与使用者对应的武学能力有关，武学能力值越高，施展该类型武学造成的伤害就越高，对同类型武学也更易防御；",
+                  "各类武学没有一定之优劣，若能练到极致，都足以独步天下。"]},
+     {"style": "Speak", "talker": "subject",
+      "content": "一类武学练到极致，需要多长时间？"},
+     {"style": "Speak", "talker": "object",
+      "content": "少则十余年，多则数十年，终其一生也未至化境的也是大有人在。"},
+     {"style": "Speak", "talker": "subject",
+      "content": "那我还不如多学几门，对善刀者用剑，善剑者用拳，击其短处，让他没法接招。"},
+     #10
+     {"style": "Speak", "talker": "object", "next":4,
+      "content": "这也是一种办法。要专精一项还是粗通百家，就看少侠怎么选择了。"},
+     {"style": "Speak", "talker": "subject",
+      "content": "请问怎样才能学习到武学？"},
+     {"style": "Speak", "talker": "object",
+      "content": ["初级的武学，书店就有可能买到。高级的心法套路，如果不想拜入某个门派的话，就只能看机缘了。",
+                  "虽说大部分门派绝学都密不外传，但如果你能急人之难，救人困厄，说不定也能获得习练的机会；",
+                  "除此之外，有些队友入队之时，也会自带武学秘籍。"]},
+     {"style": "Speak", "talker": "subject",
+      "content": "所以在耿先生这里，是否可以学到武学呢？"},
+     {"style": "Speak", "talker": "object", "next": 4,
+      "content": "哈哈，只要机缘到了，也未尝不可。只是耿某人武功平平，怕到时候已经无法入少侠的法眼了。"},
+     #15
+     {"style": "Speak", "talker": "subject",
+      "content": "请问如何选择适合自己的武学？"},
+     {"style": "Speak", "talker": "object",
+      "content": ["每个人都有自己的特质，不同的武学在不同特质的人手上发挥也不一样。",
+                  "譬如刚猛的人更适合用『铁砂掌』，柔易的人更适合『太极拳』。",
+                  "另外内力的相性也有阴阳之分，相性与武学招式相符，会获得更大的威力，因此选择武学时要尽量扬长避短。"]},
+     {"style": "Speak", "talker": "subject",
+      "content": "特质和内力相性还能改变吗？"},
+     {"style": "Speak", "talker": "object", "next": 4,
+      "content": "可以。习武本身就是改造自身的过程，但是想完全颠覆本来的面貌，就要费一番工夫了。"},
+     {"style": "Speak", "talker": "subject",
+      "content": "请问如何招募队友？"},
+     #20
+     {"style": "Speak", "talker": "object",
+      "content": ["多与江湖人士交流，如果你们关系足够好，或者你们有共同的目的，对方就可能加入你的队伍。",
+                  "你也可以放榜招贤，只要出价合适，或许能招募到一些江湖游侠。",
+                  "不过队友不会一直跟着你，如果遇到什么突发事件，或者他对你的好感度变低，都有离队的可能。"]},
+     {"style": "Speak", "talker": "subject",
+      "content": "所以我应该怎样与江湖人士搞好关系？"},
+     {"style": "Speak", "talker": "object", "next": 4,
+      "content": ["每个人都有自己的立场，只要你的行事与他们的立场相符，关系多半不会差。若是逆其道而行，时间一长则容易拔刀相向。",
+                  "此外，每个人都有喜欢的物品，必要时进行馈赠，对改善关系也会有很大的帮助。"]},
+     {"style": "Speak", "talker": "subject",
+      "content": "请问实战应该如何操作？"},
+     {"style": "Speak", "talker": "object",
+      "content": ["实战技巧，只言片语难以说尽，最好能够以练代讲。少侠要是不嫌弃，可用这木人桩试试手，老夫自会在一旁为少侠答疑解惑。"]},
+     #25
+     {"style": "Branch", "branches": [26, 31]},
+     {"style": "Speak", "talker": "subject",
+      "content": "好，那我就和这木人桩过几招。"},
+     {"style": "Script", "type": "Action.PersonConversationAction", "breaking": True, 
+      "subject": "{PERSON_PLAYER}", "object": "{PERSON_GENG_ZHUQIAO}", "conversation": "DIALOG_BATTLE_TUITION_1"},
+     {"style": "Speak", "talker": "",
+      "content": "（在耿朱桥指点下，你拳剑并施，连连击中木人的要害。没过多久，木人桩便被你打散了。）"},
+     {"style": "Speak", "talker": "subject",
+      "content": "哎呀，不小心把耿先生的木人桩打坏了。"},
+     #30
+     {"style": "Speak", "talker": "object", "next": 4,
+      "content": "哈哈，无妨。不知少侠在武学上还有何疑问？"},
+     {"style": "Speak", "talker": "subject", 
+      "content": "算了，我还是自己领悟吧。"},
+     {"style": "Speak", "talker": "object", "next": 4,
+      "content": "也罢，毕竟老夫所授也只是皮毛。武学中大有精微之处，确实要少侠自行揣摩。"},
+     {"style": "Speak", "talker": "subject",
+      "content": "我没有什么想了解的了，多谢耿先生。"}]
+
+
+DIALOG_GENGZHUQIAO_2 = \
+    [{"style": "Speak", "talker": "subject",
+      "content": "耿先生，我听说你在招募豪杰准备剿匪？"},
+     {"style": "Speak", "talker": "object",
+      "content": "不错，少侠垂询此事，莫非有意加入？"},
+     {"style": "Branch", "branches": [3, 4]},
+     {"style": "Speak", "talker": "subject", "next": 999,
+      "content": "我要报名参与剿匪！"},
+     {"style": "Speak", "talker": "subject",
+      "content": "我再考虑一下吧。"}]
+
+
+DIALOG_LUANTAN_1 = \
+    [{"style": "Speak", "talker": "",
+      "content": "（南园废宅里坐着一个白净面皮，个头不高的年轻人，衣襟上别着一把弹弓，看上去并不像个练武之辈。）"},
+     {"style": "Speak", "talker": "object",
+      "content": "这庭院原本属于苏州巨阙门，后来他们掌门解散了门派，云游四方，院子就此荒废，现在暂时被知府大人征用作为讨伐薛四彭的营房。"},
+     {"style": "Speak", "talker": "subject",
+      "content": "这么说来你也是参与讨伐薛四彭的义士了？"},
+     {"style": "Speak", "talker": "object",
+      "content": "嘿嘿实不相瞒，其实我什么武功都不会，只是听说这里有酒有肉，就混进来蹭吃蹭喝。等到了出征那天，我可得找个理由逃跑……"},
+     {"style": "Branch", "branches": [5, 8]},
+     {"style": "Speak", "talker": "subject",
+      "content": "我最讨厌你这种吃空饷的家伙，必须好好教训你一顿。"},
+     #5
+     {"style": "Speak", "talker": "object",
+      "content": "唉、唉，怎么还动起手来了！"},
+     {"style": "Script", "breaking": True,
+      "scripts": [{"type": "Action.EventSwitchOnAction", "event": "EVENT_BATTLE_LUANTAN_WIN"},
+                  {"type": "Action.EventSwitchOnAction", "event": "EVENT_BATTLE_LUANTAN_LOSE"},
+                  {"type": "Order.WorldAttackOrder",
+                   "subject": "{TEAM_PERSON_PLAYER}", "object": "{TEAM_PERSON_LUAN_TAN}"}]},
+     {"style": "Speak", "talker": "subject",
+      "content": "还有这种好事？我也想来混日子。"},
+     {"style": "Speak", "talker": "object",
+      "content": "那你快去找耿知府报名。正好我成天跟旁边那个呆子待一块儿也很没劲，你来了还能陪我说说话。"},
+     {"style": "Script", "type": "Action.PersonAttitudeChangeAction", 
+      "subject": "{PERSON_LUAN_TAN}", "object": "{PERSON_PLAYER}", "delta": 5}]
+
+
+DIALOG_LUANTAN_2 = \
+    [{"style": "Speak", "talker": "object",
+      "content": "大、大哥，不不不，大爷，大爷饶命！我上有七十岁老母，下、下有……"},
+     {"style": "Speak", "talker": "subject",
+      "content": "你下有什么？"},
+     {"style": "Speak", "talker": "object",
+      "content": "下、下边没有了……但这不妨碍大爷饶我一命对不对！我就是一念之差，我以后一定好好做人，再也不做这样的勾当了！"},
+     {"style": "Speak", "talker": "",
+      "content": "（石敬岩原本在一旁练剑，见你与栾檀交手，只道是寻常切磋。此时发现你怒形于色，才知道事情不妙，赶紧过来劝架。）"},
+     {"style": "Speak", "talker": "{PERSON_SHI_JINGYAN}",
+      "content": "这位贤弟，栾兄弟他在此滥竽充数是不对，但也罪不该死。贤弟还是给他一个改过自新的机会吧。"},
+     #5
+     {"style": "Branch", "branches": [6, 9, 11]},
+     {"style": "Speak", "talker": "subject",
+      "content": "饶他可以，但只怕我把他放走，他又去干些损人利己的事情。只能让他跟在我身边，牢牢看住才行！"},
+     {"style": "Speak", "talker": "object",
+      "content": "只要不害我性命，别说跟在身边，就是给大爷你做牛做马都行！"},
+     {"style": "Script", "type": "Action.TeamIncludePersonAction", "next": 999,
+      "person": "{PERSON_LUAN_TAN}", "leader": "{PERSON_PLAYER}"},
+     {"style": "Speak", "talker": "subject",
+      "content": "不可，必须将此人带到府衙，让耿知府来做定夺！"},
+     #10
+     {"style": "Speak", "talker": "object", "next": 999,
+      "content": "唉，见了耿知府，少不得要吃二十大板了！"}, 
+     {"style": "Speak", "talker": "subject",
+      "content": "看在敬岩兄的面子上，今日就放你一马！"},
+     {"style": "Speak", "talker": "object",
+      "content": "多谢大哥，不不不，多谢大爷，等我回去一定把您当神仙供起来！"}]
+     
+
+DIALOG_LUANTAN_3 = \
+    [{"style": "Speak", "talker": "object",
+      "content": "吓我一跳，我还以为遇到什么高手了，没想到你连我都打不过，就敢在这装大。"},
+     {"style": "Speak", "talker": "subject",
+      "content": "可恶！"},
+     {"style": "Speak", "talker": "object",
+      "content": "可什么恶？你快走开，以后别耽误我吃香喝辣！"}]
+
+
+DIALOG_SHIJINGYAN_1 = \
+    [{"style": "Speak", "talker": "",
+      "content": "（眼前之人年纪不小，胡须微微发红，但身形仍称得上鹤胫猿臂。他自顾自地奋力练武，你前去搭话，他也只是敷衍两句。）"},
+     {"style": "Speak", "talker": "object",
+      "content": "据说耿知府武艺不低，也不知道他师承何门何派，究竟怎样才练成了这一身本领？我石敬岩定要勤学苦练，有朝一日再向他讨教。"},
+     {"style": "Script",
+      "type": "Action.PersonTaskUpdateAction", "task": "TASK_YINJIANTIEDI", 
+              "contents": ["TASK_YINJIANTIEDI_1"]}]

@@ -1,0 +1,2 @@
+MOD_SHOW_NAME = ""
+MOD_VERSION = "0.1.0"
