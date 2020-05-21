@@ -16,6 +16,25 @@ from proj.builtin.actions import BattleSkillAction
 from proj.engine import Message as MSG
 
 
+# 清风拂山岗
+class QingFengFuShanGangEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if subject != battle.sequence[-1]["action"].subject:
+            return
+        if len(objects) == 0:
+            objects = battle.sequence[-1]["action"].objects
+        effe_factor = self.factor(subject)
+        for obj in objects:
+            if battle.event(obj, BattleEvent.ACTMissed) is not None:
+                continue
+            wound = -1 * int(obj.defense_base * effe_factor * obj.anti_wound)
+            obj.wound -= wound
+            if wound != 0 and not battle.silent:
+                MSG(style=MSG.Effect, subject=subject, effect=self, details={"wound": -1 * wound, "object": obj.name})
+            
+
 # 驱风
 class QuFengEffect(Effect):
 
@@ -89,6 +108,24 @@ class ShenZhunEffect(Effect):
                 battle.remove_event(obj, BattleEvent.ACTMissed)
         if not battle.silent:
             MSG(style=MSG.Effect, subject=subject, effect=self)
+
+
+# 太极劲
+class TaiJiJinEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        for skill in subject.skills:
+            if not skill.tpl_id.startswith("SKILL_TAIJI"):
+                continue
+            if skill.power != 0:
+                skill.power += 99
+
+    def leave(self, subject, objects=[], **kwargs):
+        for skill in subject.skills:
+            if not skill.tpl_id.startswith("SKILL_TAIJI"):
+                continue
+            if skill.power != 0:
+                skill.power -= 99
 
 
 # 同归  

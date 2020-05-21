@@ -10,6 +10,7 @@ from proj.entity import Item
 from proj.entity import Person
 from proj.entity import Map
 from proj.entity import Team
+from proj.entity import Status
 
 from proj.builtin.actions import BattleStartAction
 
@@ -48,6 +49,10 @@ if __name__ == "__main__":
     
     p_zbs = Person.one("PERSON_ZHONG_BUSU")
     p_lw = Person.one("PERSON_LI_WAN")
+
+    p_jy = Person.one("PERSON_JUE_YIN")
+
+    p_zys = Person.one("PERSON_ZHANG_YINSONG")
     
     
     m1 = Map.one("MAP_BTL_BAIBINGTANGZONGDUO")
@@ -55,50 +60,45 @@ if __name__ == "__main__":
     m3 = Map.one("MAP_BTL_GRASSLAND_BIG")
     m4 = Map.one("MAP_SUZHOUCHENG_BTL")
     m5 = Map.one("MAP_JIUXIPAI_BTL")
+    m6 = Map.one("MAP_SHAOLINSI_BTL")
+
 
     #o.direction = -4
     #o.move_style = "flydown"
 
+    team_a = Team()
+    team_b = Team()
+    #team_a.include(p_zrb, p_wpf, p_sty, p_xh, p_yl)
+    #team_b.include(p_zsj, p_tw, p_jl, p_yqf)
+
+    #team_a.include(p_myq, p_hy, p_yq, p_zrb, p_jy)
+    #team_b.include(p_zys, p_wpf, p_sjy, p_ly, p_ctz)
+    team_a.include(p_jy)
+    team_b.include(p_zys)
+
+    context.teams[team_a.id] = team_a
+    context.teams[team_b.id] = team_b
+
     ui.echo()
     ui.warn("欢迎测试本游戏的战斗系统，windows下建议控制台字体调成黑体，谢谢！")
     ui.echo()
-    #ac = ui.menu([ui.menuitem(p_sty.name, value=p_sty),
-    #              ui.menuitem(p_xh.name, value=p_xh),
-    #              ui.menuitem(p_yl.name, value=p_yl),
-    #              ui.menuitem(p_zsj.name, value=p_zsj),
-    #              ui.menuitem(p_tw.name, value=p_tw),
-    #              ui.menuitem(p_jl.name, value=p_jl),
-    #              ui.menuitem(p_yqf.name, value=p_yqf),
-    #              ui.menuitem("观战而已", value=None)], title="请选择你想控制的人物：")
-    ac = ui.menu([ui.menuitem(p_myq.name, value=p_myq),
-                  ui.menuitem(p_hy.name, value=p_hy),
-                  ui.menuitem(p_yq.name, value=p_yq),
-                  ui.menuitem(p_zrb.name, value=p_zrb),
-                  ui.menuitem(p_lx.name, value=p_lx),
-                  ui.menuitem(p_wpf.name, value=p_wpf),
-                  ui.menuitem("观战而已", value=None)], title="请选择你想控制的人物：")
+    
+    ac = ui.menu([ui.menuitem("%s队" % team_a.leader.name, value=team_a.leader),
+                  ui.menuitem("%s队" % team_b.leader.name, value=team_b.leader),
+                  ui.menuitem("观战而已", value=None)], title="请选择你想控制的队伍：")
+
     if ac == "观战而已":
         context.PLAYER = None
     else:
         context.PLAYER = ac
 
-    ac = ui.menu([ui.menuitem(m5.name, value=m5),
+    ac = ui.menu([ui.menuitem(m6.name, value=m6),
                   ui.menuitem(m4.name, value=m4),
                   ui.menuitem(m1.name, value=m1),
                   ui.menuitem(m2.name, value=m2),
-                  ui.menuitem(m3.name, value=m3)], title="请选择测试用的地图：")
+                  ui.menuitem(m3.name, value=m3),
+                  ui.menuitem(m5.name, value=m5)], title="请选择测试用的地图：")
     #b = interbtl.battle(ac, [p, q, g], [o])
-
-    team_a = Team() 
-    team_b = Team()
-    #team_a.include(p_zrb, p_wpf, p_sty, p_xh, p_yl)
-    #team_b.include(p_zsj, p_tw, p_jl, p_yqf)
-    
-    team_a.include(p_myq, p_hy, p_yq, p_zrb)
-    team_b.include(p_lx, p_wpf, p_sjy, p_ly, p_ctz)
-
-    context.teams[team_a.id] = team_a
-    context.teams[team_b.id] = team_b
 
     BattleStartAction(map=ac, groups=[team_a.members, team_b.members]).do()
     #context.timestamp += 1

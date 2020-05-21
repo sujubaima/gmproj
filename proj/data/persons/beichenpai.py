@@ -23,8 +23,9 @@ PERSON_LUO_YI = \
      "dongjing": 19, "gangrou": -13, "zhipu": 24, "yinyang": -20,
      "neigong": 46, "boji": 16, "jianfa": 54, "daofa": 6, "changbing": 10, "anqi": 45, "qimen": 30,
      "superskills": [{"id": "SUPERSKILL_GAOYUANWUJIGONG", "learn": [0, 1, 2]},
-                     {"id": "SUPERSKILL_BICHENGJIANFA", "learn": [0, 1]}],
+                     {"id": "SUPERSKILL_BICHENGJIANFA", "learn": "All"}],
      "running": {"id": "SUPERSKILL_GAOYUANWUJIGONG"},
+     "skill_counter": {"id": "SKILL_BICHENGJIANFA_1"},
      "equipment": [{"id": "ITEM_CHANGJIAN", "position": "MainHand"}],
      "items": [],
      "criticaltxt": "这一式，我管它叫做『楚腰纤细掌中轻』。"}

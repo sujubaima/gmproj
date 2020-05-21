@@ -413,7 +413,8 @@ SUPERSKILL_YUEJUESHU = \
                {"name": "越甲吞吴",
                 "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_YUEJIATUNWU"}]}]}
                 
-                
+
+# 高远无极功                
 SUPERSKILL_GAOYUANWUJIGONG = \
     {"name": "高远无极功", "rank": 1,
      "nodes": [{"name": "高远无极", "tags": "SKILL_GAOYUANWUJI", "next": [1, 2],
@@ -435,7 +436,7 @@ SUPERSKILL_GAOYUANWUJIGONG = \
                 "description": "内功+2，基础气血+150，基础内力+60，内力阴性+4%，阳性-4%"}, 
                {"name": "疾步", "exp": 750, "next": [4, 5],
                 "functions": [{"type": "PersonChangeAttribute",
-                               "attrs": [{"name": "motion_", "delta": 0.5}]}],
+                               "attrs": [{"name": "motion_", "delta": 0.3}]}],
                 "description": "基础移动力+0.5"},
                {"name": "通脉",
                 "functions": [{"type": "PersonChangeAttribute",
@@ -445,6 +446,17 @@ SUPERSKILL_GAOYUANWUJIGONG = \
                 "description": "内功+4，基础内力+120，内力阴性+4%，阳性-4%"}, 
                {"name": "疾步", "exp": 750,
                 "functions": [{"type": "PersonChangeAttribute",
-                               "attrs": [{"name": "motion_", "delta": 0.5}]}],
+                               "attrs": [{"name": "motion_", "delta": 0.3}]}],
                 "description": "基础移动力+0.5"}
                ]}
+
+
+# 太极神功
+SUPERSKILL_TAIJISHENGONG = \
+    {"name": "太极神功", "rank": 3,
+     "nodes": [{"name": "太极劲",
+                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_TAIJISHENGONG_1"}]},
+               {"name": "清风拂山冈",
+                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_TAIJISHENGONG_2"}]},
+               {"name": "明月照大江",
+                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_TAIJISHENGONG_3"}]}]}

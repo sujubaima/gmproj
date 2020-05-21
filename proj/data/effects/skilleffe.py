@@ -33,6 +33,11 @@ EFFECT_CUOGU = \
      "attrs": [{"name": "motion_", "delta": -1}]}
 
 
+#定身
+EFFECT_DINGSHEN = \
+    {"style": 1, "module": "proj.builtin.effects", "class": "DingShenEffect"}
+
+
 # 断筋
 EFFECT_DUANJIN = \
     {"style": 1, "module": "proj.builtin.effects", "class": "BattlePersonChangeAttributeEffect",
@@ -45,6 +50,22 @@ EFFECT_FUXIN = \
      "module": "proj.builtin.effects", "class": "TongXinEffect",
      "text": "对{object}的伤害提升了",
      "description": "自身与目标共同拥有的状态数越多，伤害量越高"}
+
+
+# 攻气
+EFFECT_GONGQI = \
+    {"name": "攻气", "style": 0,
+     "module": "proj.builtin.effects", "class": "GongQiEffect", "level": 20,
+     "influence": "Zhi", "factor_middle": 1, "factor_upper": 1.5,
+     "text": "额外造成{mp_drain}点内力伤害",
+     "description": "一定比例的伤害追加为内力伤害，颖悟值越高比例越大"}
+
+EFFECT_GONGQI_DA = \
+    {"name": "大攻气", "style": 0,
+     "module": "proj.builtin.effects", "class": "GongQiEffect", "level": 30,
+     "influence": "Zhi", "factor_middle": 1, "factor_upper": 1.5,
+     "text": "额外造成{mp_drain}点内力伤害",
+     "description": "较高比例的伤害追加为内力伤害，颖悟值越高比例越大"}
 
 
 # 含颦
@@ -107,7 +128,30 @@ EFFECT_KOUYUSUO = \
 
 # 惧剑
 EFFECT_JUJIAN = \
-    {"style": 1, "module": "proj.builtin.effects", "class": "JuWuEffect", "level": 30, "skill_style": "Jianfa"}
+    {"style": 1, "module": "proj.builtin.effects", "class": "JuWuEffect", "level": 30, "skill_style": "Jianfa",
+     "text": "{object}被剑法类武学攻击时会受到更多伤害",
+     "description": "被剑法类武学攻击时受到更多伤害"}
+
+
+# 迷形
+EFFECT_MIXING = \
+    {"name": "迷形", "style": 1, "module": "proj.builtin.effects", "class": "MiXingEffect",
+     "text": "{attacker}背向了{subject}",
+     "description": "对方攻击自身后会背向目标"}
+
+
+# 摩诃无量
+EFFECT_MOHEWULIANG_XIAO = \
+    {"name": "恒河沙数", "style": 0, "module": "proj.builtin.effects", "class": "MoHeWuLiangEffect", "level": 2,
+     "description": "本次攻击伤害为当前战斗中除本武学外，所有打出的伤害中排名第三高的数值"}
+
+EFFECT_MOHEWULIANG = \
+    {"name": "阿僧祇数", "style": 0, "module": "proj.builtin.effects", "class": "MoHeWuLiangEffect", "level": 1,
+     "description": "本次攻击伤害为当前战斗中除本武学外，所有打出伤害里中排名第二高的数值"}
+
+EFFECT_MOHEWULIANG_DA = \
+    {"name": "不思议数", "style": 0, "module": "proj.builtin.effects", "class": "MoHeWuLiangEffect", "level": 0,
+     "description": "本次攻击伤害为当前战斗中除本武学外，所有打出的伤害中排名第一高的数值"}
 
 
 # 目盲
@@ -161,6 +205,32 @@ EFFECT_ROUJIN_DA = \
      "description": "较大比例的伤害追加为内伤，柔易值越高效果越佳"}
 
 
+# 太极神功
+EFFECT_TAIJIJIN = \
+    {"name": "太极劲", "style": 1,
+     "module": "proj.builtin.effects", "class": "TaiJiJinEffect"}
+
+EFFECT_QINGFENGFUSHANGANG = \
+    {"name": "清风拂山冈", "style": 1,
+     "influlence": "Rou", "factor_middle": 1, "factor_upper": 2,
+     "module": "proj.builtin.effects", "class": "QingFengFuShanGangEffect",
+     "text": "对{object}施加了{wound}点内伤"}
+
+EFFECT_MINGYUEZHAODAJIANG = \
+    {"name": "明月照大江", "style": 1,
+     "module": "proj.builtin.effects", "class": "MingYueZhaoDaJiangEffect"}
+
+EFFECT_MINGYUEZHAODAJIANG_LEAVE = \
+    {"style": 1,
+     "module": "proj.builtin.effects", "class": "MingYueZhaoDaJiangLeaveEffect"}
+
+EFFECT_MINGYUEZHAODAJIANG_ANONYMOUS = \
+    {"style": 1,
+     "module": "proj.builtin.effects", "class": "BattlePersonChangeAttributeEffect",
+     "attrs": [{"name": "counter_rate_factor_", "ratio": 1}],
+     "influence": "Jing", "factor_middle": 1, "factor_upper": 2}
+
+
 # 吸髓
 EFFECT_XISUI = \
     {"name": "吸髓", "style": 0,
@@ -207,11 +277,35 @@ EFFECT_XIXUE_DA = \
      "description": "从施加的伤害中吸取大量气血，颖悟值越高吸血效果越佳"}
 
 
+# 虚耗
+EFFECT_XUHAO = \
+    {"name": "虚耗", "style": 0,
+     "module": "proj.builtin.effects", "class": "XuHaoEffect",
+     "text": "{object}的内力消耗增多了",
+     "description": "攻击时消耗更多内力"}
+
+
+# 虚晃
+EFFECT_XUHUANG = \
+    {"name": "虚晃", "style": 0,
+     "module": "proj.builtin.effects", "class": "XuHuangEffect",
+     "text": "{object}随机转向了一个方位",
+     "description": "被攻击的目标不会转向自己，而是转向随机方位"}
+
+
 # 虚弱
 EFFECT_XURUO = \
     {"name": "虚弱", "style": 0,
-     "module": "proj.bultin.effects", "class": "BattlePersonAttributeChangeEffect",
+     "module": "proj.builtin.effects", "class": "BattlePersonAttributeChangeEffect",
      "attrs": [{"name": "attack_factor_", "ratio": 0.7}]}
+
+
+# 圆转
+EFFECT_YUANZHUAN = \
+    {"name": "圆转", "style": 2,
+     "module": "proj.builtin.effects", "class": "YuanZhuanEffect",
+     "text": "攻击范围内的敌方单位被拉至身边了",
+     "description": "将攻击范围内的敌方单位拉至近身"}
 
 
 # 瘴气
@@ -415,7 +509,12 @@ EFFECT_XIANJI = \
      "description": "当敌人进入自身辅助技能攻击范围内时，有一定几率抢先对其发动攻击，沉静值越高几率越大"}
 
 
-EFFECT_2 = {"name": "卸劲", "module": "proj.builtin.effect", "class": "XieJinEffect"}
+# 卸劲
+EFFECT_XIEJIN = \
+    {"name": "卸劲", "style": 1,
+     "module": "proj.builtin.effect", "class": "XieJinEffect",
+     "text": "部分伤害使用内力抵消了",
+     "description": "可以使用内力抵消一部分伤害，柔易值越高低效比例越大"}
 
 
 # 偷盗

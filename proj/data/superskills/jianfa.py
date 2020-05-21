@@ -213,8 +213,14 @@ SUPERSKILL_BICHENGJIANFA = \
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_BICHENGJIANFA_1"}]},
                {"name": "紫凤放娇", "next": [2],
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_BICHENGJIANFA_2"}]},
-               {"name": "玉轮生魄", 
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_BICHENGJIANFA_3"}]}]}
+               {"name": "玉轮生魄", "next": [3],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_BICHENGJIANFA_3"}]},
+               {"name": "黛蛾长敛", 
+                "functions": [{"type": "SkillRemoveEffect",
+                               "skill": "SKILL_BICHENGJIANFA_3", "effect": {"id": "EFFECT_GONGQI"}},
+                              {"type": "SkillAddEffect",
+                               "skill": "SKILL_BICHENGJIANFA_3", "effect": {"id": "EFFECT_GONGQI_DA"}}],
+                "description": "增强【玉轮生魄】的攻气效果"}]}
 
                 
 # 裴将军剑

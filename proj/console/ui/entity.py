@@ -38,6 +38,8 @@ def inner_skill(obj, p):
     ret.append("运行时获得状态：%s")
     for sk in isks:
         for effe in sk.effects:
+            if effe.name is None:
+                continue
             sts_names.append(effectname(effe.exertion))
             ret.append(effect(effe.exertion))
     ret[0] = ret[0] % "、".join(sts_names)
@@ -67,10 +69,14 @@ def effect(obj, grey=False):
             ret += ui.colored("：", color="grey", attrs=["bold"])
         else:
             ret += "："
-        if grey:
-            ret += ui.colored(obj.description, color="grey", attrs=["bold"])
+        if obj.turns is not None and obj.turns > 0:
+            desc_str = obj.description + "，持续%s回合" % obj.turns
         else:
-            ret += obj.description
+            desc_str = obj.description
+        if grey:
+            ret += ui.colored(desc_str, color="grey", attrs=["bold"])
+        else:
+            ret += desc_str
     return ret
 
 

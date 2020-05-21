@@ -51,3 +51,25 @@ SUPERSKILL_QIEGOUSHU = \
     {"name": "窃钩术", "rank": 0,
      "nodes": [{"name": "妙手空空",
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_QIEGOUSHU_1"}]}]}
+
+
+# 摩诃无量掌
+SUPERSKILL_MOHEWULIANGZHANG = \
+    {"name": "摩诃无量掌", "rank": 3,
+     "nodes": [{"name": "如恒河沙", "next": [1],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_MOHEWULIANGZHANG_1"}]},
+               {"name": "如阿僧祇", "next": [2],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_MOHEWULIANGZHANG_2"}]},
+               {"name": "如不思议",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_MOHEWULIANGZHANG_3"}]}]}
+
+
+# 太极拳
+SUPERSKILL_TAIJIQUAN = \
+    {"name": "太极拳", "rank": 3,
+     "nodes": [{"name": "野马分鬃", "next": [1],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TAIJIQUAN_1"}]},
+               {"name": "白鹤亮翅", "next": [2],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TAIJIQUAN_2"}]},
+               {"name": "如封似闭",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TAIJIQUAN_3"}]}]}

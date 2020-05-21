@@ -1,13 +1,54 @@
 # -- coding: utf-8 --
 
+# 太极神功
+STATUS_MINGYUEZHAODAJIANG = \
+    {"name": "明月照大江", "phase": "AfterDamage", "style": 1,
+     "functions": [{"id": "EFFECT_MINGYUEZHAODAJIANG"}],
+     "description": "遭受攻击时，对方基础攻击越高，自身反击率越高"}
+
+STATUS_MINGYUEZHAODAJIANG_LEAVE = \
+    {"phase": "AfterAttack", "style": 1,
+     "functions": [{"id": "EFFECT_MINGYUEZHAODAJIANG_LEAVE"}]}
+
+STATUS_MINGYUEZHAODAJIANG_ANONYMOUS = \
+    {"phase": "Instant", "style": 1,
+     "functions": [{"id": "EFFECT_MINGYUEZHAODAJIANG_ANONYMOUS"}]}
+
+STATUS_QINGFENGFUSHANGANG = \
+    {"name": "清风拂山冈", "phase": "AfterAttack", "style": 1,
+     "functions": [{"id": "EFFECT_QINGFENGFUSHANGANG"}],
+     "description": "攻击敌人时施加内伤，敌方基础防御越高，施加的内伤越多"}
+
+STATUS_TAIJIJIN = \
+    {"name": "太极劲", "phase": "Start", "style": 1,
+     "functions": [{"id": "EFFECT_TAIJIJIN"}],
+     "description": "武学『太极拳』、『太极剑意』威力提升"}
+
+
+# 定身
+STATUS_DINGSHEN = \
+    {"name": "定身", "phase": "StartTurn", "accepttype": "Overlap",
+     "functions": [{"id": "EFFECT_DINGSHEN"}],
+     "description": "回合中无法移动"}
+
+
+# 卸劲
 STATUS_XIEJIN = \
     {"name": "卸劲", "phase": "AfterAttack",
      "functions": [{"id": "EFFECT_XIEJIN"}]}
 
 
+# 吸血
 STATUS_XIXUE = \
     {"name": "吸血", "phase": "AfterAttack",
      "functions": [{"id": "EFFECT_XIXUE"}]}
+
+
+# 虚耗
+STATUS_XUHAO = \
+    {"name": "虚耗", "phase": "AfterDamage",
+     "functions": [{"id": "EFFECT_XUHAO"}],
+     "description": "攻击时消耗更多内力"}
 
 
 STATUS_SHENZHUN = \
@@ -46,19 +87,28 @@ STATUS_JINGJIAN = \
      "functions": [{"id": "EFFECT_JINGJIAN"}],
      "description": "剑法类武学伤害+30%"}
 
-     
+
+# 剑气如霞     
 STATUS_JIANQIRUXIA = \
     {"name": "剑气如霞", "phase": "Start", "style": 1,
      "functions": [{"id": "EFFECT_JIANQIRUXIA"}],
      "description": "剑法类武学溅射范围+1"}
 
-     
+
+# 离魂不系     
 STATUS_LIHUNBUJI = \
     {"name": "离魂不系", "phase": "StartTurn", "style": 1,
      "functions": [{"id": "EFFECT_LIHUNBUJI"}],
      "description": "战斗中无法主动移动，但每回合开始会随机投放至地图一点"}
 
-     
+
+# 迷形
+STATUS_MIXING = \
+    {"name": "迷形", "phase": "AfterAttack", "style": 1,
+     "functions": [{"id": "EFFECT_MIXING"}],
+     "description": "受到攻击时，对方的朝向逆转"}     
+
+
 STATUS_GUHUO = \
     {"name": "蛊惑", "phase": "Instant", "style": 0,
      "functions": [{"id": "EFFECT_GUHUO"}],

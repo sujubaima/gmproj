@@ -112,10 +112,17 @@ ITEM_TAIYUE = \
      
      
 ITEM_QINGPING = \
-    {"name": "青萍", "rank": 4, "tags": "Equip,Weapon,Jianfa", "shape": "Around,0,0,0", "bind": "PERSON_YANG_LEI",
+    {"name": "青萍", "rank": 4, "tags": "Equip,Weapon,Jianfa", "shape": "Around,0,0,0", "bind": "PERSON_MU_SHUANGQING",
      "weight": 1.3, "volume": 1, "durability": 45,
      "effects": [{"id": "EXERT.LAMBDA.EFFECT_TAIYUE_ATTR"}],
      "description": "九溪派掌门穆怀珠的佩剑，即著名的鱼肠剑；因穆怀珠不喜其名，故改名青萍"}
+
+
+ITEM_ZHENWU = \
+    {"name": "真武", "rank": 4, "tags": "Equip,Weapon,Jianfa", "shape": "Around,0,0,0", "bind": "PERSON_ZHANG_YINSONG",
+     "weight": 1.5, "volume": 1.2, "durability": 60,
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_ZHENWU_ATTR"}],
+     "description": "相传为真武大帝的佩剑，为武当山镇派之宝，历来只有掌门可以使用"}
   
 
 ITEM_ZHANLU = \

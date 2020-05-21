@@ -90,3 +90,18 @@ SKILL_GAOYUANWUJI_1 = \
 SKILL_GAOYUANWUJI_2 = \
     {"name": "俯仰俱陈", "style": "Neigong",
      "effects": [{"id": "EXERT.STATUS_FUYANGJUCHEN"}]}
+
+
+# 太极神功
+SKILL_TAIJISHENGONG_1 = \
+    {"name": "太极劲", "style": "Neigong",
+     "effects": [{"id": "EXERT.STATUS_TAIJIJIN"}]}
+
+SKILL_TAIJISHENGONG_2 = \
+    {"name": "清风拂山冈", "style": "Neigong",
+     "effects": [{"id": "EXERT.STATUS_QINGFENGFUSHANGANG"}]}
+
+SKILL_TAIJISHENGONG_3 = \
+    {"name": "明月照大江", "style": "Neigong",
+     "effects": [{"id": "EXERT.STATUS_MINGYUEZHAODAJIANG"},
+                 {"id": "EXERT.STATUS_MINGYUEZHAODAJIANG_LEAVE"}]}

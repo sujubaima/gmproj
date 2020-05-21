@@ -86,3 +86,44 @@ SKILL_QINGQIUZHIFA_2 = \
 SKILL_QINGQIUZHIFA_3 = \
     {"name": "剑气倚清商", "style": "Boji",
      "mp": 200, "power": 0, "cd": 0, "yinyang": 0, "shape": "Point.Seep,1,0"}
+
+
+# 摩诃无量掌-如恒河沙
+SKILL_MOHEWULIANGZHANG_1 = \
+    {"name": "如恒河沙", "style": "Boji",
+     "mp": 0, "power": 0, "cd": 0, "yinyang": 0, "shape": "Point.Emit,2,0",
+     "effects": [{"id": "EFFECT_MOHEWULIANG_XIAO"}]}
+
+# 摩诃无量掌-如阿僧祇
+SKILL_MOHEWULIANGZHANG_2 = \
+    {"name": "如阿僧祇", "style": "Boji",
+     "mp": 0, "power": 0, "cd": 1, "yinyang": 0, "shape": "Point.Emit,2,0",
+     "effects": [{"id": "EFFECT_MOHEWULIANG"}]}
+
+# 摩诃无量掌-如不思议
+SKILL_MOHEWULIANGZHANG_3 = \
+    {"name": "如不思议", "style": "Boji",
+     "mp": 0, "power": 0, "cd": 2, "yinyang": 0, "shape": "Point.Emit,2,0",
+     "effects": [{"id": "EFFECT_MOHEWULIANG_DA"}]}
+
+
+# 太极拳-野马分鬃
+SKILL_TAIJIQUAN_1 = \
+    {"name": "野马分鬃", "style": "Boji",
+     "mp": 141, "power": 705, "cd": 0, "yinyang": 0, "shape": "Point.Emit,1,0",
+     "effects": [{"id": "EXERT.STATUS_DINGSHEN", "name": "沾连", "turns": 1}]}
+
+# 太极拳-白鹤亮翅
+SKILL_TAIJIQUAN_2 = \
+    {"name": "白鹤亮翅", "style": "Boji",
+     "mp": 234, "power": 780, "cd": 1, "yinyang": 0, "shape": "BigSector.Swap,1,1",
+     "effects": [{"id": "EXERT.STATUS_XUHAO", "turns": 2}]}
+
+# 太极拳-如封似闭
+SKILL_TAIJIQUAN_3 = \
+    {"name": "如封似闭", "style": "Boji",
+     "mp": 1026, "power": 855, "cd": 2, "yinyang": 0, "shape": "Around.Swap,1,2",
+     "effects": [{"id": "EFFECT_YUANZHUAN"},
+                 {"id": "EXERT.STATUS_DINGSHEN", "name": "沾连", "turns": 1},
+                 {"id": "EXERT.STATUS_XUHAO", "turns": 2}]}
+

@@ -139,17 +139,20 @@ SKILL_YUENVJIANFA_3 = \
 # 碧城剑法-栖鸾附鹤
 SKILL_BICHENGJIANFA_1 = \
     {"name": "栖鸾附鹤", "style": "Jianfa",
-     "mp": 91, "power": 455, "cd": 0, "yinyang": 0, "shape": "Point.Emit,2,0"}
+     "mp": 91, "power": 455, "cd": 0, "yinyang": 0, "shape": "Point.Emit,2,0",
+     "effects": [{"id": "EFFECT_XUHUANG"}]}
  
 # 碧城剑法-紫凤放娇
 SKILL_BICHENGJIANFA_2 = \
     {"name": "紫凤放娇", "style": "Jianfa",
-     "mp": 166, "power": 555, "cd": 1, "yinyang": 0, "shape": "Line.Emit,1,3"}
+     "mp": 157, "power": 505, "cd": 1, "yinyang": 0, "shape": "Line.Emit,1,3",
+     "effects": [{"id": "EXERT.STATUS_MIXING", "targets": "Subject", "turns": 2}]}
      
 # 碧城剑法-玉轮生魄
 SKILL_BICHENGJIANFA_3 = \
     {"name": "玉轮生魄", "style": "Jianfa",
-     "mp": 303, "power": 505, "cd": 2, "yinyang": 0, "shape": "Around.Seep,1,1"}
+     "mp": 333, "power": 555, "cd": 1, "yinyang": 0, "shape": "Around.Seep,1,1",
+     "effects": [{"id": "EFFECT_GONGQI"}]}
      
 
 # 裴将军剑-左右交光

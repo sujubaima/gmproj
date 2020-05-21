@@ -1,6 +1,8 @@
 # -- coding: utf-8 --
 
 import random
+import math
+import importlib
 
 from proj.entity import Effect
 from proj.entity import Status
@@ -294,6 +296,103 @@ class LianZhiEffect(Effect):
     def work(self, subject, objects=[], **kwargs):
         Effect.template("EFFECT_LIANZHI_BUFF").work(subject, objects=objects, **kwargs)
         Effect.template("EFFECT_LIANZHI_DEBUFF").work(subject, objects=objects, **kwargs)
+
+
+# 明月照大江
+class MingYueZhaoDaJiangEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if subject == battle.sequence[-1]["action"].subject:
+            return
+        if subject not in battle.sequence[-1]["action"].objects:
+            return
+        if battle.event(subject, BattleEvent.ACTMissed) is not None:
+            return
+        attacker = battle.sequence[-1]["action"].subject
+        counter_base = round(1 + attacker.attack_base / 400, 2)
+        effelib = importlib.import_module("proj.builtin.effects")
+        sts_tpl = "STATUS_MINGYUEZHAODAJIANG_ANONYMOUS"
+        sts = Status.template(sts_tpl)
+        sts.effects[0].attrs = [{"name": "counter_rate_factor_", "ratio": counter_base}]
+        subject.status.append(sts)
+        sts.work(subject)
+        print(subject.name, subject.counter_rate, subject.counter_rate_factor_)
+
+class MingYueZhaoDaJiangLeaveEffect(Effect):
+      
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if subject == battle.sequence[-1]["action"].subject:
+            return
+        if subject not in battle.sequence[-1]["action"].objects:
+            return
+        if battle.event(subject, BattleEvent.ACTMissed) is not None:
+            return
+        sts_tpl = "STATUS_MINGYUEZHAODAJIANG_ANONYMOUS"
+        for sts in subject.status:
+            if sts.tpl_id != sts_tpl:
+                continue
+            sts.leave(subject)
+            print(subject.name, subject.counter_rate, subject.counter_rate_factor_)
+
+
+# 迷形
+class MiXingEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if subject == battle.sequence[-1]["action"].subject:
+            return
+        if subject not in battle.sequence[-1]["action"].objects:
+            return
+        if battle.event(subject, BattleEvent.ACTMissed) is not None:
+            return
+        attacker = battle.sequence[-1]["action"].subject
+        attacker.direction = (attacker.direction + 3) % 6
+        if not battle.silent:
+            MSG(style=MSG.Effect, subject=subject, effect=self, 
+                details={"attacker": attacker.name, "subject": subject.name})
+
+
+# 摩诃无量
+class MoHeWuLiangEffect(Effect):
+
+   phase = BattlePhase.AfterDamage
+
+   def work(self, subject, objects=[], **kwargs):
+       battle = kwargs["battle"]
+       if subject != battle.sequence[-1]["action"].subject:
+           return
+       if len(objects) == 0:
+           objects = battle.sequence[-1]["action"].objects
+       damagelist = [-1]
+       for seq in battle.sequence:
+           if not isinstance(seq["action"], BattleSkillAction):
+               continue
+           if seq["action"].skill.tpl_id.startswith("SKILL_MOHEWULIANGZHANG"):
+               continue
+           if "results" not in seq:
+               continue
+           for objdict in seq["results"].values():
+               if BattleEvent.HPDamaged not in objdict:
+                   continue
+               hp_damaged = objdict[BattleEvent.HPDamaged]["value"]
+               if hp_damaged < 0:
+                   damagelist.append(hp_damaged)
+       damagelist.sort()
+       idx = self.level
+       damage_base = damagelist[self.level] if len(damagelist) >= self.level + 1 else -1
+       mp_base = min(-1, int(damage_base * 0.25))
+       skill_ability = battle.calculate_weapon(battle.sequence[-1]["action"].skill, subject, subject)[0]
+       mp_skill = -1 * int(mp_base * math.pow(1.004, 100 - subject.neigong) * math.pow(1.004, 100 - skill_ability))
+       damage_base = int(damage_base * min(1, subject.mp / mp_skill))
+       subject.mp_delta -= min(mp_skill, subject.mp)
+       for obj in objects:
+           if battle.event(obj, BattleEvent.ACTMissed) is not None:
+                return
+           actual_damage = damage_base
+           obj.hp_delta += actual_damage
 
 
 # 逆脉（攻击） 

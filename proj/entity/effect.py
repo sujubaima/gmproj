@@ -232,7 +232,7 @@ class ExertEffect(Effect):
         self.exertor = "Subject"
         self.exertion = None
         self.text_ = "对{object}施加了{status}状态"
-        self.description_ = "对目标施加{status}状态"
+        self.description_ = "对{targetstr}施加{status}状态"
         self.style = None
         self.base_ratio = 1
         self.showmsg = True
@@ -245,14 +245,18 @@ class ExertEffect(Effect):
 
     def finish(self):
         super(ExertEffect, self).finish()
+        if self.targets == "Subject":
+            targetstr = "自身"
+        else:
+            targetstr = "目标"
         if self.exertion is not None:
             if self.tpl_id is None:
                 self.tpl_id = "EXERT.%s" % self.exertion.tpl_id
             if self.name is None:
                 self.name = self.exertion.name
             if self.description is None and self.exertion.name is not None:
-                self.description = self.description_.format(status=self.exertion.name)
-                self.description += "，使目标%s" % self.exertion.description
+                self.description = self.description_.format(targetstr=targetstr, status=self.exertion.name)
+                self.description += "，使%s%s" % (targetstr, self.exertion.description)
                 self.text = self.text_ + "；{text}"
             if self.style is None:
                 self.style = self.exertion.style
@@ -283,7 +287,10 @@ class ExertEffect(Effect):
                 exertion.work(tgt, objects=objects, **kwargs)
             if self.showmsg and battle is not None and not battle.silent and exertion.name is not None:
                 detail_map = {"subject": subject.name, "object": tgt.name, "status": exertion.name}
-                detail_map["text"] = exertion.text.format(**detail_map)
+                if exertion.phase & 1 != 0:
+                    detail_map["text"] = exertion.text.format(**detail_map)
+                else:
+                    detail_map["text"] = "%s%s" % (tgt.name, self.exertion.description)
                 MSG(style=MSG.Effect, subject=subject, effect=self, 
                     details=detail_map)
                 #for effe in exertion.effects:

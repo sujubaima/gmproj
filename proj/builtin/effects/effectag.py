@@ -54,10 +54,13 @@ class ChuXieEffect(Effect):
                                                                                  "equip_rank": equip.rank})
 
 
-class FeiXingEffect(Effect):
+# 定身
+class DingShenEffect(Effect):
 
     def work(self, subject, objects=[], **kwargs):
-        pass
+        battle = kwargs["battle"]
+        battle.moved[subject.id] = True
+
 
 # 分断     
 class FenduanEffect(Effect):
@@ -157,6 +160,25 @@ class GangJinEffect(Effect):
             obj.injury -= injury
             if injury != 0 and not battle.silent:
                 MSG(style=MSG.Effect, subject=subject, effect=self, details={"injury": -1 * injury, "object": obj.name})
+
+
+# 攻气
+class GongQiEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if subject != battle.sequence[-1]["action"].subject:
+            return
+        effe_factor = self.factor(subject)
+        for obj in battle.sequence[-1]["action"].objects:
+            if battle.event(obj, BattleEvent.ACTMissed) is not None:
+                continue
+            effect_on = True
+            mp_drain = int(battle.event(obj, BattleEvent.HPDamaged)["value"] * 0.01 * self.level * effe_factor)
+            mp_drain = max(mp_drain, -1 * obj.mp)
+            obj.mp_delta += mp_drain
+            if not battle.silent:
+                MSG(style=MSG.Effect, subject=subject, effect=self, details={"mp_drain": -1 * mp_drain})
 
 
 # 蛊惑

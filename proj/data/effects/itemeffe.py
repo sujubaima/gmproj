@@ -90,6 +90,12 @@ EFFECT_TAIYUE_ATTR = \
      "attrs": [{"name": "attack_", "delta": 328}]}
 
 
+# 真武
+EFFECT_ZHENWU_ATTR = \
+    {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
+     "attrs": [{"name": "attack_", "delta": 450}]}
+
+
 # 凤首
 EFFECT_FENGSHOU_ATTR = \
     {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",

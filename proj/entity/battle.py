@@ -237,6 +237,8 @@ class Battle(object):
         #    p.direction = p.direction * -1 // 8
         p.direction = p.direction % 6
         for q in plist:
+            if self.is_friend(p, q):
+                continue
             dire = self.map.direction(self.map.entity_loc[p.id], self.map.entity_loc[q.id])
             #q.direction = -1 * dire
             q.direction = (dire + 3) % 6
@@ -348,7 +350,7 @@ class Battle(object):
         if v is None:
             v = getattr(obj, "qimen")
         return v
-                
+
     def calculate_weapon(self, skill, p, q):
         if skill.double_weapon is None:
             sty = set([SkillStyle.Boji])

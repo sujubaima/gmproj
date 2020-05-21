@@ -12,20 +12,31 @@ from proj.builtin.actions import BattleItemAction
 from proj.builtin.actions import BattleRestAction
 
 
-def huichun(p, q):
+def huichun(p, q, effe, battle):
     score = 0
     if q.hp / q.hp_max <= 0.3:
         score += max(3500, q.hp_max - q.hp)
         if p == q:
             score += 1000
     return score
+
+
+def mohewuliang(p, q, effe, battle):
+    if effe.level < battle.turnidx:
+        power = 750 + 125 * (2 - effe.level)
+        return power * min(1, p.mp / power * 0.4)
+    else:
+        return 1
     
 
 class SimpleAI(object):
 
     EFFECT_MAP = {"EFFECT_HUICHUN": huichun,
                   "EFFECT_HUICHUN_DA": huichun,
-                  "EFFECT_HUICHUN_XIAO": huichun}
+                  "EFFECT_HUICHUN_XIAO": huichun,
+                  "EFFECT_MOHEWULIANG": mohewuliang,
+                  "EFFECT_MOHEWULIANG_DA": mohewuliang,
+                  "EFFECT_MOHEWULIANG_XIAO": mohewuliang,}
 
     def __init__(self, battle):
         self.battle = battle
@@ -155,7 +166,7 @@ class SimpleAI(object):
                 for effe in zhaoshi.effects:
                     if effe.tpl_id not in SimpleAI.EFFECT_MAP:
                         continue
-                    score += SimpleAI.EFFECT_MAP[effe.tpl_id](p, q)
+                    score += SimpleAI.EFFECT_MAP[effe.tpl_id](p, q, effe, self.battle)
             if score == 0:
                 continue
             action_list = [BattleSkillAction(subject=p, battle=self.battle, target=qloc, counter=False,
@@ -254,7 +265,7 @@ class SimpleAI(object):
                             for effe in zhaoshi.effects:
                                 if effe.tpl_id not in SimpleAI.EFFECT_MAP:
                                     continue
-                                score += SimpleAI.EFFECT_MAP[effe.tpl_id](p, q)
+                                score += SimpleAI.EFFECT_MAP[effe.tpl_id](p, q, effe, self.battle)
                     if score == 0:
                         continue
                     action_list = [BattleMoveAction(subject=p, battle=self.battle, target=loc, scope=move_scope, 
@@ -268,7 +279,7 @@ class SimpleAI(object):
                                              target=tmp_loc, 
                                              scope=move_scope, 
                                              path=self.battle.map.move_trace(tmp_loc, self.battle.map.location(p), self.connections)),
-                            BattleRestAction(subject=p, battle=self.battle)], int(p.mp_limit * p.mp_recover_rate_inferior)))
+                            BattleRestAction(subject=p, battle=self.battle)], min(250, int(p.mp_limit * p.mp_recover_rate_inferior))))
         return can_do
 
     def do_item_silent(self, p):  
@@ -284,7 +295,7 @@ class SimpleAI(object):
             for effe in item.effects:
                 if effe.tpl_id not in SimpleAI.EFFECT_MAP:
                     continue
-                score += SimpleAI.EFFECT_MAP[effe.tpl_id](p, q)
+                score += SimpleAI.EFFECT_MAP[effe.tpl_id](p, q, effe, self.battle)
             if score == 0:
                 continue
             action_list = [BattleItemAction(subject=p, battle=self.battle, target=qloc, 
@@ -368,7 +379,7 @@ class SimpleAI(object):
                         for effe in item.effects:
                             if effe.tpl_id not in SimpleAI.EFFECT_MAP:
                                 continue
-                            score += SimpleAI.EFFECT_MAP[effe.tpl_id](p, q)
+                            score += SimpleAI.EFFECT_MAP[effe.tpl_id](p, q, effe, self.battle)
                     if score == 0:
                         continue
                     action_list = [BattleMoveAction(subject=p, battle=self.battle, target=loc, scope=move_scope, 
@@ -379,4 +390,4 @@ class SimpleAI(object):
         return can_do
 
     def do_rest(self, p):
-        return [([BattleRestAction(subject=p, battle=self.battle)], int(p.mp_limit * p.mp_recover_rate))]
+        return [([BattleRestAction(subject=p, battle=self.battle)], min(250, int(p.mp_limit * p.mp_recover_rate)))]

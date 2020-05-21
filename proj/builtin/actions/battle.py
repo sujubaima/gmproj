@@ -161,7 +161,6 @@ class BattleSkillAction(BattleAction):
         self.battle.start_cd(self.subject, self.skill)
         self.skill.work(self.subject, battle=self.battle, phase=BattlePhase.BeforeAttack)
         self.battle.status_work(BattlePhase.BeforeAttack)
-        self.battle.redirect(self.subject, self.objects, self.target, self.skill)
         should_hit = common.if_rate(self.subject.hit_rate)
         if not should_hit:
             self.battle.add_event(self.subject, BattleEvent.ACTFault)
@@ -201,6 +200,7 @@ class BattleSkillAction(BattleAction):
             should_counter = common.if_rate(q.counter_rate)
             if not self.counter and should_counter and q.skill_counter is not None:
                 self.battle.add_event(q, BattleEvent.Counter)
+        self.battle.redirect(self.subject, self.objects, self.target, self.skill)
         # 发动后置效果
         if should_hit:
             self.skill.work(self.subject, battle=self.battle, phase=BattlePhase.AfterAttack)
@@ -308,7 +308,6 @@ class BattleItemAction(BattleAction):
         self.battle.sequence.append({"action": self, "results": {}})
         self.battle.status_work(BattlePhase.BeforeItem)
         self.battle.reset_delta()
-        self.battle.redirect(self.subject, self.objects, self.target, self.item)
         should_hit = common.if_rate(self.subject.hit_rate)
         if not should_hit:
             self.battle.add_event(self.subject, BattleEvent.ACTFault)
@@ -323,6 +322,7 @@ class BattleItemAction(BattleAction):
             if not should_hit or should_dodge:
                 self.battle.add_event(q, BattleEvent.ACTMissed)
         self.item.work(self.subject, battle=self.battle)
+        self.battle.redirect(self.subject, self.objects, self.target, self.item)
         for q in self.battle.alive:
             q.correct()
             q.hp += q.hp_delta

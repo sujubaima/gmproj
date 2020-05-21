@@ -59,7 +59,8 @@ class Person(Entity):
         elif k in set(["dongjing", "gangrou", "zhipu", "yinyang", 
                        "neigong", "boji", "jianfa", "daofa", "changbing", "anqi", "qimen"]):
             self.stash["tpl_%s" % k] = v
-        elif k in set(["hp_max", "mp_max", "attack", "defense"]):
+        elif k in set(["hp_max", "mp_max", "attack", "defense", "motion", 
+                       "counter_rate", "hit_rate"]):
             self.stash["tpl_%s_" % k] = v
         else:
             setattr(self, k, v)
@@ -73,7 +74,8 @@ class Person(Entity):
                 ss.learn(self, n)
         for k in set(["dongjing", "gangrou", "zhipu", "yinyang", 
                        "neigong", "boji", "jianfa", "daofa", "changbing", "anqi", "qimen",
-                       "hp_max_", "mp_max_", "attack_", "defense_"]):
+                       "hp_max_", "mp_max_", "attack_", "defense_", "motion_", 
+                       "counter_rate_", "hit_rate_"]):
             tpl_key = "tpl_%s" % k
             if tpl_key in self.stash:
                 setattr(self, k, self.stash.pop(tpl_key))

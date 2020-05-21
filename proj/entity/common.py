@@ -102,7 +102,10 @@ class Entity(object):
 
 
 def random_gap(base, gap):
-    return random.randint(int(base * (1 - gap)), int(base * (1 + gap)))
+    if base >= 0:
+        return random.randint(int(base * (1 - gap)), int(base * (1 + gap)))
+    else:
+        return random.randint(int(base * (1 + gap)), int(base * (1 - gap)))
 
 
 def if_rate(ratio):

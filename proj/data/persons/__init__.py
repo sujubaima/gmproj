@@ -10,3 +10,4 @@ from proj.data.persons.juquemen import *
 from proj.data.persons.beichenpai import *
 from proj.data.persons.jiuxipai import *
 from proj.data.persons.qingpaohui import *
+from proj.data.persons.wudangpai import *

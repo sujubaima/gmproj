@@ -127,6 +127,31 @@ class XieJinEffect(Effect):
         #MSG(style=MSG.Effect, subject=subject, effect=self, details={"mp_trans": mp_trans})
 
 
+# 虚耗
+class XuHaoEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        pass
+
+
+# 虚晃
+class XuHuangEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if subject != battle.sequence[-1]["action"].subject:
+            return
+        if len(objects) == 0:
+            objects = battle.sequence[-1]["action"].objects
+        for obj in objects:
+            if battle.event(obj, BattleEvent.ACTMissed) is not None:
+                continue
+            dire = random.sample([d for d in range(0, 6) if d != obj.direction], 1)[0]
+            obj.direction = dire
+            if not battle.silent:
+                MSG(style=MSG.Effect, subject=subject, effect=self, details={"object": obj.name})
+
+
 # 薰风
 class XunFengEffect(Effect):
 
@@ -221,3 +246,10 @@ class YuDuEffect(Effect):
             obj.poison_mp -= poison_mp
             if poison_mp != 0 and not battle.silent:
                 MSG(style=MSG.Effect, subject=subject, effect=self, details={"object": obj.name, "poison_mp": -1 * poison_mp})
+
+
+# 圆转
+class YuanZhuanEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        pass
