@@ -13,12 +13,13 @@ PERSON_YUAN_LONG = \
 
 # 觉因
 PERSON_JUE_YIN = \
-    {"firstname": "觉", "lastname": "因", "showname": "觉因", "title": "少林住持", "sex": 0,
-     "hp_max":8500, "mp_max": 3500, "attack": 400, "defense": 420, "motion": 1,
-     "hit_rate": 0.95,
+    {"firstname": "觉", "lastname": "因", "showname": "觉因", "title": "少林方丈", "sex": 0,
+     "hp_max":8200, "mp_max": 3500, "attack": 400, "defense": 420, "motion": 1,
      "dongjing": -25, "gangrou": 30, "zhipu": -10,
      "neigong": 87, "boji": 85, "jianfa": 46, "daofa": 55, "changbing": 70, "anqi": 40, "qimen": 41, "yinyang": 18,
-     "superskills": [{"id": "SUPERSKILL_MOHEWULIANGZHANG", "learn": "All"}],
-     "skill_counter": [{"id": "SKILL_MOHEWULIANGZHANG_1"}],
+     "superskills": [{"id": "SUPERSKILL_YIJINJING", "learn": "All"},
+                     {"id": "SUPERSKILL_MOHEWULIANGZHANG", "learn": "All"}],
+     "running": {"id": "SUPERSKILL_YIJINJING"},
+     "skill_counter": {"id": "SKILL_MOHEWULIANGZHANG_1"},
      "equipment": [],
      "items": []}

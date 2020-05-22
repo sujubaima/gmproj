@@ -199,7 +199,7 @@ class Status(Entity):
             ac = False 
         elif self.accepttype == StatusAcceptType.Different:
             ac = st is None
-        elif self.overtype == StatusAcceptType.Overlap:
+        elif self.accepttype == StatusAcceptType.Overlap:
             ac = True
         if ac and self.overtype == StatusOverType.Prolong and st is not None:
             st.exertor = self.exertor

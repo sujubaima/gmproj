@@ -460,3 +460,12 @@ SUPERSKILL_TAIJISHENGONG = \
                 "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_TAIJISHENGONG_2"}]},
                {"name": "明月照大江",
                 "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_TAIJISHENGONG_3"}]}]}
+
+
+# 易筋经
+SUPERSKILL_YIJINJING = \
+    {"name": "易筋经", "rank": 3,
+     "nodes": [{"name": "易筋经外篇",
+                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_YIJINJING_1"}]},
+               {"name": "易筋经内篇",
+                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_YIJINJING_2"}]}]}

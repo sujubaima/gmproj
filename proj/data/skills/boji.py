@@ -117,7 +117,7 @@ SKILL_TAIJIQUAN_1 = \
 SKILL_TAIJIQUAN_2 = \
     {"name": "白鹤亮翅", "style": "Boji",
      "mp": 234, "power": 780, "cd": 1, "yinyang": 0, "shape": "BigSector.Swap,1,1",
-     "effects": [{"id": "EXERT.STATUS_XUHAO", "turns": 2}]}
+     "effects": [{"id": "EXERT.STATUS_XIEJIN", "targets": "Subject", "turns": 1}]}
 
 # 太极拳-如封似闭
 SKILL_TAIJIQUAN_3 = \
@@ -125,5 +125,5 @@ SKILL_TAIJIQUAN_3 = \
      "mp": 1026, "power": 855, "cd": 2, "yinyang": 0, "shape": "Around.Swap,1,2",
      "effects": [{"id": "EFFECT_YUANZHUAN"},
                  {"id": "EXERT.STATUS_DINGSHEN", "name": "沾连", "turns": 1},
-                 {"id": "EXERT.STATUS_XUHAO", "turns": 2}]}
+                 {"id": "EXERT.STATUS_XIEJIN", "targets": "Subject", "turns": 1}]}
 

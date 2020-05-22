@@ -105,3 +105,13 @@ SKILL_TAIJISHENGONG_3 = \
     {"name": "明月照大江", "style": "Neigong",
      "effects": [{"id": "EXERT.STATUS_MINGYUEZHAODAJIANG"},
                  {"id": "EXERT.STATUS_MINGYUEZHAODAJIANG_LEAVE"}]}
+
+
+# 易筋经
+SKILL_YIJINJING_1 = \
+    {"name": "易筋经外篇", "style": "Neigong",
+     "effects": [{"id": "EXERT.STATUS_YIJIN"}]}
+
+SKILL_YIJINJING_2 = \
+    {"name": "易筋经内篇", "style": "Neigong",
+     "effects": [{"id": "EXERT.STATUS_HUANGU"}]}

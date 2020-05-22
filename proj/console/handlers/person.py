@@ -123,7 +123,7 @@ def profile(p):
     af.append("")
     af.extend(skills(p))
     af.append("")
-    ui.pages([pf, af], title=ui.colored("%s %s%s" % (p.title, p.firstname, p.lastname), attrs=["bold"]), goback=True)
+    ui.pages([pf, af], title=ui.colored("%s %s%s" % (p.title, p.firstname, p.lastname), color="yellow", attrs=["bold"]), goback=True)
 
 
 def equipment(p):

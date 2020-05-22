@@ -16,6 +16,32 @@ from proj.builtin.actions import BattleSkillAction
 from proj.engine import Message as MSG
 
 
+# 捕风
+class BuFengEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if subject != battle.sequence[-1]["action"].subject:
+            return
+        if len(objects) == 0:
+            objects = battle.sequence[-1]["action"].objects
+        sub_loc = battle.map.location(subject)
+        for obj in objects:
+            if battle.event(obj, BattleEvent.ACTMissed) is not None:
+                continue
+            obj_loc = battle.map.location(obj)
+            dire = battle.map.direction(sub_loc, obj_loc)
+            obj_tgt = sub_loc
+            while obj_tgt != obj_loc and not battle.map.can_stay(obj, obj_tgt):
+                obj_tgt = battle.map.neighbour(sub_loc, dire)
+            if obj_tgt != obj_loc:
+                BattleMoveAction(showmsg=False, active=False,
+                                 battle=battle, subject=obj, target=obj_tgt,
+                                 path=[obj_tgt, obj_loc]).do()
+                MSG(style=MSG.Effect, subject=subject, effect=self, 
+                    details={"object": obj.name})
+
+
 # 尝胆
 class ChangDanEffect(Effect):
 

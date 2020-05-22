@@ -33,7 +33,7 @@ EFFECT_CUOGU = \
      "attrs": [{"name": "motion_", "delta": -1}]}
 
 
-#定身
+# 定身
 EFFECT_DINGSHEN = \
     {"style": 1, "module": "proj.builtin.effects", "class": "DingShenEffect"}
 
@@ -82,6 +82,20 @@ EFFECT_HANPIN_ANONYMOUS_DA = \
     {"style": 1,
      "module": "proj.builtin.effects", "class": "BattlePersonChangeAttributeEffect",
      "attrs": [{"name": "dodge_rate_", "delta": 0.05}]}
+
+
+# 换骨
+EFFECT_HUANGU = \
+    {"style": 1,
+     "module": "proj.builtin.effects", "class": "HuanGuEffect", "level": 25}
+
+EFFECT_HUANGU_ANONYMOUS = \
+    {"style": 1,
+     "module": "proj.builtin.effects", "class": "BattlePersonChangeAttributeEffect",
+     "attrs": [{"name": "counter_rate_", "delta": 0.01},
+               {"name": "critical_rate_", "delta": 0.01},
+               {"name": "dodge_rate_", "delta": 0.01},
+               {"name": "anti_damage_rate_", "delta": 0.01}]}
 
 
 # 回春
@@ -143,15 +157,15 @@ EFFECT_MIXING = \
 # 摩诃无量
 EFFECT_MOHEWULIANG_XIAO = \
     {"name": "恒河沙数", "style": 0, "module": "proj.builtin.effects", "class": "MoHeWuLiangEffect", "level": 2,
-     "description": "本次攻击伤害为当前战斗中除本武学外，所有打出的伤害中排名第三高的数值"}
+     "description": "本次攻击伤害为当前战斗中除本武学外，所有打出的伤害中排名第三高的数值；内力消耗则视伤害与内功修为而定"}
 
 EFFECT_MOHEWULIANG = \
     {"name": "阿僧祇数", "style": 0, "module": "proj.builtin.effects", "class": "MoHeWuLiangEffect", "level": 1,
-     "description": "本次攻击伤害为当前战斗中除本武学外，所有打出伤害里中排名第二高的数值"}
+     "description": "本次攻击伤害为当前战斗中除本武学外，所有打出伤害里中排名第二高的数值；内力消耗则视伤害与内功修为而定"}
 
 EFFECT_MOHEWULIANG_DA = \
     {"name": "不思议数", "style": 0, "module": "proj.builtin.effects", "class": "MoHeWuLiangEffect", "level": 0,
-     "description": "本次攻击伤害为当前战斗中除本武学外，所有打出的伤害中排名第一高的数值"}
+     "description": "本次攻击伤害为当前战斗中除本武学外，所有打出的伤害中排名第一高的数值；内力消耗则视伤害与内功修为而定"}
 
 
 # 目盲
@@ -296,14 +310,24 @@ EFFECT_XUHUANG = \
 # 虚弱
 EFFECT_XURUO = \
     {"name": "虚弱", "style": 0,
-     "module": "proj.builtin.effects", "class": "BattlePersonAttributeChangeEffect",
+     "module": "proj.builtin.effects", "class": "BattlePersonChangeAttributeEffect",
      "attrs": [{"name": "attack_factor_", "ratio": 0.7}]}
+
+
+# 易筋
+EFFECT_YIJIN = \
+    {"name": "易筋", "style": 1,
+     "module": "proj.builtin.effects", "class": "BattlePersonChangeAttributeEffect",
+     "attrs": [{"name": "hp_max_factor_", "ratio": 1.25},
+               {"name": "mp_max_factor_", "ratio": 1.25},
+               {"name": "attack_factor_", "ratio": 1.25},
+               {"name": "defense_factor_", "ratio": 1.25},]}
 
 
 # 圆转
 EFFECT_YUANZHUAN = \
     {"name": "圆转", "style": 2,
-     "module": "proj.builtin.effects", "class": "YuanZhuanEffect",
+     "module": "proj.builtin.effects", "class": "BuFengEffect",
      "text": "攻击范围内的敌方单位被拉至身边了",
      "description": "将攻击范围内的敌方单位拉至近身"}
 
@@ -425,6 +449,7 @@ EFFECT_LIANZHI_DEBUFF = \
 EFFECT_LIANJI = \
     {"name": "连击", "style": 1, "level": 30,
      "module": "proj.builtin.effects", "class": "LianJiEffect",
+     "influence": "Dong", "factor_middle": 1, "factor_upper": 1.5,
      "text": "对目标再次发动攻击",
      "description": "有一定几率再次使用相同技能对目标发动攻击，灵动值越高发动几率越大"}
 
@@ -512,8 +537,8 @@ EFFECT_XIANJI = \
 # 卸劲
 EFFECT_XIEJIN = \
     {"name": "卸劲", "style": 1,
-     "module": "proj.builtin.effect", "class": "XieJinEffect",
-     "text": "部分伤害使用内力抵消了",
+     "module": "proj.builtin.effects", "class": "XieJinEffect", "level": 20,
+     "text": "{mp_trans}点伤害用内力抵消了",
      "description": "可以使用内力抵消一部分伤害，柔易值越高低效比例越大"}
 
 

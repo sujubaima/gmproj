@@ -72,9 +72,9 @@ class Person(Entity):
                 learnlist = range(len(ss.nodes))
             for n in learnlist:
                 ss.learn(self, n)
-        for k in set(["dongjing", "gangrou", "zhipu", "yinyang", 
+        for k in set(["dongjing", "gangrou", "zhipu", "yinyang",
                        "neigong", "boji", "jianfa", "daofa", "changbing", "anqi", "qimen",
-                       "hp_max_", "mp_max_", "attack_", "defense_", "motion_", 
+                       "hp_max_", "mp_max_", "attack_", "defense_", "motion_",
                        "counter_rate_", "hit_rate_"]):
             tpl_key = "tpl_%s" % k
             if tpl_key in self.stash:
@@ -97,6 +97,8 @@ class Person(Entity):
             self.team = Team()
             self.team.include(self)
         context.strdict["%s_NAME" % self.tpl_id] = self.name
+        #if self.skill_counter is not None:
+        #    print(self.name, self.skill_counter)
     
     def initialize(self):
 
@@ -202,7 +204,7 @@ class Person(Entity):
 
         # 命中率
         #self.register("hit_rate", middle=0.96, upper=1.15)
-        self.register("hit_rate", middle=1, upper=1.25, base=0.95)
+        self.register("hit_rate", middle=1, upper=1.04, base=0.94)
         # 闪避率
         self.register("dodge_rate", middle=1, upper=2, base=0.05)
         # 反击率

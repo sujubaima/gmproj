@@ -54,11 +54,10 @@ PERSON_PLAYER = \
 # 赵神机
 PERSON_ZHAO_SHENJI = \
     {"firstname": "赵", "lastname": "神机", "title": "长生坛教主",
+     "hp_max": 7900, "mp_max": 3700, "attack": 400, "defense": 350,
      "dongjing": 23, "gangrou": 5, "zhipu": 21, "yinyang": 0,
-     "neigong": 27, "boji": 67, "jianfa": 20, "daofa": 73, "changbing": 4, "anqi": 66, "qimen": 69,
-     "superskills": [{"id": "SUPERSKILL_JIANGHUXINFA", "learn": "All"},
-                     {"id": "SUPERSKILL_YOUXIAXINFA", "learn": "All"},
-                     {"id": "SUPERSKILL_QIXINGNIMAI", "learn": "All"},
+     "neigong": 83, "boji": 67, "jianfa": 20, "daofa": 73, "changbing": 4, "anqi": 66, "qimen": 69,
+     "superskills": [{"id": "SUPERSKILL_QIXINGNIMAI", "learn": "All"},
                      {"id": "SUPERSKILL_XINGHONGDAOFA", "learn": "All"}],
      "skill_counter": {"id": "SKILL_XINGHONGDAOFA_2"},
      "equipment": [{"id": "ITEM_XUEYUE", "position": "MainHand"}],

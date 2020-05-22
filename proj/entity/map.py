@@ -412,6 +412,16 @@ class Map(Entity):
                 ret.append((rx, ry))
         return ret
 
+    def neighbour(self, pt, dire):
+        x, y = pt
+        if y % 2 == 0:
+            k = -1
+        else:
+            k = 1
+        tmpret = [(x + 1, y), (max(x + k, x), y + 1), (min(x + k, x), y + 1),
+                  (x - 1, y), (min(x + k, x), y - 1), (max(x + k, x), y - 1)]
+        return tmpret[dire]
+
     def connectivity(self, pt, person, r=None, enable_zoc=True, filter=None):
         """
         搜索所有可能移动的格子

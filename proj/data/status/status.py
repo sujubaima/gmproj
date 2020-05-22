@@ -34,8 +34,9 @@ STATUS_DINGSHEN = \
 
 # 卸劲
 STATUS_XIEJIN = \
-    {"name": "卸劲", "phase": "AfterAttack",
-     "functions": [{"id": "EFFECT_XIEJIN"}]}
+    {"name": "卸劲", "phase": "AfterAttack", "style": 1,
+     "functions": [{"id": "EFFECT_XIEJIN"}],
+     "description": "可以用内力抵消一部分伤害"}
 
 
 # 吸血
@@ -51,6 +52,23 @@ STATUS_XUHAO = \
      "description": "攻击时消耗更多内力"}
 
 
+# 易筋
+STATUS_YIJIN = \
+    {"name": "易筋", "phase": "Instant", "style": 1,
+     "functions": [{"id": "EFFECT_YIJIN"}],
+     "description": "气血上限、内力上限、基础攻击与基础防御得到大幅提升"}
+
+STATUS_HUANGU = \
+    {"name": "换骨", "phase": "FinishTurn", "style": 1,
+     "functions": [{"id": "EFFECT_HUANGU"}],
+     "description": "前25回合（包括非自身的回合），每回合结束时自身基础暴击率、基础闪避率、基础反击率与基础拆招率+1"}
+
+STATUS_HUANGU_ANONYMOUS = \
+    {"phase": "Instant", "countable": True, "style": 1,
+     "functions": [{"id": "EFFECT_HUANGU_ANONYMOUS"}]}
+
+
+# 神准
 STATUS_SHENZHUN = \
     {"name": "神准", "phase": "BeforeDamage",
      "functions": [{"id": "EFFECT_SHENZHUN"}]}

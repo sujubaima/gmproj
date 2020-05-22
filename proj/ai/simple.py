@@ -4,6 +4,7 @@ from __future__ import division
 import time
 import random
 import math
+import copy
 
 from proj.entity.map import Shape
 from proj.builtin.actions import BattleMoveAction
@@ -67,21 +68,30 @@ class SimpleAI(object):
         min_attack_range["All"] = min(min_attack_range["Friends"], min_attack_range["Enemies"])
         return max_attack_range, min_attack_range
 
-    def person_in_scope(self, q_info, attack_range, attack_angle, attack_block, person_angle):
+    def person_in_scope(self, q_info, attack_range, attack_angle, attack_block, person_angle, scope_angle):
         q_angle = person_angle
-        if q_angle < 0:
-            q_angle += math.pi * 2
-        if q_info[2] > attack_range[1] or q_info[2] < attack_range[0] or q_angle > attack_angle:
+        #if q_angle < 0:
+        #    q_angle += math.pi * 2
+        a_angle = attack_angle + scope_angle
+        if a_angle > math.pi * 2:
+            a_angle -= math.pi * 2
+        #a_angle = attack_angle
+        #if q_info[2] > attack_range[1] or q_info[2] < attack_range[0] or q_angle > a_angle:
+        if q_info[2] > attack_range[1] or q_info[2] < attack_range[0] or q_angle < scope_angle or q_angle > a_angle:
             return False
         in_scope = True
         min_d = attack_range[1]
         for blk in self.object_info:
+            #b_angle = blk[3] - scope_angle
+            #if b_angle < 0:
+            #    b_angle += math.pi
+            b_angle = blk[3]
             if blk[2] < min_d:
                 min_d = blk[2]
-            if attack_block == 1 and q_angle >= blk[3] and q_info[2] >= min_d:
+            if attack_block == 1 and q_angle >= b_angle and q_info[2] >= min_d:
                 in_scope = False
                 break
-            elif attack_block == 2 and q_angle - math.pi / 180  == blk[3] and q_info[2] >= blk[2]:
+            elif attack_block == 2 and q_angle == b_angle and q_info[2] >= blk[2]:
                 in_scope = False
                 break
         return in_scope
@@ -120,6 +130,9 @@ class SimpleAI(object):
         for ac in submaybe[idx]:
             if not self.battle.silent and isinstance(ac, BattleSkillAction):
                 ac.scope = self.battle.map.shape(ac.ploc, ac.target, ac.skill.shape)
+                #print(ac.debug_info)
+                #print(ac.person_info)
+                #print(ac.object_info)
         return submaybe[idx]
 
     def consider(self, p):
@@ -250,10 +263,12 @@ class SimpleAI(object):
                     ql = []
                     for q_info in self.person_info:
                         if scope_angle is not None:
-                            person_angle = q_info[3] - scope_angle
+                            #person_angle = q_info[3] - scope_angle
+                            person_angle = q_info[3]
                         else:
+                            scope_angle = 0
                             person_angle = self.battle.map.angle(scope, (scope[0] + 1, scope[1]), q_info[0])
-                        if not self.person_in_scope(q_info, attack_range, attack_angle, attack_block, person_angle):
+                        if not self.person_in_scope(q_info, attack_range, attack_angle, attack_block, person_angle, scope_angle):
                             continue
                         q = q_info[-1]
                         if not self.battle.skill_accept(zhaoshi, p, q):
@@ -268,10 +283,14 @@ class SimpleAI(object):
                                 score += SimpleAI.EFFECT_MAP[effe.tpl_id](p, q, effe, self.battle)
                     if score == 0:
                         continue
+                    #debug_info = [attack_range, attack_angle, attack_block, scope, scope_angle, loc]
+                    #object_info = [(obj[0], obj[2], obj[3]) for obj in self.object_info]
+                    #person_info = [(obj[0], obj[2], obj[3]) for obj in self.person_info]
                     action_list = [BattleMoveAction(subject=p, battle=self.battle, target=loc, scope=move_scope, 
                                                     path=self.battle.map.move_trace(loc, self.battle.map.location(p), self.connections)),
                                    BattleSkillAction(subject=p, battle=self.battle, target=scope, counter=False,
                                                      skill=zhaoshi, objects=ql, ploc=loc, scope=[])]
+                                                     #debug_info=debug_info, person_info=person_info, object_info=object_info)]
                     can_do.append((action_list, score)) 
         if len(can_do) == 0:
             can_do.append(([BattleMoveAction(subject=p,
@@ -367,10 +386,12 @@ class SimpleAI(object):
                     ql = []
                     for q_info in self.person_info:
                         if scope_angle is not None:
-                            person_angle = q_info[3] - scope_angle
+                            #person_angle = q_info[3] - scope_angle
+                            person_angle = q_info[3]
                         else:
+                            scope_angle = 0
                             person_angle = self.battle.map.angle(scope, (scope[0] + 1, scope[1]), q_info[0])
-                        if not self.person_in_scope(q_info, attack_range, attack_angle, attack_block, person_angle):
+                        if not self.person_in_scope(q_info, attack_range, attack_angle, attack_block, person_angle, scope_angle):
                             continue
                         q = q_info[-1]
                         if q is None or not self.battle.skill_accept(item, p, q):

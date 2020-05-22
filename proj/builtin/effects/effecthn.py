@@ -58,6 +58,29 @@ class HuaYuEffect(Effect):
                     details={"object": obj.name, "poison_recover": poison_recover})
 
 
+# 换骨
+class HuanGuEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if battle.turnidx > self.level:
+            return
+        old_sts = None
+        sts_tpl = "STATUS_HUANGU_ANONYMOUS"
+        for sts in subject.status:
+            if sts.tpl_id == sts_tpl:
+                old_sts = sts
+        if old_sts is not None:
+            old_sts.leave(subject) 
+        sts = Status.template(sts_tpl)
+        sts.effects[0].attrs = [{"name": "counter_rate_", "delta": 0.01 * battle.turnidx},
+                                {"name": "critical_rate_", "delta": 0.01 * battle.turnidx},
+                                {"name": "dodge_rate_", "delta": 0.01 * battle.turnidx},
+                                {"name": "anti_damage_rate_", "delta": 0.01 * battle.turnidx}]
+        subject.status.append(sts)
+        sts.work(subject)
+
+
 # 回春
 class HuiChunEffect(Effect):
 
@@ -166,7 +189,7 @@ class JueYingEffect(Effect):
         old_dire = (obj.direction + 3) % 6
         tmp_locs = []
         for pt in battle.map.circle(obj_loc, 1):
-            if not battle.map.can_stay(subject, pt):
+            if not battle.map.is_on_map(pt) or not battle.map.can_stay(subject, pt):
                 continue
             new_dire = battle.map.direction(obj_loc, pt)
             dire_diff = abs(new_dire - old_dire)
@@ -208,8 +231,6 @@ class LiHunEffect(Effect):
 # 连击
 class LianJiEffect(Effect):
 
-    influence = "Dong"
-
     phase = BattlePhase.AfterSettlement
 
     def work(self, subject, objects=[], **kwargs):
@@ -229,11 +250,12 @@ class LianJiEffect(Effect):
                 newobjs.append(q)
         if len(newobjs) == 0:
             return
+        battle.attacked[subject.id] = False
         add_ac = BattleSkillAction(subject=subject, battle=battle,
                                    skill=skill, target=target, scope=scope,
                                    objects=newobjs)
-        battle.sequence[-1]["action"].additions.insert(0, add_ac)
-        battle.attacked[subject.id] = False
+        battle.sequence[-1]["action"].additions.append(add_ac)
+        #battle.attacked[subject.id] = False
         if not battle.silent:
             MSG(style=MSG.Effect, subject=subject, effect=self)
 
@@ -317,7 +339,6 @@ class MingYueZhaoDaJiangEffect(Effect):
         sts.effects[0].attrs = [{"name": "counter_rate_factor_", "ratio": counter_base}]
         subject.status.append(sts)
         sts.work(subject)
-        print(subject.name, subject.counter_rate, subject.counter_rate_factor_)
 
 class MingYueZhaoDaJiangLeaveEffect(Effect):
       
@@ -334,7 +355,6 @@ class MingYueZhaoDaJiangLeaveEffect(Effect):
             if sts.tpl_id != sts_tpl:
                 continue
             sts.leave(subject)
-            print(subject.name, subject.counter_rate, subject.counter_rate_factor_)
 
 
 # 迷形
@@ -383,7 +403,7 @@ class MoHeWuLiangEffect(Effect):
        damagelist.sort()
        idx = self.level
        damage_base = damagelist[self.level] if len(damagelist) >= self.level + 1 else -1
-       mp_base = min(-1, int(damage_base * 0.25))
+       mp_base = min(-1, int(damage_base * 0.3))
        skill_ability = battle.calculate_weapon(battle.sequence[-1]["action"].skill, subject, subject)[0]
        mp_skill = -1 * int(mp_base * math.pow(1.004, 100 - subject.neigong) * math.pow(1.004, 100 - skill_ability))
        damage_base = int(damage_base * min(1, subject.mp / mp_skill))

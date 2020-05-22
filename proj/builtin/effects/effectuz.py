@@ -118,13 +118,17 @@ class XieJinEffect(Effect):
 
     def work(self, subject, objects=[], **kwargs):
         battle = kwargs["battle"]
+        if subject == battle.sequence[-1]["action"].subject:
+            return
         if subject not in battle.sequence[-1]["action"].objects:
             return
+        if battle.event(subject, BattleEvent.ACTMissed) is not None:
+            return 
         effe_factor = self.factor(subject)
-        mp_trans = int(battle.event(obj, BattleEvent.HPDamaged)["value"] * self.level * 0.1 * effe_factor)
-        subject.hp_delta += mp_trans
-        subject.mp_delta -= mp_trans
-        #MSG(style=MSG.Effect, subject=subject, effect=self, details={"mp_trans": mp_trans})
+        mp_trans = int(battle.event(subject, BattleEvent.HPDamaged)["value"] * self.level * 0.01 * effe_factor)
+        subject.hp_delta -= mp_trans
+        subject.mp_delta += mp_trans
+        MSG(style=MSG.Effect, subject=subject, effect=self, details={"mp_trans": mp_trans})
 
 
 # 虚耗
@@ -171,6 +175,7 @@ class XunFengEffect(Effect):
         effelib.HuaYuEffect(level=self.level).work(subject, objects=plist, **kwargs)
         if battle is not None and not battle.silent:
             MSG(style=MSG.Effect, subject=subject, effect=self, details={"poison_recover": self.level})
+
 
 
 # 移花
@@ -247,9 +252,3 @@ class YuDuEffect(Effect):
             if poison_mp != 0 and not battle.silent:
                 MSG(style=MSG.Effect, subject=subject, effect=self, details={"object": obj.name, "poison_mp": -1 * poison_mp})
 
-
-# 圆转
-class YuanZhuanEffect(Effect):
-
-    def work(self, subject, objects=[], **kwargs):
-        pass

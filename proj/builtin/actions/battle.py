@@ -291,6 +291,8 @@ class BattleSkillAction(BattleAction):
         for alive in alivelist:
             BattleQuitAction(subject=alive, battle=self.battle).do()
 
+        #self.postdo()
+
         # 发动结算后效果
         if self.battle.event(self.subject, BattleEvent.ACTFault) is None:
             self.skill.work(self.subject, battle=self.battle, phase=BattlePhase.AfterSettlement)

@@ -90,7 +90,7 @@ def status(obj, grey=False):
             ret += "："
         comment = ""
         if obj.source is not None:
-            comment += "来源："
+            #comment += "来源："
             if obj.exertor is not None:
                 comment += obj.exertor.name
             if "Neigong" in obj.source.tags:
