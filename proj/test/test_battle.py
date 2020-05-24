@@ -74,8 +74,8 @@ if __name__ == "__main__":
 
     #team_a.include(p_msq, p_hy, p_yq, p_zrb, p_jy)
     #team_b.include(p_zys, p_wpf, p_sjy, p_ly, p_ctz)
-    team_a.include(p_jy)
-    team_b.include(p_msq)
+    team_a.include(p_msq, p_jy)
+    team_b.include(p_zys, p_ctz)
 
     context.teams[team_a.id] = team_a
     context.teams[team_b.id] = team_b

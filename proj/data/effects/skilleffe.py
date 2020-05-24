@@ -87,7 +87,7 @@ EFFECT_HANPIN_ANONYMOUS_DA = \
 # 换骨
 EFFECT_HUANGU = \
     {"style": 1,
-     "module": "proj.builtin.effects", "class": "HuanGuEffect", "level": 25}
+     "module": "proj.builtin.effects", "class": "HuanGuEffect", "level": 20}
 
 EFFECT_HUANGU_ANONYMOUS = \
     {"style": 1,
@@ -157,15 +157,15 @@ EFFECT_MIXING = \
 # 摩诃无量
 EFFECT_MOHEWULIANG_XIAO = \
     {"name": "恒河沙数", "style": 0, "module": "proj.builtin.effects", "class": "MoHeWuLiangEffect", "level": 2,
-     "description": "本次攻击伤害为当前战斗中除本武学外，所有打出的伤害中排名第三高的数值；内力消耗则视伤害与内功修为而定"}
+     "description": "本次攻击伤害为当前战斗除本武学外，所有打出的伤害中排名第三高的数值，内力消耗视伤害与内功修为而定"}
 
 EFFECT_MOHEWULIANG = \
     {"name": "阿僧祇数", "style": 0, "module": "proj.builtin.effects", "class": "MoHeWuLiangEffect", "level": 1,
-     "description": "本次攻击伤害为当前战斗中除本武学外，所有打出伤害里中排名第二高的数值；内力消耗则视伤害与内功修为而定"}
+     "description": "本次攻击伤害为当前战斗除本武学外，所有打出伤害里中排名第二高的数值，内力消耗视伤害与内功修为而定"}
 
 EFFECT_MOHEWULIANG_DA = \
     {"name": "不思议数", "style": 0, "module": "proj.builtin.effects", "class": "MoHeWuLiangEffect", "level": 0,
-     "description": "本次攻击伤害为当前战斗中除本武学外，所有打出的伤害中排名第一高的数值；内力消耗则视伤害与内功修为而定"}
+     "description": "本次攻击伤害为当前战斗除本武学外，所有打出的伤害中排名第一高的数值，内力消耗视伤害与内功修为而定"}
 
 
 # 目盲
@@ -318,10 +318,10 @@ EFFECT_XURUO = \
 EFFECT_YIJIN = \
     {"name": "易筋", "style": 1,
      "module": "proj.builtin.effects", "class": "BattlePersonChangeAttributeEffect",
-     "attrs": [{"name": "hp_max_factor_", "ratio": 1.25},
-               {"name": "mp_max_factor_", "ratio": 1.25},
-               {"name": "attack_factor_", "ratio": 1.25},
-               {"name": "defense_factor_", "ratio": 1.25},]}
+     "attrs": [{"name": "hp_max_factor_", "ratio": 1.2},
+               {"name": "mp_max_factor_", "ratio": 1.2},
+               {"name": "attack_factor_", "ratio": 1.2},
+               {"name": "defense_factor_", "ratio": 1.2},]}
 
 
 # 圆转

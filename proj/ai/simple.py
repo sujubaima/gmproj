@@ -86,6 +86,8 @@ class SimpleAI(object):
             #if b_angle < 0:
             #    b_angle += math.pi
             b_angle = blk[3]
+            if blk[2] < attack_range[0] or blk[2] > attack_range[1]:
+                continue
             if blk[2] < min_d:
                 min_d = blk[2]
             if attack_block == 1 and q_angle >= b_angle and q_info[2] >= min_d:
@@ -281,11 +283,17 @@ class SimpleAI(object):
                                 if effe.tpl_id not in SimpleAI.EFFECT_MAP:
                                     continue
                                 score += SimpleAI.EFFECT_MAP[effe.tpl_id](p, q, effe, self.battle)
-                    if score == 0:
-                        continue
                     #debug_info = [attack_range, attack_angle, attack_block, scope, scope_angle, loc]
                     #object_info = [(obj[0], obj[2], obj[3]) for obj in self.object_info]
                     #person_info = [(obj[0], obj[2], obj[3]) for obj in self.person_info]
+                    if score == 0:
+                        #if p.tpl_id == "PERSON_CHEN_TINGZHI":
+                        #    print(zhaoshi.name, scope)
+                        #    print(debug_info)
+                        #    print(person_info)
+                        #    print(object_info)
+                        continue
+                    
                     action_list = [BattleMoveAction(subject=p, battle=self.battle, target=loc, scope=move_scope, 
                                                     path=self.battle.map.move_trace(loc, self.battle.map.location(p), self.connections)),
                                    BattleSkillAction(subject=p, battle=self.battle, target=scope, counter=False,

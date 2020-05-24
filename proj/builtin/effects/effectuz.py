@@ -124,11 +124,13 @@ class XieJinEffect(Effect):
             return
         if battle.event(subject, BattleEvent.ACTMissed) is not None:
             return 
+        if subject.hp + subject.hp_delta <= 0:
+            return
         effe_factor = self.factor(subject)
         mp_trans = int(battle.event(subject, BattleEvent.HPDamaged)["value"] * self.level * 0.01 * effe_factor)
         subject.hp_delta -= mp_trans
         subject.mp_delta += mp_trans
-        MSG(style=MSG.Effect, subject=subject, effect=self, details={"mp_trans": mp_trans})
+        MSG(style=MSG.Effect, subject=subject, effect=self, details={"mp_trans": -1 * mp_trans})
 
 
 # 虚耗

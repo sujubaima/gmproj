@@ -61,7 +61,7 @@ STATUS_YIJIN = \
 STATUS_HUANGU = \
     {"name": "换骨", "phase": "FinishTurn", "style": 1,
      "functions": [{"id": "EFFECT_HUANGU"}],
-     "description": "前25回合（包括非自身的回合），每回合结束时自身基础暴击率、基础闪避率、基础反击率与基础拆招率+1"}
+     "description": "每回合（包括其他角色的回合）结束时自身基础暴击率、基础闪避率、基础反击率与基础拆招率+1，截止至第20回合"}
 
 STATUS_HUANGU_ANONYMOUS = \
     {"phase": "Instant", "countable": True, "style": 1,
@@ -96,7 +96,7 @@ STATUS_GANGJIN = \
 STATUS_JUJIAN = \
     {"name": "惧剑", "phase": "AfterDamage", "style": 0,
      "functions": [{"id": "EFFECT_JUJIAN"}],
-     "description": "受到剑法类武学攻击时伤害+30%"}
+     "description": "受到剑法类武学攻击时伤害增加"}
 
 
 # 精剑     
