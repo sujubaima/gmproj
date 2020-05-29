@@ -90,6 +90,18 @@ ITEM_SANLENGQIANG = \
      "effects": [{"id": "EXERT.LAMBDA.EFFECT_SANLENGQIANG_ATTR"},
                  {"id": "EXERT.STATUS_GANGJIN"}]}
      
+
+ITEM_TAIJIHUSHOU = \
+    {"name": "太极护手", "rank": 3, "tags": "Equip,Weapon,Boji", "shape": "Around,0,0,0",
+     "weight": 0.2, "volume": 0.2, "durability": 50,
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_TAIJIHUSHOU_ATTR"}]}
+
+
+ITEM_DAGOUBANG = \
+    {"name": "打狗棒", "rank": 4, "tags": "Equip,Weapon,Changbing", "shape": "Around,0,0,0",
+     "weight": 1.4, "volume": 1.2, "durability": 50,
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_DAGOUBANG_ATTR"}]}
+
      
 ITEM_ZHITAO = \
     {"name": "玳瑁指套", "rank": 2, "tags": "Equip,Weapon,Boji", "shape": "Around,0,0,0",

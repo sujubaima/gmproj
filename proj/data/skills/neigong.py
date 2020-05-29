@@ -115,3 +115,11 @@ SKILL_YIJINJING_1 = \
 SKILL_YIJINJING_2 = \
     {"name": "易筋经内篇", "style": "Neigong",
      "effects": [{"id": "EXERT.STATUS_HUANGU"}]}
+
+
+# 虬髯心法
+SKILL_QIURANXINFA_1 = \
+    {"name": "豪气干云", "style": "Neigong",
+     "effects": [{"id": "EXERT.STATUS_HAOQIGANYUN"}]}
+
+

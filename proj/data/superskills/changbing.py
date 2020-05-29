@@ -47,3 +47,14 @@ SUPERSKILL_XICHUBAWANGQIANG = \
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_XICHUBAWANGQIANG_2"}]},
                {"name": "霸王别姬",
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_XICHUBAWANGQIANG_3"}]}]}
+
+
+# 打狗棒法
+SUPERSKILL_DAGOUBANGFA = \
+    {"name": "打狗棒法", "rank": 3,
+     "nodes": [{"name": "棒打狗头", "next": [1],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_DAGOUBANGFA_1"}]},
+               {"name": "獒口夺杖", "next": [2],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_DAGOUBANGFA_2"}]},
+               {"name": "天下无狗",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_DAGOUBANGFA_3"}]}]}

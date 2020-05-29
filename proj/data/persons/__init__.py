@@ -11,3 +11,4 @@ from proj.data.persons.beichenpai import *
 from proj.data.persons.jiuxipai import *
 from proj.data.persons.qingpaohui import *
 from proj.data.persons.wudangpai import *
+from proj.data.persons.gaibang import *

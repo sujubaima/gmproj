@@ -3,12 +3,15 @@ import math
 
 from proj.engine import Message as MSG
 from proj.engine import Order
+from proj.engine import Action
 
 from proj.entity.map import Shape
 from proj.entity import BattlePhase
 from proj.entity import Person
 
 from proj.builtin.actions import BattleStartAction
+from proj.builtin.actions import BattleFinishAction
+from proj.builtin.actions import BattleNewTurnAction
 from proj.builtin.actions import BattleMoveAction
 from proj.builtin.actions import BattleSkillAction
 from proj.builtin.actions import BattleItemAction
@@ -38,48 +41,10 @@ class BattleStartOrder(BattleOrder):
 class BattleFinishOrder(BattleOrder):
 
     def carry(self):
-        self.battle.finish()
+        BattleFinishAction(battle=self.battle).do()
         if not self.battle.silent:
-            result = context.PLAYER.team.result
-            explist = []
-            nodelist = []
-            itemlist = []
-            if result:
-                for p in self.battle.all:
-                    if p.team != context.PLAYER.team:
-                        continue
-                    exp = self.battle.exps[p.id]
-                    explist.append((p, exp))
-                    if p.studying is not None:
-                        p.exp += exp
-                        if p.exp >= p.studying.exp:
-                            nodelist.append((p, p.studying))
-                            p.studying.learn(p)
-                            p.studying = None
-                            p.exp = 0
-            MSG(style=MSG.BattleFinish, result=result, explist=explist, nodelist=nodelist, itemlist=itemlist)
-            if not result and self.battle.death:
+            if not context.PLAYER.team.result and self.battle.death:
                 GameFailAction().do()
-        else:
-            teamwinner = None
-            teamloser = None
-            teamset = set()
-            for p in self.battle.all:
-                if p.team.id in teamset:
-                    continue
-                teamset.add(p.team.id)
-                if not p.team.result:
-                    if teamloser is None:
-                        teamloser = p.team
-                    p.team.scenario.remove(p.team)
-                    p.team.scenario = None
-                    context.teams.pop(p.team.id)
-                else:
-                    if teamwinner is None:
-                        teamwinner = p.team
-                p.team.follow = None
-                p.team.target = p.team.stash.get("target", None)
-            MSG(style=MSG.BattleFinishSilent, winner=teamwinner, loser=teamloser)
 
 
 class BattlePlayerOrder(BattleOrder):
@@ -93,15 +58,7 @@ class BattleNewTurnOrder(BattleOrder):
     def carry(self):
         if self.turncount is None:
             self.turncount = 1
-        self.battle.finish_turn()
-        if self.battle.finished():
-            #WorldProcessOrder()
-            return
-        self.battle.start_turn()
-        #print(self.battle.current.name, Person.one("PERSON_YANG_LEI").hp, Person.one("PERSON_ZHAO_SHENJI").hp)
-        if not self.battle.silent:
-            MSG(style=MSG.BattleNewTurn, battle=self.battle, subject=self.battle.current, persons=self.battle.snapshot(False))
-        self.battle.status_work(BattlePhase.StartTurn)
+        BattleNewTurnAction(battle=self.battle).do()
         if self.battle.controllable():
             self.battle.current.stash["original_position"] = self.battle.map.location(self.battle.current)
             self.battle.current.stash["original_direction"] = self.battle.current.direction

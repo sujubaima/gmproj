@@ -137,7 +137,10 @@ class XieJinEffect(Effect):
 class XuHaoEffect(Effect):
 
     def work(self, subject, objects=[], **kwargs):
-        pass
+        battle = kwargs["battle"]
+        if subject != battle.sequence[-1]["action"].subject:
+            return
+        subject.mp_delta *= 2
 
 
 # 虚晃
@@ -254,3 +257,46 @@ class YuDuEffect(Effect):
             if poison_mp != 0 and not battle.silent:
                 MSG(style=MSG.Effect, subject=subject, effect=self, details={"object": obj.name, "poison_mp": -1 * poison_mp})
 
+
+# 浴血
+class YuXueEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if subject == battle.sequence[-1]["action"].subject:
+            return
+        if subject not in battle.sequence[-1]["action"].objects:
+            return
+        if battle.event(subject, BattleEvent.ACTMissed) is not None:
+            return
+        base_damage = battle.event(subject, BattleEvent.HPDamaged)["value"]
+        effe_factor = self.factor(subject)
+        sub_loc = battle.map.location(subject)
+        for loc in battle.map.circle(sub_loc, 2):
+            obj = battle.map.loc_entity.get(loc, None)
+            if obj is None or not battle.is_enemy(subject, obj):
+                continue
+            hp_delta = common.random_gap(base_damage * 0.01 * self.level * effe_factor, 0.025)
+            obj.hp_delta += hp_delta
+            if not battle.silent:
+                MSG(style=MSG.Effect, subject=subject, effect=self,
+                details={"object": obj.name, "hp_delta": -1 * hp_delta})
+       
+
+# 震慑
+class ZhenSheEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        status = kwargs["status"]
+        if subject != battle.sequence[-1]["action"].subject:
+            return
+        if len(objects) == 0:
+            objects = battle.sequence[-1]["action"].objects 
+        for obj in objects:
+            if battle.event(obj, BattleEvent.ACTMissed) is not None:
+                continue
+            if obj != status.exertor:
+                continue
+            obj.hp_delta = int(obj.hp_delta * 0.8)
+            obj.mp_delta = int(obj.mp_delta * 0.8)

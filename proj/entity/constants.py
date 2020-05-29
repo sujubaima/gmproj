@@ -2,7 +2,9 @@
 
 AttrText = \
   {"attack_": "基础攻击",
+   "attack_factor_": "基础攻击",
    "defense_": "基础防御",
+   "defense_factor_": "基础防御",
    "hit_rate_": "基础命中",
    "hit_rate_factor_": "命中率",
    "counter_rate_": "基础反击",

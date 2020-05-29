@@ -41,7 +41,7 @@ class BattlePersonChangeAttributeEffect(PersonChangeAttributeEffect):
     """
     def work(self, subject, objects=[], **kwargs):
         status = kwargs.get("status", None)
-        if status is not None and status.exertor is not None and self.influence is not None:
+        if status is not None and status.exertor is not None:
             effe_factor = self.factor(status.exertor)
             if subject != status.exertor:
                 sub_factor = self.factor(subject, reverse=True)

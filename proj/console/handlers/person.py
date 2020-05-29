@@ -152,7 +152,7 @@ def skills(p):
         isk_str = ui.inner_skill(p.running, p)[0]
         ret.append("  %s" % isk_str)
     ret.append("")
-    ret.append("【习得武学】")
+    ret.append("【使用武学】")
     ret.append("")
     #str_list = ["一", "二", "三", "四", "五", "六", "七", "八", "九", ]
     for idx, sk in enumerate(p.skills):

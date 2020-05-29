@@ -3,6 +3,17 @@
 EFFECT_EXERT = {"name": "", "module": "proj.entity.effect", "class": "ExcertEffect"}
 
 
+# 拔狗牙
+EFFECT_BAGOUYA = \
+    {"name": "拔狗牙",
+     "module": "proj.builtin.effects", "class": "BaGouYaEffect"}
+
+
+# 打狗头
+EFFECT_DAGOUTOU = \
+    {"name": "打狗头",
+     "module": "proj.builtin.effects", "class": "DaGouTouEffect"}
+
 # 拔山劲    
 EFFECT_BASHANJIN = \
     {"style": 1, "module": "proj.builtin.effects", "class": "BattlePersonChangeAttributeEffect",
@@ -35,7 +46,12 @@ EFFECT_CUOGU = \
 
 # 定身
 EFFECT_DINGSHEN = \
-    {"style": 1, "module": "proj.builtin.effects", "class": "DingShenEffect"}
+    {"style": 1, "module": "proj.builtin.effects", "class": "JinYongEffect", "action": "Move"}
+
+
+# 弃武
+EFFECT_QIWU = \
+    {"style": 1, "module": "proj.builtin.effects", "class": "JinYongEffect", "action": "Attack"}
 
 
 # 断筋
@@ -66,6 +82,17 @@ EFFECT_GONGQI_DA = \
      "influence": "Zhi", "factor_middle": 1, "factor_upper": 1.5,
      "text": "额外造成{mp_drain}点内力伤害",
      "description": "较高比例的伤害追加为内力伤害，颖悟值越高比例越大"}
+
+
+# 豪气干云
+EFFECT_HAOQIGANYUN = \
+    {"name": "豪气干云", "style": 1,
+     "module": "proj.builtin.effects", "class": "HaoQiGanYunEffect"}
+
+EFFECT_HAOQIGANYUN_ANONYMOUS = \
+    {"style": 1,
+     "module": "proj.builtin.effects", "class": "BattlePersonChangeAttributeEffect",
+     "attrs": [{"name": "speed_", "delta": 10}]}
 
 
 # 含颦
@@ -128,6 +155,19 @@ EFFECT_GANGJIN_DA = \
      "influence": "Gang", "factor_middle": 1, "factor_upper": 1.5,
      "text": "对{object}施加了{injury}点外伤",
      "description": "较大比例的伤害追加为外伤，刚猛值越高效果越佳"}
+
+
+# 剑云
+EFFECT_JIANYUN = \
+    {"name": "云剑", "style": 1,
+     "module": "proj.builtin.effects", "class": "JianYunEffect",
+     "text": "在{location}及其周边地块施放了剑气",
+     "description": "在目标及其周边2格地块施放一团剑气，在该区域内停留的敌方单位均会遭受伤害"}
+
+EFFECT_JIANYUN_ANONYMOUS = \
+    {"name": "云剑", "style": 1,
+     "module": "proj.builtin.effects", "class": "JianYunAnonymousEffect",
+     "text": "{object}在剑云中受到{hp_delta}点伤害"}
 
 
 # 金关玉锁     
@@ -196,6 +236,14 @@ EFFECT_NIMAI_DEFENSE = \
      "description": "防御时有一定几率将耗血改为耗气，但自身会受到一定程度内伤"}
 
 
+# 盘根
+EFFECT_PANGEN = \
+    {"name": "盘根", "style": 1,
+     "module": "proj.builtin.effects", "class": "PanGenEffect",
+     "text": "移除了{status}状态",
+     "description": "若攻击前未发生移动，可随机移除自身一个负面状态"}
+
+
 # 柔劲
 EFFECT_ROUJIN = \
     {"name": "柔劲", "style": 0,
@@ -245,6 +293,13 @@ EFFECT_MINGYUEZHAODAJIANG_ANONYMOUS = \
      "influence": "Jing", "factor_middle": 1, "factor_upper": 2}
 
 
+# 端狗窝
+EFFECT_DUANGOUWO = \
+    {"name": "端狗窝",
+     "module": "proj.builtin.effects", "class": "DuanGouWoEffect",
+     "description": "攻击范围内敌方单位越多，伤害越高"}
+
+
 # 吸髓
 EFFECT_XISUI = \
     {"name": "吸髓", "style": 0,
@@ -291,6 +346,14 @@ EFFECT_XIXUE_DA = \
      "description": "从施加的伤害中吸取大量气血，颖悟值越高吸血效果越佳"}
 
 
+# 卸甲
+EFFECT_XIEJIA = \
+    {"name": "卸甲", "style": 0,
+     "module": "proj.builtin.effects", "class": "BattlePersonChangeAttributeEffect",
+     "attrs": [{"name": "defense_factor_", "ratio": 0.5}],
+     "description": "基础防御降低"}
+
+
 # 虚耗
 EFFECT_XUHAO = \
     {"name": "虚耗", "style": 0,
@@ -322,6 +385,15 @@ EFFECT_YIJIN = \
                {"name": "mp_max_factor_", "ratio": 1.2},
                {"name": "attack_factor_", "ratio": 1.2},
                {"name": "defense_factor_", "ratio": 1.2},]}
+
+
+# 浴血
+EFFECT_YUXUE = \
+    {"name": "浴血", "style": 1,
+     "module": "proj.builtin.effects", "class": "YuXueEffect", "level": 30,
+     "influence": "Gang", "factor_middle": 1, "factor_upper": 1.5,
+     "text": "{object}受到{hp_delta}点溅射伤害",
+     "description": "受到伤害的一部分会溅射给周身2格内所有敌方单位"}
 
 
 # 圆转
@@ -658,6 +730,13 @@ EFFECT_TONGGUI = \
      "module": "proj.builtin.effects", "class": "TongGuiEffect",
      "text": "对{object}的攻击伤害翻倍",
      "description": "对目标的攻击伤害翻倍"}
+
+
+# 震慑
+EFFECT_ZHENSHE = \
+    {"name": "震慑",
+     "module": "proj.builtin.effects", "class": "ZhenSheEffect",
+     "description": "对施加者的攻击伤害降低"}
      
 
 EFFECT_4 = {"name": "退敌", "module": "proj.builtin.effect", "class": "TuiDiEffect"}

@@ -94,21 +94,22 @@ class Battle(object):
             p.team.battle = self
             p.hp = p.hp_limit
             p.mp = p.mp_limit
-            if p.yunzhuan is not None:
-                for st in p.yunzhuan.status:
-                    p.status.append((st, p, p.yunzhuan))
         for j in [0, 1]:
-            idx = 0
-            for p in self.groups[j]:
+            for idx, p in enumerate(self.groups[j]):
                 loc_x, loc_y = self.map.start_locs[j][idx]
                 self.map.locate(p, (loc_x, loc_y))
-                p.direction = self.map.direction(self.map.entity_loc[p.id], 
-                                                 self.map.center_point(self.map.start_locs[1 - j]))
-                self.moved[p.id] = False
-                self.attacked[p.id] = False
-                self.itemed[p.id] = False
-                idx += 1
-        self.status_work(BattlePhase.Start)
+                #p.direction = self.map.direction(self.map.entity_loc[p.id], 
+                #                                 self.map.center_point(self.map.start_locs[1 - j]))
+        for p in self.alive:
+            enemies_locs = []
+            for ene in self.enemies(p):
+                if ene.id not in self.map.entity_loc:
+                    continue
+                enemies_locs.append(self.map.location(ene))
+            p.direction = self.map.direction(self.map.location(p), self.map.center_point(enemies_locs))
+            self.moved[p.id] = False
+            self.attacked[p.id] = False
+            self.itemed[p.id] = False
         
     def finish(self):
         teamset = set()
@@ -126,12 +127,14 @@ class Battle(object):
         for p in self.all:
             if p.team == context.PLAYER.team:
                 self.exps[p.id] == exp_total * p.study_rate // friend_count
+        self.battle.reset_delta()
         self.status_work(BattlePhase.Finish)
+        self.deal()
         for p in self.all:
             p.battle = None
             for sts in p.status:
                 if sts.leftturn >= 0:
-                    sts.leave(p)
+                    sts.leave(p, battle=self)
 
     def start_turn(self):
         itm = self.pick()
@@ -146,10 +149,8 @@ class Battle(object):
         return itm
         
     def finish_turn(self):
-        self.reset_delta()
         self.update_status()
         #self.update_skill()
-        self.status_work(BattlePhase.FinishTurn)
         #self.update_alive()
         
     def append_group(self, group, allies=[]):
@@ -167,6 +168,14 @@ class Battle(object):
             else:
                 itm.process += int(min[1] * itm.speed)
         return min[0]
+
+    def quit(self, person):
+        self.alive.remove(person)
+        self.dead.append(person)
+        self.map.remove(person)
+        for sts in person.status:
+            if sts.leftturn >= 0:
+                sts.leave(person, battle=self)
         
     def controllable(self):
         #return True
@@ -283,7 +292,7 @@ class Battle(object):
                 st.leftturn -= 1
             if st.leftturn != 0:
                 continue
-            st.leave(p)
+            st.leave(p, battle=self)
             #Status.remove(st)
 
     def update_skill(self):
@@ -389,11 +398,13 @@ class Battle(object):
             dire_ratio = 1.2
         else:
             dire_ratio = 1
-        real_attack += skill.power * mp_rate * math.pow(1.005, vp) * math.pow(1.002, p.neigong) * p.yinyang_rate(skill.yinyang)
+        act_neigong_p = int(p.neigong * (p.mp_limit / p.mp_max))
+        act_neigong_q = int(q.neigong * (q.mp_limit / q.mp_max))
+        real_attack += skill.power * mp_rate * math.pow(1.005, vp) * math.pow(1.002, act_neigong_p) * p.yinyang_rate(skill.yinyang)
         #real_attack_base = real_attack
         #real_attack_skill = int(skill.power * math.pow(1.005, vp) * math.pow(1.002, p.neigong) * p.yinyang_rate(skill.yinyang))
         #real_attack = int(math.sqrt(real_attack_base * real_attack_skill) * mp_rate)
-        real_defense *= math.pow(1.005, vq) * math.pow(1.002, q.neigong) * max(1, q.yinyang_rate(skill.yinyang))
+        real_defense *= math.pow(1.005, vq) * math.pow(1.002, act_neigong_q) * max(1, q.yinyang_rate(skill.yinyang))
         real_attack -= max(p.hunger - 500, 0)
         real_attack = int(real_attack * 0.6)
         real_defense = int(real_defense * 0.6)
@@ -411,7 +422,8 @@ class Battle(object):
             #hp_damaged = hp_damaged * p.critical_damage
             hp_damaged = hp_damaged * 1.8
         if should_anti_damage:
-            hp_damaged = hp_damaged * 0.5
+            #hp_damaged = max(1, hp_damaged * 0.5)
+            hp_damaged = max(1, hp_damaged * q.anti_damage)
         return int(hp_damaged), int(mp_damaged), should_critical, should_anti_damage
 
     def check_weapon_before(self, p, skill):
@@ -420,7 +432,7 @@ class Battle(object):
         if skill.double_weapon is not None:
             equip_b.leave(p)
             p.vice_enable = True
-            equip_b.work(p)
+            equip_b.work(p, position=1)
         else:
             if equip_a is None or len(skill.style & equip_a.tags) == 0:
                 if equip_a is not None:
@@ -429,14 +441,14 @@ class Battle(object):
                     equip_b.leave(p)
                     equip_b.work(p)
                 if equip_a is not None:
-                    equip_a.work(p)
+                    equip_a.work(p, position=1)
                 
     def check_weapon_after(self, p, skill):
         if skill.double_weapon is not None:
             equip_b = p.equipment[1]
             equip_b.leave(p)
             p.vice_enable = False
-            equip_b.work(p)
+            equip_b.work(p, position=1)
 
     def start_cd(self, p, skill, cd=None):
         if p.id not in self.cdmap:
@@ -518,3 +530,17 @@ class Battle(object):
         if ret < 0:
             ret = 0
         return ret
+
+    def deal(self, persons=None):
+        if persons is None:
+            persons = self.alive
+        if not isinstance(persons, list):
+            persons = [persons]
+        for p in persons:
+            if p.hp_delta == 0 and p.mp_delta == 0:
+                continue
+            p.correct()
+            p.hp += p.hp_delta
+            p.mp += p.mp_delta
+            self.add_event(p, BattleEvent.HPChanged, value=p.hp_delta)
+            self.add_event(p, BattleEvent.MPChanged, value=p.mp_delta)

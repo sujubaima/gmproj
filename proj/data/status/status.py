@@ -29,12 +29,43 @@ STATUS_TAIJIJIN = \
 STATUS_DINGSHEN = \
     {"name": "定身", "phase": "StartTurn", "accepttype": "Overlap",
      "functions": [{"id": "EFFECT_DINGSHEN"}],
-     "description": "回合中无法移动"}
+     "description": "无法主动移动"}
+
+
+# 弃武
+STATUS_QIWU = \
+    {"name": "弃武", "phase": "StartTurn", "accepttype": "Overlap",
+     "functions": [{"id": "EFFECT_QIWU"}],
+     "description": "无法主动攻击"}
+
+
+# 豪气干云
+STATUS_HAOQIGANYUN = \
+    {"name": "豪气干云", "phase": "AfterAttack", "style": 1,
+     "functions": [{"id": "EFFECT_HAOQIGANYUN"}],
+     "description": "每次攻击只要命中单位，自身时序速度便会提升"}
+
+STATUS_HAOQIGANYUN_ANONYMOUS = \
+    {"phase": "Instant", "style": 1, "countable": True, "accepttype": "Overlap", "overtype": "Exert",
+     "functions": [{"id": "EFFECT_HAOQIGANYUN_ANONYMOUS"}]}
+
+
+# 剑云
+STATUS_JIANYUN_ANONYMOUS = \
+    {"phase": "FinishTurn", "style": 1, "accepttype": "Overlap", "overtype": "Exert",
+     "functions": [{"id": "EFFECT_JIANYUN_ANONYMOUS"}]}
+
+
+# 卸甲
+STATUS_XIEJIA = \
+    {"name": "卸甲", "phase": "Instant", "style": 0,
+     "functions": [{"id": "EFFECT_XIEJIA"}],
+     "description": "基础防御下降"}
 
 
 # 卸劲
 STATUS_XIEJIN = \
-    {"name": "卸劲", "phase": "AfterAttack", "style": 1,
+    {"name": "卸劲", "phase": "AfterAttack", "accepttype": "Overlap", "style": 1,
      "functions": [{"id": "EFFECT_XIEJIN"}],
      "description": "可以用内力抵消一部分伤害"}
 
@@ -52,6 +83,13 @@ STATUS_XUHAO = \
      "description": "攻击时消耗更多内力"}
 
 
+# 虚弱
+STATUS_XURUO = \
+    {"name": "虚弱", "phase": "AfterAttack",
+     "functions": [{"id": "EFFECT_XURUO"}],
+     "description": "基础攻击下降"}
+
+
 # 易筋
 STATUS_YIJIN = \
     {"name": "易筋", "phase": "Instant", "style": 1,
@@ -66,6 +104,13 @@ STATUS_HUANGU = \
 STATUS_HUANGU_ANONYMOUS = \
     {"phase": "Instant", "countable": True, "style": 1,
      "functions": [{"id": "EFFECT_HUANGU_ANONYMOUS"}]}
+
+
+# 浴血
+STATUS_YUXUE = \
+    {"name": "浴血", "phase": "AfterAttack", "style": 1,
+     "functions": [{"id": "EFFECT_YUXUE"}],
+     "description": "受到攻击时，部分伤害会溅射给周身2格内所有敌方单位"}
 
 
 # 神准
@@ -125,6 +170,13 @@ STATUS_MIXING = \
     {"name": "迷形", "phase": "AfterAttack", "style": 1,
      "functions": [{"id": "EFFECT_MIXING"}],
      "description": "受到攻击时，对方的朝向逆转"}     
+
+
+# 震慑
+STATUS_ZHENSHE = \
+    {"name": "震慑", "phase": "AfterDamage",
+     "functions": [{"id": "EFFECT_ZHENSHE"}],
+     "description": "对状态施加者的攻击伤害减低"}
 
 
 STATUS_GUHUO = \
@@ -243,7 +295,7 @@ STATUS_CUOGU = \
 STATUS_QIANCHAN = \
     {"name": "牵缠", "phase": "Instant", "style": 0,
      "functions": [{"id": "EFFECT_QIANCHAN"}],
-     "description": "闪避率暂时减少"}
+     "description": "闪避率暂时降低"}
 
 
 STATUS_LONGXING = \

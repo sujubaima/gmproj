@@ -451,6 +451,13 @@ SUPERSKILL_GAOYUANWUJIGONG = \
                ]}
 
 
+# 虬髯心法
+SUPERSKILL_QIURANXINFA = \
+    {"name": "虬髯心法", "rank": 2,
+     "nodes": [{"name": "豪气干云",
+                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_QIURANXINFA_1"}]}]}
+
+
 # 太极神功
 SUPERSKILL_TAIJISHENGONG = \
     {"name": "太极神功", "rank": 3,

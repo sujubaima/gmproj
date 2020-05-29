@@ -73,3 +73,14 @@ SUPERSKILL_TAIJIQUAN = \
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TAIJIQUAN_2"}]},
                {"name": "如封似闭",
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TAIJIQUAN_3"}]}]}
+
+
+# 降龙十八掌
+SUPERSKILL_XIANGLONGSHIBAZHANG = \
+    {"name": "降龙十八掌", "rank": 3,
+     "nodes": [{"name": "亢龙有悔", "next": [1],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_XIANGLONGSHIBAZHANG_1"}]},
+               {"name": "见龙卸甲", "next": [2],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_XIANGLONGSHIBAZHANG_2"}]},
+               {"name": "龙战于野",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_XIANGLONGSHIBAZHANG_3"}]}]}

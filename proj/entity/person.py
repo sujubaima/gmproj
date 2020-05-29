@@ -60,7 +60,7 @@ class Person(Entity):
                        "neigong", "boji", "jianfa", "daofa", "changbing", "anqi", "qimen"]):
             self.stash["tpl_%s" % k] = v
         elif k in set(["hp_max", "mp_max", "attack", "defense", "motion", 
-                       "counter_rate", "hit_rate"]):
+                       "counter_rate", "dodge_rate", "critical_rate", "anti_damage_rate", "hit_rate"]):
             self.stash["tpl_%s_" % k] = v
         else:
             setattr(self, k, v)
@@ -75,7 +75,7 @@ class Person(Entity):
         for k in set(["dongjing", "gangrou", "zhipu", "yinyang",
                        "neigong", "boji", "jianfa", "daofa", "changbing", "anqi", "qimen",
                        "hp_max_", "mp_max_", "attack_", "defense_", "motion_",
-                       "counter_rate_", "hit_rate_"]):
+                       "counter_rate_", "dodge_rate_", "critical_rate_", "anti_damage_rate_", "hit_rate_"]):
             tpl_key = "tpl_%s" % k
             if tpl_key in self.stash:
                 setattr(self, k, self.stash.pop(tpl_key))
@@ -198,35 +198,35 @@ class Person(Entity):
         self.zoc_scope = 1
         self.zoc_value = 99
         self.movitivity = set(["TERRAN_BLANK", "TERRAN_ROAD", "TERRAN_GRASS", "TERRAN_FLOWER_RED", "TERRAN_FLOWER_YELLOW"
-                               "TERRAN_HILL", "TERRAN_FOREST", "TERRAN_DESERT", "TERRAN_SNOW"])
+                               "TERRAN_HILL", "TERRAN_FOREST", "TERRAN_DESERT", "TERRAN_SNOW", "TERRAN_CLOUD"])
         self.locativity = set(["TERRAN_BLANK", "TERRAN_ROAD", "TERRAN_GRASS", "TERRAN_FLOWER_RED", "TERRAN_FLOWER_YELLOW", 
-                               "TERRAN_HILL", "TERRAN_FOREST", "TERRAN_DESERT", "TERRAN_SNOW"])
+                               "TERRAN_HILL", "TERRAN_FOREST", "TERRAN_DESERT", "TERRAN_SNOW", "TERRAN_CLOUD"])
 
         # 命中率
         #self.register("hit_rate", middle=0.96, upper=1.15)
         self.register("hit_rate", middle=1, upper=1.04, base=0.94)
         # 闪避率
-        self.register("dodge_rate", middle=1, upper=2, base=0.05)
+        self.register("dodge_rate", middle=1, upper=1.5, base=0.04)
         # 反击率
-        self.register("counter_rate", middle=1, upper=2, base=0.05)
+        self.register("counter_rate", middle=1, upper=1.5, base=0.04)
         # 拆招率
-        self.register("anti_damage_rate", middle=1, upper=2, base=0.05)
+        self.register("anti_damage_rate", middle=1, upper=1.5, base=0.04)
         # 拆招减伤
         self.register("anti_damage", middle=0.7, upper=0.85)
         # 暴击率
-        self.register("critical_rate", middle=1, upper=2, base=0.05)
+        self.register("critical_rate", middle=1, upper=1.5, base=0.04)
         # 暴击伤害
-        self.register("critical_damage", lower=1.1, upper=1.8)
+        self.register("critical_damage", lower=1.15, upper=1.75)
         # 休息回复率
         self.register("hp_recover_rate", middle=0.1, upper=0.2)
         self.register("mp_recover_rate", middle=0.1, upper=0.2)
         # 医疗效果
         self.register("rescue_rate", middle=1, upper=2)
         # 伤病抗性
-        self.register("anti_injury_rate", lower=0.8, middle=1)
-        self.register("anti_wound_rate", lower=0.8, middle=1)
+        self.register("anti_injury_rate", lower=0.75, middle=1)
+        self.register("anti_wound_rate", lower=0.75, middle=1)
         # 中毒抗性
-        self.register("anti_poison_rate", lower=0.8, middle=1)
+        self.register("anti_poison_rate", lower=0.75, middle=1)
         # 基础攻击加成
         self.register("attack", middle=1, upper=1.5, base=250)
         # 基础防御加成
@@ -241,7 +241,7 @@ class Person(Entity):
         #self.register("motion", lower=1, middle=3, upper=5.6, base=0)
         self.register("motion", lower=1.9, middle=3.5, upper=5.1, base=-1)
         # 时序速度
-        self.register("speed", lower=1, upper=2.5, base=100)
+        self.register("speed", middle=1, upper=1.6, base=160)
         # 经验获取效率
         self.register("study_rate", middle=1, upper=1.5)
         # 背包大小
@@ -311,7 +311,6 @@ class Person(Entity):
     @property
     def anti_damage_rate(self):
         return self.anti_damage_rate_ * self.anti_damage_rate_factor_ * round(self.anti_damage_rate_exp.value(self.zhipu), 4)
-        #return self.counter_rate_ * round(self.counter_rate_exp.value(-1 * self.dongjing), 4)
         
     @property
     def anti_damage(self):
@@ -321,11 +320,11 @@ class Person(Entity):
     @property
     def critical_rate(self):
         #return self.critical_rate_ * round(self.critical_rate_exp.value(self.zhipu), 4)
-        return self.critical_rate_ * self.critical_rate_factor_ * round(self.critical_rate_exp.value(-1 * self.gangrou), 4)
+        return self.critical_rate_ * self.critical_rate_factor_ * round(self.critical_rate_exp.value(self.zhipu), 4)
 
     @property
     def critical_damage(self):
-        return self.critical_damage_ * round(self.critical_damage_exp.value(self.zhipu), 4)
+        return self.critical_damage_ * round(self.critical_damage_exp.value(self.gangrou), 4)
 
     @property
     def hp_recover_rate(self):
@@ -357,11 +356,11 @@ class Person(Entity):
 
     @property
     def anti_injury(self):
-        return self.anti_injury_rate_ * round(self.anti_injury_rate_exp.value(self.gangrou), 4)
+        return self.anti_injury_rate_ * round(self.anti_injury_rate_exp.value(-1 * self.gangrou), 4)
 
     @property
     def anti_wound(self):
-        return self.anti_wound_rate_ * round(self.anti_wound_rate_exp.value(-1 * self.gangrou), 4)
+        return self.anti_wound_rate_ * round(self.anti_wound_rate_exp.value(self.gangrou), 4)
 
     @property
     def anti_poison(self):

@@ -211,12 +211,21 @@ def handler_battle_map(ctx):
     ui.map(map, entities=battle_person_handler(ctx.persons))
    
 
+def handler_battle_finish_turn(ctx):
+    map = ctx.battle.map
+    if not ui.blankline():
+        ui.echo()
+    ui.map(map, entities=battle_person_handler(ctx.persons, show_events=True))
+    ui.echo()
+    ui.read("（回车继续）")
+
+
 def handler_battle_new_turn(ctx):
     map = ctx.battle.map
     map.window_center(ctx.persons[ctx.battle.current.id]["location"])
     if not ui.blankline():
         ui.echo()
-    ui.map(map, entities=battle_person_handler(ctx.persons))
+    ui.map(map, entities=battle_person_handler(ctx.persons, show_events=True))
     ui.echo()
     ui.echo("轮到%s行动。" % ctx.subject.name)
     ui.echo()
@@ -265,7 +274,7 @@ def handler_battle_move_finish(ctx):
     if not ctx.motivated or (not ctx.battle.controllable() and len(ctx.path) > 1):
         ui.echo()
         #ui.map(map, entities=ctx.persons, coordinates=ctx.path, coordinate_color="blue")
-        ui.map(map, entities=battle_person_handler(ctx.persons))
+        ui.map(map, entities=battle_person_handler(ctx.persons, show_events=True))
         ui.echo()
         ui.echo("%s移动至%s。" % (ctx.subject.name, ctx.target))
         ui.echo()

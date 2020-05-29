@@ -8,6 +8,7 @@ from proj.entity import Effect
 from proj.entity import Status
 from proj.entity import BattleEvent
 from proj.entity import BattlePhase
+from proj.entity import Terran
 from proj.entity import common
 from proj.entity.effect import ExertEffect
 
@@ -40,6 +41,27 @@ class HanPinEffect(Effect):
         elif sts_count < len(pc_sts):
             for sts in pc_sts[0: len(pc_sts) - sts_count]:
                 sts.leave(subject)
+
+
+# 豪气干云
+class HaoQiGanYunEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if subject == battle.sequence[-1]["action"].subject:
+            return
+        if len(objects) == 0:
+            objects = battle.sequence[-1]["action"].objects
+        hit = False
+        for obj in objects:
+            if battle.event(obj, BattleEvent.ACTMissed) is not None:
+                hit = True
+                break
+        sts_tpl = "STATUS_HAOQIGANYUN_ANONYMOUS"
+        if hit:
+            sts = Status.template(sts_tpl)
+            subject.status.append(sts)
+            sts.work(subject)
 
 
 # 化瘀
@@ -100,6 +122,75 @@ class HuiChunEffect(Effect):
                 MSG(style=MSG.Effect, subject=subject, effect=self, details={"object": obj.name, "recover": recover})
 
 
+# 剑云
+class JianYunEffect(ExertEffect):
+
+    def initialize(self):
+        super(JianYunEffect, self).initialize()
+        sts_tpl = "STATUS_JIANYUN_ANONYMOUS"
+        self.exertion = Status.template(sts_tpl) 
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        target = battle.sequence[-1]["action"].target
+        stash_key = "JianYunStash"
+        if stash_key not in battle.map.stash:
+            battle.map.stash[stash_key] = {}
+        locations = []
+        for loc in battle.map.circle(target, 2, mr=0):
+            grid = battle.map.xy[loc[0]][loc[1]]
+            if grid.object is not None:
+                continue
+            if not loc in battle.map.stash[stash_key]:
+                battle.map.stash[stash_key][loc] = grid.terran
+                new_terran = Terran.template("TERRAN_CLOUD")
+                new_terran.tpl_id = grid.terran.tpl_id
+                grid.terran = new_terran
+            locations.append(loc)
+        super(JianYunEffect, self).work(subject, objects=objects, 
+                                        status_attr={"locations": locations}, **kwargs)
+
+
+class JianYunAnonymousEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        status = kwargs["status"]
+        jy_sts = []
+        for sts in subject.status:
+            if sts.tpl_id == status.tpl_id:
+                jy_sts.append(sts) 
+        if len(jy_sts) > 1 and jy_sts[0] != status:
+            return
+        stash_key = "JianYunStash"
+        p = battle.current
+        if battle.is_friend(subject, p):
+            return
+        p_loc = battle.map.location(p)
+        if stash_key not in battle.map.stash or \
+           p_loc not in battle.map.stash[stash_key]:
+            return
+        hp_delta = int(subject.attack_base * 0.75)
+        p.hp_delta -= hp_delta
+        if not battle.silent:
+            MSG(style=MSG.Effect, subject=subject, effect=self,
+                details={"object": p.name, "hp_delta": hp_delta})
+
+    def leave(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        status = kwargs["status"]
+        stash_key = "JianYunStash"
+        loc_set = set()
+        for sts in subject.status:
+            if sts != status and sts.tpl_id == status.tpl_id:
+                loc_set.update(sts.locations)
+        for loc in status.locations:
+            if loc not in loc_set:
+                grid = battle.map.xy[loc[0]][loc[1]]
+                old_terran = battle.map.stash[stash_key].pop(loc)
+                grid.terran = old_terran
+
+
 # 接骨
 class JieGuEffect(Effect):
 
@@ -114,6 +205,20 @@ class JieGuEffect(Effect):
             if battle is not None and not battle.silent:
                 MSG(style=MSG.Effect, subject=subject, effect=self,
                     details={"object": obj.name, "injury_recover": injury_recover})
+
+
+# 禁用
+class JinYongEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if self.action == "Move":
+            sts_map = battle.moved
+        elif self.action == "Attack":
+            sts_map = battle.attacked
+        elif self.action == "Item":
+            sts_map = battle.itemed
+        sts_map[subject.id] = True
 
 
 # 精武
@@ -136,12 +241,8 @@ class JingWuEffect(Effect):
             effe_on = True
             hp_enhance = int(obj.hp_delta * 0.01 * self.level)
             mp_enhance = int(obj.mp_delta * 0.01 * self.level)
-            #old_delta = obj.hp_delta
             obj.hp_delta += hp_enhance
             obj.mp_delta += mp_enhance
-            #obj.correct()
-            #if obj.hp_delta != old_delta:
-            #    battle.event(obj, BattleEvent.HPDamaged)["value"] += obj.hp_delta - old_delta
         if not battle.silent and effe_on:
             MSG(style=MSG.Effect, subject=subject, effect=self, details={"enhance": "%s%%" % self.level})
 
@@ -386,7 +487,8 @@ class MoHeWuLiangEffect(Effect):
            return
        if len(objects) == 0:
            objects = battle.sequence[-1]["action"].objects
-       damagelist = [-1]
+       #damagelist = [-1]
+       damagelist = []
        for seq in battle.sequence:
            if not isinstance(seq["action"], BattleSkillAction):
                continue
@@ -402,7 +504,11 @@ class MoHeWuLiangEffect(Effect):
                    damagelist.append(hp_damaged)
        damagelist.sort()
        idx = self.level
-       damage_base = damagelist[self.level] if len(damagelist) >= self.level + 1 else -1
+       #damage_base = damagelist[self.level] if len(damagelist) >= self.level + 1 else -1
+       if len(damagelist) == 0:
+           damage_base = -1
+       else:
+           damage_base = damagelist[min(len(damagelist) - 1, self.level)]
        mp_base = min(-1, int(damage_base * 0.3))
        skill_ability = battle.calculate_weapon(battle.sequence[-1]["action"].skill, subject, subject)[0]
        mp_skill = -1 * int(mp_base * math.pow(1.004, 100 - subject.neigong) * math.pow(1.004, 100 - skill_ability))

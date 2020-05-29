@@ -12,17 +12,6 @@ PERSON_WAN_PENGFEI = \
      "conversation": "DIALOG_WANPENGFEI_1"}
 
      
-# 赵乞儿
-PERSON_ZHAO_LING = \
-    {"firstname": "赵", "lastname": "零", "showname": "赵乞儿", "title": "丐帮弟子",
-     "dongjing": 20, "gangrou": 6, "zhipu": -18,
-     "neigong": 20, "boji": 30, "jianfa": 2, "daofa": 5, "changbing": 32, "anqi": 12, "qimen": 18, "yinyang": 4,
-     "superskills": [{"id": "SUPERSKILL_JIANGHUXINFA", "learn": [0, 1, 2]},
-                     {"id": "SUPERSKILL_BOYUNJIANRIDAO", "learn": [0, 1]}],
-     "items": [],
-     "conversation": "DIALOG_ZHAOQIER_1"}
-
-     
 # 黄金颊
 PERSON_HUANG_JINJIA = \
     {"firstname": "黄", "lastname": "金颊", "title": "无名小卒",

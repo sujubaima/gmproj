@@ -129,7 +129,7 @@ class Item(Entity):
             pos = subject.equipment.index(self)
             if pos != 1 or self.double_hand or subject.vice_enable:
                 for effe in self.effects:
-                    effe.leave(subject, objects=objects, **kwargs)
+                    effe.leave(subject, objects=objects, source=self, **kwargs)
             subject.equip_off(self, pos)
 
     def with_tag(self, tag):

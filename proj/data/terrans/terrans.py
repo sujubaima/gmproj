@@ -4,8 +4,8 @@ TERRAN_BLANK = \
     {"name": "空地", "motivation": 1,
      "vision_half": {"character": " "},
      "vision_full": {"character": " "}}
-     
-     
+
+
 TERRAN_ROAD = \
     {"name": "道路", "motivation": 1,
      "vision_half": {"character": "十"},
@@ -83,3 +83,9 @@ TERRAN_SNOW = \
     {"name": "雪地", "motivation": 2,
      "vision_half": {"character": "* ", "effects": {"attrs": ["bold"]}},
      "vision_full": {"character": "* ", "effects": {"attrs": ["bold"]}}}
+
+
+TERRAN_CLOUD = \
+    {"name": "云雾", "motivation": 2,
+     "vision_half": {"character": "~ ", "effects": {"color": "grey", "attrs": ["bold"]}},
+     "vision_full": {"character": "~ ", "effects": {"color": "grey", "attrs": ["bold"]}}}

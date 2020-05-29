@@ -115,56 +115,35 @@ SKILL_XILIUJIANFA_2 = \
      "effects": [{"id": "EXERT.STATUS_MUMANG", "turns": 2}]}
  
  
-# 越女剑法-移花接木
-SKILL_YUENVJIANFA_1 = \
-    {"name": "移花接木", "style": "Jianfa", "targets": "Friends",
-     "mp": 180, "power": 0, "cd": 2, "yinyang": -1, "shape": "Point.Emit,3,0,1",
-     "effects": [{"id": "EFFECT_YIHUA"},
-                 {"id": "EFFECT_HUICHUN"}]}
- 
-# 越女剑法-决云断地
-SKILL_YUENVJIANFA_2 = \
-    {"name": "决云断地", "style": "Jianfa",
-     "mp": 270, "power": 900, "cd": 1, "yinyang": -1, "shape": "Line.Emit,1,3",
-     "effects": [{"id": "EFFECT_QUEBU", "level": 250}]}
- 
-# 越女剑法-逐影追形
-SKILL_YUENVJIANFA_3 = \
-    {"name": "逐影追形", "style": "Jianfa",
-     "mp": 200, "power": 999, "cd": 1, "yinyang": -1, "shape": "Point.Emit,3,0",
-     "effects": [{"id": "EFFECT_JUEYING"},
-                 {"id": "EFFECT_LIANJI"}]}
-     
-     
 # 碧城剑法-栖鸾附鹤
 SKILL_BICHENGJIANFA_1 = \
     {"name": "栖鸾附鹤", "style": "Jianfa",
-     "mp": 91, "power": 455, "cd": 0, "yinyang": 0, "shape": "Point.Emit,2,0",
+     "mp": 91, "power": 455, "cd": 0, "yinyang": -1, "shape": "Point.Emit,2,0",
      "effects": [{"id": "EFFECT_XUHUANG"}]}
  
 # 碧城剑法-紫凤放娇
 SKILL_BICHENGJIANFA_2 = \
     {"name": "紫凤放娇", "style": "Jianfa",
-     "mp": 157, "power": 505, "cd": 1, "yinyang": 0, "shape": "Line.Emit,1,3",
+     "mp": 157, "power": 505, "cd": 1, "yinyang": -1, "shape": "Line.Emit,1,3",
      "effects": [{"id": "EXERT.STATUS_MIXING", "targets": "Subject", "turns": 2}]}
      
 # 碧城剑法-玉轮生魄
 SKILL_BICHENGJIANFA_3 = \
     {"name": "玉轮生魄", "style": "Jianfa",
-     "mp": 333, "power": 555, "cd": 1, "yinyang": 0, "shape": "Around.Seep,1,1",
+     "mp": 333, "power": 555, "cd": 1, "yinyang": -1, "shape": "Around.Seep,1,1",
      "effects": [{"id": "EFFECT_GONGQI"}]}
      
 
 # 裴将军剑-左右交光
 SKILL_PEIJIANGJUNJIAN_1 = \
     {"name": "左右交光", "style": "Jianfa",
-     "mp": 270, "power": 750, "cd": 1, "yinyang": 0, "shape": "BigSector.Swap,1,1",
+     "mp": 227, "power": 755, "cd": 1, "yinyang": 1, "shape": "BigSector.Swap,1,1",
      "effects": [{"id": "EFFECT_SHENZHUN"}]}
  
 # 裴将军剑-随风游电
 SKILL_PEIJIANGJUNJIAN_2 = \
     {"name": "随风游电", "style": "Jianfa",
-     "mp": 240, "power": 800, "cd": 1, "yinyang": 0, "shape": "Line.Emit,1,3",
+     "mp": 249, "power": 830, "cd": 1, "yinyang": 1, "shape": "Line.Emit,1,3",
      "effects": [{"id": "EXERT.STATUS_JUJIAN", "phase": "BeforeDamage", "turns": 2}]}
                  
                  
@@ -183,3 +162,79 @@ SKILL_TAIYUESANQINGFENG_3 = \
     {"name": "高天落雁", "style": "Jianfa",
      "mp": 577, "power": 825, "cd": 3, "yinyang": 0, "shape": "Point.Seep,2,1"}
 
+
+# 越女剑法-移花接木
+SKILL_YUENVJIANFA_1 = \
+    {"name": "移花接木", "style": "Jianfa", "targets": "Friends",
+     "mp": 180, "power": 0, "cd": 2, "yinyang": -1, "shape": "Point.Emit,3,0,1",
+     "effects": [{"id": "EFFECT_YIHUA"},
+                 {"id": "EFFECT_HUICHUN"}]}
+
+# 越女剑法-决云断地
+SKILL_YUENVJIANFA_2 = \
+    {"name": "决云断地", "style": "Jianfa",
+     "mp": 270, "power": 900, "cd": 1, "yinyang": -1, "shape": "Line.Emit,1,3",
+     "effects": [{"id": "EFFECT_QUEBU", "level": 250}]}
+
+# 越女剑法-逐影追形
+SKILL_YUENVJIANFA_3 = \
+    {"name": "逐影追形", "style": "Jianfa",
+     "mp": 200, "power": 999, "cd": 1, "yinyang": -1, "shape": "Point.Emit,3,0",
+     "effects": [{"id": "EFFECT_JUEYING"},
+                 {"id": "EFFECT_LIANJI"}]}
+
+
+# 太极剑意-古树盘根
+SKILL_TAIJIJIANYI_1 = \
+    {"name": "古树盘根", "style": "Jianfa",
+     "mp": 180, "power": 720, "cd": 0, "yinyang": 0, "shape": "Point.Emit,2,0,1",
+     "effects": [{"id": "EFFECT_PANGEN"}]}
+
+# 太极剑意-顺水推舟
+SKILL_TAIJIJIANYI_2 = \
+    {"name": "顺水推舟", "style": "Jianfa",
+     "mp": 270, "power": 800, "cd": 1, "yinyang": 0, "shape": "Line.Emit,1,3",
+     "effects": [{"id": "EXERT.STATUS_XUHAO", "turns": 2}]}
+
+# 太极剑意-云摩三舞
+SKILL_TAIJIJIANYI_3 = \
+    {"name": "云摩三舞", "style": "Jianfa", "targets": "Grids",
+     "mp": 960, "power": 0, "cd": 1, "yinyang": 0, "shape": "Point.Emit,2,2",
+     "effects": [{"id": "EFFECT_JIANYUN", "targets": "Subject", "turns": 3}]}
+
+
+# 西河剑法-一剑动四方
+SKILL_XIHEJIANFA_1 = \
+    {"name": "一剑动四方", "style": "Jianfa", "targets": "Friends",
+     "mp": 180, "power": 0, "cd": 2, "yinyang": 0, "shape": "Point.Emit,3,0,1",
+     "effects": [{"id": "EFFECT_YIHUA"},
+                 {"id": "EFFECT_HUICHUN"}]}
+
+# 西河剑法-羿射九日落
+SKILL_XIHEJIANFA_2 = \
+    {"name": "羿射九日落", "style": "Jianfa",
+     "mp": 270, "power": 900, "cd": 1, "yinyang": 0, "shape": "Line.Emit,1,3",
+     "effects": [{"id": "EFFECT_QUEBU", "level": 250}]}
+
+# 西河剑法-群帝骖龙翔
+SKILL_XIHEJIANFA_3 = \
+    {"name": "群帝骖龙翔", "style": "Jianfa",
+     "mp": 200, "power": 999, "cd": 1, "yinyang": 0, "shape": "Point.Emit,3,0",
+     "effects": [{"id": "EFFECT_JUEYING"},
+                 {"id": "EFFECT_LIANJI"}]}
+
+
+# 长空神剑-劈剑势
+SKILL_CHANGKONGSHENJIAN_1 = \
+    {"name": "劈剑势", "style": "Jianfa",
+     "mp": 270, "power": 850, "cd": 1, "yinyang": 0, "shape": "Line.Emit,1,3"}
+
+# 长空神剑-悬剑势
+SKILL_CHANGKONGSHENJIAN_2 = \
+    {"name": "悬剑势", "style": "Jianfa",
+     "mp": 270, "power": 875, "cd": 2, "yinyang": 0, "shape": "Point.Emit,2,1"}
+
+# 长空神剑-挂剑势
+SKILL_CHANGKONGSHENJIAN_3 = \
+    {"name": "挂剑势", "style": "Jianfa",
+     "mp": 270, "power": 0, "cd": 0, "yinyang": 0, "shape": "Point.Emit,2,1"}

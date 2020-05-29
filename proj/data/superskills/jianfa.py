@@ -230,3 +230,14 @@ SUPERSKILL_PEIJIANGJUNJIAN = \
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_PEIJIANGJUNJIAN_1"}]},
                {"name": "随风游电", 
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_PEIJIANGJUNJIAN_2"}]}]}
+
+
+# 太极剑意
+SUPERSKILL_TAIJIJIANYI = \
+    {"name": "太极剑意", "rank": 3,
+     "nodes": [{"name": "古树盘根", "next": [1],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TAIJIJIANYI_1"}]},
+               {"name": "顺水推舟", "next": [2],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TAIJIJIANYI_2"}]},
+               {"name": "云摩三舞",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TAIJIJIANYI_3"}]}]}

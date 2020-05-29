@@ -124,7 +124,7 @@ def skill(obj, grey=False):
     yinyang_str = ui.colored(["阴性", "调和", "阳性"][obj.yinyang + 1], color=["cyan", None, "yellow"][obj.yinyang + 1])
     normal_str = "，威力：%s，耗气：%s，范围：%s%s，冷却：%s回合，特效：" % \
              (obj.power, obj.mp, obj.shape.showword, 
-             {"Friends": "友方", "Enemies": "敌方", "All": "不分敌友"}[obj.targets], obj.cd)
+             {"Friends": "友方", "Enemies": "敌方", "All": "不分敌友", "Grids": ""}[obj.targets], obj.cd)
     if grey:
         normal_str = ui.colored(normal_str, color="grey", attrs=["bold"])
     return yinyang_str + normal_str + effe_str

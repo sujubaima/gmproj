@@ -25,3 +25,22 @@ SKILL_XICHUBAWANGQIANG_2 = \
 SKILL_XICHUBAWANGQIANG_3 = \
     {"name": "霸王别姬", "style": "Changbing",
      "mp": 140, "power": 700, "cd": 1, "yinyang": 0, "shape": "Point.Emit,1,0"}
+
+
+# 打狗棒法-棒打狗头
+SKILL_DAGOUBANGFA_1 = \
+    {"name": "棒打狗头", "style": "Changbing",
+     "mp": 183, "power": 915, "cd": 1, "yinyang": 0, "shape": "Point.Emit,3,0",
+     "effects": [{"id": "EFFECT_DAGOUTOU", "turns": 1}]}
+
+# 打狗棒法-獒口夺杖
+SKILL_DAGOUBANGFA_2 = \
+    {"name": "獒口夺杖", "style": "Changbing",
+     "mp": 150, "power": 750, "cd": 0, "yinyang": 0, "shape": "Point.Emit,3,0",
+     "effects": [{"id": "EFFECT_BAGOUYA", "turns": 1}]}
+
+# 打狗棒法-天下无狗
+SKILL_DAGOUBANGFA_3 = \
+    {"name": "天下无狗", "style": "Changbing",
+     "mp": 1066, "power": 888, "cd": 2, "yinyang": 0, "shape": "Around.Seep,1,3",
+     "effects": [{"id": "EFFECT_DUANGOUWO"}]}

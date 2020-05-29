@@ -16,6 +16,31 @@ from proj.builtin.actions import BattleSkillAction
 from proj.engine import Message as MSG
 
 
+# 盘根
+class PanGenEffect(Effect):
+
+    phase = BattlePhase.BeforeAttack
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if subject != battle.sequence[-1]["action"].subject:
+            return
+        if len(battle.sequence) > 1 and \
+           isinstance(battle.sequence[-2]["action"], BattleMoveAction) and \
+           battle.sequence[-2]["action"].subject == subject:
+            return
+        debuffs = []
+        for sts in subject.status:
+            if sts.name is not None and sts.style == 0:
+                debuffs.append(sts)
+        if len(debuffs) == 0:
+            return
+        chosen = random.sample(debuffs, 1)[0]
+        chosen.leave(subject)
+        if not battle.silent:
+            MSG(style=MSG.Effect, subject=subject, effect=self, details={"status": chosen.name})
+
+
 # 清风拂山岗
 class QingFengFuShanGangEffect(Effect):
 
@@ -27,6 +52,8 @@ class QingFengFuShanGangEffect(Effect):
             objects = battle.sequence[-1]["action"].objects
         effe_factor = self.factor(subject)
         for obj in objects:
+            if battle.is_friend(subject, obj):
+                continue
             if battle.event(obj, BattleEvent.ACTMissed) is not None:
                 continue
             wound = -1 * int(obj.defense_base * effe_factor * obj.anti_wound)
@@ -126,6 +153,7 @@ class TaiJiJinEffect(Effect):
                 continue
             if skill.power != 0:
                 skill.power -= 99
+
 
 
 # 同归  

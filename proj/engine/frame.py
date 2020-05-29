@@ -97,6 +97,7 @@ class MessageBase(Mutable):
     BattleQuit = "battle_quit"
     BattleMap = "battle_map"
     BattleNewTurn = "battle_new_turn"
+    BattleFinishTurn = "battle_finish_turn"
     BattleFinish = "battle_finish"
     BattleFinishSilent = "battle_finish_silent"
 

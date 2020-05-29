@@ -16,6 +16,24 @@ from proj.builtin.actions import BattleSkillAction
 from proj.engine import Message as MSG
 
 
+# 拔狗牙
+class BaGouYaEffect(ExertEffect):
+
+    def initialize(self):
+        super(BaGouYaEffect, self).initialize()
+        sts_tpl = "STATUS_QIWU"
+        self.exertion = Status.template(sts_tpl)
+        self.description_ = "以此技能发动反击时，" + self.description_
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if not battle.sequence[-1]["action"].counter:
+            return
+        if subject != battle.sequence[-1]["action"].subject:
+            return
+        super(BaGouYaEffect, self).work(subject, objects=objects, **kwargs)
+
+
 # 捕风
 class BuFengEffect(Effect):
 
@@ -33,7 +51,7 @@ class BuFengEffect(Effect):
             dire = battle.map.direction(sub_loc, obj_loc)
             obj_tgt = sub_loc
             while obj_tgt != obj_loc and not battle.map.can_stay(obj, obj_tgt):
-                obj_tgt = battle.map.neighbour(sub_loc, dire)
+                obj_tgt = battle.map.neighbour(obj_tgt, dire)
             if obj_tgt != obj_loc:
                 BattleMoveAction(showmsg=False, active=False,
                                  battle=battle, subject=obj, target=obj_tgt,
@@ -75,17 +93,50 @@ class ChuXieEffect(Effect):
                 equip = obj.equipment[0]
                 equip.leave(obj)
                 if not battle.silent:
-                    MSG(style=MSG.Effect, subject=subject, effect=self, details={"object": obj.name,
-                                                                                 "equip": equip.name,
-                                                                                 "equip_rank": equip.rank})
+                    MSG(style=MSG.Effect, subject=subject, effect=self, 
+                        details={"object": obj.name, "equip": equip.name, "equip_rank": equip.rank})
 
 
-# 定身
-class DingShenEffect(Effect):
+# 打狗头
+class DaGouTouEffect(ExertEffect):
+
+    def initialize(self):
+        super(DaGouTouEffect, self).initialize()
+        sts_tpl = "STATUS_ZHENSHE"
+        self.exertion = Status.template(sts_tpl)
+        self.targetstr = ("目标及其相邻敌方单位", "其")
 
     def work(self, subject, objects=[], **kwargs):
         battle = kwargs["battle"]
-        battle.moved[subject.id] = True
+        if subject != battle.sequence[-1]["action"].subject:
+            return
+        new_objects = []
+        for obj in battle.sequence[-1]["action"].objects:
+            if battle.event(obj, BattleEvent.ACTMissed) is not None:
+                continue
+            obj_loc = battle.map.location(obj)
+            for loc in battle.map.circle(obj_loc, 1):
+                p = battle.map.loc_entity.get(loc, None)
+                if p is None or battle.is_friend(subject, p) or p in new_objects:
+                    continue
+                new_objects.append(obj)
+        super(DaGouTouEffect, self).work(subject, objects=new_objects, **kwargs)
+
+
+# 端狗窝
+class DuanGouWoEffect(Effect):
+
+    phase = BattlePhase.AfterDamage
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if subject != battle.sequence[-1]["action"].subject:
+            return
+        if len(objects)== 0:
+            objects = battle.sequence[-1]["action"].objects
+        for obj in objects:
+            obj.hp_delta = int(obj.hp_delta * (1 + 0.15 * len(objects)))
+            obj.mp_delta = int(obj.mp_delta * (1 + 0.15 * len(objects)))
 
 
 # 分断     

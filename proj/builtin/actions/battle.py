@@ -40,8 +40,17 @@ class BattleAction(Action):
 class BattleStartAction(BattleAction):
     
     def do(self):
-        b = Battle(self.map, groups=self.groups, allies=self.allies, death=self.death, silent=self.silent)
-        b.start()
+        self.battle = Battle(self.map, groups=self.groups, allies=self.allies, death=self.death, silent=self.silent)
+        self.battle.start()
+        self.battle.reset_delta()
+        self.battle.status_work(BattlePhase.Start)
+        self.battle.deal()
+        alivelist = []
+        for alive in self.battle.alive:
+            if alive.hp == 0:
+                alivelist.append(alive)
+        for alive in alivelist:
+            BattleQuitAction(subject=alive, battle=self.battle).do()
         tmp_teams = set()
         for g in self.groups:
             for p in g:
@@ -49,42 +58,101 @@ class BattleStartAction(BattleAction):
                     continue
                 p.team.process = context.timestamp + 1
                 tmp_teams.add(p.team.id)
-        if not b.silent:
-            MSG(style=MSG.BattleStart, battle=b, persons=b.snapshot(False))
+        if not self.battle.silent:
+            MSG(style=MSG.BattleStart, battle=self.battle, persons=self.battle.snapshot(False))
             context.timeflow(1)
-        return b
+        return self.battle
+
+
+class BattleFinishAction(BattleAction):
+
+    def do_unsilent(self):
+        result = context.PLAYER.team.result
+        explist = []
+        nodelist = []
+        itemlist = []
+        if result:
+            for p in self.battle.all:
+                if p.team != context.PLAYER.team:
+                    continue
+                exp = self.battle.exps[p.id]
+                explist.append((p, exp))
+                if p.studying is not None:
+                    p.exp += exp
+                    if p.exp >= p.studying.exp:
+                        nodelist.append((p, p.studying))
+                        p.studying.learn(p)
+                        p.studying = None
+                        p.exp = 0
+        MSG(style=MSG.BattleFinish, result=result, explist=explist, nodelist=nodelist, itemlist=itemlist)
+
+    def do_silent(self):
+        teamwinner = None
+        teamloser = None
+        teamset = set()
+        for p in self.battle.all:
+            if p.team.id in teamset:
+                continue
+            teamset.add(p.team.id)
+            if not p.team.result:
+                if teamloser is None:
+                    teamloser = p.team
+                p.team.scenario.remove(p.team)
+                p.team.scenario = None
+                context.teams.pop(p.team.id)
+            else:
+                if teamwinner is None:
+                    teamwinner = p.team
+            p.team.follow = None
+            p.team.target = p.team.stash.get("target", None)
+        MSG(style=MSG.BattleFinishSilent, winner=teamwinner, loser=teamloser)
+
+    def do(self):
+        self.battle.finish()
+        if not self.battle.silent:
+            self.do_unsilent()
+        else:
+            self.do_silent()
 
 
 class BattleNewTurnAction(BattleAction):
 
     def do(self):
+        self.battle.sequence.append({"action": Action(), "results": {}})
         self.battle.finish_turn()
+        self.battle.reset_delta()
+        self.battle.status_work(BattlePhase.FinishTurn)
+        self.battle.deal()
+        if len(self.battle.sequence) > 0 and len(self.battle.sequence[-1]["results"]) > 0 and not self.battle.silent:
+            MSG(style=MSG.BattleFinishTurn, battle=self.battle, subject=self.battle.current, persons=self.battle.snapshot())
+        alivelist = []
+        for alive in self.battle.alive:
+            if alive.hp == 0:
+                alivelist.append(alive)
+        for alive in alivelist:
+            BattleQuitAction(subject=alive, battle=self.battle).do()
         if self.battle.finished():
             return
         self.battle.start_turn()
-        if not self.battle.silent:
-            MSG(style=MSG.BattleNewTurn, battle=self.battle, subject=self.battle.current)
+        #print(self.battle.current.name, Person.one("PERSON_YANG_LEI").hp, Person.one("PERSON_ZHAO_SHENJI").hp)
+        self.battle.sequence.append({"action": Action(), "results": {}})
+        self.battle.reset_delta()
         self.battle.status_work(BattlePhase.StartTurn)
-        if not self.battle.controllable():
-            # 非可控制人员，转入AI模块生成action并执行
-            self.ai_actions = self.battle.action(self.battle.current)
-            for next_action in self.ai_actions:
-                next_action.do()
-                #MSG.sync()
-        else:
-            MSG(style=MSG.BattlePlayer, battle=self.battle, subject=self.battle.current, persons=self.battle.snapshot(False))
-            #MSG.sync()
+        self.battle.deal()
+        if not self.battle.silent:
+            MSG(style=MSG.BattleNewTurn, battle=self.battle, subject=self.battle.current, persons=self.battle.snapshot())
+        alivelist = []
+        for alive in self.battle.alive:
+            if alive.hp == 0:
+                alivelist.append(alive)
+        for alive in alivelist:
+            BattleQuitAction(subject=alive, battle=self.battle).do()
 
 
 class BattleQuitAction(BattleAction):
 
     def do(self):
-        self.battle.alive.remove(self.subject)
-        self.battle.dead.append(self.subject)
-        self.battle.map.remove(self.subject)
-        for sts in self.subject.status:
-            if sts.leftturn >= 0:
-                sts.leave(self.subject)
+        self.battle.quit(self.subject)
         if not self.battle.silent:
             MSG(style=MSG.BattleQuit, battle=self.battle, subject=self.subject)
 
@@ -131,12 +199,20 @@ class BattleMoveAction(BattleAction):
                 persons=self.battle.snapshot(False), 
                 subject=self.subject, target=self.target, path=self.path)
         #self.battle.move(self)
+        self.battle.reset_delta()
         self.do_move(active=self.active, redirect=self.redirect)
+        self.battle.deal()
         if not self.battle.silent and self.showmsg:
             MSG(style=MSG.BattleMoveFinish, 
                 battle=self.battle, motivated=self.motivated,
                 persons=self.battle.snapshot(), 
                 subject=self.subject, target=self.target, path=self.path)
+        alivelist = []
+        for alive in self.battle.alive:
+            if alive.hp == 0:
+                alivelist.append(alive)
+        for alive in alivelist:
+            BattleQuitAction(subject=alive, battle=self.battle).do()
         self.postdo()
 
 
@@ -152,7 +228,6 @@ class BattleSkillAction(BattleAction):
         战场的攻击行为
         """        
         self.battle.sequence.append({"action": self, "results": {}})
-        self.battle.reset_delta()
         self.battle.check_weapon_before(self.subject, self.skill)
         self.subject.mp_delta += -1 * self.skill.mp
         self.subject.correct()
@@ -190,7 +265,7 @@ class BattleSkillAction(BattleAction):
         if should_hit:
             self.skill.work(self.subject, battle=self.battle, phase=BattlePhase.AfterDamage)
         self.battle.status_work(BattlePhase.AfterDamage)
-        for q in self.objects:
+        for q in self.battle.alive:
             q.correct()
             self.battle.add_event(q, BattleEvent.HPDamaged, value=q.hp_delta)
             self.battle.add_event(q, BattleEvent.MPDamaged, value=q.mp_delta)
@@ -265,7 +340,7 @@ class BattleSkillAction(BattleAction):
                     self.objects.append(cp)
                     
         self.objects = [obj for obj in self.objects if obj in self.battle.alive]
-        if len(self.objects) == 0:
+        if self.targets != "Grids" and len(self.objects) == 0:
             return
 
         if not self.battle.silent:
@@ -274,7 +349,9 @@ class BattleSkillAction(BattleAction):
                 subject=self.subject, objects=self.objects, target=self.target, scope=self.scope,
                 counter=self.counter)
         # 执行技能效果
+        self.battle.reset_delta()
         self.do_attack()
+        #self.battle.deal()
         if not self.battle.silent:
             MSG(style=MSG.BattleSkillFinish, battle=self.battle, 
                 persons=self.battle.snapshot(), skill=self.skill, 
@@ -309,7 +386,6 @@ class BattleItemAction(BattleAction):
         """       
         self.battle.sequence.append({"action": self, "results": {}})
         self.battle.status_work(BattlePhase.BeforeItem)
-        self.battle.reset_delta()
         should_hit = common.if_rate(self.subject.hit_rate)
         if not should_hit:
             self.battle.add_event(self.subject, BattleEvent.ACTFault)
@@ -360,7 +436,7 @@ class BattleItemAction(BattleAction):
                     self.objects.append(cp)
                     
         self.objects = [obj for obj in self.objects if obj in self.battle.alive]
-        if len(self.objects) == 0:
+        if self.targets != "Grids" and len(self.objects) == 0:
             return
 
         if not self.battle.silent:
@@ -368,7 +444,9 @@ class BattleItemAction(BattleAction):
                 persons=self.battle.snapshot(False), item=self.item,
                 subject=self.subject, objects=self.objects, target=self.target, scope=self.scope)
         # 执行技能效果
+        self.battle.reset_delta()
         self.do_item()
+        #self.battle.deal()
         if not self.battle.silent:
             MSG(style=MSG.BattleItemFinish, battle=self.battle,
                 persons=self.battle.snapshot(), item=self.item,
@@ -420,10 +498,13 @@ class BattleRestAction(BattleAction):
         if not self.battle.silent:
             MSG(style=MSG.BattleRestStart, battle=self.battle, 
                 subject=self.subject, persons=self.battle.snapshot(False))
+        self.battle.reset_delta()
         self.do_rest()
+        #self.battle.deal()
         if not self.battle.silent:
             MSG(style=MSG.BattleRestFinish, battle=self.battle, 
                 subject=self.subject, persons=self.battle.snapshot())
+        self.postdo()
 
 
 class BattleFinishAction(BattleAction):

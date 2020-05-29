@@ -204,7 +204,8 @@ class Status(Entity):
         if ac and self.overtype == StatusOverType.Prolong and st is not None:
             st.exertor = self.exertor
             st.source = self.source
-            st.leftturn = self.leftturn + 1
+            if st.leftturn <= self.leftturn:
+                st.leftturn = self.leftturn + 1
             ac = False
         return ac
         
@@ -229,6 +230,7 @@ class ExertEffect(Effect):
     def initialize(self):                                  
         super(ExertEffect, self).initialize()              
         self.targets = "Objects"
+        self.targetstr = None
         self.exertor = "Subject"
         self.exertion = None
         self.text_ = "对{object}施加了{status}状态"
@@ -245,18 +247,19 @@ class ExertEffect(Effect):
 
     def finish(self):
         super(ExertEffect, self).finish()
-        if self.targets == "Subject":
-            targetstr = "自身"
-        else:
-            targetstr = "目标"
+        if self.targetstr is None and self.targets == "Subject":
+            self.targetstr = ("自身", "自身")
+        elif self.targetstr is None:
+            self.targetstr = ("目标", "其")
         if self.exertion is not None:
             if self.tpl_id is None:
                 self.tpl_id = "EXERT.%s" % self.exertion.tpl_id
             if self.name is None:
                 self.name = self.exertion.name
             if self.description is None and self.exertion.name is not None:
-                self.description = self.description_.format(targetstr=targetstr, status=self.exertion.name)
-                self.description += "，使%s%s" % (targetstr, self.exertion.description)
+                self.description = self.description_.format(targetstr=self.targetstr[0], status=self.exertion.name)
+                #self.description += "，使%s%s" % (self.targetstr, self.exertion.description)
+                self.description += "，使%s%s" % (self.targetstr[1], self.exertion.description)
                 self.text = self.text_ + "；{text}"
             if self.style is None:
                 self.style = self.exertion.style
@@ -282,6 +285,10 @@ class ExertEffect(Effect):
                 continue
             if battle is not None:
                 exertion.startturn = battle.turnidx
+            status_attr = kwargs.get("status_attr", None)
+            if status_attr is not None:
+                for attrk, attrv in status_attr.items():
+                    setattr(exertion, attrk, attrv)
             tgt.status.append(exertion)
             if exertion.phase & 1 != 0:
                 exertion.work(tgt, objects=objects, **kwargs)
@@ -297,13 +304,14 @@ class ExertEffect(Effect):
                 #    effe.work(tgt, objects=objects, status=exertion, **kwargs)
         
     def leave(self, subject, objects=[], **kwargs):
+        source = kwargs.get("source", None)
         sts = []
         for st in subject.status:
-            if st.source == self:
+            if st.source == source:
                 sts.append(st)
         for exertion in sts:
             exertion.leave(subject, objects=objects, **kwargs)
-            subject.status.remove(exertion) 
+            #subject.status.remove(exertion) 
             #Status.remove(exertion)
 
 

@@ -70,6 +70,12 @@ EFFECT_SANLENGQIANG_ATTR = \
      "attrs": [{"name": "attack_", "delta": 500}]}
 
 
+# 太极护手
+EFFECT_TAIJIHUSHOU_ATTR = \
+    {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
+     "attrs": [{"name": "attack_", "delta": 310}]}
+
+
 EFFECT_XUEYUE_ATTR = \
     {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
      "attrs": [{"name": "attack_", "delta": 320}]}
@@ -93,7 +99,13 @@ EFFECT_TAIYUE_ATTR = \
 # 真武
 EFFECT_ZHENWU_ATTR = \
     {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
-     "attrs": [{"name": "attack_", "delta": 450}]}
+     "attrs": [{"name": "attack_", "delta": 385}]}
+
+
+# 青竹
+EFFECT_DAGOUBANG_ATTR = \
+    {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
+     "attrs": [{"name": "attack_", "delta": 495}]}
 
 
 # 凤首
@@ -102,6 +114,7 @@ EFFECT_FENGSHOU_ATTR = \
      "attrs": [{"name": "attack_", "delta": 240}]}
 
 
+# 八斩刀
 EFFECT_BAZHANDAO_ATTR = \
     {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
      "attrs": [{"name": "attack_", "delta": 340}]}
@@ -112,7 +125,8 @@ EFFECT_DANGONG_ATTR = \
     {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
      "attrs": [{"name": "attack_", "delta": 65}]}
 
-     
+
+# 燕尾镖     
 EFFECT_YANWEIBIAO_ATTR = \
     {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
      "attrs": [{"name": "attack_", "delta": 120}]}
