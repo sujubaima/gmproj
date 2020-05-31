@@ -207,6 +207,27 @@ class JieGuEffect(Effect):
                     details={"object": obj.name, "injury_recover": injury_recover})
 
 
+# 金刚不坏
+class JinGangBuHuaiEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if subject == battle.sequence[-1]["action"].subject:
+            return
+        if battle.is_friend(subject, battle.sequence[-1]["action"].subject):
+            return
+        if subject not in battle.sequence[-1]["action"].objects:
+            return
+        if battle.event(subject, BattleEvent.ACTMissed) is not None:
+            return
+        effe_factor = self.factor(subject)
+        effe_ratio = 0.2 * effe_factor
+        if subject.hp_delta < 0 and common.if_rate(effe_ratio):
+            subject.hp_delta = -1
+            if not battle.silent:
+                MSG(style=MSG.Effect, subject=subject, effect=self)
+
+
 # 禁用
 class JinYongEffect(Effect):
 
@@ -428,6 +449,8 @@ class MingYueZhaoDaJiangEffect(Effect):
         battle = kwargs["battle"]
         if subject == battle.sequence[-1]["action"].subject:
             return
+        if battle.is_friend(subject, battle.sequence[-1]["action"].subject):
+            return
         if subject not in battle.sequence[-1]["action"].objects:
             return
         if battle.event(subject, BattleEvent.ACTMissed) is not None:
@@ -446,6 +469,8 @@ class MingYueZhaoDaJiangLeaveEffect(Effect):
     def work(self, subject, objects=[], **kwargs):
         battle = kwargs["battle"]
         if subject == battle.sequence[-1]["action"].subject:
+            return
+        if battle.is_friend(subject, battle.sequence[-1]["action"].subject):
             return
         if subject not in battle.sequence[-1]["action"].objects:
             return

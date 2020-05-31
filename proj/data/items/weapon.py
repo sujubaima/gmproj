@@ -109,6 +109,7 @@ ITEM_ZHITAO = \
      "effects": [{"id": "EXERT.LAMBDA.EFFECT_ZHITAO_ATTR"}]}
 
 
+# 合璧
 ITEM_HEBI = \
     {"name": "合璧", "rank": 4, "tags": "Equip,Weapon,Jianfa", "shape": "Around,0,0,0", "bind": "PERSON_XIE_HUI",
      "weight": 1.5, "volume": 1, "durability": 48, 
@@ -116,50 +117,65 @@ ITEM_HEBI = \
      "description": "百兵堂玉剑舵舵主谢蕙的佩剑，原剑已断，后用另一把断剑与熔融之合铸，方才修复，因此改名合璧"}
      
 
+# 太岳
 ITEM_TAIYUE = \
     {"name": "太岳", "rank": 4, "tags": "Equip,Weapon,Jianfa", "shape": "Around,0,0,0", "bind": "PERSON_YANG_LEI",
      "weight": 1.6, "volume": 1.1, "durability": 50,
      "effects": [{"id": "EXERT.LAMBDA.EFFECT_TAIYUE_ATTR"}],
      "description": "华山派掌门杨磊的佩剑，用华山赤铜精炼而成，乃是华山派镇派之宝"}
      
+
+# 紫郢     
+ITEM_ZIYING = \
+    {"name": "紫郢", "rank": 4, "tags": "Equip,Weapon,Jianfa", "shape": "Around,0,0,0", "bind": "PERSON_RAN_WUHUA",
+     "weight": 1.5, "volume": 1, "durability": 60,
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_ZIYING_ATTR"}],
+     "description": "峨眉派创派祖师所用的名剑，剑体通身发紫，故得名紫郢"}
      
+     
+# 青萍     
 ITEM_QINGPING = \
     {"name": "青萍", "rank": 4, "tags": "Equip,Weapon,Jianfa", "shape": "Around,0,0,0", "bind": "PERSON_MU_SHUANGQING",
      "weight": 1.3, "volume": 1, "durability": 45,
-     "effects": [{"id": "EXERT.LAMBDA.EFFECT_TAIYUE_ATTR"}],
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_QINGPING_ATTR"}],
      "description": "九溪派掌门穆怀珠的佩剑，即著名的鱼肠剑；因穆怀珠不喜其名，故改名青萍"}
 
 
+# 真武
 ITEM_ZHENWU = \
     {"name": "真武", "rank": 4, "tags": "Equip,Weapon,Jianfa", "shape": "Around,0,0,0", "bind": "PERSON_ZHANG_YINSONG",
      "weight": 1.5, "volume": 1.2, "durability": 60,
      "effects": [{"id": "EXERT.LAMBDA.EFFECT_ZHENWU_ATTR"}],
      "description": "相传为真武大帝的佩剑，为武当山镇派之宝，历来只有掌门可以使用"}
   
-
+  
+# 湛卢
 ITEM_ZHANLU = \
-    {"name": "湛卢", "rank": 4, "tags": "Equip,Weapon,Jianfa", "shape": "Around,0,0,0", "bind": "PERSON_YANG_LEI",
+    {"name": "湛卢", "rank": 4, "tags": "Equip,Weapon,Jianfa", "shape": "Around,0,0,0", "bind": "PERSON_CHEN_TINGZHI",
      "weight": 1.3, "volume": 1, "durability": 45,
-     "effects": [{"id": "EXERT.LAMBDA.EFFECT_TAIYUE_ATTR"}],
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_ZHANLU_ATTR"}],
      "description": "北辰派首徒陈挺之的佩剑，为北辰派前任掌门商河洛所传；商河洛在华山击败众多高手，所用正是此剑"}
   
-     
+
+# 巨阙   
 ITEM_JUQUE = \
-    {"name": "巨阙", "rank": 4, "tags": "Equip,Weapon,Jianfa", "shape": "Around,0,0,0", "double_hand": True, "bind": "PERSON_YANG_LEI",
+    {"name": "巨阙", "rank": 4, "tags": "Equip,Weapon,Jianfa", "shape": "Around,0,0,0", "double_hand": True, "bind": "PERSON_YU_JIANQI",
      "weight": 1.3, "volume": 1, "durability": 45,
      "effects": [{"id": "EXERT.LAMBDA.EFFECT_TAIYUE_ATTR"}],
      "description": "渔阳老人俞剑奇的佩剑，乃是少见的双手重剑，一旦出鞘则气势非凡"}
      
-     
-ITEM_ZHUOYU = \
-    {"name": "斫玉", "rank": 4, "tags": "Equip,Weapon,Jianfa", "shape": "Around,0,0,0", "bind": "PERSON_YANG_LEI",
+
+# 攻玉     
+ITEM_GONGYU = \
+    {"name": "攻玉", "rank": 4, "tags": "Equip,Weapon,Jianfa", "shape": "Around,0,0,0", "bind": "PERSON_YANG_LEI",
      "weight": 1.3, "volume": 1, "durability": 45,
      "effects": [{"id": "EXERT.LAMBDA.EFFECT_TAIYUE_ATTR"}],
      "description": "昆仑弟子公孙惊鸿的佩剑，原为掌门公孙衡所有；因公孙衡厚爱惊鸿，特赠与之"}
      
-     
-ITEM_DAOJUN = \
-    {"name": "道生一", "rank": 4, "tags": "Equip,Weapon,Jianfa", "shape": "Around,0,0,0", "double_hand": True, "bind": "PERSON_YANG_LEI",
+
+# 道生一     
+ITEM_DAOSHENGYI = \
+    {"name": "道生一", "rank": 4, "tags": "Equip,Weapon,Jianfa", "shape": "Around,0,0,0", "bind": "PERSON_YANG_LEI",
      "weight": 1.3, "volume": 1, "durability": 45,
      "effects": [{"id": "EXERT.LAMBDA.EFFECT_TAIYUE_ATTR"}],
      "description": "武当掌门张隐松的佩剑，看上去与普通长剑无异，只是刻有三字铭文道生一"}

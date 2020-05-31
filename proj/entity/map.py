@@ -454,6 +454,8 @@ class Map(Entity):
         #for (i, j) in zmap:
         #    if zmap[(i, j)] > 0 and (i, j) in kmap:
         #        kmap[(i, j)] = (max(person.motion, kmap[(i, j)][0]), kmap[(i, j)][1])
+        #for k, v in kmap.items():
+        #    print(k, v)
         return kmap
 
     def connect_static(self, pta, ptb, fmap, kmap, zmap, person, enable_zoc=True, filter=None):
@@ -462,9 +464,48 @@ class Map(Entity):
         """
         i, j = pta
         x, y = ptb
-        # 自身格子不判断zoc，可以防止某些角色（如陈挺之）的zoc_scope > 1时，其他单位无法逃离zoc主体
+        if (i, j) not in zmap:
+            zmap[(i, j)] = (sys.maxsize, None)
+            for zoc_loc, zoc_p in self.loc_entity.items():
+                if zoc_p.group_ally & person.group_ally != 0:
+                    continue
+                zoc_distance = self.distance(zoc_loc, (i, j))
+                if zoc_distance <= zoc_p.zoc_scope:
+                    zmap[(i, j)] = (zoc_distance, zoc_p)
+                    break
         if (i, j) == (x, y):
             kmap[(i, j)] = (0, None)
+            return 
+        if filter is not None and not filter(i, j):
+            return
+        min_steps = 100
+        min_grid = None
+        max_person = None
+        for ap in self.around((i, j)):
+            if ap not in fmap:
+                fmap[ap] = 1
+                self.connect_static(ap, (x, y), fmap, kmap, zmap, person, enable_zoc=enable_zoc, filter=filter)
+            # 此处可能成环，需要加一个判断，即邻接点最短路径的上一个值不等于自己
+            if ap in kmap and kmap[ap][0] < min_steps and kmap[ap][1] != (i, j):
+                min_steps = kmap[ap][0]
+                min_grid = ap
+        if min_grid is not None:
+            if enable_zoc and (i, j) in zmap and zmap[(i, j)][0] != sys.maxsize and \
+               zmap[min_grid][0] >= zmap[(i, j)][0]:   
+                steplen = zmap[(i, j)][1].zoc_value
+            else:
+                steplen = 1            
+            kmap[(i, j)] = (min_steps + steplen, min_grid)
+                
+    def _connect_static(self, pta, ptb, fmap, kmap, zmap, person, enable_zoc=True, filter=None):
+        """
+        静态寻路算法，用于战斗中计算所有可移动格子
+        """
+        i, j = pta
+        x, y = ptb
+        # 自身格子不判断zoc，可以防止某些角色（如陈挺之）的zoc_scope > 1时，其他单位无法逃离zoc主体
+        if (i, j) == (x, y):
+            kmap[(i, j)] = (0, None, None)
             return 
         if enable_zoc and (i, j) in self.loc_entity:
             loc_p = self.loc_entity[(i, j)]
@@ -509,9 +550,9 @@ class Map(Entity):
                 #kmap[(i, j)] = (max(person.motion - zmap[(i, j)] + 1, min_steps + 1), min_grid)
                 #kmap[(i, j)] = (min_steps + zoc_scope + 1 - zmap[(i, j)], min_grid)
                 #kmap[(i, j)] = (min_steps + 2, min_grid)
-                kmap[(i, j)] = (min_steps + 1 + zmap[(i, j)][1].zoc_value, min_grid)
+                kmap[(i, j)] = (min_steps + 1 + zmap[(i, j)][1].zoc_value, min_grid, max_person.name if max_person is not None else None)
             else:
-                kmap[(i, j)] = (min_steps + 1, min_grid)
+                kmap[(i, j)] = (min_steps + 1, min_grid, max_person.name if max_person is not None else None)
 
     def connect_dynamic(self, pta, ptb, p, last=None, steps=-1):
         """

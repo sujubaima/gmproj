@@ -25,6 +25,19 @@ SKILL_XICHUBAWANGQIANG_2 = \
 SKILL_XICHUBAWANGQIANG_3 = \
     {"name": "霸王别姬", "style": "Changbing",
      "mp": 140, "power": 700, "cd": 1, "yinyang": 0, "shape": "Point.Emit,1,0"}
+     
+     
+# 十力降魔棍-十力具备
+SKILL_SHILIXIANGMOGUN_1 = \
+    {"name": "十力具备", "style": "Changbing",
+     "mp": 142, "power": 710, "cd": 0, "yinyang": 1, "shape": "Point.Emit,3,0",
+     "effects": [{"id": "EFFECT_GANGJIN_DA"}]}
+
+# 十力降魔棍-泰然无惧
+SKILL_SHILIXIANGMOGUN_2 = \
+    {"name": "泰然无惧", "style": "Changbing",
+     "mp": 140, "power": 840, "cd": 2, "yinyang": 1, "shape": "BigSector.Swap,1,1",
+     "effects": [{"id": "EXERT.STATUS_WUWEI", "targets": "Subject", "turns": 2}]}
 
 
 # 打狗棒法-棒打狗头

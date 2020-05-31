@@ -43,7 +43,5 @@ SUPERSKILL_TIANLEIDIHUOYIN = \
     {"name": "天雷地火引", "rank": 3,
      "nodes": [{"name": "起萍生浪", "next": [1],
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TIANLEIDIHUOYIN_1"}]},
-               {"name": "野火春风", "next": [2],
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TIANLEIDIHUOYIN_2"}]},
                {"name": "火泻雷嗔",
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TIANLEIDIHUOYIN_3"}]}]}

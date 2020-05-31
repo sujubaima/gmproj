@@ -451,12 +451,30 @@ SUPERSKILL_GAOYUANWUJIGONG = \
                ]}
 
 
+# 金钟罩
+SUPERSKILL_JINZHONGZHAO = \
+    {"name": "金钟罩", "rank": 2,
+     "nodes": [{"name": "铜皮铁骨",
+                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_JINZHONGZHAO_1"}]},
+               {"name": "金刚不坏",
+                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_JINZHONGZHAO_2"}]}]}
+
+
 # 虬髯心法
 SUPERSKILL_QIURANXINFA = \
     {"name": "虬髯心法", "rank": 2,
      "nodes": [{"name": "豪气干云",
                 "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_QIURANXINFA_1"}]}]}
 
+
+# 冰肌玉骨术
+SUPERSKILL_BINGJIYUGUSHU = \
+    {"name": "冰肌玉骨术", "rank": 3,
+     "nodes": [{"name": "驻颜",
+                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_BINGJIYUGUSHU_1"}]},
+               {"name": "流光",
+                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_BINGJIYUGUSHU_2"}]}]}
+                
 
 # 太极神功
 SUPERSKILL_TAIJISHENGONG = \

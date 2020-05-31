@@ -92,6 +92,32 @@ SKILL_GAOYUANWUJI_2 = \
      "effects": [{"id": "EXERT.STATUS_FUYANGJUCHEN"}]}
 
 
+# 虬髯心法
+SKILL_QIURANXINFA_1 = \
+    {"name": "豪气干云", "style": "Neigong",
+     "effects": [{"id": "EXERT.STATUS_HAOQIGANYUN"}]}
+ 
+ 
+# 金钟罩
+SKILL_JINZHONGZHAO_1 = \
+    {"name": "铜皮铁骨", "style": "Neigong",
+     "effects": [{"id": "EXERT.STATUS_TONGPITIEGU"}]}
+     
+SKILL_JINZHONGZHAO_2 = \
+    {"name": "金刚不坏", "style": "Neigong",
+     "effects": [{"id": "EXERT.STATUS_JINGANGBUHUAI"}]}
+
+
+# 冰肌玉骨术
+SKILL_BINGJIYUGUSHU_1 = \
+    {"name": "驻颜", "style": "Neigong",
+     "effects": [{"id": "EXERT.STATUS_ZHUYAN"}]}
+     
+SKILL_BINGJIYUGUSHU_2 = \
+    {"name": "流光", "style": "Neigong",
+     "effects": [{"id": "EXERT.STATUS_LIUGUANG"}]}
+     
+
 # 太极神功
 SKILL_TAIJISHENGONG_1 = \
     {"name": "太极劲", "style": "Neigong",
@@ -117,9 +143,6 @@ SKILL_YIJINJING_2 = \
      "effects": [{"id": "EXERT.STATUS_HUANGU"}]}
 
 
-# 虬髯心法
-SKILL_QIURANXINFA_1 = \
-    {"name": "豪气干云", "style": "Neigong",
-     "effects": [{"id": "EXERT.STATUS_HAOQIGANYUN"}]}
+
 
 

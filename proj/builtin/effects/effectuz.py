@@ -28,7 +28,43 @@ class WuShenEffect(Effect):
             return
         if subject.studying is not None and skill_style in subject.studying.belongs.tags:
             battle.exps[subject.id] *= 2
+ 
+ 
+# 无畏            
+class WuWeiEffect(Effect):
 
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if subject == battle.sequence[-1]["action"].subject:
+            return
+        if subject not in battle.sequence[-1]["action"].objects:
+            return
+        if battle.event(subject, BattleEvent.ACTMissed) is not None:
+            return
+        if battle.current == subject:
+            return
+        max_damage = None
+        print(subject.hp_delta)
+        if len(battle.sequence) > 1:
+            for seq in battle.sequence[-2::-1]:
+                if seq["current"] == subject:
+                    break
+                if not isinstance(seq["action"], BattleSkillAction):
+                    continue
+                if subject == seq["action"].subject:
+                    continue
+                if battle.is_friend(subject, seq["action"].subject):
+                    continue
+                if "results" not in seq or subject.id not in seq["results"] or \
+                   BattleEvent.ACTMissed in seq["results"][subject.id]:
+                    continue
+                max_damage = seq["results"][subject.id][BattleEvent.HPDamaged]["value"]
+                break
+        if max_damage is not None and subject.hp_delta < max_damage:
+            subject.hp_delta = max_damage
+            if not battle.silent:
+                MSG(style=MSG.Effect, subject=subject, effect=self)    
+            
 
 # 吸髓
 class XiSuiEffect(Effect):

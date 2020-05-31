@@ -47,6 +47,15 @@ SUPERSKILL_XICHUBAWANGQIANG = \
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_XICHUBAWANGQIANG_2"}]},
                {"name": "霸王别姬",
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_XICHUBAWANGQIANG_3"}]}]}
+                
+                
+# 十力降魔棍
+SUPERSKILL_SHILIXIANGMOGUN = \
+    {"name": "十力降魔棍", "rank": 2,
+     "nodes": [{"name": "十力具备", "next": [1],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_SHILIXIANGMOGUN_1"}]},
+               {"name": "泰然无惧", 
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_SHILIXIANGMOGUN_2"}]}]}
 
 
 # 打狗棒法

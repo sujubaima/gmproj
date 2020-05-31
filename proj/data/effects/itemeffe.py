@@ -86,15 +86,35 @@ EFFECT_ZHITAO_ATTR = \
      "attrs": [{"name": "attack_", "delta": 280}]}
 
 
+# 合璧
 EFFECT_HEBI_ATTR = \
     {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
      "attrs": [{"name": "attack_", "delta": 300}]}
 
 
+# 太岳
 EFFECT_TAIYUE_ATTR = \
     {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
      "attrs": [{"name": "attack_", "delta": 328}]}
 
+
+# 紫郢
+EFFECT_ZIYING_ATTR = \
+    {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
+     "attrs": [{"name": "attack_", "delta": 345}]}
+ 
+
+# 青萍
+EFFECT_QINGPING_ATTR = \
+    {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
+     "attrs": [{"name": "attack_", "delta": 315}]} 
+     
+     
+# 湛卢
+EFFECT_ZHANLU_ATTR = \
+    {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
+     "attrs": [{"name": "attack_", "delta": 325}]} 
+     
 
 # 真武
 EFFECT_ZHENWU_ATTR = \
@@ -102,7 +122,7 @@ EFFECT_ZHENWU_ATTR = \
      "attrs": [{"name": "attack_", "delta": 385}]}
 
 
-# 青竹
+# 打狗棒
 EFFECT_DAGOUBANG_ATTR = \
     {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
      "attrs": [{"name": "attack_", "delta": 495}]}

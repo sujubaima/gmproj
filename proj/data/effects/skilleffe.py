@@ -178,6 +178,17 @@ EFFECT_BIJINGUAN = \
 EFFECT_KOUYUSUO = \
     {"style": 1, "module": "proj.builtin.effects", "class": "BattlePersonChangeAttributeEffect",
      "attrs": [{"name": "mp_max_factor_", "ratio": 1.2}]}
+     
+     
+# 金钟罩
+EFFECT_TONGPITIEGU = \
+    {"style": 1, "module": "proj.builtin.effects", "class": "BattlePersonChangeAttributeEffect",
+     "attrs": [{"name": "anti_injury_rate_", "value": 0, "locked": True}]}
+
+EFFECT_JINGANGBUHUAI = \
+    {"name": "金钟罩", "style": 1, "module": "proj.builtin.effects", "class": "JinGangBuHuaiEffect",
+     "influence": "Gang", "factor_middle": 1, "factor_upper": 1.5,
+     "text": "伤害减为1点"}
 
 
 # 惧剑
@@ -300,6 +311,12 @@ EFFECT_DUANGOUWO = \
      "description": "攻击范围内敌方单位越多，伤害越高"}
 
 
+# 无畏
+EFFECT_WUWEI = \
+    {"name": "无畏",
+     "module": "proj.builtin.effects", "class": "WuWeiEffect",
+     "text": "受到的伤害降低了"}
+
 # 吸髓
 EFFECT_XISUI = \
     {"name": "吸髓", "style": 0,
@@ -367,7 +384,7 @@ EFFECT_XUHUANG = \
     {"name": "虚晃", "style": 0,
      "module": "proj.builtin.effects", "class": "XuHuangEffect",
      "text": "{object}随机转向了一个方位",
-     "description": "被攻击的目标不会转向自己，而是转向随机方位"}
+     "description": "被攻击的目标不会转向攻击者，而是转向随机方位"}
 
 
 # 虚弱

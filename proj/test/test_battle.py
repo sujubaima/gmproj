@@ -51,12 +51,15 @@ if __name__ == "__main__":
     p_lw = Person.one("PERSON_LI_WAN")
 
     p_jy = Person.one("PERSON_JUE_YIN")
+    p_jc = Person.one("PERSON_JUE_CHENG")
 
     p_zys = Person.one("PERSON_ZHANG_YINSONG")
     p_lpf = Person.one("PERSON_LI_PEIFENG")
 
     p_lcy = Person.one("PERSON_LI_CANGYING")
     p_xfl = Person.one("PERSON_XING_FEILONG")
+    
+    p_rwh = Person.one("PERSON_RAN_WUHUA")
     
     
     m1 = Map.one("MAP_BTL_BAIBINGTANGZONGDUO")
@@ -77,8 +80,8 @@ if __name__ == "__main__":
 
     #team_a.include(p_msq, p_hy, p_yq, p_zrb, p_jy)
     #team_b.include(p_zys, p_wpf, p_sjy, p_ly, p_ctz)
-    team_a.include(p_jy, p_lcy, p_xfl, p_zsj)
-    team_b.include(p_zys, p_lpf, p_msq, p_ctz, p_zrb)
+    team_a.include(p_rwh)
+    team_b.include(p_jc)
 
     context.teams[team_a.id] = team_a
     context.teams[team_b.id] = team_b

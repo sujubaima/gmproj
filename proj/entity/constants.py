@@ -41,6 +41,7 @@ class BattlePhase(object):
     AfterRest = 8192
     FinishTurn = 16384    
     Finish = 32768
+    BeforeQuit = 65536
 
 
 class BattleEvent(object):

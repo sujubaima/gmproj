@@ -49,12 +49,30 @@ STATUS_HAOQIGANYUN_ANONYMOUS = \
     {"phase": "Instant", "style": 1, "countable": True, "accepttype": "Overlap", "overtype": "Exert",
      "functions": [{"id": "EFFECT_HAOQIGANYUN_ANONYMOUS"}]}
 
+# 金钟罩
+STATUS_TONGPITIEGU = \
+    {"name": "铜皮铁骨", "phase": "Instant", "style": 1,
+     "functions": [{"id": "EFFECT_TONGPITIEGU"}],
+     "description": "免疫外伤"}
+     
+STATUS_JINGANGBUHUAI = \
+    {"name": "金刚不坏", "phase": "AfterDamage", "style": 1,
+     "functions": [{"id": "EFFECT_JINGANGBUHUAI"}],
+     "description": "受到攻击时有一定几率将伤害减为1点"}  
+     
 
 # 剑云
 STATUS_JIANYUN_ANONYMOUS = \
     {"phase": "FinishTurn", "style": 1, "accepttype": "Overlap", "overtype": "Exert",
      "functions": [{"id": "EFFECT_JIANYUN_ANONYMOUS"}]}
 
+
+# 无畏
+STATUS_WUWEI = \
+    {"name": "无畏", "phase": "AfterDamage", "style": 1,
+     "functions": [{"id": "EFFECT_WUWEI"}],
+     "description": "在回合外受到多次攻击时，伤害都不会高于第一次"}
+     
 
 # 卸甲
 STATUS_XIEJIA = \

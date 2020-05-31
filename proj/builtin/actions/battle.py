@@ -118,7 +118,7 @@ class BattleFinishAction(BattleAction):
 class BattleNewTurnAction(BattleAction):
 
     def do(self):
-        self.battle.sequence.append({"action": Action(), "results": {}})
+        self.battle.sequence.append({"current": self.battle.current, "action": Action(), "results": {}})
         self.battle.finish_turn()
         self.battle.reset_delta()
         self.battle.status_work(BattlePhase.FinishTurn)
@@ -135,7 +135,7 @@ class BattleNewTurnAction(BattleAction):
             return
         self.battle.start_turn()
         #print(self.battle.current.name, Person.one("PERSON_YANG_LEI").hp, Person.one("PERSON_ZHAO_SHENJI").hp)
-        self.battle.sequence.append({"action": Action(), "results": {}})
+        self.battle.sequence.append({"current": self.battle.current, "action": Action(), "results": {}})
         self.battle.reset_delta()
         self.battle.status_work(BattlePhase.StartTurn)
         self.battle.deal()
@@ -152,6 +152,7 @@ class BattleNewTurnAction(BattleAction):
 class BattleQuitAction(BattleAction):
 
     def do(self):
+        self.battle.status_work(BattlePhase.BeforeQuit)
         self.battle.quit(self.subject)
         if not self.battle.silent:
             MSG(style=MSG.BattleQuit, battle=self.battle, subject=self.subject)
@@ -177,7 +178,7 @@ class BattleMoveAction(BattleAction):
         if oloc == self.target and len(self.path) <= 1:
              return
         if active:
-            self.battle.sequence.append({"action": self, "results": {}})
+            self.battle.sequence.append({"current": self.battle.current, "action": self, "results": {}})
         self.battle.status_work(BattlePhase.BeforeMove)
         if oloc != self.target:
             self.battle.map.locate(self.subject, self.target)
@@ -199,7 +200,8 @@ class BattleMoveAction(BattleAction):
                 persons=self.battle.snapshot(False), 
                 subject=self.subject, target=self.target, path=self.path)
         #self.battle.move(self)
-        self.battle.reset_delta()
+        if self.active:
+            self.battle.reset_delta()
         self.do_move(active=self.active, redirect=self.redirect)
         self.battle.deal()
         if not self.battle.silent and self.showmsg:
@@ -227,7 +229,7 @@ class BattleSkillAction(BattleAction):
         """
         战场的攻击行为
         """        
-        self.battle.sequence.append({"action": self, "results": {}})
+        self.battle.sequence.append({"current": self.battle.current, "action": self, "results": {}})
         self.battle.check_weapon_before(self.subject, self.skill)
         self.subject.mp_delta += -1 * self.skill.mp
         self.subject.correct()
@@ -384,7 +386,7 @@ class BattleItemAction(BattleAction):
         """
         战场上的使用物品行为
         """       
-        self.battle.sequence.append({"action": self, "results": {}})
+        self.battle.sequence.append({"current": self.battle.current, "action": self, "results": {}})
         self.battle.status_work(BattlePhase.BeforeItem)
         should_hit = common.if_rate(self.subject.hit_rate)
         if not should_hit:
@@ -471,7 +473,7 @@ class BattleRestAction(BattleAction):
         """
         战场的休息行为
         """        
-        self.battle.sequence.append({"action": self, "results": {}})
+        self.battle.sequence.append({"current": self.battle.current, "action": self, "results": {}})
         self.battle.status_work(BattlePhase.BeforeRest)
         p = self.subject
         p.hp_delta = int(p.hp_limit * p.hp_recover_rate)

@@ -145,6 +145,26 @@ SKILL_PEIJIANGJUNJIAN_2 = \
     {"name": "随风游电", "style": "Jianfa",
      "mp": 249, "power": 830, "cd": 1, "yinyang": 1, "shape": "Line.Emit,1,3",
      "effects": [{"id": "EXERT.STATUS_JUJIAN", "phase": "BeforeDamage", "turns": 2}]}
+     
+  
+# 玉女素心剑-神女投壶
+SKILL_YUNVSUXINJIAN_1 = \
+    {"name": "神女投壶", "style": "Jianfa",
+     "mp": 227, "power": 755, "cd": 1, "yinyang": 1, "shape": "BigSector.Swap,1,1",
+     "effects": [{"id": "EFFECT_SHENZHUN"}]}
+  
+# 玉女素心剑-虚风扫月
+SKILL_YUNVSUXINJIAN_2 = \
+    {"name": "虚风扫月", "style": "Jianfa",
+     "mp": 227, "power": 755, "cd": 1, "yinyang": 1, "shape": "BigSector.Swap,1,1",
+     "effects": [{"id": "EFFECT_SHENZHUN"}]}
+ 
+# 玉女素心剑-如虹似玉
+SKILL_YUNVSUXINJIAN_3 = \
+    {"name": "如虹似玉", "style": "Jianfa",
+     "mp": 249, "power": 830, "cd": 1, "yinyang": 1, "shape": "Line.Emit,1,3",
+     "effects": [{"id": "EXERT.STATUS_JUJIAN", "phase": "BeforeDamage", "turns": 2}]}
+     
                  
                  
 # 太岳三青峰-素手托莲

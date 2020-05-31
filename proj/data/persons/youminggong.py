@@ -8,7 +8,7 @@ PERSON_YING_QINGFENG = \
      "superskills": [{"id": "SUPERSKILL_JIANGHUXINFA", "learn": [0, 1, 2]},
                      {"id": "SUPERSKILL_YINGXIONGXINFA", "learn": [0, 1, 2]},
                      {"id": "SUPERSKILL_LIHUNSHU", "learn": [0, 1, 2, 3]},
-                     {"id": "SUPERSKILL_TIANLEIDIHUOYIN", "learn": [0, 1, 2]}],
+                     {"id": "SUPERSKILL_TIANLEIDIHUOYIN", "learn": "All"}],
      "running": {"id": "SUPERSKILL_LIHUNSHU"},
      "skill_counter": {"id": "SKILL_TIANLEIDIHUOYIN_1"},
      "equipment": [{"id": "ITEM_FENGSHOU", "position": "MainHand"},
