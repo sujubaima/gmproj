@@ -1,5 +1,16 @@
 # -- coding: utf-8 --
 
+# 冰肌玉骨术
+STATUS_ZHUYAN = \
+    {"name": "驻颜", "phase": "AfterDamage", "style": 1,
+     "functions": [],
+     "description": "所有武学不消耗内力"}
+     
+STATUS_LIUGUANG = \
+    {"name": "流光", "phase": "FinishTurn", "style": 2,
+     "functions": [],
+     "description": "回合结束时流失一定内力，补充给周身2格内友方单位"}
+     
 # 太极神功
 STATUS_MINGYUEZHAODAJIANG = \
     {"name": "明月照大江", "phase": "AfterDamage", "style": 1,

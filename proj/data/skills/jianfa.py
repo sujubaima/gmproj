@@ -153,9 +153,9 @@ SKILL_YUNVSUXINJIAN_1 = \
      "mp": 227, "power": 755, "cd": 1, "yinyang": 1, "shape": "BigSector.Swap,1,1",
      "effects": [{"id": "EFFECT_SHENZHUN"}]}
   
-# 玉女素心剑-虚风扫月
+# 玉女素心剑-窥窗扫月
 SKILL_YUNVSUXINJIAN_2 = \
-    {"name": "虚风扫月", "style": "Jianfa",
+    {"name": "窥窗扫月", "style": "Jianfa",
      "mp": 227, "power": 755, "cd": 1, "yinyang": 1, "shape": "BigSector.Swap,1,1",
      "effects": [{"id": "EFFECT_SHENZHUN"}]}
  

@@ -222,6 +222,17 @@ SUPERSKILL_BICHENGJIANFA = \
                                "skill": "SKILL_BICHENGJIANFA_3", "effect": {"id": "EFFECT_GONGQI_DA"}}],
                 "description": "增强【玉轮生魄】的攻气效果"}]}
 
+
+# 玉女素心剑
+SUPERSKILL_YUNVSUXINJIAN = \
+    {"name": "玉女素心剑", "rank": 2,
+     "nodes": [{"name": "神女投壶", "next": [1],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_YUNVSUXINJIAN_1"}]},
+               {"name": "窥窗扫月", "next": [2],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_YUNVSUXINJIAN_2"}]},
+               {"name": "如虹似玉",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_YUNVSUXINJIAN_3"}]}]}
+                
                 
 # 裴将军剑
 SUPERSKILL_PEIJIANGJUNJIAN = \
