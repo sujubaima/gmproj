@@ -25,6 +25,8 @@ class PanGenEffect(Effect):
         battle = kwargs["battle"]
         if subject != battle.sequence[-1]["action"].subject:
             return
+        if battle.event(subject, BattleEvent.ACTFault) is not None:
+            return
         if len(battle.sequence) > 1 and \
            isinstance(battle.sequence[-2]["action"], BattleMoveAction) and \
            battle.sequence[-2]["action"].subject == subject:
@@ -39,6 +41,43 @@ class PanGenEffect(Effect):
         chosen.leave(subject)
         if not battle.silent:
             MSG(style=MSG.Effect, subject=subject, effect=self, details={"status": chosen.name})
+
+
+# 缥缈
+class PiaoMiaoEffect(Effect):
+
+    phase = BattlePhase.BeforeAttack
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if subject != battle.sequence[-1]["action"].subject:
+            return 
+        sub_loc = battle.map.location(subject)
+        dire = battle.map.direction(battle.sequence[-1]["action"].target, sub_loc)
+        sub_tgt = battle.map.neighbour(sub_loc, dire)
+        if not battle.map.is_on_map(sub_tgt) or not battle.map.can_stay(subject, sub_tgt):
+            return
+        battle.moved[subject.id] = False
+        BattleMoveAction(showmsg=False, active=False,
+                         battle=battle, subject=subject, target=sub_tgt,
+                         path=[sub_tgt, sub_loc]).do()
+        MSG(style=MSG.Effect, subject=subject, effect=self,
+            details={"subject": subject.name})
+
+
+
+# 启用
+class QiYongEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if self.action == "Move":
+            sts_map = battle.moved
+        elif self.action == "Attack":
+            sts_map = battle.attacked
+        elif self.action == "Item":
+            sts_map = battle.itemed
+        sts_map[subject.id] = False
 
 
 # 清风拂山岗
@@ -96,6 +135,53 @@ class QueBuEffect(Effect):
             obj.process += process
             if not battle.silent:
                 MSG(style=MSG.Effect, subject=subject, effect=self, details={"process": -1 * process, "object": obj.name})
+
+
+# 日薄虞渊
+class RiBoYuYuanEffect(ExertEffect):
+
+    def initialize(self):
+        super(RiBoYuYuanEffect, self).initialize()
+        sts_tpl = "STATUS_MUMANG_DA"
+        self.exertion = Status.template(sts_tpl)
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        status = kwargs["status"]
+        if battle.current != subject:
+            return
+        new_objects = []
+        sub_loc = battle.map.location(subject)
+        for loc in battle.map.circle(sub_loc, 1):
+            p = battle.map.loc_entity.get(loc, None)
+            if p is None or battle.is_friend(subject, p):
+                continue
+            new_objects.append(p)
+        if len(new_objects) == 0:
+            return
+        super(RiBoYuYuanEffect, self).work(subject, objects=new_objects, source=status.source, **kwargs)
+
+
+# 日月
+class RiYueEffect(ExertEffect):
+
+    def work(self, subject, objects=[], **kwargs):
+        skill_changing = None
+        for skill in subject.skills:
+            if skill.tpl_id == self.skill:
+                skill_changing = skill
+                break
+        if skill_changing is None:
+            return
+        leave_status = None
+        for status in subject.status:
+            if status.tpl_id == self.status_leave:
+                leave_status = status
+                break
+        if leave_status is None and skill_changing.power > self.limit:
+            super(RiYueEffect, self).work(subject, objects=[subject], **kwargs) 
+        else:
+            leave_status.leave(subject)
 
 
 # 柔劲
@@ -190,6 +276,8 @@ class TongXinEffect(Effect):
         if len(objects) == 0:
             objects = battle.sequence[-1]["action"].objects
         for obj in objects:
+            if battle.event(obj, BattleEvent.ACTMissed) is not None:
+                continue
             sts_count = 0
             for sts in obj.status:
                 if subject.already(sts) is not None:

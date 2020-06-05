@@ -460,6 +460,15 @@ SUPERSKILL_JINZHONGZHAO = \
                 "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_JINZHONGZHAO_2"}]}]}
 
 
+# 六龙回日功
+SUPERSKILL_LIULONGHUIRIGONG = \
+    {"name": "六龙回日功", "rank": 2,
+     "nodes": [{"name": "六龙回日", "next": [1],
+                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_LIULONGHUIRIGONG_1"}]},
+               {"name": "日薄虞渊",
+                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_LIULONGHUIRIGONG_2"}]}]}
+
+
 # 虬髯心法
 SUPERSKILL_QIURANXINFA = \
     {"name": "虬髯心法", "rank": 2,

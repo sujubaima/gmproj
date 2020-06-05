@@ -50,11 +50,13 @@ class BattleEvent(object):
     MPChanged = 1
     ACTMissed = 2
     ACTFault = 3
-    HPDamaged = 4
-    MPDamaged = 5
-    PositionMoved = 6
-    Counter = 7
-    Quit = 8
+    ACTDefended = 4
+    ACTCritical = 5
+    HPDamaged = 6
+    MPDamaged = 7
+    PositionMoved = 8
+    Counter = 9
+    Quit = 10
 
 
 class EquipPosition(object):

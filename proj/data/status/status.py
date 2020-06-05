@@ -3,13 +3,13 @@
 # 冰肌玉骨术
 STATUS_ZHUYAN = \
     {"name": "驻颜", "phase": "AfterDamage", "style": 1,
-     "functions": [],
+     "functions": [{"id": "EFFECT_ZHUYAN"}],
      "description": "所有武学不消耗内力"}
      
 STATUS_LIUGUANG = \
     {"name": "流光", "phase": "FinishTurn", "style": 2,
-     "functions": [],
-     "description": "回合结束时流失一定内力，补充给周身2格内友方单位"}
+     "functions": [{"id": "EFFECT_LIUGUANG"}],
+     "description": "每回合结束时流失一定内力，补充给周身2格内友方单位"}
      
 # 太极神功
 STATUS_MINGYUEZHAODAJIANG = \
@@ -33,7 +33,7 @@ STATUS_QINGFENGFUSHANGANG = \
 STATUS_TAIJIJIN = \
     {"name": "太极劲", "phase": "Start", "style": 1,
      "functions": [{"id": "EFFECT_TAIJIJIN"}],
-     "description": "武学『太极拳』、『太极剑意』威力提升"}
+     "description": "武学『太极拳』、『太极剑意』所有招式威力提升"}
 
 
 # 定身
@@ -41,6 +41,36 @@ STATUS_DINGSHEN = \
     {"name": "定身", "phase": "StartTurn", "accepttype": "Overlap",
      "functions": [{"id": "EFFECT_DINGSHEN"}],
      "description": "无法主动移动"}
+
+
+# 日月
+STATUS_PINGDAN = \
+    {"phase": "Instant", "accepttype": "Overlap", "overtype": "Exert", "style": 2,
+     "functions": [{"id": "EFFECT_PINGDAN_INCREASE"},
+                   {"id": "EFFECT_PINGDAN_DECREASE"}]}
+
+STATUS_RIRU = \
+    {"phase": "Instant", "accepttype": "Overlap", "overtype": "Exert", "style": 2,
+     "functions": [{"id": "EFFECT_RIRU_INCREASE"},
+                   {"id": "EFFECT_RIRU_DECREASE"}]}
+
+STATUS_RIYUEZHENGHUI = \
+    {"phase": "Instant", "accepttype": "Overlap", "overtype": "Exert", "style": 2,
+     "functions": [{"id": "EFFECT_RI_ANONYMOUS"},
+                   {"id": "EFFECT_YUE_ANONYMOUS"},
+                   {"id": "EFFECT_RIYUE_ANONYMOUS"}]}
+
+STATUS_YURI = \
+    {"name": "日轮观", "phase": "Instant", "style": 1,
+     "functions": [{"id": "EFFECT_RI_ANONYMOUS"},
+                   {"id": "EFFECT_RIYUE_ANONYMOUS"}],
+     "description": "武学『日月双轮』中『偷天换日』、『日月争辉』二式威力提升"}
+
+STATUS_ZHIYUE = \
+    {"name": "月轮观", "phase": "Instant", "style": 1,
+     "functions": [{"id": "EFFECT_YUE_ANONYMOUS"},
+                   {"id": "EFFECT_RIYUE_ANONYMOUS"}],
+     "description": "武学『日月双轮』中『月落参横』、『日月争辉』二式威力提升"}
 
 
 # 弃武
@@ -72,10 +102,10 @@ STATUS_JINGANGBUHUAI = \
      "description": "受到攻击时有一定几率将伤害减为1点"}  
      
 
-# 剑云
-STATUS_JIANYUN_ANONYMOUS = \
+# 云剑
+STATUS_YUNJIAN_ANONYMOUS = \
     {"phase": "FinishTurn", "style": 1, "accepttype": "Overlap", "overtype": "Exert",
-     "functions": [{"id": "EFFECT_JIANYUN_ANONYMOUS"}]}
+     "functions": [{"id": "EFFECT_YUNJIAN_ANONYMOUS"}]}
 
 
 # 无畏
@@ -114,7 +144,7 @@ STATUS_XUHAO = \
 
 # 虚弱
 STATUS_XURUO = \
-    {"name": "虚弱", "phase": "AfterAttack",
+    {"name": "虚弱", "phase": "Instant",
      "functions": [{"id": "EFFECT_XURUO"}],
      "description": "基础攻击下降"}
 
@@ -189,9 +219,23 @@ STATUS_JIANQIRUXIA = \
 
 # 离魂不系     
 STATUS_LIHUNBUJI = \
-    {"name": "离魂不系", "phase": "StartTurn", "style": 1,
+    {"name": "离魂不系", "phase": "StartTurn", "style": 2,
      "functions": [{"id": "EFFECT_LIHUNBUJI"}],
      "description": "战斗中无法主动移动，但每回合开始会随机投放至地图一点"}
+
+
+# 六龙回日
+STATUS_LIULONGHUIRI = \
+    {"name": "六龙回日", "phase": "AfterAttack,AfterItem", "style": 1,
+     "functions": [{"id": "EFFECT_LIULONGHUIRI"}],
+     "description": "回合内攻击或使用物品后获得额外的移动机会"}
+
+
+# 日薄虞渊
+STATUS_RIBOYUYUAN = \
+    {"name": "日薄虞渊", "phase": "FinishTurn", "style": 1,
+     "functions": [{"id": "EFFECT_RIBOYUYUAN", "turns": 1}],
+     "description": "回合结束时对周身1格内的敌方单位施加大目盲状态，持续1回合"}
 
 
 # 迷形
@@ -218,6 +262,11 @@ STATUS_MUMANG = \
     {"name": "目盲", "phase": "Instant", "style": 0,
      "functions": [{"id": "EFFECT_MUMANG"}],
      "description": "命中率暂时下降"}
+
+STATUS_MUMANG_DA = \
+    {"name": "大目盲", "phase": "Instant", "style": 0,
+     "functions": [{"id": "EFFECT_MUMANG_DA"}],
+     "description": "命中率大幅下降"}
      
 
 STATUS_XUNFENG = \
@@ -327,9 +376,9 @@ STATUS_QIANCHAN = \
      "description": "闪避率暂时降低"}
 
 
-STATUS_LONGXING = \
-    {"name": "龙行", "phase": "Instant", "style": 1,
-     "functions": [{"id": "EFFECT_LONGXING"}],
+STATUS_XUNJI = \
+    {"name": "迅疾", "phase": "Instant", "style": 1,
+     "functions": [{"id": "EFFECT_XUNJI"}],
      "description": "时序速度暂时提升"}
 
 

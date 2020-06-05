@@ -259,13 +259,15 @@ class BattleSkillAction(BattleAction):
                 continue
             hp_damaged, mp_damaged, critical, anti_damage = self.battle.damage(self.skill, self.subject, q)
             if anti_damage:
+                self.battle.add_event(q, BattleEvent.ACTDefended)
                 self.anti_list.append(q)
+            if critical:
+                self.battle.add_event(q, BattleEvent.ACTCritical)
             self.critical = self.critical or critical
             q.hp_delta = -1 * hp_damaged
             q.mp_delta = -1 * mp_damaged
         # 发动伤害计算后效果
-        if should_hit:
-            self.skill.work(self.subject, battle=self.battle, phase=BattlePhase.AfterDamage)
+        self.skill.work(self.subject, battle=self.battle, phase=BattlePhase.AfterDamage)
         self.battle.status_work(BattlePhase.AfterDamage)
         for q in self.battle.alive:
             q.correct()
@@ -279,8 +281,7 @@ class BattleSkillAction(BattleAction):
                 self.battle.add_event(q, BattleEvent.Counter)
         self.battle.redirect(self.subject, self.objects, self.target, self.skill)
         # 发动后置效果
-        if should_hit:
-            self.skill.work(self.subject, battle=self.battle, phase=BattlePhase.AfterAttack)
+        self.skill.work(self.subject, battle=self.battle, phase=BattlePhase.AfterAttack)
         self.battle.status_work(BattlePhase.AfterAttack)
         for q in self.battle.alive:
             q.correct(poison=False)
@@ -476,11 +477,12 @@ class BattleRestAction(BattleAction):
         self.battle.sequence.append({"current": self.battle.current, "action": self, "results": {}})
         self.battle.status_work(BattlePhase.BeforeRest)
         p = self.subject
-        p.hp_delta = int(p.hp_limit * p.hp_recover_rate)
-        p.mp_delta = int(p.mp_limit * p.mp_recover_rate)
-        if self.battle.moved[self.subject.id]:
+        if self.rest_action == 1:
             p.hp_delta = int(p.hp_delta * p.hp_recover_rate_inferior)
             p.mp_delta = int(p.mp_delta * p.mp_recover_rate_inferior)
+        elif self.rest_action == 2:
+            p.hp_delta = int(p.hp_limit * p.hp_recover_rate)
+            p.mp_delta = int(p.mp_limit * p.mp_recover_rate)
         p.hp_delta = max(0, p.hp_delta - p.poison_hp)
         p.mp_delta = max(0, p.mp_delta - p.poison_mp)
         p.correct()
@@ -493,6 +495,12 @@ class BattleRestAction(BattleAction):
     def do(self):
         if self.subject.hp <= 0 or self.battle.finished():
             return
+        if self.battle.attacked[self.subject.id] or self.battle.itemed[self.subject.id]:
+            self.rest_action = 0
+        elif self.battle.moved[self.subject.id]:
+            self.rest_action = 1
+        else:
+            self.rest_action = 2
         self.battle.moved[self.subject.id] = True
         self.battle.attacked[self.subject.id] = True
         self.battle.itemed[self.subject.id] = True

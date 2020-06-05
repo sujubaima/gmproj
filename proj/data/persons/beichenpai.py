@@ -3,7 +3,7 @@
 # 陈挺之
 PERSON_CHEN_TINGZHI = \
     {"firstname": "陈", "lastname": "挺之", "title": "北辰派大弟子",
-     "hp_max": 4200, "mp_max": 1800, "attack": 350, "defense": 328,
+     "hp_max": 4200, "mp_max": 1800, "attack": 350, "defense": 328, "motion": 0,
      "dongjing": -16, "gangrou": 17, "zhipu": 2, "yinyang": 15,
      "neigong": 57, "boji": 28, "jianfa": 68, "daofa": 24, "changbing": 28, "anqi": 43, "qimen": 40,
      "superskills": [{"id": "SUPERSKILL_GAOYUANWUJIGONG", "learn": "All"},
@@ -19,7 +19,7 @@ PERSON_CHEN_TINGZHI = \
 # 骆逸
 PERSON_LUO_YI = \
     {"firstname": "骆", "lastname": "逸", "title": "北辰派二弟子",
-     "hp_max": 2800, "mp_max": 1000, "attack": 300, "defense": 300,
+     "hp_max": 2800, "mp_max": 1000, "attack": 300, "defense": 300, "motion": 0,
      "dongjing": 19, "gangrou": -13, "zhipu": 24, "yinyang": -20,
      "neigong": 46, "boji": 16, "jianfa": 54, "daofa": 6, "changbing": 10, "anqi": 45, "qimen": 30,
      "superskills": [{"id": "SUPERSKILL_GAOYUANWUJIGONG", "learn": [0, 1, 2]},

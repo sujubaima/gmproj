@@ -13,7 +13,8 @@ PERSON_XING_FEILONG = \
      "skill_counter": {"id": "SKILL_DAGOUBANGFA_2"},
      "running": {"id": "SUPERSKILL_QIURANXINFA"},
      "items": [],
-     "equipment": [{"id": "ITEM_DAGOUBANG", "position": "MainHand"}]}
+     "equipment": [{"id": "ITEM_DAGOUBANG", "position": "MainHand"}],
+     "criticaltxt": "武林鼠辈，尚识得屠狗人否？！"}
 
 
 # 厉苍鹰
@@ -28,7 +29,7 @@ PERSON_LI_CANGYING = \
      "running": {"id": "SUPERSKILL_QIURANXINFA"},
      "items": [],
      "equipment": [{"id": "ITEM_ZHITAO", "position": "MainHand"}],
-     "criticaltxt": "人生在世，自当龙战三二十载，建少功业！"}
+     "criticaltxt": "人生在世，自当龙战三二十载，建功立业！"}
 
 
 # 赵乞儿

@@ -60,6 +60,12 @@ EFFECT_DUANJIN = \
      "attrs": [{"name": "speed_factor_", "ratio": 0.6}]}
 
 
+# 飞电
+EFFECT_FEIDIAN = \
+    {"name": "飞电", "style": 1, 
+     "module": "proj.builtin.effects", "class": "FeiDianEffect"}
+
+
 # 负心
 EFFECT_FUXIN = \
     {"name": "负心", "style": 0,
@@ -157,17 +163,17 @@ EFFECT_GANGJIN_DA = \
      "description": "较大比例的伤害追加为外伤，刚猛值越高效果越佳"}
 
 
-# 剑云
-EFFECT_JIANYUN = \
+# 云剑
+EFFECT_YUNJIAN = \
     {"name": "云剑", "style": 1,
-     "module": "proj.builtin.effects", "class": "JianYunEffect",
+     "module": "proj.builtin.effects", "class": "YunJianEffect",
      "text": "在{location}及其周边地块施放了剑气",
      "description": "在目标及其周边2格地块施放一团剑气，在该区域内停留的敌方单位均会遭受伤害"}
 
-EFFECT_JIANYUN_ANONYMOUS = \
+EFFECT_YUNJIAN_ANONYMOUS = \
     {"name": "云剑", "style": 1,
-     "module": "proj.builtin.effects", "class": "JianYunAnonymousEffect",
-     "text": "{object}在剑云中受到{hp_delta}点伤害"}
+     "module": "proj.builtin.effects", "class": "YunJianAnonymousEffect",
+     "text": "{object}在剑气中受到{hp_delta}点伤害"}
 
 
 # 金关玉锁     
@@ -200,9 +206,17 @@ EFFECT_JUJIAN = \
 
 # 迷形
 EFFECT_MIXING = \
-    {"name": "迷形", "style": 1, "module": "proj.builtin.effects", "class": "MiXingEffect",
+    {"name": "迷形", "style": 1, 
+     "module": "proj.builtin.effects", "class": "MiXingEffect",
      "text": "{attacker}背向了{subject}",
      "description": "对方攻击自身后会背向目标"}
+
+
+# 美人如玉
+EFFECT_MEIRENRUYU = \
+    {"name": "美人如玉", "style": 0,
+     "module": "proj.builtin.effects", "class": "MeiRenRuYuEffect",
+     "description": "对男性角色伤害大幅增加"}
 
 
 # 摩诃无量
@@ -220,17 +234,15 @@ EFFECT_MOHEWULIANG_DA = \
 
 
 # 目盲
-EFFECT_MUMANG_EXERT = \
-    {"name": "目盲", "style": 0,
-     "module": "proj.entity.effect", "class": "ExertEffect", "exertion": "STATUS_MUMANG",
-     "turns": 2, "influence": "Zhi", "ratio_upper": 1, "ratio_middle": 0.5,
-     "text": "{object}的命中率下降了",
-     "description": "有一定概率令目标命中率下降，颖悟值越高几率越大"}
-
 EFFECT_MUMANG = \
     {"style": 0, "module": "proj.builtin.effects", "class": "BattlePersonChangeAttributeEffect",
      "influence": "Rou", "factor_lower": 1.2, "factor_middle": 1,
      "attrs": [{"name": "hit_rate_factor_", "ratio": 0.8}]}
+
+EFFECT_MUMANG_DA = \
+    {"style": 0, "module": "proj.builtin.effects", "class": "BattlePersonChangeAttributeEffect",
+     "influence": "Rou", "factor_lower": 1.2, "factor_middle": 1,
+     "attrs": [{"name": "hit_rate_factor_", "ratio": 0.6}]}
 
 
 # 逆脉     
@@ -245,6 +257,14 @@ EFFECT_NIMAI_DEFENSE = \
      "module": "proj.builtin.effects", "class": "NiMaiDefenseEffect",
      "text": "防御的气血消耗转换为内力消耗，同时自身受到一定程度内伤",
      "description": "防御时有一定几率将耗血改为耗气，但自身会受到一定程度内伤"}
+
+
+# 缥缈
+EFFECT_PIAOMIAO = \
+    {"name": "缥缈", "style": 2,
+     "module": "proj.builtin.effects", "class": "PiaoMiaoEffect",
+     "text": "{subject}后退了一格",
+     "description": "攻击前后退一格"}
 
 
 # 盘根
@@ -394,6 +414,13 @@ EFFECT_XURUO = \
      "attrs": [{"name": "attack_factor_", "ratio": 0.7}]}
 
 
+# 迅疾
+EFFECT_XUNJI = \
+    {"style": 1,
+     "module": "proj.builtin.effects", "class": "BattlePersonChangeAttributeEffect",
+     "attrs": [{"name": "speed_factor_", "ratio": 2}]}
+
+
 # 易筋
 EFFECT_YIJIN = \
     {"name": "易筋", "style": 1,
@@ -417,7 +444,7 @@ EFFECT_YUXUE = \
 EFFECT_YUANZHUAN = \
     {"name": "圆转", "style": 2,
      "module": "proj.builtin.effects", "class": "BuFengEffect",
-     "text": "攻击范围内的敌方单位被拉至身边了",
+     "text": "{object}被拉至身边了",
      "description": "将攻击范围内的敌方单位拉至近身"}
 
 
@@ -543,11 +570,73 @@ EFFECT_LIANJI = \
      "description": "有一定几率再次使用相同技能对目标发动攻击，灵动值越高发动几率越大"}
 
 
+# 流光
+EFFECT_LIUGUANG = \
+    {"name": "流光",
+     "module": "proj.builtin.effects", "class": "LiuGuangEffect",
+     "text": "{object}的内力得到了恢复"}
+
+
 # 牵缠
 EFFECT_QIANCHAN = \
     {"style": 0, "module": "proj.builtin.effects", "class": "BattlePersonChangeAttributeEffect",
      "attrs": [{"name": "dodge_rate_factor_", "ratio": 0.6}],
      "influence": "Rou", "factor_lower": 1.2, "factor_middle": 1}
+
+
+# 日月
+EFFECT_PINGDAN_DECREASE = \
+    {"style": 0, "module": "proj.entity.effect", "class": "SkillChangeAttributeEffect",
+     "skill": "SKILL_RIYUESHUANGLUN_2",
+     "attrs": [{"name": "power", "delta": -100}]}
+
+EFFECT_PINGDAN_INCREASE = \
+    {"style": 1, "module": "proj.entity.effect", "class": "SkillChangeAttributeEffect",
+     "skill": "SKILL_RIYUESHUANGLUN_1",
+     "attrs": [{"name": "power", "delta": 100}]}
+
+EFFECT_RIRU_DECREASE = \
+    {"style": 0, "module": "proj.entity.effect", "class": "SkillChangeAttributeEffect",
+     "skill": "SKILL_RIYUESHUANGLUN_1",
+     "attrs": [{"name": "power", "delta": -100}]}
+
+EFFECT_RIRU_INCREASE = \
+    {"style": 1, "module": "proj.entity.effect", "class": "SkillChangeAttributeEffect",
+     "skill": "SKILL_RIYUESHUANGLUN_2",
+     "attrs": [{"name": "power", "delta": 100}]}
+
+EFFECT_RI_ANONYMOUS = \
+    {"style": 1, "module": "proj.entity.effect", "class": "SkillChangeAttributeEffect",
+     "skill": "SKILL_RIYUESHUANGLUN_1",
+     "attrs": [{"name": "power", "delta": 50}]}
+
+EFFECT_YUE_ANONYMOUS = \
+    {"style": 1, "module": "proj.entity.effect", "class": "SkillChangeAttributeEffect",
+     "skill": "SKILL_RIYUESHUANGLUN_2",
+     "attrs": [{"name": "power", "delta": 50}]}
+
+EFFECT_RIYUE_ANONYMOUS = \
+    {"style": 1, "module": "proj.entity.effect", "class": "SkillChangeAttributeEffect",
+     "skill": "SKILL_RIYUESHUANGLUN_3",
+     "attrs": [{"name": "power", "delta": 50}]}
+
+EFFECT_RIRU = \
+    {"name": "日入", "style": 2,
+     "module": "proj.builtin.effects", "class": "RiYueEffect",
+     "exertion": "STATUS_RIRU", "status_leave": "STATUS_PINGDAN", "skill": "SKILL_RIYUESHUANGLUN_1", "limit": 100,
+     "description": "使用后本次战斗中『偷天换日』威力降低100点，『月落参横』威力提高100点"}
+
+EFFECT_PINGDAN = \
+    {"name": "平旦", "style": 2,
+     "module": "proj.builtin.effects", "class": "RiYueEffect",
+     "exertion": "STATUS_PINGDAN", "status_leave": "STATUS_RIRU", "skill": "SKILL_RIYUESHUANGLUN_2", "limit": 100,
+     "description": "使用后本次战斗中『月落参横』威力降低100点，『偷天换日』威力提高100点"}
+
+EFFECT_RIYUEZHENGHUI = \
+    {"name": "日月争辉", "style": 1,
+     "module": "proj.builtin.effects", "class": "ExertEffect",
+     "targets": "Subject", "exertion": "STATUS_RIYUEZHENGHUI",
+     "description": "使用后本次战斗中『日月双轮』全部招式威力提高50点"}
 
 
 # 同心
@@ -573,12 +662,6 @@ EFFECT_JUEYING = \
      "text": "移动至{object}身后",
      "description": "在进行攻击前，先移动至目标身后"}
      
-
-# 龙行
-EFFECT_LONGXING = \
-    {"style": 0, "module": "proj.builtin.effects", "class": "BattlePersonChangeAttributeEffect",
-     "attrs": [{"name": "speed_factor_", "ratio": 1.4}]}
-
 
 # 虎步
 EFFECT_HUBU = \
@@ -702,6 +785,17 @@ EFFECT_JIANQIRUXIA = \
      "description": "所有剑法武学的溅射范围增加"}
      
      
+# 六龙回日功
+EFFECT_LIULONGHUIRI = \
+    {"name": "六龙回日", "style": 1,
+     "module": "proj.builtin.effects", "class": "QiYongEffect", "action": "Move",
+     "text": "获得额外的行动机会"}
+
+EFFECT_RIBOYUYUAN = \
+    {"style": 1,
+     "module": "proj.builtin.effects", "class": "RiBoYuYuanEffect"}
+
+
 # 离魂不系
 EFFECT_LIHUNBUJI = \
     {"name": "离魂不系", "style": 1,
@@ -754,6 +848,13 @@ EFFECT_ZHENSHE = \
     {"name": "震慑",
      "module": "proj.builtin.effects", "class": "ZhenSheEffect",
      "description": "对施加者的攻击伤害降低"}
+
+
+# 驻颜
+EFFECT_ZHUYAN = \
+    {"name": "驻颜",
+     "module": "proj.builtin.effects", "class": "ZhuYanEffect"}
+
      
 
 EFFECT_4 = {"name": "退敌", "module": "proj.builtin.effect", "class": "TuiDiEffect"}

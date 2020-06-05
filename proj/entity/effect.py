@@ -130,10 +130,11 @@ class Status(Entity):
         elif k == "functions":
             ret = []
             for efpl in v:
-                effeobj = Effect.template(efpl["id"])
-                effe_id = effeobj.id
-                effeobj.load(**efpl)
-                effeobj.id = effe_id
+                #effeobj = Effect.template(efpl["id"])
+                #effe_id = effeobj.id
+                #effeobj.load(**efpl)
+                #effeobj.id = effe_id
+                effeobj = Effect.fromjson(efpl)
                 ret.append(effeobj)
             setattr(self, "effects", ret)
         elif k == "overtype":
@@ -291,6 +292,8 @@ class ExertEffect(Effect):
                     setattr(exertion, attrk, attrv)
             tgt.status.append(exertion)
             if exertion.phase & 1 != 0:
+                if "status" in kwargs:
+                    kwargs.pop("status")
                 exertion.work(tgt, objects=objects, **kwargs)
             if self.showmsg and battle is not None and not battle.silent and exertion.name is not None:
                 detail_map = {"subject": subject.name, "object": tgt.name, "status": exertion.name}

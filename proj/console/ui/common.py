@@ -189,24 +189,24 @@ def select_func_(menu):
 # 在使用curses绘制UI的前提下有些基本操作需要特殊实现
 # 不过curses真他妈难用，我觉得用原始的交互就挺好的
 # 不接受反驳
-if options.USE_CURSES:
-    from proj.console import scr
-    output_func = scr.curses_write
-    input_func = scr.curses_read
-    select_func = scr.curses_select
-    position_func = scr.curses_position
-    refresh_func = scr.curses_refresh
-    colored = Colored
+#if options.USE_CURSES:
+#    from proj.console import scr
+#    output_func = scr.curses_write
+#    input_func = scr.curses_read
+#    select_func = scr.curses_select
+#    position_func = scr.curses_position
+#    refresh_func = scr.curses_refresh
+#    colored = Colored
+#else:
+output_func = lambda x: sys.stdout.write(str(x))
+if platform.system() == "Linux":
+    input_func = lambda x="": raw_input(x)
 else:
-    output_func = lambda x: sys.stdout.write(str(x))
-    if platform.system() == "Linux":
-        input_func = lambda x="": raw_input(x)
-    else:
-        input_func = input_func_
-    select_func = select_func_
-    position_func = lambda x: (0, 0)
-    refresh_func = lambda x: None
-    colored = termcolor.colored
+    input_func = input_func_
+select_func = select_func_
+position_func = lambda x: (0, 0)
+refresh_func = lambda x: None
+colored = termcolor.colored
 
 
 UNICODE_WIDTH = [

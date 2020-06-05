@@ -205,7 +205,7 @@ class SimpleAI(object):
             move_scope = self.move_scope
         can_do = []
         tmp_min_distance = 100
-        tmp_loc = None
+        tmp_locs = []
         max_attack_range, min_attack_range = self.skill_ranges(skills)
 
         for loc in move_scope + [self.battle.map.location(p)]:
@@ -224,7 +224,9 @@ class SimpleAI(object):
                 if self.battle.is_enemy(p, q):
                     if tmp_distance < tmp_min_distance:
                         tmp_min_distance = tmp_distance
-                        tmp_loc = loc
+                        tmp_locs = [loc]
+                    elif tmp_distance == tmp_min_distance:
+                        tmp_locs.append(loc)
                     at_least_one = at_least_one or (tmp_distance <= max_attack_range["Enemies"] and \
                                                     tmp_distance >= min_attack_range["Enemies"])
                 else:
@@ -303,12 +305,15 @@ class SimpleAI(object):
                                              #debug_info=debug_info, person_info=person_info, object_info=object_info)]
                     can_do.append((action_list, score))
         if len(can_do) == 0 and with_default:
-            can_do.append(([BattleMoveAction(subject=p,
-                                             battle=self.battle,
-                                             target=tmp_loc,
-                                             scope=move_scope,
-                                             path=self.battle.map.move_trace(tmp_loc, self.battle.map.location(p), self.connections)),
-                            BattleRestAction(subject=p, battle=self.battle)], min(250, int(p.mp_limit * p.mp_recover_rate_inferior))))
+            tmp_loc = random.sample(tmp_locs, 1)[0]
+            move_default = BattleMoveAction(subject=p, battle=self.battle, target=tmp_loc, scope=move_scope,
+                                             path=self.battle.map.move_trace(tmp_loc, self.battle.map.location(p), self.connections))
+            rest_default = BattleRestAction(subject=p, battle=self.battle)
+            if self.battle.attacked[p.id] or self.battle.itemed[p.id]:
+                list_default = [move_default]
+            else:
+                list_default = [move_default, rest_default]
+            can_do.append((list_default, min(250, int(p.mp_limit * p.mp_recover_rate_inferior))))
         return can_do
 
     def do_attack(self, p):
@@ -341,4 +346,7 @@ class SimpleAI(object):
         return self.do_skill_silent(p, items, isitem=True)
      
     def do_rest(self, p):
-        return [([BattleRestAction(subject=p, battle=self.battle)], min(250, int(p.mp_limit * p.mp_recover_rate)))]
+        if self.battle.attacked[p.id] or self.battle.itemed[p.id]:
+            return []
+        else:
+            return [([BattleRestAction(subject=p, battle=self.battle)], min(250, int(p.mp_limit * p.mp_recover_rate)))]

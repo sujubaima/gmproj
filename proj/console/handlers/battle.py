@@ -99,8 +99,8 @@ def validate_position(pos, valid_pos, can_on_person, battle=None):
     x = int(x)
     y = int(y)
     real_pos = battle.map.point_to_real((x, y))
-    if not can_on_person and real_pos in battle.map.loc_entity:
-        return None
+    #if not can_on_person and real_pos in battle.map.loc_entity:
+    #    return None
     if real_pos not in valid_pos:
         return None
     return real_pos

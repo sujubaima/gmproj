@@ -36,6 +36,17 @@ SUPERSKILL_YUERENGE = \
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_YUERENGE_2"}]},
                {"name": "山木有枝",
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_YUERENGE_3"}]}]}
+
+
+# 日月双轮
+SUPERSKILL_RIYUESHUANGLUN = \
+    {"name": "日月双轮", "rank": 2,
+     "nodes": [{"name": "偷天换日", "next": [1],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_RIYUESHUANGLUN_1"}]},
+               {"name": "月落参横", "next": [2],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_RIYUESHUANGLUN_2"}]},
+               {"name": "日月同辉",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_RIYUESHUANGLUN_3"}]}]}
                 
 
 # 天雷地火引

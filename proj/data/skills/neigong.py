@@ -92,6 +92,16 @@ SKILL_GAOYUANWUJI_2 = \
      "effects": [{"id": "EXERT.STATUS_FUYANGJUCHEN"}]}
 
 
+# 六龙回日
+SKILL_LIULONGHUIRIGONG_1 = \
+    {"name": "六龙回日", "style": "Neigong",
+     "effects": [{"id": "EXERT.STATUS_LIULONGHUIRI"}]}
+
+SKILL_LIULONGHUIRIGONG_2 = \
+    {"name": "日薄虞渊", "style": "Neigong",
+     "effects": [{"id": "EXERT.STATUS_RIBOYUYUAN"}]}
+
+
 # 虬髯心法
 SKILL_QIURANXINFA_1 = \
     {"name": "豪气干云", "style": "Neigong",

@@ -37,12 +37,32 @@ SKILL_TIANLEIDIHUOYIN_1 = \
      "mp": 175, "power": 850, "cd": 0, "yinyang": -1, "shape": "Point.Seep,99,0",
      "effects": [{"id": "EFFECT_GUHUO_EXERT"}]}
 
-# 天雷地火引-野火春风
-SKILL_TIANLEIDIHUOYIN_2 = \
-    {"name": "野火春风", "style": "Yueqi",
-     "mp": 720, "power": 825, "cd": 1, "yinyang": 1, "shape": "SmallSector.Seep,1,3"}
+## 天雷地火引-野火春风
+#SKILL_TIANLEIDIHUOYIN_2 = \
+#    {"name": "野火春风", "style": "Yueqi",
+#     "mp": 720, "power": 825, "cd": 1, "yinyang": 1, "shape": "SmallSector.Seep,1,3"}
 
 # 天雷地火引-火泻雷嗔
 SKILL_TIANLEIDIHUOYIN_3 = \
     {"name": "火泻雷嗔", "style": "Yueqi",
      "mp": 577, "power": 875, "cd": 3, "yinyang": 0, "shape": "Point.Seep,99,2"}
+
+
+
+# 日月双轮-偷天换日
+SKILL_RIYUESHUANGLUN_1 = \
+    {"name": "偷天换日", "style": "Duanbing",
+     "mp": 480, "power": 650, "cd": 0, "yinyang": 1, "shape": "BigSector.Swap,1,2",
+     "effects": [{"id": "EFFECT_RIRU"}]}
+
+# 日月双轮-月落参横
+SKILL_RIYUESHUANGLUN_2 = \
+    {"name": "月落参横", "style": "Duanbing",
+     "mp": 480, "power": 650, "cd": 0, "yinyang": -1, "shape": "BigSector.Swap,1,2",
+     "effects": [{"id": "EFFECT_PINGDAN"}]}
+
+# 日月双轮-日月争辉
+SKILL_RIYUESHUANGLUN_3 = \
+    {"name": "日月争辉", "style": "Duanbing", "double_weapon": ["Duanbing", "Duanbing"],
+     "mp": 840, "power": 750, "cd": 2, "yinyang": 0, "shape": "Around.Swap,1,2",
+     "effects": [{"id": "EFFECT_RIYUEZHENGHUI"}]}

@@ -15,7 +15,7 @@ def handler_show(ctx):
         ui.echo()
     ui.echo(ctx.text)
     if ctx.wait:
-        ui.read()
+        ui.read("（回车继续）")
 
 
 def handler_conv(ctx):
@@ -45,6 +45,12 @@ def handler_options(ctx):
                                     value=op.get("value", i),
                                  goto=op["handle"]))
     ui.menu(opt_menu)
+
+
+def handler_halt(ctx):
+    if not ui.blankline():
+        ui.echo()
+    ui.read()
 
 
 def handler_popmenu(ctx):

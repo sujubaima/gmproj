@@ -251,6 +251,24 @@ ITEM_FENGSHOU = \
      "description": "幽冥宫玄狐使婴青凤所用的曲项琵琶，因琴头雕成凤凰模样而得名"}
 
 
+# 喻日法轮
+ITEM_YURIFALUN = \
+    {"name": "喻日法轮", "rank": 4, "tags": "Equip,Weapon,Duanbing", "shape": "Around,0,0,0", "bind": "PERSON_CI_GUANG",
+     "weight": 1.4, "volume": 0.6, "durability": 50,
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_FALUN_ATTR"},
+                 {"id": "EXERT.STATUS_YURI", "vice_enable": True}],
+     "description": "天台庵住持慈光使用的轮宝武器，与中原常见法器似有不同"}
+
+
+# 指月法轮
+ITEM_ZHIYUEFALUN = \
+    {"name": "指月法轮", "rank": 4, "tags": "Equip,Weapon,Duanbing", "shape": "Around,0,0,0", "bind": "PERSON_CI_GUANG",
+     "weight": 1.4, "volume": 0.6, "durability": 50,
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_FALUN_ATTR"},
+                 {"id": "EXERT.STATUS_ZHIYUE", "vice_enable": True}],
+     "description": "天台庵住持慈光使用的轮宝武器，与中原常见法器似有不同"}
+
+
 ITEM_BAZHANDAO = \
     {"name": "紫金八斩刀", "rank": 2, "shape": "Around,0,0,0", "tags": "Equip,Weapon,Daofa",
      "weight": 1.5, "volume": 1, "durability": 50,

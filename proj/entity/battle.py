@@ -382,9 +382,11 @@ class Battle(object):
         return vp, vq
                 
     def damage(self, skill, p, q):
+        should_critical = common.if_rate(p.critical_rate)
+        should_anti_damage = common.if_rate(q.anti_damage_rate)
         if skill.power == 0:
-            return 0, 0, False, False
-        mp_rate = 1 if skill.mp == 0 else -1 * p.mp_delta / skill.mp
+            return 0, 0, should_critical, False
+        mp_rate = 1 if skill.mp == 0 else max(1, -1 * p.mp_delta / skill.mp)
         real_attack = p.attack_base
         real_defense = q.defense_base
         #vp = getattr(p, skill.style.lower())
@@ -416,8 +418,8 @@ class Battle(object):
         if hp_damaged <= 0:
             hp_damaged = 1
         hp_damaged *= dire_ratio
-        should_critical = common.if_rate(p.critical_rate)
-        should_anti_damage = common.if_rate(q.anti_damage_rate)
+        #should_critical = common.if_rate(p.critical_rate)
+        #should_anti_damage = common.if_rate(q.anti_damage_rate)
         if should_critical:
             #hp_damaged = hp_damaged * p.critical_damage
             hp_damaged = hp_damaged * 1.8
@@ -504,7 +506,7 @@ class Battle(object):
                     skill.double_weapon[1] in p.equipment[1].tags) or \
                    (skill.double_weapon[0] in p.equipment[1].tags and \
                     skill.double_weapon[1] in p.equipment[0].tags):
-                    shoud_pass = False
+                    should_pass = False
                 if should_pass:
                     continue
             elif SkillStyle.Boji not in skill.style:

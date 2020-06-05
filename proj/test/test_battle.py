@@ -60,6 +60,7 @@ if __name__ == "__main__":
     p_xfl = Person.one("PERSON_XING_FEILONG")
     
     p_rwh = Person.one("PERSON_RAN_WUHUA")
+    p_cg = Person.one("PERSON_CI_GUANG")
     
     
     m1 = Map.one("MAP_BTL_BAIBINGTANGZONGDUO")
@@ -73,18 +74,22 @@ if __name__ == "__main__":
     #o.direction = -4
     #o.move_style = "flydown"
 
-    team_a = Team()
-    team_b = Team()
+    team_shaolin = Team()
+    team_wudang = Team()
+    team_gaibang = Team()
+    team_emei = Team()
     #team_a.include(p_zrb, p_wpf, p_sty, p_xh, p_yl)
     #team_b.include(p_zsj, p_tw, p_jl, p_yqf)
 
     #team_a.include(p_msq, p_hy, p_yq, p_zrb, p_jy)
     #team_b.include(p_zys, p_wpf, p_sjy, p_ly, p_ctz)
-    team_a.include(p_rwh)
-    team_b.include(p_jc)
+    team_shaolin.include(p_jy, p_jc)
+    team_wudang.include(p_zys, p_lpf)
+    team_gaibang.include(p_xfl, p_lcy)
+    team_emei.include(p_rwh, p_cg)
 
-    context.teams[team_a.id] = team_a
-    context.teams[team_b.id] = team_b
+    team_a = team_wudang
+    team_b = team_shaolin
 
     ui.echo()
     ui.warn("欢迎测试本游戏的战斗系统，windows下建议控制台字体调成黑体，谢谢！")
@@ -93,6 +98,9 @@ if __name__ == "__main__":
     ac = ui.menu([ui.menuitem("%s队" % team_a.leader.name, value=team_a.leader),
                   ui.menuitem("%s队" % team_b.leader.name, value=team_b.leader),
                   ui.menuitem("观战而已", value=None)], title="请选择你想控制的队伍：")
+
+    context.teams[team_a.id] = team_a
+    context.teams[team_b.id] = team_b
 
     if ac == "观战而已":
         context.PLAYER = None

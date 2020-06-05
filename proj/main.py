@@ -133,9 +133,9 @@ def main(stdscr=None):
     inter.menu(main_menu, title=main_title(), title_color="red")
 
 if __name__ == "__main__":
-   if options.USE_CURSES:
-       from proj.console import scr
-       scr.wrapper(main)
-   else:
-       main()
+   #if options.USE_CURSES:
+   #    from proj.console import scr
+   #    scr.wrapper(main)
+   #else:
+   main()
    

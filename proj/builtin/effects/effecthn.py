@@ -122,75 +122,6 @@ class HuiChunEffect(Effect):
                 MSG(style=MSG.Effect, subject=subject, effect=self, details={"object": obj.name, "recover": recover})
 
 
-# 剑云
-class JianYunEffect(ExertEffect):
-
-    def initialize(self):
-        super(JianYunEffect, self).initialize()
-        sts_tpl = "STATUS_JIANYUN_ANONYMOUS"
-        self.exertion = Status.template(sts_tpl) 
-
-    def work(self, subject, objects=[], **kwargs):
-        battle = kwargs["battle"]
-        target = battle.sequence[-1]["action"].target
-        stash_key = "JianYunStash"
-        if stash_key not in battle.map.stash:
-            battle.map.stash[stash_key] = {}
-        locations = []
-        for loc in battle.map.circle(target, 2, mr=0):
-            grid = battle.map.xy[loc[0]][loc[1]]
-            if grid.object is not None:
-                continue
-            if not loc in battle.map.stash[stash_key]:
-                battle.map.stash[stash_key][loc] = grid.terran
-                new_terran = Terran.template("TERRAN_CLOUD")
-                new_terran.tpl_id = grid.terran.tpl_id
-                grid.terran = new_terran
-            locations.append(loc)
-        super(JianYunEffect, self).work(subject, objects=objects, 
-                                        status_attr={"locations": locations}, **kwargs)
-
-
-class JianYunAnonymousEffect(Effect):
-
-    def work(self, subject, objects=[], **kwargs):
-        battle = kwargs["battle"]
-        status = kwargs["status"]
-        jy_sts = []
-        for sts in subject.status:
-            if sts.tpl_id == status.tpl_id:
-                jy_sts.append(sts) 
-        if len(jy_sts) > 1 and jy_sts[0] != status:
-            return
-        stash_key = "JianYunStash"
-        p = battle.current
-        if battle.is_friend(subject, p):
-            return
-        p_loc = battle.map.location(p)
-        if stash_key not in battle.map.stash or \
-           p_loc not in battle.map.stash[stash_key]:
-            return
-        hp_delta = int(subject.attack_base * 0.75)
-        p.hp_delta -= hp_delta
-        if not battle.silent:
-            MSG(style=MSG.Effect, subject=subject, effect=self,
-                details={"object": p.name, "hp_delta": hp_delta})
-
-    def leave(self, subject, objects=[], **kwargs):
-        battle = kwargs["battle"]
-        status = kwargs["status"]
-        stash_key = "JianYunStash"
-        loc_set = set()
-        for sts in subject.status:
-            if sts != status and sts.tpl_id == status.tpl_id:
-                loc_set.update(sts.locations)
-        for loc in status.locations:
-            if loc not in loc_set:
-                grid = battle.map.xy[loc[0]][loc[1]]
-                old_terran = battle.map.stash[stash_key].pop(loc)
-                grid.terran = old_terran
-
-
 # 接骨
 class JieGuEffect(Effect):
 
@@ -284,6 +215,8 @@ class JuWuEffect(Effect):
         if subject not in objects:
             return
         if self.skill_style not in battle.sequence[-1]["action"].skill.style:
+            return
+        if battle.event(subject, BattleEvent.ACTMissed) is not None:
             return
         hp_enhance = int(subject.hp_delta * 0.01 * self.level)
         mp_enhance = int(subject.mp_delta * 0.01 * self.level)
@@ -389,11 +322,13 @@ class LianZhiBuffEffect(Effect):
         battle = kwargs["battle"]
         if subject != battle.sequence[-1]["action"].subject:
             return
-        if battle.event(subject, BattleEvent.ACTMissed) is not None:
-            return
+        #if battle.event(subject, BattleEvent.ACTMissed) is not None:
+        #    return
         obj_loc = battle.sequence[-1]["action"].target
         obj = battle.map.loc_entity.get(obj_loc, None)
         if obj is None:
+            return
+        if battle.event(obj, BattleEvent.ACTMissed) is not None:
             return
         candidates = []
         for sts in obj.status:
@@ -404,8 +339,9 @@ class LianZhiBuffEffect(Effect):
         final_sts = random.sample(candidates, 1)[0]
         ee = ExertEffect(exertion=final_sts, showmsg=False, turns=max(2, final_sts.leftturn))
         ee.work(subject=subject, objects=[subject], **kwargs)
-        MSG(style=MSG.Effect, subject=subject, effect=self, 
-            details={"object": obj.name, "status": "【%s】" % final_sts.name})
+        if not battle.silent:
+            MSG(style=MSG.Effect, subject=subject, effect=self, 
+                details={"object": obj.name, "status": "【%s】" % final_sts.name})
 
 
 # 连枝（施加负面）
@@ -415,11 +351,13 @@ class LianZhiDebuffEffect(Effect):
         battle = kwargs["battle"]
         if subject != battle.sequence[-1]["action"].subject:
             return
-        if battle.event(subject, BattleEvent.ACTMissed) is not None:
-            return
+        #if battle.event(subject, BattleEvent.ACTMissed) is not None:
+        #    return
         obj_loc = battle.sequence[-1]["action"].target
         obj = battle.map.loc_entity.get(obj_loc, None)
         if obj is None:
+            return
+        if battle.event(obj, BattleEvent.ACTMissed) is not None:
             return
         candidates = []
         for sts in subject.status:
@@ -430,8 +368,9 @@ class LianZhiDebuffEffect(Effect):
         final_sts = random.sample(candidates, 1)[0]
         ee = ExertEffect(exertion=final_sts, showmsg=False, turns=max(2, final_sts.leftturn))
         ee.work(subject=subject, objects=[obj], **kwargs)
-        MSG(style=MSG.Effect, subject=subject, effect=self, 
-            details={"object": obj.name, "status": "【%s】" % final_sts.name})
+        if not battle.silent:
+            MSG(style=MSG.Effect, subject=subject, effect=self, 
+                details={"object": obj.name, "status": "【%s】" % final_sts.name})
 
 
 # 连枝
@@ -440,6 +379,48 @@ class LianZhiEffect(Effect):
     def work(self, subject, objects=[], **kwargs):
         Effect.template("EFFECT_LIANZHI_BUFF").work(subject, objects=objects, **kwargs)
         Effect.template("EFFECT_LIANZHI_DEBUFF").work(subject, objects=objects, **kwargs)
+
+
+# 流光
+class LiuGuangEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if battle.current != subject:
+            return
+        mp_delta = int(subject.mp_limit * 0.06)
+        subject.mp_delta -= mp_delta
+        plist = []
+        sub_loc = battle.map.location(subject)
+        for loc in battle.map.circle(sub_loc, 2):
+            p = battle.map.loc_entity.get(loc, None)
+            if p is None or not battle.is_friend(subject, p):
+                continue
+            plist.append(p) 
+        for p in plist:
+            if p.mp == p.mp_limit:
+                continue
+            p.mp_delta += int(mp_delta / len(plist))
+            if not battle.silent:
+                MSG(style=MSG.Effect, subject=subject, effect=self, details={"object": p.name})
+
+
+# 美人如玉
+class MeiRenRuYuEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if subject != battle.sequence[-1]["action"].subject:
+            return
+        if len(objects) == 0:
+            objects = battle.sequence[-1]["action"].objects
+        for obj in objects:
+            if battle.event(obj, BattleEvent.ACTMissed) is not None:
+                continue
+            if obj.sex != 0:
+                continue
+            obj.hp_delta = int(obj.hp_delta * 1.3)
+            obj.mp_delta = int(obj.mp_delta * 1.3)
 
 
 # 明月照大江

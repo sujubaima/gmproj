@@ -135,8 +135,36 @@ class DuanGouWoEffect(Effect):
         if len(objects)== 0:
             objects = battle.sequence[-1]["action"].objects
         for obj in objects:
-            obj.hp_delta = int(obj.hp_delta * (1 + 0.15 * len(objects)))
-            obj.mp_delta = int(obj.mp_delta * (1 + 0.15 * len(objects)))
+            if battle.event(obj, BattleEvent.ACTMissed) is not None:
+                continue
+            obj.hp_delta = int(obj.hp_delta * (1 + 0.1 * len(objects)))
+            obj.mp_delta = int(obj.hp_delta * (1 + 0.1 * len(objects)))
+
+
+
+# 飞电
+class FeiDianEffect(ExertEffect):
+
+    def initialize(self):
+        super(FeiDianEffect, self).initialize()
+        sts_tpl = "STATUS_XUNJI"
+        self.exertion = Status.template(sts_tpl)
+        self.description_ = "若攻击未命中或被闪避，" + self.description_
+        self.targets = "Subject"
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if subject != battle.sequence[-1]["action"].subject:
+            return
+        if len(objects) == 0:
+            objects = battle.sequence[-1]["action"].objects
+        effe_on = False
+        for obj in objects:
+            if battle.event(obj, BattleEvent.ACTMissed) is not None:
+                effe_on = True
+                break
+        if effe_on:
+            super(FeiDianEffect, self).work(subject, objects=[subject], **kwargs)
 
 
 # 分断     

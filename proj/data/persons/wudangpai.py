@@ -13,7 +13,8 @@ PERSON_ZHANG_YINSONG = \
      "running": {"id": "SUPERSKILL_TAIJISHENGONG"},
      "skill_counter": {"id": "SKILL_TAIJIJIANYI_1"},
      "equipment": [{"id": "ITEM_ZHENWU", "position": "MainHand"}],
-     "items": []}
+     "items": [],
+     "criticaltxt": "圣人抱一，为天下式。"}
 
 
 # 李培风
@@ -28,4 +29,5 @@ PERSON_LI_PEIFENG = \
      "running": {"id": "SUPERSKILL_TAIJISHENGONG"},
      "skill_counter": {"id": "SKILL_TAIJIQUAN_1"},
      "equipment": [{"id": "ITEM_TAIJIHUSHOU", "position": "MainHand"}],
-     "items": []}
+     "items": [],
+     "criticaltxt": "太极生两仪，两仪生四象！"}

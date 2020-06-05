@@ -50,7 +50,12 @@ class BattleFinishOrder(BattleOrder):
 class BattlePlayerOrder(BattleOrder):
 
     def carry(self):
-        MSG(style=MSG.BattlePlayer, battle=self.battle, subject=self.battle.current, back=self.back, persons=self.battle.snapshot(False))
+        if not self.battle.moved[self.battle.current.id] or \
+           not self.battle.attacked[self.battle.current.id] or \
+           not self.battle.itemed[self.battle.current.id]:
+            MSG(style=MSG.BattlePlayer, battle=self.battle, subject=self.battle.current, back=self.back, persons=self.battle.snapshot(False))
+        else:
+            MSG(style=MSG.Halt)
 
 
 class BattleNewTurnOrder(BattleOrder):
@@ -106,12 +111,16 @@ class BattleMovePositionOrder(BattleOrder):
     def carry(self):
         p = self.battle.current
         allinscope, connections = self.battle.map.move_scope(p, style=p.move_style)
+        #if self.battle.attacked[p.id] or self.battle.itemed[p.id]:
+        #    self.scope = allinscope + [self.battle.map.location(p)]
+        #else:
+        #    self.scope = allinscope
         self.scope = allinscope
         self.connections = connections
         MSG(style=MSG.BattleMovePosition, 
             battle=self.battle,
             persons=self.battle.snapshot(False),
-            positions=allinscope).callback = self.callback
+            positions=self.scope).callback = self.callback
 
     def callback(self, pos):
         if pos is not None:

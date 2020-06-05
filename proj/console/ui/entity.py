@@ -6,7 +6,7 @@ from proj.console.ui import common as ui
 def effectname(obj, txt=None, grey=False):
     if txt is None:
         txt = obj.name
-    styles = ["red", "green", "yellow"]
+    styles = ["red", "green", "magenta"]
     return ui.colored(txt, color=styles[obj.style])
 
 

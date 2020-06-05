@@ -60,6 +60,7 @@ class MessageBase(Mutable):
     Ensure = "ensure"
     Options = "options"
     Conversation = "conv"
+    Halt = "halt"
 
     BackMenu = "backmenu"
     PopMenu = "popmenu"

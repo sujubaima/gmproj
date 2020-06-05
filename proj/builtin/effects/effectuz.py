@@ -44,7 +44,6 @@ class WuWeiEffect(Effect):
         if battle.current == subject:
             return
         max_damage = None
-        print(subject.hp_delta)
         if len(battle.sequence) > 1:
             for seq in battle.sequence[-2::-1]:
                 if seq["current"] == subject:
@@ -55,10 +54,12 @@ class WuWeiEffect(Effect):
                     continue
                 if battle.is_friend(subject, seq["action"].subject):
                     continue
-                if "results" not in seq or subject.id not in seq["results"] or \
+                if subject not in seq["action"].objects or \
+                   "results" not in seq or subject.id not in seq["results"] or \
                    BattleEvent.ACTMissed in seq["results"][subject.id]:
                     continue
                 max_damage = seq["results"][subject.id][BattleEvent.HPDamaged]["value"]
+                #print(seq["action"], seq["action"].subject.name, max_damage)
                 break
         if max_damage is not None and subject.hp_delta < max_damage:
             subject.hp_delta = max_damage
@@ -189,8 +190,8 @@ class XuHuangEffect(Effect):
         if len(objects) == 0:
             objects = battle.sequence[-1]["action"].objects
         for obj in objects:
-            if battle.event(obj, BattleEvent.ACTMissed) is not None:
-                continue
+            #if battle.event(obj, BattleEvent.ACTMissed) is not None:
+            #    continue
             dire = random.sample([d for d in range(0, 6) if d != obj.direction], 1)[0]
             obj.direction = dire
             if not battle.silent:
@@ -202,7 +203,9 @@ class XunFengEffect(Effect):
 
     def work(self, subject, objects=[], **kwargs):
         battle = kwargs["battle"]
-        if len(battle.sequence) == 0 or subject != battle.sequence[-1]["action"].subject:
+        #if len(battle.sequence) == 0 or subject != battle.sequence[-1]["action"].subject:
+        #    return
+        if battle.current != subject:
             return
         effelib = importlib.import_module("proj.builtin.effects")
         plist = []
@@ -317,6 +320,75 @@ class YuXueEffect(Effect):
             if not battle.silent:
                 MSG(style=MSG.Effect, subject=subject, effect=self,
                 details={"object": obj.name, "hp_delta": -1 * hp_delta})
+
+
+# 云剑
+class YunJianEffect(ExertEffect):
+
+    def initialize(self):
+        super(YunJianEffect, self).initialize()
+        sts_tpl = "STATUS_YUNJIAN_ANONYMOUS"
+        self.exertion = Status.template(sts_tpl)
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        target = battle.sequence[-1]["action"].target
+        stash_key = "YunJianStash"
+        if stash_key not in battle.map.stash:
+            battle.map.stash[stash_key] = {}
+        locations = []
+        for loc in battle.map.circle(target, 2, mr=0):
+            grid = battle.map.xy[loc[0]][loc[1]]
+            if grid.object is not None:
+                continue
+            if not loc in battle.map.stash[stash_key]:
+                battle.map.stash[stash_key][loc] = grid.terran
+                new_terran = Terran.template("TERRAN_CLOUD")
+                new_terran.tpl_id = grid.terran.tpl_id
+                grid.terran = new_terran
+            locations.append(loc)
+        super(YunJianEffect, self).work(subject, objects=objects,
+                                        status_attr={"locations": locations}, **kwargs)
+
+
+class YunJianAnonymousEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        status = kwargs["status"]
+        jy_sts = []
+        for sts in subject.status:
+            if sts.tpl_id == status.tpl_id:
+                jy_sts.append(sts)
+        if len(jy_sts) > 1 and jy_sts[0] != status:
+            return
+        stash_key = "YunJianStash"
+        p = battle.current
+        if battle.is_friend(subject, p):
+            return
+        p_loc = battle.map.location(p)
+        if stash_key not in battle.map.stash or \
+           p_loc not in battle.map.stash[stash_key]:
+            return
+        hp_delta = int(subject.attack_base * 0.75)
+        p.hp_delta -= hp_delta
+        if not battle.silent:
+            MSG(style=MSG.Effect, subject=subject, effect=self,
+                details={"object": p.name, "hp_delta": hp_delta})
+
+    def leave(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        status = kwargs["status"]
+        stash_key = "YunJianStash"
+        loc_set = set()
+        for sts in subject.status:
+            if sts != status and sts.tpl_id == status.tpl_id:
+                loc_set.update(sts.locations)
+        for loc in status.locations:
+            if loc not in loc_set:
+                grid = battle.map.xy[loc[0]][loc[1]]
+                old_terran = battle.map.stash[stash_key].pop(loc)
+                grid.terran = old_terran
        
 
 # 震慑
@@ -336,3 +408,13 @@ class ZhenSheEffect(Effect):
                 continue
             obj.hp_delta = int(obj.hp_delta * 0.8)
             obj.mp_delta = int(obj.mp_delta * 0.8)
+
+
+# 驻颜
+class ZhuYanEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if subject != battle.sequence[-1]["action"].subject:
+            return
+        subject.mp_delta = 0

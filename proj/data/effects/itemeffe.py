@@ -76,6 +76,12 @@ EFFECT_TAIJIHUSHOU_ATTR = \
      "attrs": [{"name": "attack_", "delta": 310}]}
 
 
+# 法轮
+EFFECT_FALUN_ATTR = \
+    {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
+     "attrs": [{"name": "attack_", "delta": 275}]}
+
+
 EFFECT_XUEYUE_ATTR = \
     {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
      "attrs": [{"name": "attack_", "delta": 320}]}

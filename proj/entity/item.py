@@ -112,8 +112,10 @@ class Item(Entity):
                 subject.equipment[pos].leave(subject)
             if self.double_hand and subject.equipment[1 - pos] is not None:
                 subject.equipment[1 - pos].leave(subject)
-            if pos != 1 or subject.vice_enable:
-                for effe in self.effects:
+            #if pos != 1 or subject.vice_enable:
+            #    for effe in self.effects:
+            for effe in self.effects:
+                if pos != 1 or subject.vice_enable or effe.vice_enable:
                     effe.work(subject, objects=[subject], source=self, **kwargs)
             subject.equip_on(self, pos)
             if "battle" in kwargs:
@@ -127,8 +129,10 @@ class Item(Entity):
     def leave(self, subject, objects=[], **kwargs):
         if "Equip" in self.tags:
             pos = subject.equipment.index(self)
-            if pos != 1 or self.double_hand or subject.vice_enable:
-                for effe in self.effects:
+            #if pos != 1 or self.double_hand or subject.vice_enable:
+            #    for effe in self.effects:
+            for effe in self.effects:
+                if pos != 1 or self.double_hand or subject.vice_enable or effe.vice_enable:
                     effe.leave(subject, objects=objects, source=self, **kwargs)
             subject.equip_off(self, pos)
 
