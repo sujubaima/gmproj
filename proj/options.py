@@ -51,6 +51,3 @@ USE_FULL_WIDTH_FONT = False
 
 # 大地图玩家一次最多行走的步数（建议设置为地图窗口长宽的一半以下）
 MOTION_SCENARIO = 3
-
-# 允许玩家中途参与NPC之间的战斗（测试中）
-ENABLE_JOIN_BATTLE_MIDWAY = False

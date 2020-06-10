@@ -57,21 +57,15 @@ class Battle(object):
         self.cdmap = {}
 
         self.groups = groups
-        self.group_allies = [int(math.pow(2, idx)) for idx in range(len(self.groups))]
 
         self.extensions = {}
        
         if allies is None:
-            allies = []
-        if len(allies) == 0:
-            allies.extend([[idx] for idx in range(len(groups))])
+            self.allies = []
+        else:
+            self.allies = allies
 
-        for idx, ally in enumerate(allies):
-            tmp = 0
-            for gidx in ally:
-                tmp = tmp | int(math.pow(2, gidx))
-            for gidx in ally:
-                self.group_allies[gidx] = self.group_allies[gidx] | tmp
+        self.update_group_ally()
 
         ridx = options.USE_AI.rfind(".")
         mod_name = options.USE_AI[:ridx]
@@ -87,6 +81,19 @@ class Battle(object):
                 p.group = g
                 p.group_ally = self.group_allies[self.groups.index(p.group)]
                 #p.battle = self
+
+    def update_group_ally(self):
+        self.group_allies = [int(math.pow(2, idx)) for idx in range(len(self.groups))]
+
+        if len(self.allies) == 0:
+            self.allies.extend([[idx] for idx in range(len(self.groups))])
+
+        for idx, ally in enumerate(self.allies):
+            tmp = 0
+            for gidx in ally:
+                tmp = tmp | int(math.pow(2, gidx))
+            for gidx in ally:
+                self.group_allies[gidx] = self.group_allies[gidx] | tmp
 
     def start(self):
         for p in self.alive:
@@ -127,9 +134,9 @@ class Battle(object):
         for p in self.all:
             if p.team == context.PLAYER.team:
                 self.exps[p.id] == exp_total * p.study_rate // friend_count
-        self.battle.reset_delta()
-        self.status_work(BattlePhase.Finish)
-        self.deal()
+        #self.reset_delta()
+        #self.status_work(BattlePhase.Finish)
+        #self.deal()
         for p in self.all:
             p.battle = None
             for sts in p.status:
@@ -155,6 +162,7 @@ class Battle(object):
         
     def append_group(self, group, allies=[]):
         self.groups.append(group)
+        self.update_group_ally()
 
     def pick(self):
         min = (None, 1000)

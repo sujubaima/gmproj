@@ -181,7 +181,7 @@ class SimpleAI(object):
             q = random.sample(self.battle.enemies(p), 1)[0]
             qloc = self.battle.map.entity_loc[q.id]
             score = 0
-            if isitem and skill.power > 0:
+            if not isitem and skill.power > 0:
                 score += skill.power * (min(1, 1 if skill.mp == 0 else p.mp / skill.mp))
             for effe in skill.effects:
                 if effe.tpl_id not in SimpleAI.EFFECT_MAP:

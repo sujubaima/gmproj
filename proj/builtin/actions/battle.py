@@ -64,6 +64,22 @@ class BattleStartAction(BattleAction):
         return self.battle
 
 
+class BattleJoinAction(BattleAction):
+
+    def do(self):
+        self.battle.append_group(group=self.group, allies=self.ally)
+        tmp_teams = set()
+        for p in self.group:
+            if p.team.id in tmp_teams:
+                continue
+            p.team.process = context.timestamp + 1
+            tmp_teams.add(p.team.id)
+        if not self.battle.silent:
+            MSG(style=MSG.BattleStart, battle=self.battle, persons=self.battle.snapshot(False))
+            context.timeflow(1)
+        return self.battle
+
+
 class BattleFinishAction(BattleAction):
 
     def do_unsilent(self):
@@ -108,6 +124,9 @@ class BattleFinishAction(BattleAction):
         MSG(style=MSG.BattleFinishSilent, winner=teamwinner, loser=teamloser)
 
     def do(self):
+        self.battle.reset_delta()
+        self.battle.status_work(BattlePhase.Finish)
+        self.battle.deal()
         self.battle.finish()
         if not self.battle.silent:
             self.do_unsilent()
@@ -298,6 +317,7 @@ class BattleSkillAction(BattleAction):
         #self.battle.status_work(BattlePhase.AfterSettlement)
         for q in reversed(self.objects):
             p_tgt = self.battle.map.location(self.subject)
+            #print(q.name)
             q_tgt = self.battle.map.location(q)
             if q.hp > 0 and self.subject.hp > 0 and \
                self.battle.event(q, BattleEvent.Counter) is not None:
@@ -515,12 +535,6 @@ class BattleRestAction(BattleAction):
             MSG(style=MSG.BattleRestFinish, battle=self.battle, 
                 subject=self.subject, persons=self.battle.snapshot())
         self.postdo()
-
-
-class BattleFinishAction(BattleAction):
-
-    def do(self):
-        pass
 
 
 class BattleAdditionalAction(BattleAction):

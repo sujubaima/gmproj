@@ -122,7 +122,7 @@ SKILL_TAIJIQUAN_2 = \
 # 太极拳-如封似闭
 SKILL_TAIJIQUAN_3 = \
     {"name": "如封似闭", "style": "Boji",
-     "mp": 1026, "power": 855, "cd": 2, "yinyang": 0, "shape": "Around.Swap,1,2",
+     "mp": 1026, "power": 855, "cd": 0, "yinyang": 0, "shape": "Around.Swap,1,2",
      "effects": [{"id": "EFFECT_YUANZHUAN"},
                  {"id": "EXERT.STATUS_DINGSHEN", "name": "沾连", "turns": 1},
                  {"id": "EXERT.STATUS_XIEJIN", "targets": "Subject", "turns": 1}]}

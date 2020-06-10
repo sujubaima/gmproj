@@ -11,6 +11,7 @@ from proj.entity import Map
 from proj.entity import Item
 
 from proj.builtin.actions.battle import BattleStartAction
+from proj.builtin.actions.battle import BattleJoinAction
 from proj.builtin.actions.team import TeamTransportAction
 
 from proj.runtime import context
@@ -264,8 +265,18 @@ class WorldAttackAction(Action):
             map = self.battle_map
         context.teams[self.object.id] = self.object
         context.teams[self.subject.id] = self.subject
-        silent = self.subject != context.PLAYER.team and self.object != context.PLAYER.team
-        BattleStartAction(map=map, groups=[self.subject.members, self.object.members], death=self.death, silent=silent).do()
+        if self.object.battle is None:
+            silent = self.subject != context.PLAYER.team and self.object != context.PLAYER.team
+            BattleStartAction(map=map, groups=[self.subject.members, self.object.members], death=self.death, silent=silent).do()
+        else:
+            allies = self.object.battle.allies
+            new_group_index = len(self.object.battle.groups)
+            enemy_group = self.object.battle.groups.index(self.object.leader.group)
+            for al in allies:
+                if enemy_group in al:
+                    continue
+                al.append(new_group_index)
+            BattleJoinAction(group=self.subject.members, allies=allies)
         
         
 class WorldRestAction(Action):

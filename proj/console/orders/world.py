@@ -41,7 +41,6 @@ class WorldProcessOrder(Order):
     hub = True
 
     def carry(self):
-        #print(context.timestamp_, context.timestamp)
         if context.timestamp_ < context.timestamp:
             WorldProcessAction().do()
         else:

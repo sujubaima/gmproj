@@ -37,6 +37,8 @@ class BaGouYaEffect(ExertEffect):
 # 捕风
 class BuFengEffect(Effect):
 
+    phase = BattlePhase.BeforeDamage
+
     def work(self, subject, objects=[], **kwargs):
         battle = kwargs["battle"]
         if subject != battle.sequence[-1]["action"].subject:
@@ -48,11 +50,13 @@ class BuFengEffect(Effect):
             if battle.event(obj, BattleEvent.ACTMissed) is not None:
                 continue
             obj_loc = battle.map.location(obj)
+            obj_distance = battle.map.distance(sub_loc, obj_loc)
             dire = battle.map.direction(sub_loc, obj_loc)
             obj_tgt = sub_loc
             while obj_tgt != obj_loc and not battle.map.can_stay(obj, obj_tgt):
                 obj_tgt = battle.map.neighbour(obj_tgt, dire)
-            if obj_tgt != obj_loc:
+            current_distance = battle.map.distance(obj_tgt, sub_loc)
+            if obj_tgt != obj_loc and current_distance < obj_distance:
                 BattleMoveAction(showmsg=False, active=False,
                                  battle=battle, subject=obj, target=obj_tgt,
                                  path=[obj_tgt, obj_loc]).do()

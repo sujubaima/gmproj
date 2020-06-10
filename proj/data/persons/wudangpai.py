@@ -20,7 +20,7 @@ PERSON_ZHANG_YINSONG = \
 # 李培风
 PERSON_LI_PEIFENG = \
     {"firstname": "李", "lastname": "培风", "title": "武当执事", "sex": 0,
-     "hp_max":8000, "mp_max": 3600, "attack": 400, "defense": 390, "motion": 2,
+     "hp_max":8000, "mp_max": 3600, "attack": 400, "defense": 390, "motion": 1,
      "counter_rate": 0.18,
      "dongjing": -16, "gangrou": -22, "zhipu": 10,
      "neigong": 81, "boji": 86, "jianfa": 79, "daofa": 38, "changbing": 21, "anqi": 16, "qimen": 38, "yinyang": 0,

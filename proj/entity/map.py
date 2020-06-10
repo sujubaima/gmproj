@@ -464,7 +464,7 @@ class Map(Entity):
         """
         i, j = pta
         x, y = ptb
-        if (i, j) not in zmap:
+        if enable_zoc and (i, j) not in zmap:
             zmap[(i, j)] = (sys.maxsize, None)
             for zoc_loc, zoc_p in self.loc_entity.items():
                 if zoc_p.group_ally & person.group_ally != 0:
@@ -593,7 +593,7 @@ class Map(Entity):
             tmppt = path[tmppt]
         return ret
 
-    def direction(self, pta, ptb):
+    def _direction(self, pta, ptb):
         x, y = pta
         i, j = ptb
         of_x, of_y = self.offset_xy(x, y)
@@ -624,7 +624,11 @@ class Map(Entity):
         if tmp_j < 0 and tmp_i < 0:
             #return -2
             return 4
-                
+
+    def direction(self, pta, ptb):
+        angle = self.angle(pta, (pta[0] + 1, pta[1]), ptb)
+        direction = int(((angle + 13 * math.pi / 6) * 3 // math.pi ) % 6)
+        return direction
 
     def _sector(self, pta, ptb, r, angle):
         x, y = pta

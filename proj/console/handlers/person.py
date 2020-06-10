@@ -417,7 +417,8 @@ def handler_person_speak(ctx):
         else:
             #prefix_str = (ctx.talker.name + "：") if idx == 0 else " "
             prefix_str = ctx.talker.name + "："
-            prefix = ui.fixed(ui.strwidth(prefix_str), n=(prefix_str if idx == 0 else " "))
+            #prefix = ui.fixed(ui.strwidth(prefix_str), n=(prefix_str if idx == 0 else " "))
+            prefix = ui.fixed(10, n=(prefix_str if idx == 0 else " "))
             ui.words("%s%s" % (prefix, content))
         ui.read()
         if idx == len(contents) - 1:

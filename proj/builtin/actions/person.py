@@ -110,7 +110,9 @@ class PersonSpeakAction(Action):
         return ret
 
     def do(self):
-        if len(self.talker) == 0:
+        if self.talker is None:
+            pass
+        elif len(self.talker) == 0:
             self.talker = None
         elif self.talker.startswith("{") and self.talker.endswith("}"):
             self.talker = Person.one(self.talker[1:-1])
