@@ -373,7 +373,7 @@ def handler_world_attack_position(ctx):
 
 
 def handler_world_attack_ensure(ctx):
-    ret = ui.sure(ui.colored("动手之前要想清楚，是否进行攻击？", color="yellow", attrs=["bold"]))
+    ret = ui.sure(ui.colored("动手之前要想清楚，是否进行攻击？（若中途参与NPC间的战斗，己方人物的初始位置将是随机的）", color="yellow", attrs=["bold"]))
     return ret
     
     

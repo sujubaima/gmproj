@@ -133,12 +133,14 @@ class Battle(object):
                 friend_count += 1
         for p in self.all:
             if p.team == context.PLAYER.team:
-                self.exps[p.id] == exp_total * p.study_rate // friend_count
+                self.exps[p.id] = int(exp_total * p.study_rate / friend_count)
         #self.reset_delta()
         #self.status_work(BattlePhase.Finish)
         #self.deal()
         for p in self.all:
             p.battle = None
+            p.group = None
+            p.group_ally = None
             for sts in p.status:
                 if sts.leftturn >= 0:
                     sts.leave(p, battle=self)
@@ -163,6 +165,26 @@ class Battle(object):
     def append_group(self, group, allies=[]):
         self.groups.append(group)
         self.update_group_ally()
+        self.alive.extend(group)
+        self.all.extend(group)
+        for idx, p in enumerate(group):
+            p.group = group
+            pool = []
+            for i in range(self.map.x):
+                for j in range(self.map.y):
+                    if self.map.can_stay(p, (i, j)):
+                        pool.append((i, j))
+            pos = random.sample(pool, 1)[0]
+            self.map.locate(p, pos)
+            p.battle = self
+            p.team.battle = self
+            p.hp = p.hp_limit
+            p.mp = p.mp_limit
+            self.moved[p.id] = False
+            self.attacked[p.id] = False
+            self.itemed[p.id] = False
+        for p in self.all:
+            p.group_ally = self.group_allies[self.groups.index(p.group)]
 
     def pick(self):
         min = (None, 1000)
@@ -342,7 +364,7 @@ class Battle(object):
         for p in self.alive:
             if l is None:
                 l = p.group_ally
-            if p.group_ally != l:
+            if "group_ally" in p.stash or p.group_ally != l:
                 return False
         return True
 

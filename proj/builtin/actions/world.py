@@ -149,7 +149,6 @@ class WorldProcessAction(Action):
             team.process += 1
         else:
             team.process += 1
-            
         
     def do(self):
         self.battles = set()
@@ -276,7 +275,7 @@ class WorldAttackAction(Action):
                 if enemy_group in al:
                     continue
                 al.append(new_group_index)
-            BattleJoinAction(group=self.subject.members, allies=allies)
+            BattleJoinAction(battle=self.object.battle, group=self.subject.members, allies=allies).do()
         
         
 class WorldRestAction(Action):

@@ -542,7 +542,7 @@ class NiMaiAttackEffect(Effect):
             hp_damage = max(subject.mp_delta, -1 * battle.sequence[-1]["action"].skill.mp)
             subject.mp_delta -= hp_damage
             subject.hp_delta += hp_damage
-            subject.wound -= hp_damage * 0.3
+            subject.wound -= int(hp_damage * 0.3)
             #subject.correct()
             if not battle.silent:
                 MSG(style=MSG.Effect, subject=subject, effect=self)
@@ -563,7 +563,7 @@ class NiMaiDefenseEffect(Effect):
             mp_damage = max(subject.hp_delta, -1 * (subject.mp + subject.mp_delta))
             subject.mp_delta += mp_damage
             subject.hp_delta -= mp_damage
-            subject.wound -= mp_damage * 0.3
+            subject.wound -= int(mp_damage * 0.3)
             #subject.correct()
             if not battle.silent:
                 MSG(style=MSG.Effect, subject=subject, effect=self)

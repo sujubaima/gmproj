@@ -3,6 +3,7 @@
 # 杨磊
 PERSON_YANG_LEI = \
     {"firstname": "杨", "lastname": "磊", "title": "华山派掌门", "sex": 0,
+     #"hp_max": 6500,
      "dongjing": 10, "gangrou": 11, "zhipu": 14,
      "neigong": 39, "boji": 54, "jianfa": 78, "daofa": 23, "changbing": 20, "anqi": 25, "qimen": 17, "yinyang": -9,
      "superskills": [{"id": "SUPERSKILL_YOUXIAXINFA", "learn": [0, 1, 2]},

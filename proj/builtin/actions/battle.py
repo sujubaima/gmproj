@@ -74,9 +74,9 @@ class BattleJoinAction(BattleAction):
                 continue
             p.team.process = context.timestamp + 1
             tmp_teams.add(p.team.id)
-        if not self.battle.silent:
-            MSG(style=MSG.BattleStart, battle=self.battle, persons=self.battle.snapshot(False))
-            context.timeflow(1)
+        self.battle.silent = False
+        MSG(style=MSG.BattleStart, battle=self.battle, persons=self.battle.snapshot(False))
+        context.timeflow(1)
         return self.battle
 
 
@@ -103,6 +103,9 @@ class BattleFinishAction(BattleAction):
         MSG(style=MSG.BattleFinish, result=result, explist=explist, nodelist=nodelist, itemlist=itemlist)
 
     def do_silent(self):
+        MSG(style=MSG.BattleFinishSilent, winner=teamwinner, loser=teamloser)
+
+    def do_remove(self):
         teamwinner = None
         teamloser = None
         teamset = set()
@@ -121,13 +124,14 @@ class BattleFinishAction(BattleAction):
                     teamwinner = p.team
             p.team.follow = None
             p.team.target = p.team.stash.get("target", None)
-        MSG(style=MSG.BattleFinishSilent, winner=teamwinner, loser=teamloser)
 
     def do(self):
         self.battle.reset_delta()
         self.battle.status_work(BattlePhase.Finish)
         self.battle.deal()
         self.battle.finish()
+        if self.battle.map.tpl_id.find("WORLD") >= 0:
+            self.do_remove()
         if not self.battle.silent:
             self.do_unsilent()
         else:
