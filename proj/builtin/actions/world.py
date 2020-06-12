@@ -275,7 +275,7 @@ class WorldAttackAction(Action):
                 if enemy_group in al:
                     continue
                 al.append(new_group_index)
-            BattleJoinAction(battle=self.object.battle, group=self.subject.members, allies=allies).do()
+            BattleJoinAction(battle=self.object.battle, group=self.subject.members, death=self.death, allies=allies).do()
         
         
 class WorldRestAction(Action):

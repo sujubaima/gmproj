@@ -309,7 +309,7 @@ class SimpleAI(object):
             move_default = BattleMoveAction(subject=p, battle=self.battle, target=tmp_loc, scope=move_scope,
                                              path=self.battle.map.move_trace(tmp_loc, self.battle.map.location(p), self.connections))
             rest_default = BattleRestAction(subject=p, battle=self.battle)
-            if self.battle.attacked[p.id] or self.battle.itemed[p.id]:
+            if self.battle.rested[p.id]:
                 list_default = [move_default]
             else:
                 list_default = [move_default, rest_default]
@@ -346,7 +346,7 @@ class SimpleAI(object):
         return self.do_skill_silent(p, items, isitem=True)
      
     def do_rest(self, p):
-        if self.battle.attacked[p.id] or self.battle.itemed[p.id]:
+        if self.battle.rested[p.id]:
             return []
         else:
             return [([BattleRestAction(subject=p, battle=self.battle)], min(250, int(p.mp_limit * p.mp_recover_rate)))]

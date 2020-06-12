@@ -15,6 +15,7 @@ def handler_show(ctx):
         ui.echo()
     ui.echo(ctx.text)
     if ctx.wait:
+        ui.echo()
         ui.read("（回车继续）")
 
 

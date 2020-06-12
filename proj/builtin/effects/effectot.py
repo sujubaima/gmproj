@@ -77,6 +77,8 @@ class QiYongEffect(Effect):
             sts_map = battle.attacked
         elif self.action == "Item":
             sts_map = battle.itemed
+        elif self.action == "Rest":
+            sts_map = battle.rested
         sts_map[subject.id] = False
 
 

@@ -92,9 +92,9 @@ DIALOG_WANPENGFEI_1 = \
      # 15
      {"style": "Speak", "talker": "", 
       "content": "（万鹏飞话音刚落，便操起手中的弯刀往你脸上抹过来。你情急之下只好架起双拳，一顿乱挥。" + 
-                 "没想到万鹏飞只是虚晃一招，你还在乱拳还击的时候，他已经笑嘻嘻地收刀入鞘。）"},
+                 "没想到万鹏飞只是虚晃一招，你正准备还击的时候，他已经笑嘻嘻地收刀入鞘。）"},
      {"style": "Speak", "talker": "subject", 
-      "content": "你、你这武功是从哪学得？"},
+      "content": "卧槽，你怎么还会武功？"},
      {"style": "Speak", "talker": "object", 
       "content": "我刚来的时候一个NPC教给我的，刚才那些关于这个世界的事情也是他说的，说完人就消失了。"},
      {"style": "Speak", "talker": "subject", 

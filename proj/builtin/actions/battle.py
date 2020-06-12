@@ -68,6 +68,7 @@ class BattleJoinAction(BattleAction):
 
     def do(self):
         self.battle.append_group(group=self.group, allies=self.ally)
+        self.battle.death = self.death
         tmp_teams = set()
         for p in self.group:
             if p.team.id in tmp_teams:
@@ -103,7 +104,7 @@ class BattleFinishAction(BattleAction):
         MSG(style=MSG.BattleFinish, result=result, explist=explist, nodelist=nodelist, itemlist=itemlist)
 
     def do_silent(self):
-        MSG(style=MSG.BattleFinishSilent, winner=teamwinner, loser=teamloser)
+        MSG(style=MSG.BattleFinishSilent, winner=self.teamwinner, loser=self.teamloser)
 
     def do_remove(self):
         teamwinner = None
@@ -124,6 +125,8 @@ class BattleFinishAction(BattleAction):
                     teamwinner = p.team
             p.team.follow = None
             p.team.target = p.team.stash.get("target", None)
+        self.teamwinner = teamwinner
+        self.teamloser = teamloser
 
     def do(self):
         self.battle.reset_delta()
@@ -349,6 +352,7 @@ class BattleSkillAction(BattleAction):
         self.battle.moved[self.subject.id] = True
         self.battle.attacked[self.subject.id] = True
         self.battle.itemed[self.subject.id] = True
+        self.battle.rested[self.subject.id] = True
         self.battle.reset = False
 
         map = self.battle.map
@@ -375,6 +379,7 @@ class BattleSkillAction(BattleAction):
                 persons=self.battle.snapshot(False), skill=self.skill,
                 subject=self.subject, objects=self.objects, target=self.target, scope=self.scope,
                 counter=self.counter)
+
         # 执行技能效果
         self.battle.reset_delta()
         self.do_attack()
@@ -445,6 +450,7 @@ class BattleItemAction(BattleAction):
         self.battle.moved[self.subject.id] = True
         self.battle.attacked[self.subject.id] = True
         self.battle.itemed[self.subject.id] = True
+        self.battle.rested[self.subject.id] = True
         self.battle.reset = False
 
         map = self.battle.map
@@ -528,6 +534,7 @@ class BattleRestAction(BattleAction):
         self.battle.moved[self.subject.id] = True
         self.battle.attacked[self.subject.id] = True
         self.battle.itemed[self.subject.id] = True
+        self.battle.rested[self.subject.id] = True
         self.battle.reset = False
         if not self.battle.silent:
             MSG(style=MSG.BattleRestStart, battle=self.battle, 
@@ -556,4 +563,6 @@ class BattleOrderStatusAction(BattleAction):
             status_map = self.battle.attacked
         elif self.order == "item":
             status_map = self.battle.itemed
+        elif self.order == "rest":
+            status_map = self.battle.rested
         status_map[self.subject.id] = self.status

@@ -52,7 +52,8 @@ class BattlePlayerOrder(BattleOrder):
     def carry(self):
         if not self.battle.moved[self.battle.current.id] or \
            not self.battle.attacked[self.battle.current.id] or \
-           not self.battle.itemed[self.battle.current.id]:
+           not self.battle.itemed[self.battle.current.id] or \
+           not self.battle.rested[self.battle.current.id]:
             MSG(style=MSG.BattlePlayer, battle=self.battle, subject=self.battle.current, back=self.back, persons=self.battle.snapshot(False))
         else:
             MSG(style=MSG.Halt)
@@ -239,7 +240,8 @@ class BattleSkillOrder(BattleOrder):
                               target=self.position, scope=self.scope, counter=False).do()
         if self.battle.moved[self.battle.current.id] and \
            self.battle.attacked[self.battle.current.id] and \
-           self.battle.itemed[self.battle.current.id]:
+           self.battle.itemed[self.battle.current.id] and \
+           self.battle.rested[self.battle.current.id]:
             #BattleNewTurnOrder(battle=self.battle)
             #WorldProcessOrder()
             BattleFinishTurnOrder(battle=self.battle)

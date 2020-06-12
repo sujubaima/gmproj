@@ -29,23 +29,14 @@ class PersonConversationAction(Action):
         while self.idx < len(self.conversation):
             line = self.conversation[self.idx]
             if line["style"] == "Speak":
-                #if len(line["talker"]) == 0:
-                #    talker = None
-                #elif line["talker"].startswith("{") and line["talker"].endswith("}"):
-                #    talker = Person.one(line["talker"][1:-1])
-                #elif line["talker"].startswith("[") and line["talker"].endswith("]"):
-                #    teamstr, condstr = line["talker"].split("|")
-                #    team = eval("self.%s" % teamstr) 
-                #    cond = {}
-                #    for cstr in condstr.split(","):
-                #        ck, cv = cstr.split("=")
-                #        cond[ck] = cv 
-                #    talker = self.pick(team, **cond)
-                #else:
-                #    talker = eval("self.%s" % line["talker"])
                 context.spoken(self.conversation_name, self.idx)
-                PersonSpeakAction(talker=line["talker"], subject=self.subject, object=self.object, 
-                                  content=line["content"]).do()
+                if "sentences" not in line:
+                    PersonSpeakAction(talker=line["talker"], subject=self.subject, object=self.object, 
+                                      content=line["content"]).do()
+                else:
+                    for setence in line["sentences"]:
+                        PersonSpeakAction(talker=sentence["talker"], subject=self.subject, object=self.object,
+                                          content=sentence["content"]).do()
             elif line["style"] == "Script":
                 if "scripts" in line:
                     script.run(line["scripts"])

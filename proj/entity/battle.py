@@ -44,9 +44,11 @@ class Battle(object):
         self.map = map
         self.auto = False
         self.current = None
+
         self.moved = {}
         self.attacked = {}
         self.itemed = {}
+        self.rested = {}
         
         self.turnidx = 0
 
@@ -117,6 +119,7 @@ class Battle(object):
             self.moved[p.id] = False
             self.attacked[p.id] = False
             self.itemed[p.id] = False
+            self.rested[p.id] = False
         
     def finish(self):
         teamset = set()
@@ -152,6 +155,7 @@ class Battle(object):
         self.moved[itm.id] = False
         self.attacked[itm.id] = False
         self.itemed[itm.id] = False
+        self.rested[itm.id] = False
         self.reset = False
         self.turnidx += 1
         #self.status_work(BattlePhase.StartTurn)
@@ -183,6 +187,7 @@ class Battle(object):
             self.moved[p.id] = False
             self.attacked[p.id] = False
             self.itemed[p.id] = False
+            self.rested[p.id] = False
         for p in self.all:
             p.group_ally = self.group_allies[self.groups.index(p.group)]
 
@@ -344,7 +349,8 @@ class Battle(object):
     def action(self, person):
         while not self.moved[person.id] or \
               not self.attacked[person.id] or \
-              not self.itemed[person.id]:
+              not self.itemed[person.id] or \
+              not self.rested[person.id]:
             #t1 = time.time()
             ai_list = self.ai.do(person)
             #t2 = time.time()

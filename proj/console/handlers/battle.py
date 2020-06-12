@@ -28,7 +28,7 @@ def battle_menu(battle=None):
            ui.menuitem("物品", goto=lambda x: BattleItemChooseOrder(), validator=lambda x: not battle.itemed[battle.current.id]),
            ui.menuitem("状态", goto=lambda x: BattlePersonChooseOrder()),
            #ui.menuitem("日志", validator=lambda x: False),
-           ui.menuitem("休息", goto=lambda x: BattleRestOrder()),
+           ui.menuitem("休息", goto=lambda x: BattleRestOrder(), validator=lambda x: not battle.rested[battle.current.id]),
            ui.menuitem("撤销", goto=lambda x: BattleResetOrder(), validator=lambda x: battle.reset)]
     return ret
 
