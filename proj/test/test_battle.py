@@ -78,6 +78,7 @@ if __name__ == "__main__":
     team_wudang = Team()
     team_gaibang = Team()
     team_emei = Team()
+    team_huairen = Team()
     team_caiji = Team()
     #team_a.include(p_zrb, p_wpf, p_sty, p_xh, p_yl)
     #team_b.include(p_zsj, p_tw, p_jl, p_yqf)
@@ -88,10 +89,11 @@ if __name__ == "__main__":
     team_wudang.include(p_zys, p_lpf)
     team_gaibang.include(p_xfl, p_lcy)
     team_emei.include(p_rwh, p_cg)
+    team_huairen.include(p_tw, p_zsj)
     team_caiji.include(p_lx, p_wpf)
 
     team_a = team_wudang
-    team_b = team_caiji
+    team_b = team_huairen
 
     ui.echo()
     ui.warn("欢迎测试本游戏的战斗系统，windows下建议控制台字体调成黑体，谢谢！")

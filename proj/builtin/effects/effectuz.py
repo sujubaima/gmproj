@@ -146,8 +146,10 @@ class XianJiEffect(Effect):
             add_ac = BattleSkillAction(subject=subject, battle=battle,
                                        skill=subject.skill_counter, target=q_tgt, scope=[q_tgt],
                                        objects=[battle.sequence[-1]["action"].subject])
-            battle.sequence[-1]["action"].additions.insert(0, add_ac)
-            MSG(style=MSG.Effect, subject=subject, effect=self, details={"object": battle.sequence[-1]["action"].subject.name})
+            battle.additions.insert(0, add_ac)
+            if not battle.silent:
+                MSG(style=MSG.Effect, subject=subject, effect=self, 
+                    details={"object": battle.sequence[-1]["action"].subject.name})
 
 
 # 卸劲
@@ -165,9 +167,12 @@ class XieJinEffect(Effect):
             return
         effe_factor = self.factor(subject)
         mp_trans = int(battle.event(subject, BattleEvent.HPDamaged)["value"] * self.level * 0.01 * effe_factor)
-        subject.hp_delta -= mp_trans
-        subject.mp_delta += mp_trans
-        MSG(style=MSG.Effect, subject=subject, effect=self, details={"mp_trans": -1 * mp_trans})
+        mp_trans = max(-1 * subject.mp, mp_trans)
+        if mp_trans != 0:
+            subject.hp_delta -= mp_trans
+            subject.mp_delta += mp_trans
+            if not battle.silent:
+                MSG(style=MSG.Effect, subject=subject, effect=self, details={"mp_trans": -1 * mp_trans})
 
 
 # 虚耗
@@ -177,6 +182,7 @@ class XuHaoEffect(Effect):
         battle = kwargs["battle"]
         if subject != battle.sequence[-1]["action"].subject:
             return
+        print("ai??")
         subject.mp_delta *= 2
 
 

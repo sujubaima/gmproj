@@ -61,6 +61,7 @@ class Battle(object):
         self.groups = groups
 
         self.extensions = {}
+        self.additions = []
        
         if allies is None:
             self.allies = []

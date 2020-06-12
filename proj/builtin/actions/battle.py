@@ -15,7 +15,6 @@ from proj.runtime import context
 class BattleAction(Action):
 
     def initialize(self):
-        self.additions = []
         self.person_hooked = []
         
     def finish(self):
@@ -23,8 +22,11 @@ class BattleAction(Action):
             self.battle = self.subject.team.battle
 
     def postdo(self):
-        for ac in self.additions:
-            #MSG.sync()
+        #for ac in self.additions:
+        #    #MSG.sync()
+        #    ac.do()
+        while len(self.battle.additions) > 0:
+            ac = self.battle.additions.pop(0)
             ac.do()
         for p in self.person_hooked:
             if self.battle.controllable():
@@ -229,7 +231,8 @@ class BattleMoveAction(BattleAction):
         if self.active:
             self.battle.reset_delta()
         self.do_move(active=self.active, redirect=self.redirect)
-        self.battle.deal()
+        if self.active:
+            self.battle.deal()
         if not self.battle.silent and self.showmsg:
             MSG(style=MSG.BattleMoveFinish, 
                 battle=self.battle, motivated=self.motivated,
@@ -259,7 +262,7 @@ class BattleSkillAction(BattleAction):
         self.battle.check_weapon_before(self.subject, self.skill)
         self.subject.mp_delta += -1 * self.skill.mp
         self.subject.correct()
-        self.battle.add_event(self.subject, BattleEvent.MPChanged, value=self.subject.mp_delta)
+        #self.battle.add_event(self.subject, BattleEvent.MPChanged, value=self.subject.mp_delta)
         self.critical = False
         self.battle.start_cd(self.subject, self.skill)
         self.skill.work(self.subject, battle=self.battle, phase=BattlePhase.BeforeAttack)
@@ -340,7 +343,7 @@ class BattleSkillAction(BattleAction):
                 counter_ac = BattleSkillAction(subject=q, battle=self.battle, 
                                                skill=q.skill_counter, target=p_tgt, scope=[p_tgt], 
                                                objects=[self.subject], counter=True)
-                self.additions.insert(0, counter_ac)
+                self.battle.additions.insert(0, counter_ac)
                 #self.battle.attacked[q.id] = False
 
     def do(self):
@@ -508,8 +511,8 @@ class BattleRestAction(BattleAction):
         self.battle.status_work(BattlePhase.BeforeRest)
         p = self.subject
         if self.rest_action == 1:
-            p.hp_delta = int(p.hp_delta * p.hp_recover_rate_inferior)
-            p.mp_delta = int(p.mp_delta * p.mp_recover_rate_inferior)
+            p.hp_delta = int(p.hp_limit * p.hp_recover_rate * p.hp_recover_rate_inferior)
+            p.mp_delta = int(p.mp_limit * p.mp_recover_rate * p.mp_recover_rate_inferior)
         elif self.rest_action == 2:
             p.hp_delta = int(p.hp_limit * p.hp_recover_rate)
             p.mp_delta = int(p.mp_limit * p.mp_recover_rate)
