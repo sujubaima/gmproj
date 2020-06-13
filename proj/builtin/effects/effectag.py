@@ -8,6 +8,7 @@ from proj.entity import Status
 from proj.entity import BattleEvent
 from proj.entity import BattlePhase
 from proj.entity import common
+from proj.entity import SkillType
 from proj.entity.effect import ExertEffect
 
 from proj.builtin.actions import BattleMoveAction
@@ -27,7 +28,7 @@ class BaGouYaEffect(ExertEffect):
 
     def work(self, subject, objects=[], **kwargs):
         battle = kwargs["battle"]
-        if not battle.sequence[-1]["action"].counter:
+        if battle.sequence[-1]["action"].type != SkillType.Counter:
             return
         if subject != battle.sequence[-1]["action"].subject:
             return

@@ -8,6 +8,7 @@ from proj.entity import common
 from proj.entity import Battle
 from proj.entity import BattlePhase
 from proj.entity import BattleEvent
+from proj.entity import SkillType
 
 from proj.runtime import context
 
@@ -306,7 +307,7 @@ class BattleSkillAction(BattleAction):
             if self.battle.event(self.subject, BattleEvent.ACTFault) is not None:
                 break
             should_counter = common.if_rate(q.counter_rate)
-            if not self.counter and should_counter and q.skill_counter is not None:
+            if self.type != SkillType.Counter and should_counter and q.skill_counter is not None:
                 self.battle.add_event(q, BattleEvent.Counter)
         self.battle.redirect(self.subject, self.objects, self.target, self.skill)
         # 发动后置效果
@@ -342,7 +343,7 @@ class BattleSkillAction(BattleAction):
                 #    continue
                 counter_ac = BattleSkillAction(subject=q, battle=self.battle, 
                                                skill=q.skill_counter, target=p_tgt, scope=[p_tgt], 
-                                               objects=[self.subject], counter=True)
+                                               objects=[self.subject], type=SkillType.Counter)
                 self.battle.additions.insert(0, counter_ac)
                 #self.battle.attacked[q.id] = False
 
@@ -381,7 +382,7 @@ class BattleSkillAction(BattleAction):
             MSG(style=MSG.BattleSkillStart, battle=self.battle,
                 persons=self.battle.snapshot(False), skill=self.skill,
                 subject=self.subject, objects=self.objects, target=self.target, scope=self.scope,
-                counter=self.counter)
+                type=self.type)
 
         # 执行技能效果
         self.battle.reset_delta()
@@ -391,7 +392,7 @@ class BattleSkillAction(BattleAction):
             MSG(style=MSG.BattleSkillFinish, battle=self.battle, 
                 persons=self.battle.snapshot(), skill=self.skill, 
                 subject=self.subject, objects=self.objects, target=self.target, scope=self.scope, 
-                critical=self.critical, anti_list=self.anti_list, counter=self.counter)
+                critical=self.critical, anti_list=self.anti_list, type=self.type)
             # 这里因为当前的map实现不便将某一时刻全体对象的状态保存，因此必须保证MSG同步后再进行人员清算
             MSG.sync()
 

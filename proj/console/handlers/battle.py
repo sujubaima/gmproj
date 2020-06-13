@@ -5,6 +5,7 @@ import platform
 from proj.runtime import context
 
 from proj.entity import BattleEvent
+from proj.entity import SkillType
 from proj.entity.map import Shape
 
 from proj.console import ui
@@ -315,7 +316,7 @@ def handler_battle_skill_ensure(ctx):
 
 def handler_battle_skill_start(ctx):
     map = ctx.battle.map
-    if ctx.counter:
+    if ctx.type == SkillType.Counter:
         ui.echo()
         ui.echo("%s发动反击！" % ctx.subject.name)
         ui.echo()
@@ -325,7 +326,7 @@ def handler_battle_skill_start(ctx):
         ui.echo("%s使出" % ctx.subject.name + ui.rank(ctx.skill.belongs, txt="【%s】" % ctx.skill.belongs.name) + \
                 "中的一式" + ui.rank(ctx.skill, txt="【%s】" % ctx.skill.name))
         ui.echo()
-        if not ctx.counter and ctx.battle.current != ctx.subject:
+        if ctx.type != SkillType.Counter and ctx.battle.current != ctx.subject:
             ui.read("（回车继续）")
         ui.map(map, entities=battle_person_handler(ctx.persons), 
                coordinates=ctx.scope, coordinate_color="yellow", show_trace=False)

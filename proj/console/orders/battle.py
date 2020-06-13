@@ -8,6 +8,7 @@ from proj.engine import Action
 from proj.entity.map import Shape
 from proj.entity import BattlePhase
 from proj.entity import Person
+from proj.entity import SkillType
 
 from proj.builtin.actions import BattleStartAction
 from proj.builtin.actions import BattleFinishAction
@@ -237,7 +238,7 @@ class BattleSkillOrder(BattleOrder):
                              target=self.position, scope=self.scope).do()
         else:
             BattleSkillAction(skill=self.skill, battle=self.battle, subject=self.battle.current,
-                              target=self.position, scope=self.scope, counter=False).do()
+                              target=self.position, scope=self.scope, type=SkillType.Normal).do()
         if self.battle.moved[self.battle.current.id] and \
            self.battle.attacked[self.battle.current.id] and \
            self.battle.itemed[self.battle.current.id] and \

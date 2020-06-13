@@ -2,6 +2,7 @@ from proj.entity.constants import BattleEvent
 from proj.entity.constants import BattleGroup
 from proj.entity.constants import BattlePhase
 from proj.entity.constants import AttrText
+from proj.entity.constants import SkillType
 from proj.entity.person import Person
 from proj.entity.map import Map
 from proj.entity.map import MapGrid

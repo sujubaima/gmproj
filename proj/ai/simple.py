@@ -6,6 +6,7 @@ import random
 import math
 import copy
 
+from proj.entity import SkillType
 from proj.entity.map import Shape
 from proj.builtin.actions import BattleMoveAction
 from proj.builtin.actions import BattleSkillAction
@@ -189,7 +190,7 @@ class SimpleAI(object):
                 score += SimpleAI.EFFECT_MAP[effe.tpl_id](p, q, effe, self.battle)
             if score == 0:
                 continue
-            action_list = [theaction(subject=p, battle=self.battle, target=qloc, counter=False,
+            action_list = [theaction(subject=p, battle=self.battle, target=qloc, type=SkillType.Normal,
                                      skill=skill, objects=[q], scope=[qloc])]
             can_do.append((action_list, score))
         return can_do
@@ -300,7 +301,7 @@ class SimpleAI(object):
 
                     action_list = [BattleMoveAction(subject=p, battle=self.battle, target=loc, scope=move_scope,
                                                     path=self.battle.map.move_trace(loc, self.battle.map.location(p), self.connections)),
-                                   theaction(subject=p, battle=self.battle, target=scope, counter=False,
+                                   theaction(subject=p, battle=self.battle, target=scope, type=SkillType.Normal,
                                              skill=skill, objects=ql, ploc=loc, scope=[])]
                                              #debug_info=debug_info, person_info=person_info, object_info=object_info)]
                     can_do.append((action_list, score))

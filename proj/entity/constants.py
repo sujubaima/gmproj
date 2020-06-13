@@ -42,6 +42,13 @@ class BattlePhase(object):
     FinishTurn = 16384    
     Finish = 32768
     BeforeQuit = 65536
+    
+    
+class SkillType(object):
+
+    Normal = 0
+    Counter = 1
+    Turbo = 2
 
 
 class BattleEvent(object):
