@@ -104,6 +104,7 @@ class Person(Entity):
 
         self.firstname = ""
         self.lastname = ""
+        self.sex = 0
         self.showname = None
         self.title = None
         self.tags = set()

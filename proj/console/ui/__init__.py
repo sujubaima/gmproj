@@ -23,6 +23,7 @@ from proj.console.ui.entity import skill
 from proj.console.ui.entity import inner_skill
 from proj.console.ui.entity import rankcolor
 from proj.console.ui.entity import item
+from proj.console.ui.entity import nodecond
 
 from proj.console.ui.scenario import GROUP_COLOR
 from proj.console.ui.scenario import map

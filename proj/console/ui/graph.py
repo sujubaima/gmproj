@@ -174,6 +174,8 @@ def superskill(superskill, subject=None):
             for lyt in layer:
                 if j == 0:
                     ctstr = "【%s】" % (lyt + 1) + superskill.nodes[lyt].name
+                #elif j == 1:
+                #    ctstr = ui.nodecond(superskill.nodes[lyt])
                 elif j == HEIGHT - 1 and subject is not None:
                     learn_st = superskill.learn_status(subject, lyt)
                     if learn_st == 0:

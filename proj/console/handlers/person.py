@@ -370,7 +370,7 @@ def superskill_menu(superskill, person):
         learn_sts = superskill.learn_status(person, idx)
         enable = True
         if learn_sts == -1:
-            nd_str = nd.name #+ "（条件不足）"
+            nd_str = nd.name + ui.nodecond(nd)
             enable = False
         elif learn_sts == 0:
             nd_str = nd.name + "（已习得）"

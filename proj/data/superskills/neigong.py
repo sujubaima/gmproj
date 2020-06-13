@@ -366,6 +366,7 @@ SUPERSKILL_MEIHUAXINYI = \
 SUPERSKILL_XIZIPENGXINJUE = \
     {"name": "西子捧心诀", "rank": 1,
      "nodes": [{"name": "西子捧心", "tags": "SKILL_XIZIPENGXIN", "next": [1, 2],
+                "required": [{"attrname": "sex", "range": "[1, 1]"}],
                 "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_XIZIPENGXIN"}],
                 "description": "运转该内功时可获得以下状态"},
                {"name": "通脉", "next": [3],
@@ -387,6 +388,7 @@ SUPERSKILL_XIZIPENGXINJUE = \
                                "attrs": [{"name": "dodge_rate_", "delta": 0.02}]}],
                 "description": "基础闪避+2"},
                {"name": "黛蛾长敛", "next": [5, 6],
+                "required": [{"attrname": "sex", "range": "[1, 1]"}],
                 "functions": [{"type": "SkillRemoveEffect", 
                                "skill": "SKILL_XIZIPENGXIN", "effect": {"id": "EXERT.STATUS_HANPIN"}},
                               {"type": "SkillAddEffect",

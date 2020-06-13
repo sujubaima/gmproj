@@ -34,6 +34,8 @@ class SuperSkill(Entity):
                 nd.exp = ntpl.get("exp", 0)
                 if "tags" in ntpl:
                     nd.tags.update(ntpl["tags"].split(","))
+                if "required" in ntpl:
+                    nd.required.extend(ntpl["required"])
                 ret.append(nd) 
             setattr(self, k, ret)
         else:
@@ -57,6 +59,21 @@ class SuperSkill(Entity):
         itm.belongs = self
         itm.rank = self.rank
         return self
+        
+    def check_required(self, person, req):
+        attr = getattr(person, req["attrname"])
+        lower, upper = req["range"][1:-1].split(",")
+        lower = int(lower) if len(lower) > 0 else 0
+        upper = int(upper) if len(upper) > 0 else 100
+        if req["range"].startswith("("):
+            lowerfunc = lambda x: x > lower
+        else:
+            lowerfunc = lambda x: x >= lower
+        if req["range"].endswith(")"):
+            upperfunc = lambda x: x < upper
+        else:
+            upperfunc = lambda x: x <= upper
+        return lowerfunc(attr) and upperfunc(attr)
 
     def learn(self, person, idx):
         for effe in self.nodes[idx].effects:
@@ -71,9 +88,13 @@ class SuperSkill(Entity):
             if not t.startswith("SKILL_"):
                 continue
             sk = Skill.one(t)
-            if sk in person.skills:
+            if sk in person.skills + person.skills_inner:
                 return 0
         can_learn = True
+        for req in node.required:
+            if not self.check_required(person, req):
+                can_learn = False
+                break
         for p in node.previous:
             if self.learn_status(person, p) != 0:
                 can_learn = False
@@ -91,6 +112,7 @@ class SkillNode(Entity):
        self.previous = []
        self.effects = []
        self.tags = set()
+       self.required = []
        self.rank = 0
        
    def learn(self, person):

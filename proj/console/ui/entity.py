@@ -25,6 +25,29 @@ def rank(obj, txt=None, grey=False):
 def tag(t):
     tagmap = {"Wine": "酒", "Fur": "毛皮", "Wood": "木材", "Jade": "玉石", "Metal": "金属", "Punk": "朋克"}
     return tagmap[t]
+    
+
+def nodecond(nd):
+    sexmap = ["男", "女", "？"]
+    symbolmap = {"(": ">", "[": ">=", ")": "<", "]": "<="}
+    condlist = []
+    for req in nd.required:
+        name = req["attrname"]
+        lower, upper = req["range"][1:-1].split(",")
+        if name == "sex":
+            condlist.append("性别为%s" % sexmap[int(lower)])
+        else:
+            if lower == upper:
+                condlist.append("%s = %s" % (name, lower))
+            elif len(lower) == 0:
+                condlist.append("%s %s %s" % (name, symbolmap[req["range"][-1]], upper))
+            elif len(upper) == 0:
+                condlist.append("%s %s %s" % (name, symbolmap[req["range"][0]], lower))
+    if len(condlist) == 0:
+        condstr = ""
+    else:
+        condstr = "（要求%s）" % "、".join(condlist)
+    return condstr
 
 
 def inner_skill(obj, p):
