@@ -116,13 +116,13 @@ SUPERSKILL_HUANGLUKUZHUJIAN = \
                {"name": "芦轻", "exp": 750, 
                 "functions": [{"type": "PersonChangeAttribute", 
                                "attrs": [{"name": "dongjing", "delta": 4}]},
-                              {"type": "SkillChangeAttribute", "skill": "SKILL_HUANGLUKUZHUJIAN_1",
+                              {"type": "PersonSkillChangeAttribute", "skill": "SKILL_HUANGLUKUZHUJIAN_1",
                                "attrs": [{"name": "shape", "value": "Line.Emit,1,3"}]}],
                 "description": "灵动+4%，沉静-4%；【黄芦颤叶】一式增加1格溅射范围"},
                {"name": "竹劲", "exp": 750,
                 "functions": [{"type": "PersonChangeAttribute",
                                "attrs": [{"name": "gangrou", "delta": 4}]},
-                              {"type": "SkillChangeAttribute", "skill": "SKILL_HUANGLUKUZHUJIAN_2",
+                              {"type": "PersonSkillChangeAttribute", "skill": "SKILL_HUANGLUKUZHUJIAN_2",
                                "attrs": [{"name": "cd", "value": 0}]}],
                 "description": "刚猛+4%，柔易-4%；【苦竹摇风】一式冷却时间减少为0"}]}
                 
@@ -134,7 +134,7 @@ SUPERSKILL_XILIUJIANFA = \
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_XILIUJIANFA_1"}],
                 "description": "习得招式【碧玉千条】"},
                {"name": "剪春风", "exp": 500, 
-                "functions": [{"type": "SkillAddEffect", "skill": "SKILL_XILIUJIANFA_1", 
+                "functions": [{"type": "PersonSkillAddEffect", "skill": "SKILL_XILIUJIANFA_1", 
                                "effect": {"id": "EXERT.STATUS_QIANCHAN"}}],
                 "description": "招式【碧玉千条】增加【牵缠】效果"},
                {"name": "满城风絮", "tags": "SKILL_XILIUJIANFA_2", "next": [3, 4, 5],
@@ -149,7 +149,7 @@ SUPERSKILL_XILIUJIANFA = \
                                "attrs": [{"name": "zhipu", "delta": 5}]}],
                 "description": "颖悟+5%，朴拙-5%"},
                {"name": "袅晴丝", "exp": 750, 
-                "functions": [{"type": "SkillChangeAttribute", "skill": "SKILL_XILIUJIANFA_2",
+                "functions": [{"type": "PersonSkillChangeAttribute", "skill": "SKILL_XILIUJIANFA_2",
                                "attrs": [{"name": "shape", "value": "SmallSector.Seep,1,3"}]}],
                 "description": "招式【满城风絮】增加1格溅射范围"}]}
       
@@ -216,9 +216,9 @@ SUPERSKILL_BICHENGJIANFA = \
                {"name": "玉轮生魄", "next": [3],
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_BICHENGJIANFA_3"}]},
                {"name": "黛蛾长敛", 
-                "functions": [{"type": "SkillRemoveEffect",
+                "functions": [{"type": "PersonSkillRemoveEffect",
                                "skill": "SKILL_BICHENGJIANFA_3", "effect": {"id": "EFFECT_GONGQI"}},
-                              {"type": "SkillAddEffect",
+                              {"type": "PersonSkillAddEffect",
                                "skill": "SKILL_BICHENGJIANFA_3", "effect": {"id": "EFFECT_GONGQI_DA"}}],
                 "description": "增强【玉轮生魄】的攻气效果"}]}
 

@@ -436,7 +436,7 @@ class PersonChangeAttributeEffect(EntityChangeAttributeEffect):
     pass
 
 
-class SkillChangeAttributeEffect(EntityChangeAttributeEffect):
+class PersonSkillChangeAttributeEffect(EntityChangeAttributeEffect):
     """
     修改技能属性
     """
@@ -458,7 +458,7 @@ class SkillChangeAttributeEffect(EntityChangeAttributeEffect):
         self.modify(skill, reverse=True, **kwargs)
 
 
-class SkillEffectChangeAttributeEffect(EntityChangeAttributeEffect):
+class PersonSkillEffectChangeAttributeEffect(EntityChangeAttributeEffect):
     
     def choose(self, subject):
         skill = None
@@ -481,9 +481,23 @@ class SkillEffectChangeAttributeEffect(EntityChangeAttributeEffect):
     def leave(self, subject, objects=[], **kwargs):
         effect = self.choose(subject)
         self.modify(effect, reverse=True, **kwargs)
+        
+        
+class EntityAddEffectEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        effeobj = Effect.fromjson(self.effect)
+        subject.effects.append(effeobj)
+
+    def leave(self, subject, objects=[], **kwargs):
+        for effe in subject.effects:
+            if effe.tpl_id == self.effect["id"]:
+                break
+        subject.effects.remove(effe)
+        Effect.remove(effe)
 
 
-class SkillAddEffectEffect(Effect):
+class PersonSkillAddEffectEffect(Effect):
     """
     增加技能效果
     """
@@ -501,19 +515,19 @@ class SkillAddEffectEffect(Effect):
                 skill = s
                 break
         for effe in skill.effects:
-            if effe.tpl_id == self.skill:
+            if effe.tpl_id == self.effect["id"]:
                 break
         skill.effects.remove(effe)
         Effect.remove(effe)
         
         
-class SkillRemoveEffectEffect(SkillAddEffectEffect):
+class PersonSkillRemoveEffectEffect(PersonSkillAddEffectEffect):
 
     def work(self, subject, objects=[], **kwargs):
-        super(SkillRemoveEffectEffect, self).leave(subject, objects, **kwargs)
+        super(PersonSkillRemoveEffectEffect, self).leave(subject, objects, **kwargs)
         
     def leave(self, subject, objects=[], **kwargs):
-        super(SkillRemoveEffectEffect, self).work(subject, objects, **kwargs)
+        super(PersonSkillRemoveEffectEffect, self).work(subject, objects, **kwargs)
 
 
 class SkillStudyEffect(Effect):

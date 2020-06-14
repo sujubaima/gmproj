@@ -20,7 +20,8 @@ class Item(Entity):
             pos, item = addition.split("-")
             pos = int(pos)
             item = Item.one(item)
-            raw_ent.effects.extend(item.effects)
+            for effe in item.effects:
+                effe.work(subject=raw_ent)
             raw_ent.inlays[pos]["filled"] = item
             raw_ent.rank = item.rank
             if len(item.tags & raw_ent.inlays_prefix) > 0:

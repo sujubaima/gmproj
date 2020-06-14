@@ -586,37 +586,37 @@ EFFECT_QIANCHAN = \
 
 # 日月
 EFFECT_PINGDAN_DECREASE = \
-    {"style": 0, "module": "proj.entity.effect", "class": "SkillChangeAttributeEffect",
+    {"style": 0, "module": "proj.entity.effect", "class": "PersonSkillChangeAttributeEffect",
      "skill": "SKILL_RIYUESHUANGLUN_2",
      "attrs": [{"name": "power", "delta": -100}]}
 
 EFFECT_PINGDAN_INCREASE = \
-    {"style": 1, "module": "proj.entity.effect", "class": "SkillChangeAttributeEffect",
+    {"style": 1, "module": "proj.entity.effect", "class": "PersonSkillChangeAttributeEffect",
      "skill": "SKILL_RIYUESHUANGLUN_1",
      "attrs": [{"name": "power", "delta": 100}]}
 
 EFFECT_RIRU_DECREASE = \
-    {"style": 0, "module": "proj.entity.effect", "class": "SkillChangeAttributeEffect",
+    {"style": 0, "module": "proj.entity.effect", "class": "PersonSkillChangeAttributeEffect",
      "skill": "SKILL_RIYUESHUANGLUN_1",
      "attrs": [{"name": "power", "delta": -100}]}
 
 EFFECT_RIRU_INCREASE = \
-    {"style": 1, "module": "proj.entity.effect", "class": "SkillChangeAttributeEffect",
+    {"style": 1, "module": "proj.entity.effect", "class": "PersonSkillChangeAttributeEffect",
      "skill": "SKILL_RIYUESHUANGLUN_2",
      "attrs": [{"name": "power", "delta": 100}]}
 
 EFFECT_RI_ANONYMOUS = \
-    {"style": 1, "module": "proj.entity.effect", "class": "SkillChangeAttributeEffect",
+    {"style": 1, "module": "proj.entity.effect", "class": "PersonSkillChangeAttributeEffect",
      "skill": "SKILL_RIYUESHUANGLUN_1",
      "attrs": [{"name": "power", "delta": 50}]}
 
 EFFECT_YUE_ANONYMOUS = \
-    {"style": 1, "module": "proj.entity.effect", "class": "SkillChangeAttributeEffect",
+    {"style": 1, "module": "proj.entity.effect", "class": "PersonSkillChangeAttributeEffect",
      "skill": "SKILL_RIYUESHUANGLUN_2",
      "attrs": [{"name": "power", "delta": 50}]}
 
 EFFECT_RIYUE_ANONYMOUS = \
-    {"style": 1, "module": "proj.entity.effect", "class": "SkillChangeAttributeEffect",
+    {"style": 1, "module": "proj.entity.effect", "class": "PersonSkillChangeAttributeEffect",
      "skill": "SKILL_RIYUESHUANGLUN_3",
      "attrs": [{"name": "power", "delta": 50}]}
 
