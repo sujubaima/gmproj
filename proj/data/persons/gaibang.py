@@ -13,7 +13,8 @@ PERSON_XING_FEILONG = \
      "skill_counter": {"id": "SKILL_DAGOUBANGFA_2"},
      "running": {"id": "SUPERSKILL_QIURANXINFA"},
      "items": [],
-     "equipment": [{"id": "ITEM_DAGOUBANG", "position": "MainHand"}],
+     "equipment": [{"id": "ITEM_DAGOUBANG", "position": "MainHand"},
+                   {"id": "ITEM_SHUHE", "position": "Body"}],
      "criticaltxt": "武林鼠辈，尚识得屠狗人否？！"}
 
 
@@ -28,7 +29,8 @@ PERSON_LI_CANGYING = \
                      {"id": "SUPERSKILL_XIANGLONGSHIBAZHANG", "learn": "All"}],
      "running": {"id": "SUPERSKILL_QIURANXINFA"},
      "items": [],
-     "equipment": [{"id": "ITEM_ZHITAO", "position": "MainHand"}],
+     "equipment": [{"id": "ITEM_ZHIHU,0-ITEM_JINGTIE", "position": "MainHand"},
+                   {"id": "ITEM_SHUHE", "position": "Body"}],
      "criticaltxt": "人生在世，自当龙战三二十载，建功立业！"}
 
 

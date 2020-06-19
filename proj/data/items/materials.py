@@ -11,16 +11,40 @@ ITEM_YAN = \
      "description": "主要成分为氯化钠"}
      
 
-ITEM_TIEKUANG = \
-    {"name": "铁矿", "rank": 0, "tags": "Material,Metal",
+ITEM_MUTAN = \
+    {"name": "木炭", "tags": "Material,Catalyzer",
+     "rank": 0, "weight": 0.1, "volume": 0.2,
+     "description": "木材烧制后的碳化物，制作物品的材料"}
+
+
+ITEM_SHENGTIE = \
+    {"name": "生铁", "rank": 0, "tags": "Material,Metal",
+     "weight": 0.4, "volume": 0.2,
+     "effects": [{"id": "EFFECT_ITEM_ADD_FUNCTION", 
+                  "effect": {"id": "EXERT.LAMBDA.EFFECT_SHENGTIE_ATTR"}}],
+     "description": "深山里常见的金属矿物，打造武器的基本材料之一"}
+
+
+ITEM_CUTONG = \
+    {"name": "粗铜", "rank": 0, "tags": "Material,Metal",
      "weight": 0.4, "volume": 0.2,
      "description": "深山里常见的金属矿物，打造武器的基本材料之一"}
 
 
-ITEM_TONGKUANG = \
-    {"name": "铜矿", "rank": 0, "tags": "Material,Metal",
+ITEM_JINGTIE = \
+    {"name": "精铁", "rank": 1, "tags": "Material,Metal",
      "weight": 0.4, "volume": 0.2,
-     "description": "深山里常见的金属矿物，打造武器的基本材料之一"}
+     "effects": [{"id": "EFFECT_ITEM_ADD_FUNCTION",
+                  "effect": {"id": "EXERT.LAMBDA.EFFECT_JINGTIE_ATTR"}}],
+     "description": "质量上佳的铁矿，打造武器的常用材料之一"}
+
+
+ITEM_BINTIE = \
+    {"name": "镔铁", "rank": 2, "tags": "Material,Metal",
+     "weight": 0.4, "volume": 0.2,
+     "effects": [{"id": "EFFECT_ITEM_ADD_FUNCTION",
+                  "effect": {"id": "EXERT.STATUS_GANGJIN"}}],
+     "description": "从西域传来的钢铁，打造上品武器的常用材料之一"}
 
 
 ITEM_YUNMU = \
@@ -31,5 +55,13 @@ ITEM_YUNMU = \
 
 ITEM_TONGMU = \
     {"name": "桐木", "rank": 1, "tags": "Material,Wood",
-     "weight": 0.2, "volume": 0.3,
+     "weight": 0.2, "volume": 0.2,
      "description": "梧桐或泡桐树干制成的木材，柔软但富有韧性"}
+
+
+ITEM_WUMU = \
+    {"name": "乌木", "rank": 2, "tags": "Material,Wood",
+     "weight": 0.2, "volume": 0.3,
+     "effects": [{"id": "EFFECT_ITEM_ADD_FUNCTION",
+                  "effect": {"id": "EXERT.STATUS_JITUI_RATIO"}}],
+     "description": "铁力木等树干埋藏碳化后形成的木材，质地及其坚硬"}

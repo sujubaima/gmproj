@@ -218,6 +218,8 @@ class Map(Entity):
 
         self.start_locs = []
         self.transport_locs = {}
+
+        self.pathblocked = set()
         
     def handle(self, k, v):
         if k == "width":
@@ -560,37 +562,51 @@ class Map(Entity):
         """
         path = {}
         cachelist = []
+        cachekey = set()
+        if last is not None:
+            path[last] = None
         path[pta] = last
-        # 若回头路可走，暂存一下
-        if last is not None and self.can_move(p, last):
-            cachelist.append((last, self.distance(last, ptb), 0))
         tmppt = pta
         step = 0
         while tmppt != ptb and step != steps:
+            tmp_block = False
             for ap in self.around(tmppt):
+                if ap in self.loc_entity:
+                    tmp_block = True
+                if (ap, ptb) in self.pathblocked or ap in path:
+                    continue
                 if not self.can_move(p, ap) and ap != ptb:
                     continue
-                if ap in path:
-                    continue
                 v = self.distance(ap, ptb) 
-                ist = len(cachelist)
-                for idx, itm in enumerate(cachelist):
-                    if v >= itm[1]:
-                        ist = idx
-                        break
+                if ap not in cachekey:
+                    ist = len(cachelist)
+                    for idx, itm in enumerate(cachelist):
+                        if v >= itm[1]:
+                            ist = idx
+                            break
+                    cachelist.insert(ist, (ap, v, step))
+                    cachekey.add(ap)
                 path[ap] = tmppt
-                cachelist.insert(ist, (ap, v, step))
-            # 无路可走时原地等待
-            if len(cachelist) == 0:
-                step += 1
-            else:
-                cpop = cachelist.pop()
-                tmppt = cpop[0]
-                step = cpop[2] + 1
+            # 若被人堵住则原地等待
+            if len(cachelist) == 0 and tmp_block:
+                cachelist.append((tmppt, self.distance(tmppt, ptb), step))
+                path[tmppt] = tmppt
+            # 若是死路则跳出循环，开始反向寻路
+            elif len(cachelist) == 0:
+                self.pathblocked.add((tmppt, ptb))
+                break
+            # 若有可尝试的路径，则选出评分最高的一条继续前进
+            cpop = cachelist.pop()
+            tmppt = cpop[0]
+            step = cpop[2] + 1
         ret = []
-        while tmppt != last:
+        idx = 0
+        while (steps < 0 and tmppt is not None) or (steps > 0 and idx <= step):
             ret.append(tmppt)
             tmppt = path[tmppt]
+            idx += 1
+        if steps > step and tmppt is not None:
+            ret = self.connect_dynamic(ret[0], ptb, p, last=None, steps=(steps - step)) + ret[1:]
         return ret
 
     def _direction(self, pta, ptb):

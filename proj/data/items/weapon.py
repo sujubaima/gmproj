@@ -30,6 +30,7 @@ ITEM_PODAO = \
      "description": "流水线量产刀型，绿林好汉人手一把，需要双手持握"}
 
 
+# 长棍
 ITEM_CHANGGUN = \
     {"name": "长棍", "rank": 0, "tags": "Equip,Weapon,Changbing", "shape": "Around,0,0,0", "double_hand": True,
      "weight": 2.0, "volume": 2.0, "durability": 50, "money": 350,
@@ -37,6 +38,16 @@ ITEM_CHANGGUN = \
      "inlays_prefix": "Jade|Metal|Wood",
      "effects": [{"id": "EXERT.LAMBDA.EFFECT_CHANGGUN_ATTR"}],
      "description": "初级长兵武器，需要双手持握"}     
+
+
+# 齐眉棍
+ITEM_QIMEIGUN = \
+    {"name": "齐眉棍", "rank": 1, "tags": "Equip,Weapon,Changbing", "shape": "Around,0,0,0", "double_hand": True,
+     "weight": 2.0, "volume": 2.0, "durability": 50, "money": 350,
+     "inlays": [{"name": "棍身", "accept": "Wood|Metal|Jade"}],
+     "inlays_prefix": "Jade|Metal|Wood",
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_QIMEIGUN_ATTR"}],
+     "description": ""}
      
      
 ITEM_BISHOU = \
@@ -85,28 +96,41 @@ ITEM_QIXIANQIN = \
      
      
 ITEM_SANLENGQIANG = \
-    {"name": "镔铁三棱枪", "rank": 2, "tags": "Equip,Weapon,Changbing", "shape": "Around,0,0,0", "double_hand": True,
+    {"name": "三棱枪", "rank": 1, "tags": "Equip,Weapon,Changbing", "shape": "Around,0,0,0", "double_hand": True,
      "weight": 5, "volume": 2.5, "durability": 60,
-     "effects": [{"id": "EXERT.LAMBDA.EFFECT_SANLENGQIANG_ATTR"},
-                 {"id": "EXERT.STATUS_GANGJIN"}]}
+     "inlays": [{"name": "枪杆", "accept": "Wood|Metal"},
+                {"name": "枪头", "accept": "Metal"}],
+     "inlays_prefix": "Metal|Wood",
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_SANLENGQIANG_ATTR"}]}
      
 
 ITEM_TAIJIHUSHOU = \
     {"name": "太极护手", "rank": 3, "tags": "Equip,Weapon,Boji", "shape": "Around,0,0,0",
      "weight": 0.2, "volume": 0.2, "durability": 50,
-     "effects": [{"id": "EXERT.LAMBDA.EFFECT_TAIJIHUSHOU_ATTR"}]}
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_TAIJIHUSHOU_ATTR"},
+                 {"id": "EXERT.STATUS_JUANLIU"}]}
 
 
 ITEM_DAGOUBANG = \
     {"name": "打狗棒", "rank": 4, "tags": "Equip,Weapon,Changbing", "shape": "Around,0,0,0",
      "weight": 1.4, "volume": 1.2, "durability": 50,
-     "effects": [{"id": "EXERT.LAMBDA.EFFECT_DAGOUBANG_ATTR"}]}
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_DAGOUBANG_ATTR"},
+                 {"id": "EXERT.STATUS_TUGOU"}]}
 
      
 ITEM_ZHITAO = \
     {"name": "玳瑁指套", "rank": 2, "tags": "Equip,Weapon,Boji", "shape": "Around,0,0,0",
      "weight": 0.5, "volume": 0.2, "durability": 40,
      "effects": [{"id": "EXERT.LAMBDA.EFFECT_ZHITAO_ATTR"}]}
+
+
+# 指虎
+ITEM_ZHIHU = \
+    {"name": "指虎", "rank": 1, "tags": "Equip,Weapon,Boji", "shape": "Around,0,0,0",
+     "weight": 0.8, "volume": 0.5, "durability": 45,
+     "inlays": [{"name": "指尖", "accept": "Jade|Metal"}],
+     "inlays_prefix": "Metal|Jade",
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_ZHIHU_ATTR"}]}
 
 
 # 合璧
@@ -129,7 +153,8 @@ ITEM_TAIYUE = \
 ITEM_ZIYING = \
     {"name": "紫郢", "rank": 4, "tags": "Equip,Weapon,Jianfa", "shape": "Around,0,0,0", "bind": "PERSON_RAN_WUHUA",
      "weight": 1.5, "volume": 1, "durability": 60,
-     "effects": [{"id": "EXERT.LAMBDA.EFFECT_ZIYING_ATTR"}],
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_ZIYING_ATTR"},
+                 {"id": "EXERT.STATUS_CHOUSUI_XIAO_RATIO"}],
      "description": "峨眉派创派祖师所用的名剑，剑体通身发紫，故得名紫郢"}
      
      
@@ -145,7 +170,8 @@ ITEM_QINGPING = \
 ITEM_ZHENWU = \
     {"name": "真武", "rank": 4, "tags": "Equip,Weapon,Jianfa", "shape": "Around,0,0,0", "bind": "PERSON_ZHANG_YINSONG",
      "weight": 1.5, "volume": 1.2, "durability": 60,
-     "effects": [{"id": "EXERT.LAMBDA.EFFECT_ZHENWU_ATTR"}],
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_ZHENWU_ATTR"},
+                 {"id": "EXERT.STATUS_GONGQI_XIAO_RATIO"}],
      "description": "相传为真武大帝的佩剑，为武当山镇派之宝，历来只有掌门可以使用"}
   
   

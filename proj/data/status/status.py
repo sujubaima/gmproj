@@ -84,7 +84,7 @@ STATUS_QIWU = \
 STATUS_HAOQIGANYUN = \
     {"name": "豪气干云", "phase": "AfterAttack", "style": 1,
      "functions": [{"id": "EFFECT_HAOQIGANYUN"}],
-     "description": "每次攻击只要命中单位，自身时序速度便会提升"}
+     "description": "每次攻击只要命中目标，自身时序速度便会提升"}
 
 STATUS_HAOQIGANYUN_ANONYMOUS = \
     {"phase": "Instant", "style": 1, "countable": True, "accepttype": "Overlap", "overtype": "Exert",
@@ -158,7 +158,7 @@ STATUS_YIJIN = \
 STATUS_HUANGU = \
     {"name": "换骨", "phase": "FinishTurn", "style": 1,
      "functions": [{"id": "EFFECT_HUANGU"}],
-     "description": "每回合（包括其他角色的回合）结束时自身基础暴击率、基础闪避率、基础反击率与基础拆招率+1，截止至第20回合"}
+     "description": "前20回合（包括其他角色回合）中，每回合结束时自身基础暴击率、基础闪避率、基础反击率与基础拆招率+1"}
 
 STATUS_HUANGU_ANONYMOUS = \
     {"phase": "Instant", "countable": True, "style": 1,
@@ -252,10 +252,33 @@ STATUS_ZHENSHE = \
      "description": "对状态施加者的攻击伤害减低"}
 
 
+# 蛊惑
 STATUS_GUHUO = \
     {"name": "蛊惑", "phase": "Instant", "style": 0,
      "functions": [{"id": "EFFECT_GUHUO"}],
      "description": "阵营暂时发生变化"}
+
+
+# 击退
+STATUS_JITUI_RATIO = \
+    {"name": "威震", "phase": "BeforeDamage", "style": 1,
+     "ratio": 0.5, "influence": "Gang", "factor_middle": 1, "factor_upper": 2,
+     "functions": [{"id": "EFFECT_JITUI"}],
+     "description": "攻击时有一定几率将目标击退1格"}
+
+
+# 攻气
+STATUS_GONGQI_XIAO = \
+    {"name": "小攻气", "phase": "AfterAttack", "style": 1,
+     "functions": [{"id": "EFFECT_GONGQI_XIAO"}],
+     "description": "攻击时较小比例的伤害转化为内力伤害"}
+
+
+STATUS_GONGQI_XIAO_RATIO = \
+    {"name": "荡气", "phase": "AfterAttack", "style": 1,
+     "ratio": 0.5, "influence": "Zhi", "factor_middle": 1, "factor_upper": 2,
+     "functions": [{"id": "EFFECT_GONGQI"}],
+     "description": "攻击时有一定几率追加内力伤害"}
 
 
 STATUS_MUMANG = \
@@ -307,8 +330,14 @@ STATUS_CHANGDAN = \
 
 STATUS_FUYUAN = \
     {"name": "复元", "phase": "FinishTurn", "style": 1,
-     "functions": [{"id": "EFFECT_FUYUAN", "level": 500}],
-     "description": "自身回合结束时，恢复一定气血"}
+     "functions": [{"id": "EFFECT_FUYUAN", "level": 5}],
+     "description": "自身回合结束时，恢复一定气血与内力"}
+
+
+STATUS_MIAOYUAN = \
+    {"name": "妙圆", "phase": "FinishTurn", "style": 1,
+     "functions": [{"id": "EFFECT_FUYUAN", "level": 5}],
+     "description": "自身回合结束时，恢复一定气血与内力"}
 
 
 STATUS_TONGXIN = \
@@ -327,11 +356,36 @@ STATUS_TUNWU = \
      "functions": [{"id": "EFFECT_TUNWU", "level": 99999}],
      "description": "攻击造成敌人退场时，自身外伤值、内伤值、风毒值、瘀毒值全部清零"}
 
+
+STATUS_TUGOU = \
+    {"name": "屠狗", "phase": "Instant", "style": 1,
+     "functions": [{"id": "EFFECT_TUGOU"}],
+     "description": "武学『打狗棒法』所有招式威力提升"}
+
      
 STATUS_CHOUSUI = \
-    {"name": "抽髓", "phase": "AfterAttack", "style": 1,
+    {"name": "大抽髓", "phase": "AfterAttack", "style": 1,
      "functions": [{"id": "EFFECT_XISUI_DA"}],
      "description": "攻击同时造成内力伤害，内力伤害将被自身吸收，颖悟值越高吸髓效果越佳"}
+
+
+STATUS_CHOUSUI_XIAO = \
+    {"name": "小抽髓", "phase": "AfterAttack", "style": 1,
+     "functions": [{"id": "EFFECT_XISUI_XIAO"}],
+     "description": "攻击同时造成内力伤害，内力伤害将被自身吸收，颖悟值越高吸髓效果越佳"}
+
+
+STATUS_CHOUSUI_XIAO_RATIO = \
+    {"name": "紫电青霜", "phase": "AfterAttack", "style": 1,
+     "ratio": 0.5, "influence": "Zhi", "factor_middle": 1, "factor_upper": 2,
+     "functions": [{"id": "EFFECT_XISUI_XIAO"}],
+     "description": "攻击时有一定几率吸取目标少量内力"}
+
+
+STATUS_JUANLIU = \
+    {"name": "抱朴", "phase": "Instant", "style": 1,
+     "functions": [{"id": "EFFECT_JUANLIU"}],
+     "description": "绝大部分武学内力消耗降低"}
 
      
 STATUS_QIXINGNIMAI = \

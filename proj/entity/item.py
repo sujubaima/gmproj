@@ -23,9 +23,9 @@ class Item(Entity):
             for effe in item.effects:
                 effe.work(subject=raw_ent)
             raw_ent.inlays[pos]["filled"] = item
-            raw_ent.rank = item.rank
-            if len(item.tags & raw_ent.inlays_prefix) > 0:
+            if len(item.tags & raw_ent.inlays_prefix) > 0 and item.rank >= raw_ent.rank:
                 raw_ent.prefix = item.name
+                raw_ent.rank = item.rank
             else:
                 raw_ent.prefix = "定制"
             raw_ent.money += item.money

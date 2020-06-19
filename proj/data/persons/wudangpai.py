@@ -12,7 +12,8 @@ PERSON_ZHANG_YINSONG = \
                      {"id": "SUPERSKILL_TAIJIJIANYI", "learn": "All"}],
      "running": {"id": "SUPERSKILL_TAIJISHENGONG"},
      "skill_counter": {"id": "SKILL_TAIJIJIANYI_1"},
-     "equipment": [{"id": "ITEM_ZHENWU", "position": "MainHand"}],
+     "equipment": [{"id": "ITEM_ZHENWU", "position": "MainHand"},
+                   {"id": "ITEM_BAGUAPAO", "position": "Body"}],
      "items": [],
      "criticaltxt": "圣人抱一，为天下式。"}
 
@@ -28,6 +29,7 @@ PERSON_LI_PEIFENG = \
                      {"id": "SUPERSKILL_TAIJIQUAN", "learn": "All"}],
      "running": {"id": "SUPERSKILL_TAIJISHENGONG"},
      "skill_counter": {"id": "SKILL_TAIJIQUAN_1"},
-     "equipment": [{"id": "ITEM_TAIJIHUSHOU", "position": "MainHand"}],
+     "equipment": [{"id": "ITEM_TAIJIHUSHOU", "position": "MainHand"},
+                   {"id": "ITEM_BAGUAPAO", "position": "Body"}],
      "items": [],
      "criticaltxt": "太极生两仪，两仪生四象！"}

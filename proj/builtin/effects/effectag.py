@@ -143,7 +143,7 @@ class DuanGouWoEffect(Effect):
             if battle.event(obj, BattleEvent.ACTMissed) is not None:
                 continue
             obj.hp_delta = int(obj.hp_delta * (1 + 0.1 * len(objects)))
-            obj.mp_delta = int(obj.hp_delta * (1 + 0.1 * len(objects)))
+            #obj.mp_delta = int(obj.mp_delta * (1 + 0.1 * len(objects)))
 
 
 
@@ -223,12 +223,23 @@ class FengDuEffect(Effect):
 # 复元
 class FuYuanEffect(Effect):
 
+    mp_on = True
+    hp_on = True
+
     def work(self, subject, objects=[], **kwargs):
         battle = kwargs["battle"]
         if subject != battle.current:
             return
-        effelib = importlib.import_module("proj.builtin.effect")
-        effelib.HuiChunEffect(level=self.level).work(subject, objects=objects, **kwargs)
+        #effelib = importlib.import_module("proj.builtin.effect")
+        #effelib.HuiChunEffect(level=self.level).work(subject, objects=objects, **kwargs)
+        mp_recover = 0
+        hp_recover = 0
+        if self.mp_on:
+            mp_recover = int(subject.hp_limit * 0.01 * self.level)
+        if self.hp_on:
+            hp_recover = int(subject.mp_limit * 0.01 * self.level)
+        subject.hp_delta += hp_recover
+        subject.mp_delta += mp_recover
         if not battle.silent:
             MSG(style=MSG.Effect, subject=subject, effect=self)
 

@@ -3,14 +3,17 @@
 # 谢蕙
 PERSON_XIE_HUI = \
     {"firstname": "谢", "lastname": "蕙", "title": "百兵堂玉剑舵舵主",
+     "hp_max":4000, "mp_max": 2500, "attack": 280, "defense": 300, "motion": 1,
+     "hit_rate": 1.02, "counter_rate": 0.12, "dodge_rate": 0.05, "critical_rate": 0.1, "anti_damage_rate": 0.06,
      "dongjing": -15, "gangrou": -10, "zhipu": 0, "yinyang": -7,
      "neigong": 57, "boji": 30, "jianfa": 62, "daofa": 18, "changbing": 19, "anqi": 37, "qimen": 50,
      "superskills": [{"id": "SUPERSKILL_JIANGHUXINFA", "learn": [0, 1, 2]},
                      {"id": "SUPERSKILL_JINGUANYUSUOJUE", "learn": "All"},
-                     {"id": "SUPERSKILL_LONGHUAJIANSHU", "learn": [0, 1, 2]},
-                     {"id": "SUPERSKILL_TONGGUIJIANFA", "learn": [0]}],
+                     {"id": "SUPERSKILL_LONGHUAJIANSHU", "learn": "All"}],
+                     #{"id": "SUPERSKILL_TONGGUIJIANFA", "learn": [0]}],
      "skill_counter": {"id": "SKILL_LONGHUAJIANSHU_1"},
-     "equipment": [{"id": "ITEM_HEBI", "position": "MainHand"}],
+     "equipment": [{"id": "ITEM_HEBI", "position": "MainHand"},
+                   {"id": "ITEM_QIXINGPAO", "position": "Body"}],
      "items": [],
      "running": {"id": "SUPERSKILL_JINGUANYUSUOJUE"},
      "criticaltxt": "天之道，损有余而补不足！"}
@@ -19,12 +22,14 @@ PERSON_XIE_HUI = \
 # 宋天勇
 PERSON_SONG_TIANYONG = \
     {"firstname": "宋", "lastname": "天勇", "title": "百兵堂铁枪舵舵主",
+     "hp_max":4800, "mp_max": 2100, "attack": 300, "defense": 250, "motion": 1,
+     "hit_rate": 1, "counter_rate": 0.08, "dodge_rate": 0.05, "critical_rate": 0.12, "anti_damage_rate": 0.05,
      "dongjing": 5, "gangrou": 12, "zhipu": -8, "yinyang": 33,
      "neigong": 43, "boji": 56, "jianfa": 34, "daofa": 35, "changbing": 70, "anqi": 14, "qimen": 30, 
      "superskills": [{"id": "SUPERSKILL_BASHANJIN", "learn": "All"},
                      {"id": "SUPERSKILL_YOUXIAXINFA", "learn": [0, 1, 2]},
                      {"id": "SUPERSKILL_XICHUBAWANGQIANG", "learn": [0, 1, 2]}],
-     "equipment": [{"id": "ITEM_SANLENGQIANG", "position": "MainHand"},
+     "equipment": [{"id": "ITEM_SANLENGQIANG,1-ITEM_BINTIE", "position": "MainHand"},
                    {"id": "ITEM_ZHAOJIA", "position": "Body"}],
      "items": [{"id": "ITEM_JINCHUANGYAO", "quantity": 4}],
      "running": {"id": "SUPERSKILL_BASHANJIN"},

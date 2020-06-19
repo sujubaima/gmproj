@@ -10,14 +10,14 @@ RECIPE_QINGZHENGLUYU = \
      
 RECIPE_CHANGJIAN = \
     {"name": "长剑", "tags": "Equip,Weapon",
-     "materials": [{"id": "ITEM_TIEKUANG", "quantity": 4},
+     "materials": [{"id": "ITEM_SHENGTIE", "quantity": 4},
                    {"id": "ITEM_TONGMU", "quantity": 1}],
      "effects": [{"id": "EFFECT_ITEM_MAKE", "item": "ITEM_CHANGJIAN", "rate": 1}]}
      
      
 RECIPE_PODAO = \
     {"name": "朴刀", "tags": "Equip,Weapon",
-     "materials": [{"id": "ITEM_TIEKUANG", "quantity": 4},
+     "materials": [{"id": "ITEM_SHENGTIE", "quantity": 4},
                    {"id": "ITEM_TONGMU", "quantity": 2}],
      "effects": [{"id": "EFFECT_ITEM_MAKE", "item": "ITEM_PODAO", "rate": 1}]}
  

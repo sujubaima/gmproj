@@ -12,7 +12,7 @@ PERSON_JUE_YIN = \
                      {"id": "SUPERSKILL_MOHEWULIANGZHANG", "learn": "All"}],
      "running": {"id": "SUPERSKILL_YIJINJING"},
      "skill_counter": {"id": "SKILL_MOHEWULIANGZHANG_1"},
-     "equipment": [],
+     "equipment": [{"id": "ITEM_DAMOFAYI", "position": "Body"}],
      "items": [],
      "criticaltxt": "阿弥陀佛！稽首无边法性海，摩诃无量不思议。"}
      
@@ -28,7 +28,7 @@ PERSON_JUE_CHENG = \
                      {"id": "SUPERSKILL_SHILIXIANGMOGUN", "learn": "All"}],
      "running": {"id": "SUPERSKILL_JINZHONGZHAO"},
      "skill_counter": {"id": "SKILL_SHILIXIANGMOGUN_1"},
-     "equipment": [{"id": "ITEM_CHANGGUN", "position": "MainHand"}],
+     "equipment": [{"id": "ITEM_QIMEIGUN,0-ITEM_WUMU", "position": "MainHand"}],
      "items": [],
      "criticaltxt": "诸菩萨摩诃萨应如是降伏其心！"}
      

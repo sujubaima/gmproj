@@ -302,10 +302,10 @@ class SimpleAI(object):
                     action_list = [BattleMoveAction(subject=p, battle=self.battle, target=loc, scope=move_scope,
                                                     path=self.battle.map.move_trace(loc, self.battle.map.location(p), self.connections)),
                                    theaction(subject=p, battle=self.battle, target=scope, type=SkillType.Normal,
-                                             skill=skill, objects=ql, ploc=loc, scope=[])]
+                                             skill=skill, item=skill, objects=ql, ploc=loc, scope=[])]
                                              #debug_info=debug_info, person_info=person_info, object_info=object_info)]
                     can_do.append((action_list, score))
-        if len(can_do) == 0 and with_default:
+        if len(can_do) == 0 and len(tmp_locs) > 0 and with_default:
             tmp_loc = random.sample(tmp_locs, 1)[0]
             move_default = BattleMoveAction(subject=p, battle=self.battle, target=tmp_loc, scope=move_scope,
                                              path=self.battle.map.move_trace(tmp_loc, self.battle.map.location(p), self.connections))

@@ -9,6 +9,7 @@ from proj.entity import Battle
 from proj.entity import BattlePhase
 from proj.entity import BattleEvent
 from proj.entity import SkillType
+from proj.entity import Person
 
 from proj.runtime import context
 

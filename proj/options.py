@@ -43,7 +43,7 @@ PLAY_AUTO_BATTLE = False
 # ----------------------------------------------
 
 # 控制台字体是否不会对全角字符进行显示优化（除lucida console外基本都为True）
-USE_FULL_WIDTH_FONT = True
+USE_FULL_WIDTH_FONT = False
 
 # ----------------------------------------------
 # |                  场景选项                  |

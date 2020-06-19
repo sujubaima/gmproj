@@ -15,3 +15,5 @@ from proj.data.maps.tuition import *
 from proj.data.maps.world import *
 
 from proj.data.maps.shaolinsi import *
+
+from proj.data.maps.testmap import *

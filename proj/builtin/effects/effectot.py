@@ -71,15 +71,16 @@ class QiYongEffect(Effect):
 
     def work(self, subject, objects=[], **kwargs):
         battle = kwargs["battle"]
-        if self.action == "Move":
-            sts_map = battle.moved
-        elif self.action == "Attack":
-            sts_map = battle.attacked
-        elif self.action == "Item":
-            sts_map = battle.itemed
-        elif self.action == "Rest":
-            sts_map = battle.rested
-        sts_map[subject.id] = False
+        for ac in self.action.split(","):
+            if ac == "Move":
+                sts_map = battle.moved
+            elif ac == "Attack":
+                sts_map = battle.attacked
+            elif ac == "Item":
+                sts_map = battle.itemed
+            elif ac == "Rest":
+                sts_map = battle.rested
+            sts_map[subject.id] = False
 
 
 # 清风拂山岗
@@ -243,7 +244,6 @@ class TaiJiJinEffect(Effect):
                 skill.power -= 99
 
 
-
 # 同归  
 class TongGuiEffect(Effect):
 
@@ -324,14 +324,22 @@ class TouDaoEffect(Effect):
                 self.battle.add_event(q, BattleEvent.ACTMissed)
 
 
-# 退敌
-class TuiDiEffect(Effect):
+# 屠狗
+class TuGouEffect(Effect):
 
     def work(self, subject, objects=[], **kwargs):
-        battle = kwargs["battle"]
-        for obj in battle.sequence[-1]["action"].objects:
-            pass
-        MSG(style=MSG.Effect, subject=subject, effect=self)
+        for skill in subject.skills:
+            if not skill.tpl_id.startswith("SKILL_DAGOUBANGFA"):
+                continue
+            if skill.power != 0:
+                skill.power += 50
+
+    def leave(self, subject, objects=[], **kwargs):
+        for skill in subject.skills:
+            if not skill.tpl_id.startswith("SKILL_DAGOUBANGFA"):
+                continue
+            if skill.power != 0:
+                skill.power -= 50
 
 
 # 吞吴

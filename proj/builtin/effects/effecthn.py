@@ -164,15 +164,16 @@ class JinYongEffect(Effect):
 
     def work(self, subject, objects=[], **kwargs):
         battle = kwargs["battle"]
-        if self.action == "Move":
-            sts_map = battle.moved
-        elif self.action == "Attack":
-            sts_map = battle.attacked
-        elif self.action == "Item":
-            sts_map = battle.itemed
-        elif self.action == "Rest":
-            sts_map = battle.rested
-        sts_map[subject.id] = True
+        for ac in self.action.split(","):
+            if ac == "Move":
+                sts_map = battle.moved
+            elif ac == "Attack":
+                sts_map = battle.attacked
+            elif ac == "Item":
+                sts_map = battle.itemed
+            elif ac == "Rest":
+                sts_map = battle.rested
+            sts_map[subject.id] = True
 
 
 # 精武
@@ -201,6 +202,37 @@ class JingWuEffect(Effect):
             MSG(style=MSG.Effect, subject=subject, effect=self, details={"enhance": "%s%%" % self.level})
 
 
+# 击退
+class JiTuiEffect(Effect):
+
+    phase = BattlePhase.BeforeDamage
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if subject != battle.sequence[-1]["action"].subject:
+            return
+        if len(objects) == 0:
+            objects = battle.sequence[-1]["action"].objects
+        sub_loc = battle.map.location(subject)
+        for obj in objects:
+            if battle.event(obj, BattleEvent.ACTMissed) is not None:
+                continue
+            obj_loc = battle.map.location(obj)
+            obj_distance = battle.map.distance(sub_loc, obj_loc)
+            dire = battle.map.direction(sub_loc, obj_loc)
+            obj_tgt = battle.map.neighbour(obj_loc, dire)
+            #print(obj.name, obj_loc, obj_tgt)
+            if not battle.map.can_stay(obj, obj_tgt):
+                continue
+            current_distance = battle.map.distance(obj_tgt, sub_loc)
+            if obj_tgt != obj_loc and current_distance > obj_distance:
+                BattleMoveAction(showmsg=False, active=False,
+                                 battle=battle, subject=obj, target=obj_tgt,
+                                 path=[obj_tgt, obj_loc]).do()
+                MSG(style=MSG.Effect, subject=subject, effect=self,
+                    details={"object": obj.name})
+
+
 # 惧武
 class JuWuEffect(Effect):
 
@@ -224,6 +256,20 @@ class JuWuEffect(Effect):
         mp_enhance = int(subject.mp_delta * 0.01 * self.level)
         if not battle.silent:
             MSG(style=MSG.Effect, subject=subject, effect=self, details={"enhance": "%s%%" % self.level})
+
+
+
+# 涓流
+class JuanLiuEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        for skill in subject.skills:
+            skill.stash["mp"] = skill.mp
+            skill.mp = int(skill.mp * 0.8)
+
+    def leave(self, subject, objects=[], **kwargs):
+        for skill in subject.skills:
+            skill.mp = skill.stash.pop("mp")
 
 
 # 绝影

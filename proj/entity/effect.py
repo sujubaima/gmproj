@@ -16,7 +16,31 @@ from proj.utils import Exponential
 from proj.utils import if_rate
 
 
-class Effect(Entity):
+class InfluentedEntity(Entity):
+
+    influence = None
+
+    factor_lower = None
+    factor_middle = None
+    factor_upper = None
+
+    def finish(self):
+        super(InfluentedEntity, self).finish()
+        if self.influence is not None:
+            self.factor_exp = Exponential(lower=self.factor_lower,
+                                          middle=self.factor_middle,
+                                          upper=self.factor_upper)
+    
+    def factor(self, person, reverse=False):
+        if self.influence is None:
+            return 1
+        elif reverse:
+            return self.factor_exp.value(-1 * person.special(self.influence))
+        else:
+            return self.factor_exp.value(person.special(self.influence)) 
+
+
+class Effect(InfluentedEntity):
 
     All = {}
 
@@ -57,14 +81,7 @@ class Effect(Entity):
         return effeobj
 
     def finish(self):
-        #print(self.name, self.__class__)
-        if self.influence is not None:
-            self.factor_exp = Exponential(lower=self.factor_lower, 
-                                          middle=self.factor_middle, 
-                                          upper=self.factor_upper)
-            #self.ratio_exp = Exponential(lower=self.ratio_lower, 
-            #                             middle=self.ratio_middle, 
-            #                             upper=self.ratio_upper)
+        super(Effect, self).finish()
         if self.phase is not None and not isinstance(self.phase, int):
             vsplit = self.phase.split(",")
             flag = 0
@@ -81,25 +98,6 @@ class Effect(Entity):
 
         self.level = 1
 
-    def factor(self, person, reverse=False):
-        if self.influence is None:
-            return 1
-        elif reverse:
-            return self.factor_exp.value(-1 * person.special(self.influence))
-        else:
-            return self.factor_exp.value(person.special(self.influence))
-
-    def ratio(self, person, reverse=False):
-        if self.influence is None:
-            return 1
-        elif reverse:
-            return self.ratio_exp.value(-1 * person.special(self.influence))
-        else:
-            return self.ratio_exp.value(person.special(self.influence))
-
-    def keydata(self):
-        return {}
-
     # 如果是战斗中发动效果，objects为空，battle为当前战斗实例
     # 如果非战斗中发动效果，battle为空
     def work(self, subject, objects=[], **kwargs):
@@ -109,7 +107,7 @@ class Effect(Entity):
         pass
 
 
-class Status(Entity):
+class Status(InfluentedEntity):
 
     @classmethod
     def template(cls, tpl_id):
@@ -163,16 +161,23 @@ class Status(Entity):
         self.countable = False
 
         self.worked = False
-        
+
+        self.ratio = 1
+
         self.text_ = None
 
         self.accepttype = StatusAcceptType.Different
         self.overtype = StatusOverType.Prolong
 
     def finish(self):
+        super(Status, self).finish()
         self.countable = self.countable or self.name is not None
 
     def work(self, subject, objects=[], **kwargs):
+        if self.influence is not None:
+            ratio = self.ratio * self.factor(subject)
+            if not if_rate(ratio):
+                return 
         for effe in self.effects:
             effe.work(subject, objects=objects, status=self, **kwargs)
         if not self.worked:
@@ -192,6 +197,12 @@ class Status(Entity):
         sts.tpl_id = self.tpl_id
         sts.overtype = self.overtype
         sts.accepttype = self.accepttype
+        sts.ratio = self.ratio
+        sts.influence = self.influence
+        sts.factor_lower = self.factor_lower
+        sts.factor_middle = self.factor_middle
+        sts.factor_upper = self.factor_upper
+        sts.factor_exp = self.factor_exp
         return sts
 
     def accept(self, tgt):
@@ -276,6 +287,8 @@ class ExertEffect(Effect):
         elif len(objects) == 0:
             objects = ExertEffect.TargetFunc[self.targets](battle, subject)
         for tgt in objects:
+            #if not if_rate(ratio):
+            #    continue
             exertion = self.exertion.clone()
             exertion.exertor = subject
             if source is not None:

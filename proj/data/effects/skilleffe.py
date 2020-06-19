@@ -82,6 +82,13 @@ EFFECT_GONGQI = \
      "text": "额外造成{mp_drain}点内力伤害",
      "description": "一定比例的伤害追加为内力伤害，颖悟值越高比例越大"}
 
+EFFECT_GONGQI_XIAO = \
+    {"name": "小攻气", "style": 0,
+     "module": "proj.builtin.effects", "class": "GongQiEffect", "level": 10,
+     "influence": "Zhi", "factor_middle": 1, "factor_upper": 1.5,
+     "text": "额外造成{mp_drain}点内力伤害",
+     "description": "较小比例的伤害追加为内力伤害，颖悟值越高比例越大"}
+
 EFFECT_GONGQI_DA = \
     {"name": "大攻气", "style": 0,
      "module": "proj.builtin.effects", "class": "GongQiEffect", "level": 30,
@@ -163,6 +170,13 @@ EFFECT_GANGJIN_DA = \
      "description": "较大比例的伤害追加为外伤，刚猛值越高效果越佳"}
 
 
+EFFECT_JITUI = \
+    {"name": "击退", "style": 0,
+     "module": "proj.builtin.effects", "class": "JiTuiEffect",
+     "text": "{object}被击退1格",
+     "description": "攻击命中时目标单位会后退一格"}
+
+
 # 云剑
 EFFECT_YUNJIAN = \
     {"name": "云剑", "style": 1,
@@ -202,6 +216,11 @@ EFFECT_JUJIAN = \
     {"style": 1, "module": "proj.builtin.effects", "class": "JuWuEffect", "level": 30, "skill_style": "Jianfa",
      "text": "{object}被剑法类武学攻击时会受到更多伤害",
      "description": "被剑法类武学攻击时受到更多伤害"}
+
+
+# 涓流
+EFFECT_JUANLIU = \
+    {"style": 0, "module": "proj.builtin.effects", "class": "JuanLiuEffect"}
 
 
 # 迷形
@@ -329,6 +348,12 @@ EFFECT_DUANGOUWO = \
     {"name": "端狗窝",
      "module": "proj.builtin.effects", "class": "DuanGouWoEffect",
      "description": "攻击范围内敌方单位越多，伤害越高"}
+
+
+# 屠狗
+EFFECT_TUGOU = \
+    {"name": "屠狗", "style": 1,
+     "module": "proj.builtin.effects", "class": "TuGouEffect"}
 
 
 # 无畏
@@ -788,7 +813,7 @@ EFFECT_JIANQIRUXIA = \
 # 六龙回日功
 EFFECT_LIULONGHUIRI = \
     {"name": "六龙回日", "style": 1,
-     "module": "proj.builtin.effects", "class": "QiYongEffect", "action": "Move",
+     "module": "proj.builtin.effects", "class": "QiYongEffect", "action": "Move,Rest",
      "text": "获得额外的行动机会"}
 
 EFFECT_RIBOYUYUAN = \
