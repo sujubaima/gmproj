@@ -42,3 +42,18 @@ PERSON_YUAN_LONG = \
                      {"id": "SUPERSKILL_YOUXIAXINFA", "learn": [0, 1, 2]}],
      "equipment": [],
      "items": []}
+     
+     
+# 彭宽
+PERSON_PENG_KUAN = \
+    {"firstname": "彭", "lastname": "宽", "showname": "彭宽", "title": "少林寺俗家弟子", "sex": 0,
+     "hp_max":3000, "mp_max": 2000, "attack": 300, "defense": 300, "motion": 0,
+     "hit_rate": 1, "counter_rate": 0.08, "dodge_rate": 0.05, "critical_rate": 0.08, "anti_damage_rate": 0.06,
+     "dongjing": 4, "gangrou": 12, "zhipu": -2,
+     "neigong": 45, "boji": 39, "jianfa": 15, "daofa": 12, "changbing": 47, "anqi": 14, "qimen": 28, "yinyang": 15,
+     "superskills": [{"id": "SUPERSKILL_JINZHONGZHAO", "learn": "All"},
+                     {"id": "SUPERSKILL_YECHAGUNFA", "learn": "All"}],
+     "running": {"id": "SUPERSKILL_JINZHONGZHAO"},
+     "equipment": [{"id": "ITEM_QIMEIGUN", "position": "MainHand"}],
+     "items": [],
+     "criticaltxt": "诸菩萨摩诃萨应如是降伏其心！"}

@@ -182,7 +182,6 @@ class XuHaoEffect(Effect):
         battle = kwargs["battle"]
         if subject != battle.sequence[-1]["action"].subject:
             return
-        print("ai??")
         subject.mp_delta *= 2
 
 

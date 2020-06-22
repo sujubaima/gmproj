@@ -8,7 +8,8 @@ SKILL_YECHAGUNFA_1 = \
 # 夜叉棍法-大力如风
 SKILL_YECHAGUNFA_2 = \
     {"name": "大力如风", "style": "Changbing",
-     "mp": 108, "power": 540, "cd": 0, "yinyang": 1, "shape": "Point.Emit,3,0"}
+     "mp": 108, "power": 540, "cd": 0, "yinyang": 1, "shape": "Point.Emit,3,0",
+     "effects": [{"id": "EFFECT_GANGJIN"}]}
      
      
 # 西楚霸王枪-以一当十

@@ -52,6 +52,7 @@ if __name__ == "__main__":
 
     p_jy = Person.one("PERSON_JUE_YIN")
     p_jc = Person.one("PERSON_JUE_CHENG")
+    p_pk = Person.one("PERSON_PENG_KUAN")
 
     p_zys = Person.one("PERSON_ZHANG_YINSONG")
     p_lpf = Person.one("PERSON_LI_PEIFENG")
@@ -85,7 +86,7 @@ if __name__ == "__main__":
 
     #team_a.include(p_msq, p_hy, p_yq, p_zrb, p_jy)
     #team_b.include(p_zys, p_wpf, p_sjy, p_ly, p_ctz)
-    team_shaolin.include(p_jy, p_jc)
+    team_shaolin.include(p_jy, p_jc, p_pk)
     team_wudang.include(p_zys, p_lpf)
     team_gaibang.include(p_xfl, p_lcy)
     team_emei.include(p_rwh, p_cg)
@@ -94,7 +95,7 @@ if __name__ == "__main__":
     team_caiji.include(p_lx, p_wpf)
 
     team_a = team_wudang
-    team_b = team_gaibang
+    team_b = team_caiji
 
     ui.echo()
     ui.warn("欢迎测试本游戏的战斗系统，windows下建议控制台字体调成黑体，谢谢！")
