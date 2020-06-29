@@ -24,6 +24,12 @@ EFFECT_JINGTIE_ATTR = \
 EFFECT_QUANTAO_ATTR = \
     {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
      "attrs": [{"name": "attack_", "delta": 95}]}
+
+
+# 护手
+EFFECT_HUSHOU_ATTR = \
+    {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
+     "attrs": [{"name": "attack_", "delta": 80}]}
      
 
 # 长剑
@@ -36,6 +42,12 @@ EFFECT_CHANGJIAN_ATTR = \
 EFFECT_PODAO_ATTR = \
     {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
      "attrs": [{"name": "attack_", "delta": 125}]}
+
+
+# 内弧刀
+EFFECT_NEIHUDAO_ATTR = \
+    {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
+     "attrs": [{"name": "attack_", "delta": 150}]}
      
      
 # 长棍

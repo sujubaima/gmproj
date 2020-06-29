@@ -21,6 +21,8 @@ class Item(Entity):
             pos = int(pos)
             item = Item.one(item)
             for effe in item.effects:
+                if effe.tags is not None and len(effe.tags & raw_ent.tags) == 0:
+                    continue
                 effe.work(subject=raw_ent)
             raw_ent.inlays[pos]["filled"] = item
             if len(item.tags & raw_ent.inlays_prefix) > 0 and item.rank >= raw_ent.rank:

@@ -156,7 +156,7 @@ SKILL_YUNVSUXINJIAN_1 = \
 # 玉女素心剑-窥窗扫月
 SKILL_YUNVSUXINJIAN_2 = \
     {"name": "窥窗扫月", "style": "Jianfa",
-     "mp": 225, "power": 750, "cd": 1, "yinyang": -1, "shape": "Line.Emit,1,3",
+     "mp": 150, "power": 750, "cd": 1, "yinyang": -1, "shape": "Line.Emit,1,2",
      "effects": [{"id": "EFFECT_PIAOMIAO"}]}
  
 # 玉女素心剑-如虹似玉

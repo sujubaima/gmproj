@@ -282,8 +282,8 @@ EFFECT_NIMAI_DEFENSE = \
 EFFECT_PIAOMIAO = \
     {"name": "缥缈", "style": 2,
      "module": "proj.builtin.effects", "class": "PiaoMiaoEffect",
-     "text": "{subject}后退了一格",
-     "description": "攻击前后退一格"}
+     "text": "{subject}后退了一段距离",
+     "description": "攻击结束后退与目标距离相等的格数"}
 
 
 # 盘根
@@ -514,6 +514,14 @@ EFFECT_ZHENGU_DA = \
      "module": "proj.builtin.effects", "class": "YuDuEffect", "level": 45,
      "text": "对{object}施加了{poison_mp}点瘀毒",
      "description": "有一定几率对目标施加大量瘀毒，柔易值越高几率越大"}
+
+
+# 腾跃
+EFFECT_TENGYUE = \
+    {"name": "腾跃", "style": 2,
+     "module": "proj.builtin.effects", "class": "TengYueEffect",
+     "text": "跳跃至目标附近",
+     "description": "攻击时会自动跳跃至目标附近"}
 
 
 # 吞吴
@@ -851,7 +859,7 @@ EFFECT_FENDUAN_EXERT = \
 
 EFFECT_FENDUAN = \
     {"name": "分断", "style": 2,
-     "module": "proj.builtin.effects", "class": "FenduanEffect",
+     "module": "proj.builtin.effects", "class": "FenDuanEffect",
      "text": "对{object}的攻击无效化",
      "description": "对目标的攻击无效化"}
      
@@ -868,6 +876,28 @@ EFFECT_TONGGUI = \
      "description": "对目标的攻击伤害翻倍"}
 
 
+# 一苇渡江
+EFFECT_YIWEIDUJIANG_MOVE = \
+    {"name": "一苇渡江",
+     "module": "proj.builtin.effects", "class": "TraficabilityEffect", "terran": "TERRAN_WATER", "mode": "Move"}
+
+EFFECT_YIWEIDUJIANG_STAY = \
+    {"name": "一苇渡江",
+     "module": "proj.builtin.effects", "class": "TraficabilityEffect", "terran": "TERRAN_WATER", "mode": "Stay"}
+
+
+# 迎风斩
+EFFECT_YINGFENG = \
+    {"name": "迎风",
+     "module": "proj.builtin.effects", "class": "FeiLianEffect", "mode": 0,
+     "description": "目标气血值小于自身时伤害提升"}
+
+EFFECT_NIFENG = \
+    {"name": "逆风",
+     "module": "proj.builtin.effects", "class": "FeiLianEffect", "mode": 1,
+     "description": "目标气血值大于自身时伤害提升"}
+
+
 # 震慑
 EFFECT_ZHENSHE = \
     {"name": "震慑",
@@ -880,6 +910,10 @@ EFFECT_ZHUYAN = \
     {"name": "驻颜",
      "module": "proj.builtin.effects", "class": "ZhuYanEffect"}
 
-     
 
-EFFECT_4 = {"name": "退敌", "module": "proj.builtin.effect", "class": "TuiDiEffect"}
+# 醉意
+EFFECT_ZUIYI = \
+    {"name": "醉意", "style": 1,
+     "module": "proj.builtin.effects", "class": "ZuiYiEffect",
+     "description": "背包中有酒类物品时，有一定概率将其使用，当次攻击伤害大幅提升"}
+

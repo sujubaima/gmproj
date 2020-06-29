@@ -424,6 +424,14 @@ class Map(Entity):
                   (x - 1, y), (min(x + k, x), y - 1), (max(x + k, x), y - 1)]
         return tmpret[dire]
 
+    def on_map(self, pt):
+        x, y = pt
+        return x >= 0 and x < self.x and y >= 0 and y < self.y
+
+    def on_border(self, pt):
+        x, y = pt
+        return x == 0 or x == self.x - 1 or y == 0 or y == self.y - 1
+
     def connectivity(self, pt, person, r=None, enable_zoc=True, filter=None):
         """
         搜索所有可能移动的格子
@@ -771,14 +779,14 @@ class Map(Entity):
         of_x2, of_y2 = self.offset_xy(x2, y2)
         return (of_x2 - of_x1, of_y2 - of_y1)
 
-    def distance(self, pta, ptb):
+    def distance(self, pta, ptb, precision=8):
         x1, y1 = pta
         x2, y2 = ptb
         of_x1, of_y1 = self.offset_xy(x1, y1)
         of_x2, of_y2 = self.offset_xy(x2, y2)
-        return int(math.ceil(round(math.sqrt(math.pow(of_x2 - of_x1, 2) + math.pow(of_y2 - of_y1, 2)), 8)))
+        return int(math.ceil(round(math.sqrt(math.pow(of_x2 - of_x1, 2) + math.pow(of_y2 - of_y1, 2)), precision)))
 
-    def angle(self, pta, ptb, ptc):
+    def angle(self, pta, ptb, ptc, precision=8):
         x, y = pta
         i, j = ptb
         a, b = ptc
@@ -790,11 +798,15 @@ class Map(Entity):
         vlength = lambda x: math.sqrt(x[0] * x[0] + x[1] * x[1])
         vdot = lambda x, y: x[0] * y[0] + x[1] * y[1]
         costh = vdot(vector_a, vector_b) / (vlength(vector_a) * vlength(vector_b))
-        costh = round(costh, 8)
-        if round(vector_a[0] * vector_b[1] - vector_a[1] * vector_b[0], 8) < 0:
-            return 2 * math.pi - math.acos(costh)
+        #costh = round(costh, precision)
+        costh = max(min(costh, 1), -1)
+        if vector_a[0] * vector_b[1] - vector_a[1] * vector_b[0] < 0:
+            ret = 2 * math.pi - math.acos(costh)
         else:
-            return math.acos(costh)
+            ret = math.acos(costh)
+        if ret >= math.pi * 2:
+            ret -= math.pi * 2
+        return round(ret, precision)
 
     def locate(self, p, pt):
         x, y = pt
@@ -888,15 +900,17 @@ if __name__ == "__main__":
     # print m.angle((1, 7), (1, 6), (0, 5))
     # print m.distance((1, 7), (7, 5))
     
-    m = Map(x=100, y=100)
-    t1 = time.time()
-    startpt = (0, 0)
-    last = None
-    while startpt != (99, 99):
-        rst = m.connect_dynamic(startpt, (99, 99), None, last=last, steps=1)
-        print(rst)
-        startpt = rst[0]
-        last = rst[1]
-    t2 = time.time()
-    #print(rst)
-    print("Time used: %s" % (t2 - t1)) 
+    #m = Map(x=100, y=100)
+    #t1 = time.time()
+    #startpt = (0, 0)
+    #last = None
+    #while startpt != (99, 99):
+    #    rst = m.connect_dynamic(startpt, (99, 99), None, last=last, steps=1)
+    #    print(rst)
+    #    startpt = rst[0]
+    #    last = rst[1]
+    #t2 = time.time()
+    ##print(rst)
+    #print("Time used: %s" % (t2 - t1)) 
+    m = Map()
+    print(m.angle((3, 3), (4, 3), (1, 4)))

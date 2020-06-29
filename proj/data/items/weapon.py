@@ -1,15 +1,27 @@
 # -- coding: utf-8 --
 
 
+# 拳套
 ITEM_QUANTAO = \
     {"name": "拳套", "rank": 0, "tags": "Equip,Weapon,Boji", "shape": "Around,0,0,0",
      "weight": 1.0, "volume": 1.0, "durability": 40, "money": 200,
-     "inlays": [{"name": "护掌", "accept": "Fur"}],
+     "inlays": [{"name": "表皮", "accept": "Fur"}],
      "inlays_prefix": "Fur",
      "effects": [{"id": "EXERT.LAMBDA.EFFECT_CHANGJIAN_ATTR"}],
      "description": "拳师们戴在手上的装备，主要用于保护双手，对于提升伤害作用有限"}
+
+
+# 护手
+ITEM_HUSHOU = \
+    {"name": "护手", "rank": 0, "tags": "Equip,Weapon,Boji", "shape": "Around,0,0,0",
+     "weight": 0.8, "volume": 0.8, "durability": 40, "money": 200,
+     "inlays": [{"name": "表皮", "accept": "Fur"}],
+     "inlays_prefix": "Fur",
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_CHANGJIAN_ATTR"}],
+     "description": "拳师们戴在手上的装备，主要用于保护手掌，对于提升伤害作用有限"}
      
-     
+
+# 长剑     
 ITEM_CHANGJIAN = \
     {"name": "长剑", "rank": 0, "tags": "Equip,Weapon,Jianfa", "shape": "Around,0,0,0",
      "weight": 1.2, "volume": 1.2, "durability": 45, "money": 250,
@@ -20,6 +32,7 @@ ITEM_CHANGJIAN = \
      "description": "最常见的剑类武器，即使不练武的人也会买一把来配在身上"}
 
 
+# 朴刀
 ITEM_PODAO = \
     {"name": "朴刀", "rank": 0, "tags": "Equip,Weapon,Daofa", "shape": "Around,0,0,0", "double_hand": True,
      "weight": 1.5, "volume": 1.5, "durability": 50, "money": 280,
@@ -28,6 +41,16 @@ ITEM_PODAO = \
      "inlays_prefix": "Jade|Metal",
      "effects": [{"id": "EXERT.LAMBDA.EFFECT_PODAO_ATTR"}],
      "description": "流水线量产刀型，绿林好汉人手一把，需要双手持握"}
+
+
+# 内弧刀
+ITEM_NEIHUDAO = \
+    {"name": "内弧刀", "rank": 1, "tags": "Equip,Weapon,Daofa", "shape": "Around,0,0,0",
+     "weight": 1.0, "volume": 0.8, "durability": 60, "money": 280,
+     "inlays": [{"name": "刀刃", "accept": "Jade|Metal", "prefix": True}],
+     "inlays_prefix": "Metal",
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_NEIHUDAO_ATTR"}],
+     "description": "西域民族的战刀，刀刃向内弯曲，在中土并不常见"}
 
 
 # 长棍
@@ -40,6 +63,17 @@ ITEM_CHANGGUN = \
      "description": "初级长兵武器，需要双手持握"}     
 
 
+# 长枪
+ITEM_CHANGQIANG = \
+    {"name": "长枪", "rank": 0, "tags": "Equip,Weapon,Changbing", "shape": "Around,0,0,0", "double_hand": True,
+     "weight": 2.4, "volume": 2.4, "durability": 50, "money": 350,
+     "inlays": [{"name": "枪杆", "accept": "Wood|Metal|Jade"},
+                {"name": "枪头", "accept": "Metal"}],
+     "inlays_prefix": "Metal|Wood",
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_CHANGGUN_ATTR"}],
+     "description": "初级长兵武器，需要双手持握"}
+
+
 # 齐眉棍
 ITEM_QIMEIGUN = \
     {"name": "齐眉棍", "rank": 1, "tags": "Equip,Weapon,Changbing", "shape": "Around,0,0,0", "double_hand": True,
@@ -49,7 +83,8 @@ ITEM_QIMEIGUN = \
      "effects": [{"id": "EXERT.LAMBDA.EFFECT_QIMEIGUN_ATTR"}],
      "description": ""}
      
-     
+
+# 匕首     
 ITEM_BISHOU = \
     {"name": "匕首", "rank": 0, "tags": "Equip,Weapon,Qimen,Duanbing", "shape": "Around,0,0,0",
      "weight": 0.5, "volume": 0.5, "durability": 55, "money": 160,
@@ -58,7 +93,8 @@ ITEM_BISHOU = \
      "effects": [{"id": "EXERT.LAMBDA.EFFECT_BISHOU_ATTR"}],
      "description": "初级短兵武器，一般用于暗杀"} 
      
-     
+
+# 飞刀     
 ITEM_FEIDAO = \
     {"name": "飞刀", "rank": 0, "tags": "Equip,Weapon,Anqi", "shape": "Around,0,0,0",
      "weight": 2, "volume": 1.0, "durability": 100, "money": 100,

@@ -407,6 +407,18 @@ SUPERSKILL_XIZIPENGXINJUE = \
                ]}
 
 
+# 一苇渡江功
+SUPERSKILL_YIWEIDUJIANGGONG = \
+    {"name": "一苇渡江功", "rank": 1,
+     "nodes": [{"name": "一苇如双履",
+                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_YIWEIDUJIANGGONG_1"}]},
+               {"name": "乘风比六翼",
+                "functions": [{"type": "PersonSkillRemoveEffect",
+                               "skill": "SKILL_YIWEIDUJIANGGONG_1", "effect": {"id": "EXERT.STATUS_YIWEIDUJIANG_MOVE"}},
+                              {"type": "PersonSkillAddEffect",
+                               "skill": "SKILL_YIWEIDUJIANGGONG_1", "effect": {"id": "EXERT.STATUS_YIWEIDUJIANG_STAY"}}]}]}
+
+
 # 越绝书
 SUPERSKILL_YUEJUESHU = \
     {"name": "越绝书", "rank": 2,

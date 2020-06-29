@@ -8,6 +8,7 @@ from proj.entity.map import Map
 from proj.entity.map import MapGrid
 from proj.entity.map import Terran
 from proj.entity.map import Element
+from proj.entity.map import Shape
 from proj.entity.skill import Skill
 from proj.entity.skill import SuperSkill
 from proj.entity.battle import Battle

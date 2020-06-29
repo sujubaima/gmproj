@@ -59,9 +59,13 @@ if __name__ == "__main__":
 
     p_lcy = Person.one("PERSON_LI_CANGYING")
     p_xfl = Person.one("PERSON_XING_FEILONG")
+    p_hyx = Person.one("PERSON_HONG_YINGXIANG")
     
     p_rwh = Person.one("PERSON_RAN_WUHUA")
     p_cg = Person.one("PERSON_CI_GUANG")
+
+    p_ld = Person.one("PERSON_LI_DAN")
+    p_ysq = Person.one("PERSON_YAN_SIQI")
     
     
     m1 = Map.one("MAP_BTL_BAIBINGTANGZONGDUO")
@@ -80,7 +84,9 @@ if __name__ == "__main__":
     team_emei = Team()
     team_huairen = Team()
     team_baibingtang = Team()
+    team_jialuozu = Team()
     team_caiji = Team()
+    
     #team_a.include(p_zrb, p_wpf, p_sty, p_xh, p_yl)
     #team_b.include(p_zsj, p_tw, p_jl, p_yqf)
 
@@ -92,10 +98,11 @@ if __name__ == "__main__":
     team_emei.include(p_rwh, p_cg)
     team_huairen.include(p_tw, p_zsj)
     team_baibingtang.include(p_sty, p_xh)
+    team_jialuozu.include(p_ld, p_ysq)
     team_caiji.include(p_lx, p_wpf)
 
-    team_a = team_wudang
-    team_b = team_caiji
+    team_a = team_emei
+    team_b = team_gaibang
 
     ui.echo()
     ui.warn("欢迎测试本游戏的战斗系统，windows下建议控制台字体调成黑体，谢谢！")

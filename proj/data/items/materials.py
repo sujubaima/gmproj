@@ -64,4 +64,12 @@ ITEM_WUMU = \
      "weight": 0.2, "volume": 0.3,
      "effects": [{"id": "EFFECT_ITEM_ADD_FUNCTION",
                   "effect": {"id": "EXERT.STATUS_JITUI_RATIO"}}],
-     "description": "铁力木等树干埋藏碳化后形成的木材，质地及其坚硬"}
+     "description": "铁力木等树干埋藏碳化后形成的木材，质地极其坚硬"}
+
+
+ITEM_TANMU = \
+    {"name": "檀木", "rank": 3, "tags": "Material,Wood",
+     "weight": 0.3, "volume": 0.3,
+     "effects": [{"id": "EFFECT_ITEM_ADD_FUNCTION",
+                  "effect": {"id": "EXERT.STATUS_ZHENJI"}}],
+     "description": "紫檀树的树干加工成的木材，质地极其坚硬"}

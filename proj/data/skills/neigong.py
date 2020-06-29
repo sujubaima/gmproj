@@ -154,5 +154,7 @@ SKILL_YIJINJING_2 = \
 
 
 
-
-
+# 一苇渡江功
+SKILL_YIWEIDUJIANGGONG_1 = \
+    {"name": "一苇渡江", "style": "Neigong",
+     "effects": [{"id": "EXERT.STATUS_YIWEIDUJIANG_MOVE"}]}

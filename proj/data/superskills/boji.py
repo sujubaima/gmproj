@@ -26,6 +26,15 @@ SUPERSKILL_BAICHANSHOU = \
                {"name": "死缠烂打", "tags": "SKILL_BAICHANSHOU_2",
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_BAICHANSHOU_2"}],
                 "description": "习得招式【死缠烂打】"}]}
+
+
+# 长风拳法
+SUPERSKILL_CHANGFENGQUANFA = \
+    {"name": "长风拳法", "rank": 1,
+     "nodes": [{"name": "大风扬旗", "next": [1],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_CHANGFENGQUANFA_1"}]},
+               {"name": "乘风破浪",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_CHANGFENGQUANFA_2"}]}]}
                 
                 
 # 幽闭三击 
@@ -37,6 +46,19 @@ SUPERSKILL_YOUBISANJI = \
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_YOUBISANJI_2"}]},
                {"name": "长门悬孤月",          
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_YOUBISANJI_3"}]}]}
+
+
+# 醉拳
+SUPERSKILL_ZUIQUAN = \
+    {"name": "醉八仙拳", "rank": 2,
+     "nodes": [{"name": "铁拐李", "next": [1],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_ZUIQUAN_1"}]},
+               {"name": "汉钟离", "next": [2, 3],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_ZUIQUAN_2"}]},
+               {"name": "张果老",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_ZUIQUAN_3"}]},
+               {"name": "何仙姑",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_ZUIQUAN_4"}]}]}
 
 
 # 铁砂掌 

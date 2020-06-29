@@ -13,3 +13,4 @@ from proj.data.persons.qingpaohui import *
 from proj.data.persons.wudangpai import *
 from proj.data.persons.gaibang import *
 from proj.data.persons.emeipai import *
+from proj.data.persons.jialuozu import *

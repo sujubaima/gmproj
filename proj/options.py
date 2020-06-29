@@ -14,10 +14,6 @@ MULTIPLE_THREAD = True
 # |                  战斗选项                  |
 # ----------------------------------------------
 
-# 战斗地图的最大尺寸，与屏幕分辨率、控制台大小相关，若机器屏幕小可以设小点，尤其是宽度
-MAP_MAX_WIDTH = 8
-MAP_MAX_HEIGHT = 10
-
 # 战斗地图是否允许采用镜头模式（暂不建议使用）
 USE_CAMERA_MODE = True
 CAMERA_WINDOW_WIDTH = 8
@@ -28,9 +24,6 @@ BATTLE_MAX_PEOPLE_MAIN = 6
 
 # 单次战斗援助方最大上场人数
 BATTLE_MAX_PEOPLE_SUPPORT = 3
-
-# 是否允许控制队伍中除自己以外的成员
-CAN_CONTROL_MEMBER = True
 
 # 指定NPC使用的AI脚本
 USE_AI = "proj.ai.simple.SimpleAI"
@@ -43,7 +36,7 @@ PLAY_AUTO_BATTLE = False
 # ----------------------------------------------
 
 # 控制台字体是否不会对全角字符进行显示优化（除lucida console外基本都为True）
-USE_FULL_WIDTH_FONT = True
+USE_FULL_WIDTH_FONT = False
 
 # ----------------------------------------------
 # |                  场景选项                  |

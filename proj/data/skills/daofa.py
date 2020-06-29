@@ -11,43 +11,6 @@ SKILL_LUANYINGDAOFA_2 = \
      "mp": 104, "power": 520, "cd": 0, "yinyang": -1, "shape": "SmallSector.Swap,1,2"}
      
 
-# 猩红刀法-含血喷人
-SKILL_XINGHONGDAOFA_1 = \
-    {"name": "含血喷人", "style": "Daofa",
-     "mp": 300, "power": 600, "cd": 1, "yinyang": -1, "shape": "SmallSector.Emit,1,2"}
-
-# 猩红刀法-磨牙吮血
-SKILL_XINGHONGDAOFA_2 = \
-    {"name": "磨牙吮血", "style": "Daofa",
-     "mp": 150, "power": 750, "cd": 0, "yinyang": -1, "shape": "Point.Emit,2,0",
-     "effects": [{"id": "EFFECT_XIXUE_DA"}]}
-
-# 猩红刀法-血雨腥风
-SKILL_XINGHONGDAOFA_3 = \
-    {"name": "血雨腥风", "style": "Daofa",
-     "mp": 960 , "power": 800, "cd": 3, "yinyang": -1, "shape": "Around.Seep,1,2",
-     "effects": [{"id": "EFFECT_XIXUE"}]}
-
-
-# 破锋八刀-剑锋破尽
-SKILL_POFENGBADAO_1 = \
-    {"name": "剑锋破尽", "style": "Daofa",
-     "mp": 90, "power": 450, "cd": 2, "yinyang": 0, "shape": "BigSector.Swap,1,1",
-     "effects": [{"id": "EFFECT_CHUJIAN"}]}
-
-# 破锋八刀-枪锋破尽
-SKILL_POFENGBADAO_2 = \
-    {"name": "枪锋破尽", "style": "Daofa",
-     "mp": 90, "power": 450, "cd": 2, "yinyang": 0, "shape": "BigSector.Swap,1,1",
-     "effects": [{"id": "EFFECT_CHUQIANG"}]}
-
-# 破锋八刀-奇锋破尽
-SKILL_POFENGBADAO_3 = \
-    {"name": "奇锋破尽", "style": "Daofa",
-     "mp": 90, "power": 450, "cd": 2, "yinyang": 0, "shape": "BigSector.Swap,1,1",
-     "effects": [{"id": "EFFECT_CHUQI"}]}
-     
-
 # 拨云见日刀-云归穴暝 
 SKILL_BOYUNJIANRIDAO_1 = \
     {"name": "云归穴暝", "style": "Daofa",
@@ -83,6 +46,53 @@ SKILL_FENJINXIGUDAO_2 = \
     {"name": "析骨刀", "style": "Daofa",
      "mp": 100, "power": 500, "cd": 0, "yinyang": -1, "shape": "Point.Emit,1,0",
      "effects": [{"id": "EXERT.STATUS_CUOGU", "turns": 3}]}
-     
-     
 
+
+# 飞廉刀法-迎风斩
+SKILL_FEILIANDAOFA_1 = \
+    {"name": "迎风斩", "style": "Daofa",
+     "mp": 165, "power": 550, "cd": 1, "yinyang": 0, "shape": "BigSector.Swap,1,1",
+     "effects": [{"id": "EFFECT_YINGFENG"}]}
+
+# 飞廉刀法-逆风斩
+SKILL_FEILIANDAOFA_2 = \
+    {"name": "逆风斩", "style": "Daofa",
+     "mp": 165, "power": 550, "cd": 1, "yinyang": 0, "shape": "BigSector.Swap,1,1",
+     "effects": [{"id": "EFFECT_NIFENG"}]}
+
+
+# 破锋八刀-剑锋破尽
+SKILL_POFENGBADAO_1 = \
+    {"name": "剑锋破尽", "style": "Daofa",
+     "mp": 165, "power": 550, "cd": 2, "yinyang": 0, "shape": "BigSector.Swap,1,1",
+     "effects": [{"id": "EFFECT_CHUJIAN"}]}
+
+# 破锋八刀-枪锋破尽
+SKILL_POFENGBADAO_2 = \
+    {"name": "枪锋破尽", "style": "Daofa",
+     "mp": 165, "power": 550, "cd": 2, "yinyang": 0, "shape": "BigSector.Swap,1,1",
+     "effects": [{"id": "EFFECT_CHUQIANG"}]}
+
+# 破锋八刀-奇锋破尽
+SKILL_POFENGBADAO_3 = \
+    {"name": "奇锋破尽", "style": "Daofa",
+     "mp": 165, "power": 550, "cd": 2, "yinyang": 0, "shape": "BigSector.Swap,1,1",
+     "effects": [{"id": "EFFECT_CHUQI"}]}
+     
+     
+# 猩红刀法-含血喷人
+SKILL_XINGHONGDAOFA_1 = \
+    {"name": "含血喷人", "style": "Daofa",
+     "mp": 300, "power": 600, "cd": 1, "yinyang": -1, "shape": "SmallSector.Emit,1,2"}
+
+# 猩红刀法-磨牙吮血
+SKILL_XINGHONGDAOFA_2 = \
+    {"name": "磨牙吮血", "style": "Daofa",
+     "mp": 150, "power": 750, "cd": 0, "yinyang": -1, "shape": "Point.Emit,2,0",
+     "effects": [{"id": "EFFECT_XIXUE_DA"}]}
+
+# 猩红刀法-血雨腥风
+SKILL_XINGHONGDAOFA_3 = \
+    {"name": "血雨腥风", "style": "Daofa",
+     "mp": 960 , "power": 800, "cd": 3, "yinyang": -1, "shape": "Around.Seep,1,2",
+     "effects": [{"id": "EFFECT_XIXUE"}]}

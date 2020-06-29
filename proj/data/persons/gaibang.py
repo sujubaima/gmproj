@@ -34,6 +34,19 @@ PERSON_LI_CANGYING = \
      "criticaltxt": "人生在世，自当龙战三二十载，建功立业！"}
 
 
+
+# 洪迎祥
+PERSON_HONG_YINGXIANG = \
+    {"firstname": "洪", "lastname": "迎祥", "title": "丐帮醉八仙",
+     "hp_max": 5400, "mp_max": 1600, "attack": 345, "defense": 315, "motion": 0,
+     "hit_rate": 1, "counter_rate": 0.12, "dodge_rate": 0.12, "critical_rate": 0.08, "anti_damage_rate": 0.08,
+     "dongjing": 10, "gangrou": -12, "zhipu": 21, "yinyang": 0,
+     "neigong": 60, "boji": 62, "jianfa": 17, "daofa": 28, "changbing": 13, "anqi": 20, "qimen": 19,
+     "superskills": [{"id": "SUPERSKILL_ZUIQUAN", "learn": "All"}],
+     "equipment": [{"id": "ITEM_HUSHOU", "position": "MainHand"}],
+     "items": []}
+
+
 # 赵乞儿
 PERSON_ZHAO_LING = \
     {"firstname": "赵", "lastname": "零", "showname": "赵乞儿", "title": "丐帮弟子",

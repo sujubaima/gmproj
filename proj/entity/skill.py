@@ -76,9 +76,15 @@ class SuperSkill(Entity):
         return lowerfunc(attr) and upperfunc(attr)
 
     def learn(self, person, idx):
+        rerun = False
         for effe in self.nodes[idx].effects:
+            if effe.skill is not None:
+                rerun = True
             effe.work(person, objects=[person])
         person.learned.add(self.nodes[idx].id)
+        if rerun and person.running == self:
+            person.unrun(person.running)
+            person.run(person.running)
             
     def learn_status(self, person, idx):
         node = self.nodes[idx]
@@ -199,7 +205,7 @@ class Skill(Entity):
             if phase is None or phase & effe.phase != 0: 
                 effe.work(subject, objects=objects, source=self, **kwargs)
 
-    def leave(self, p, subject, objects=[], **kwargs):
+    def leave(self, subject, objects=[], **kwargs):
         for effe in self.effects:
             effe.leave(subject, objects=objects, source=self, **kwargs)
             

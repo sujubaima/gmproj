@@ -33,7 +33,7 @@ SUPERSKILL_LANLUDAOFA = \
      "nodes": [{"name": "一夫当关", "tags": "SKILL_LUANYINGDAOFA_1", "next": [1],
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_LUANYINGDAOFA_1"}],
                 "description": "习得招式【一夫当关】"},
-               {"name": "一夫当关", "tags": "SKILL_LUANYINGDAOFA_1",
+               {"name": "雷池勿越", "tags": "SKILL_LUANYINGDAOFA_1",
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_LUANYINGDAOFA_1"}],
                 "description": "习得招式【雷池勿越】"}]}
                 
@@ -99,4 +99,13 @@ SUPERSKILL_FENJINXIGUDAO = \
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_FENJINXIGUDAO_1"}]},
                {"name": "析骨刀",
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_FENJINXIGUDAO_2"}]}]}
+
+
+# 飞廉刀法
+SUPERSKILL_FEILIANDAOFA = \
+    {"name": "飞廉刀法", "rank": 1,
+     "nodes": [{"name": "迎风斩",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_FEILIANDAOFA_1"}]},
+               {"name": "逆风斩",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_FEILIANDAOFA_2"}]}]}
 

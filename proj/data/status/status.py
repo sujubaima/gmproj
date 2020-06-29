@@ -475,3 +475,23 @@ STATUS_XIANJI = \
 STATUS_WUQIANG = \
     {"phase": "Finish", "style": 1,
      "functions": [{"id": "EFFECT_WUQIANG"}]}
+
+
+# 一苇渡江
+STATUS_YIWEIDUJIANG_MOVE = \
+    {"name": "一苇渡江", "phase": "Instant", "style": 1,
+     "functions": [{"id": "EFFECT_YIWEIDUJIANG_MOVE"}],
+     "description": "移动时可以经过水面，但无法停留"}
+
+STATUS_YIWEIDUJIANG_STAY = \
+    {"name": "一苇渡江", "phase": "Instant", "style": 1,
+     "functions": [{"id": "EFFECT_YIWEIDUJIANG_STAY"}],
+     "description": "移动时可以经过并停留在水面"}
+
+
+# 震击
+STATUS_ZHENJI = \
+    {"name": "震击", "phase": "AfterAttack", "style": 1,
+     "ratio": 0.3, "influence": "Gang", "factor_middle": 1, "factor_upper": 2,
+     "functions": [{"id": "EXERT.STATUS_DINGSHEN", "name": "震击"}],
+     "description": "攻击时有一定几率给目标施加1回合定身状态"}

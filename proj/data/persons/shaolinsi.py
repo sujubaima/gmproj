@@ -51,9 +51,9 @@ PERSON_PENG_KUAN = \
      "hit_rate": 1, "counter_rate": 0.08, "dodge_rate": 0.05, "critical_rate": 0.08, "anti_damage_rate": 0.06,
      "dongjing": 4, "gangrou": 12, "zhipu": -2,
      "neigong": 45, "boji": 39, "jianfa": 15, "daofa": 12, "changbing": 47, "anqi": 14, "qimen": 28, "yinyang": 15,
-     "superskills": [{"id": "SUPERSKILL_JINZHONGZHAO", "learn": "All"},
+     "superskills": [{"id": "SUPERSKILL_YIWEIDUJIANGGONG", "learn": "All"},
                      {"id": "SUPERSKILL_YECHAGUNFA", "learn": "All"}],
-     "running": {"id": "SUPERSKILL_JINZHONGZHAO"},
+     "running": {"id": "SUPERSKILL_YIWEIDUJIANGGONG"},
      "equipment": [{"id": "ITEM_QIMEIGUN", "position": "MainHand"}],
      "items": [],
      "criticaltxt": "诸菩萨摩诃萨应如是降伏其心！"}

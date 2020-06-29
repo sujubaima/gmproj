@@ -55,10 +55,52 @@ SKILL_QIEGOUSHU_1 = \
      "effects": [{"id": "EFFECT_TOUDAO"}]}
 
 
+# 长风拳法-大风扬旗
+SKILL_CHANGFENGQUANFA_1 = \
+    {"name": "大风扬旗", "style": "Boji",
+     "mp": 130, "power": 650, "cd": 0, "yinyang": 1, "shape": "Point.Emit,1,0",
+     "effects": [{"id": "EFFECT_GANGJIN"}]}
+
+# 长风拳法-乘风破浪
+SKILL_CHANGFENGQUANFA_2 = \
+    {"name": "乘风破浪", "style": "Boji",
+     "mp": 120, "power": 600, "cd": 0, "yinyang": 1, "shape": "Point.Emit,3,0",
+     "effects": [{"id": "EFFECT_TENGYUE"}]}
+
+
 # 混元掌-混元一气
 SKILL_HUNYUANZHANG_1 = \
     {"name": "混元一气", "style": "Boji",
-     "mp": 200, "power": 0, "cd": 0, "yinyang": 0, "shape": "Point.Seep,1,0"}
+     "mp": 200, "power": 0, "cd": 0, "yinyang": 0, "shape": "Point.Emit,1,0"}
+
+
+# 醉拳-铁拐李旋踵膝撞
+SKILL_ZUIQUAN_1 = \
+    {"name": "铁拐李旋踵膝撞", "style": "Boji",
+     "mp": 140, "power": 700, "cd": 0, "yinyang": 0, "shape": "Point.Emit,1,0",
+     "effects": [{"id": "EFFECT_ZUIYI"},
+                 {"id": "EFFECT_LIANJI"}]}
+
+# 醉拳-汉钟离跌步抱酲
+SKILL_ZUIQUAN_2 = \
+    {"name": "汉钟离跌步抱酲", "style": "Boji",
+     "mp": 140, "power": 700, "cd": 0, "yinyang": 0, "shape": "Point.Emit,2,0,2",
+     "effects": [{"id": "EFFECT_ZUIYI"},
+                 {"id": "EFFECT_TENGYUE"}]}
+
+# 醉拳-张果老醉酒抛杯
+SKILL_ZUIQUAN_3 = \
+    {"name": "张果老醉酒抛杯", "style": "Boji",
+     "mp": 140, "power": 700, "cd": 1, "yinyang": 0, "shape": "Line.Emit,1,2",
+     "effects": [{"id": "EFFECT_ZUIYI"},
+                 {"id": "EFFECT_ROUJIN"}]}
+
+# 醉拳-何仙姑弹腰献酒
+SKILL_ZUIQUAN_4 = \
+    {"name": "何仙姑弹腰献酒", "style": "Boji",
+     "mp": 140, "power": 700, "cd": 1, "yinyang": 0, "shape": "SmallSector,1,1",
+     "effects": [{"id": "EFFECT_ZUIYI"},
+                 {"id": "EFFECT_PIAOMIAO"}]}
      
      
 # 天机拳法-藏巧
@@ -145,7 +187,7 @@ SKILL_XIANGLONGSHIBAZHANG_2 = \
 # 降龙十八掌-龙战于野
 SKILL_XIANGLONGSHIBAZHANG_3 = \
     {"name": "龙战于野", "style": "Boji",
-     "mp": 682, "power": 975, "cd": 2, "yinyang": 1, "shape": "Point.Emit,2,1",
+     "mp": 682, "power": 975, "cd": 2, "yinyang": 1, "shape": "Point.Emit,1,1",
      "effects": [{"id": "EXERT.STATUS_YUXUE", "name": "其血玄黄", "targets": "Subject", "turns": 2},
                  {"id": "EFFECT_GANGJIN_DA"}]}
 

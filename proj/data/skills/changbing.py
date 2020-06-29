@@ -3,7 +3,8 @@
 # 夜叉棍法-飞天堕地
 SKILL_YECHAGUNFA_1 = \
     {"name": "飞天堕地", "style": "Changbing",
-     "mp": 280, "power": 400, "cd": 0, "yinyang": 1, "shape": "Point.Emit,3,1"}
+     "mp": 280, "power": 400, "cd": 0, "yinyang": 1, "shape": "Point.Emit,3,1",
+     "effects": [{"id": "EFFECT_TENGYUE"}]}
 
 # 夜叉棍法-大力如风
 SKILL_YECHAGUNFA_2 = \

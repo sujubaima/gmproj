@@ -229,9 +229,9 @@ class Person(Entity):
         # 中毒抗性
         self.register("anti_poison_rate", lower=0.75, middle=1)
         # 基础攻击加成
-        self.register("attack", middle=1, upper=1.5, base=250)
+        self.register("attack", middle=1, upper=1.5, base=200)
         # 基础防御加成
-        self.register("defense", middle=1, upper=2, base=250)
+        self.register("defense", middle=1, upper=2, base=200)
         # HP加成
         #self.register("hp_rate", middle=1, upper=1.4)
         self.register("hp_max", middle=1, upper=1.4, base=1000)

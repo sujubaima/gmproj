@@ -352,6 +352,8 @@ class Battle(object):
               not self.attacked[person.id] or \
               not self.itemed[person.id] or \
               not self.rested[person.id]:
+            if person not in self.alive:
+                break
             #t1 = time.time()
             ai_list = self.ai.do(person)
             #t2 = time.time()
