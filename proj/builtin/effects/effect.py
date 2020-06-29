@@ -71,3 +71,16 @@ class BattlePersonChangeAttributeEffect(PersonChangeAttributeEffect):
                                                              int(100 * (1 - attr["ratio"]))))
             self.text = "；".join(txtlist)
         self.modify(subject, **kwargs)
+
+
+class TraficabilityEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        if self.mode == "Stay":
+            subject.locativity.add(self.terran)
+        subject.movitivity.add(self.terran)
+
+    def leave(self, subject, objects=[], **kwargs):
+        if self.mode == "Stay":
+            subject.locativity.discard(self.terran)
+        subjec.movitivity.discard(self.terran)

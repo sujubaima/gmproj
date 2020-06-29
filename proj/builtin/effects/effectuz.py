@@ -423,3 +423,9 @@ class ZhuYanEffect(Effect):
         if subject != battle.sequence[-1]["action"].subject:
             return
         subject.mp_delta = 0
+
+
+# 醉意
+class ZuiYiEffect(Effect):
+
+    pass

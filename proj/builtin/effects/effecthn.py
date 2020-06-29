@@ -222,7 +222,7 @@ class JiTuiEffect(Effect):
             dire = battle.map.direction(sub_loc, obj_loc)
             obj_tgt = battle.map.neighbour(obj_loc, dire)
             #print(obj.name, obj_loc, obj_tgt)
-            if not battle.map.can_stay(obj, obj_tgt):
+            if not battle.on_map(obj_tgt) or not battle.map.can_stay(obj, obj_tgt):
                 continue
             current_distance = battle.map.distance(obj_tgt, sub_loc)
             if obj_tgt != obj_loc and current_distance > obj_distance:

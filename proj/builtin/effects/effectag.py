@@ -172,8 +172,25 @@ class FeiDianEffect(ExertEffect):
             super(FeiDianEffect, self).work(subject, objects=[subject], **kwargs)
 
 
+# 飞廉
+class FeiLianEffect(Effect):
+
+    phase = BattlePhase.BeforeDamage
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if subject != battle.sequence[-1]["action"].subject:
+            return
+        if len(objects) == 0:
+            objects = battle.sequence[-1]["action"].objects
+        for obj in objects:
+            if (self.mode == 0 and subject.hp > obj.hp) or \
+               (self.mode == 1 and subject.hp < obj.hp):
+                obj.hp_delta = int(obj.hp_delta * 1.5)
+
+
 # 分断     
-class FenduanEffect(Effect):
+class FenDuanEffect(Effect):
 
     phase = BattlePhase.BeforeDamage
 

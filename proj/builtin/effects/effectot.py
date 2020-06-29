@@ -7,6 +7,7 @@ from proj.entity import Effect
 from proj.entity import Status
 from proj.entity import BattleEvent
 from proj.entity import BattlePhase
+from proj.entity import Shape
 from proj.entity import common
 from proj.entity.effect import ExertEffect
 
@@ -46,24 +47,78 @@ class PanGenEffect(Effect):
 # 缥缈
 class PiaoMiaoEffect(Effect):
 
-    phase = BattlePhase.BeforeAttack
+    phase = BattlePhase.AfterAttack
+
+    def xy_range(self, battle_map, sub_loc, skill_tgt, tgt_distance):
+        x_floor = max(0, sub_loc[0] - tgt_distance)
+        x_ceil = min(battle_map.x, sub_loc[0] + tgt_distance + 1)
+        y_floor = max(0, sub_loc[1] - tgt_distance)
+        y_ceil = min(battle_map.y, sub_loc[1] + tgt_distance + 1)
+        if sub_loc[0] == skill_tgt[0]:
+            x_range = range(x_floor, x_ceil)
+        elif sub_loc[0] < skill_tgt[0]:
+            x_range = range(x_floor, sub_loc[0] + 1)
+        else:
+            x_range = range(sub_loc[0], x_ceil)
+        if sub_loc[1] == skill_tgt[1]:
+            y_range = range(y_floor, y_ceil)
+        elif sub_loc[1] < skill_tgt[1]:
+            y_range = range(y_floor, sub_loc[1] + 1)
+        else:
+            y_range = range(sub_loc[1], y_ceil)
+        return x_range, y_range
 
     def work(self, subject, objects=[], **kwargs):
         battle = kwargs["battle"]
         if subject != battle.sequence[-1]["action"].subject:
             return 
+        if len(objects) == 0:
+            objects = battle.sequence[-1]["action"].objects
         sub_loc = battle.map.location(subject)
-        dire = battle.map.direction(battle.sequence[-1]["action"].target, sub_loc)
-        sub_tgt = battle.map.neighbour(sub_loc, dire)
-        if not battle.map.is_on_map(sub_tgt) or not battle.map.can_stay(subject, sub_tgt):
-            return
-        battle.moved[subject.id] = False
-        BattleMoveAction(showmsg=False, active=False,
-                         battle=battle, subject=subject, target=sub_tgt,
-                         path=[sub_tgt, sub_loc]).do()
-        MSG(style=MSG.Effect, subject=subject, effect=self,
-            details={"subject": subject.name})
-
+        if battle.sequence[-1]["action"].skill.shape.style == Shape.Point:
+            skill_tgt = battle.sequence[-1]["action"].target
+            tgt_distance = battle.map.distance(sub_loc, skill_tgt)
+        else:
+            mid_points = []
+            tgt_distances = []
+            for obj in objects:
+                mid_points.append(battle.map.location(obj))
+                tgt_distances.append(battle.map.distance(sub_loc, mid_points[-1]))
+            skill_tgt = battle.map.center_point(mid_points)
+            tgt_distance = min(tgt_distances)
+        obj_dire = battle.map.direction(sub_loc, skill_tgt)
+        sub_tgt = sub_loc
+        max_obj_distance = 0
+        sub_dire = None
+        x_range, y_range = self.xy_range(battle.map, sub_loc, skill_tgt, tgt_distance)
+        for i in x_range:
+            for j in y_range:
+                pt = (i, j)
+                if pt == sub_loc:
+                    continue
+                if not battle.map.can_stay(subject, pt):
+                    continue
+                sub_distance = battle.map.distance(pt, sub_loc)
+                obj_distance = battle.map.distance(pt, skill_tgt)
+                pt_dire = abs(obj_dire - battle.map.direction(pt, skill_tgt))
+                pt_dire = pt_dire + 6 if pt_dire < 0 else pt_dire
+                #print(pt, obj_distance, pt_dire, max_obj_distance, sub_dire)
+                if sub_distance > tgt_distance:
+                    continue
+                if obj_distance < max_obj_distance:
+                    continue
+                if obj_distance == max_obj_distance and pt_dire >= sub_dire:
+                    continue
+                max_obj_distance = obj_distance
+                sub_dire = pt_dire
+                sub_tgt = pt
+        if sub_tgt != sub_loc:
+            battle.moved[subject.id] = False
+            BattleMoveAction(showmsg=False, active=False,
+                             battle=battle, subject=subject, target=sub_tgt,
+                             path=[sub_tgt, sub_loc]).do()
+            MSG(style=MSG.Effect, subject=subject, effect=self,
+                details={"subject": subject.name})
 
 
 # 启用
@@ -242,6 +297,67 @@ class TaiJiJinEffect(Effect):
                 continue
             if skill.power != 0:
                 skill.power -= 99
+
+
+# 腾跃
+class TengYueEffect(Effect):
+
+    phase = BattlePhase.BeforeAttack
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if subject != battle.sequence[-1]["action"].subject:
+            return
+        if len(objects) == 0:
+            objects = battle.sequence[-1]["action"].objects
+        sub_loc = battle.map.location(subject)
+        if battle.sequence[-1]["action"].skill.shape.style == Shape.Point: 
+            skill_tgt = battle.sequence[-1]["action"].target
+        else:
+            mid_points = []
+            tgt_distances = []
+            for obj in objects:
+                mid_points.append(battle.map.location(obj))
+                tgt_distances.append(battle.map.distance(sub_loc, mid_points[-1]))
+            skill_tgt = battle.map.center_point(mid_points)
+        tgt_dire = battle.map.direction(sub_loc, skill_tgt)
+        min_sub_distance = 99
+        min_obj_distance = 99
+        sub_tgt = sub_loc
+        sub_dire = 2
+        for i in range(min(sub_loc[0], skill_tgt[0]), 
+                       max(sub_loc[0], skill_tgt[0]) + 1):
+            for j in range(min(sub_loc[1], skill_tgt[1]), 
+                           max(sub_loc[1], skill_tgt[1]) + 1):
+                pt = (i, j)
+                if pt == sub_loc:
+                    continue
+                if not battle.map.can_stay(subject, pt):
+                    continue
+                pt_dire = abs(tgt_dire - battle.map.direction(sub_loc, pt))
+                pt_dire = 6 - pt_dire if pt_dire > 3 else pt_dire
+                sub_distance = battle.map.distance(sub_loc, pt)
+                obj_distance = battle.map.distance(skill_tgt, pt)
+                if obj_distance > min_obj_distance:
+                    continue
+                if obj_distance == min_obj_distance and \
+                   sub_distance > min_sub_distance:
+                    continue
+                if obj_distance == min_obj_distance and \
+                   sub_distance == min_sub_distance and \
+                   pt_dire >= sub_dire:
+                    continue
+                min_obj_distance = obj_distance
+                min_sub_distance = sub_distance
+                sub_tgt = pt
+                sub_dire = pt_dire
+        if sub_tgt != sub_loc:
+            battle.moved[subject.id] = False
+            BattleMoveAction(showmsg=False, active=False,
+                             battle=battle, subject=subject, target=sub_tgt,
+                             path=[sub_tgt, sub_loc]).do()
+            MSG(style=MSG.Effect, subject=subject, effect=self,
+                details={"subject": subject.name})
 
 
 # 同归  
