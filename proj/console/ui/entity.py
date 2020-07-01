@@ -137,6 +137,10 @@ def status(obj, grey=False):
 
 
 def skill(obj, grey=False):
+    style_map = {"Boji": "搏击", "Jianfa": "剑法",
+                 "Daofa": "刀法", "Changbing": "长兵",
+                 "Duanbing": "奇门", "Ruansuo": "奇门",
+                 "Anqi": "暗器"}
     effe_str = []
     for effe in obj.effects:
         effe_str.append(effectname(effe))
@@ -145,12 +149,17 @@ def skill(obj, grey=False):
     else:
         effe_str = "、".join(effe_str)
     yinyang_str = ui.colored(["阴性", "调和", "阳性"][obj.yinyang + 1], color=["cyan", None, "yellow"][obj.yinyang + 1])
-    normal_str = "，威力：%s，耗气：%s，范围：%s%s，冷却：%s回合，特效：" % \
+    style_str = []
+    for style in style_map.keys():
+        if style in obj.style:
+            style_str.append(style_map[style])
+    style_str = "兼".join(style_str)
+    normal_str = "威力：%s，耗气：%s，范围：%s%s，冷却：%s回合，特效：" % \
              (obj.power, obj.mp, obj.shape.showword, 
              {"Friends": "友方", "Enemies": "敌方", "All": "不分敌友", "Grids": ""}[obj.targets], obj.cd)
     if grey:
         normal_str = ui.colored(normal_str, color="grey", attrs=["bold"])
-    return yinyang_str + normal_str + effe_str
+    return "，".join([style_str, yinyang_str, normal_str + effe_str])
 
 
 def item(obj, grey=False):

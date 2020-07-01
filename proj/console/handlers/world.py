@@ -31,6 +31,7 @@ from proj.entity import Terran
 from proj.entity import Map
 
 from proj.runtime import context
+from proj.runtime import saveload
 
 last_timestamp = 0
 
@@ -39,7 +40,7 @@ system_menu = [ui.menuitem("事件", goto=lambda x: show_tasks()),
                ui.menuitem("情报", validator=lambda x: False),
                ui.menuitem("地图", goto=lambda x: show_thumbnail()),
                ui.menuitem("成就", validator=lambda x: False),
-               ui.menuitem("存档", validator=lambda x: False),
+               ui.menuitem("存档", goto=lambda x: False),#saveload.save()),
                ui.menuitem("载入", validator=lambda x: False),
                ui.menuitem("退出", goto=lambda x: sys.exit(0))]
 
@@ -357,6 +358,13 @@ def handler_world_explore_tool(ctx):
         ret = item_menu[0].value
     else:
         ret = ui.menu(itm_menu, title="以下工具可用于该地块探索：", goback=True)
+    return ret
+
+
+def handler_world_attack_select(ctx):
+    ret = ui.menu([ui.menuitem(m.name, value=m) for m in ctx.subject.members], 
+                  title=ui.colored("请选择需要出战的角色：", color="yellow", attrs=["bold"]), 
+                  multiple=True, multiple_range=[1, ctx.number])
     return ret
 
 

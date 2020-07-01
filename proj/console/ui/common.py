@@ -178,10 +178,12 @@ def input_func_(tip):
 
 def select_func_(menu):
     multiple = getattr(menu, "multiple", False)
-    if multiple and menu.multiple_num < 0:
+    if multiple and menu.multiple_range is None:
         return read(msg.CHOICE_MULTIPLE_NO_LIMIT)
+    elif multiple and menu.multiple_range[0] == menu.multiple_range[1]:
+        return read(msg.CHOICE_MULTIPLE_FIXED % menu.multiple_range[0])
     elif multiple:
-        return read(msg.CHOICE_MULTIPLE % menu.multiple_num)
+        return read(msg.CHOICE_MULTIPLE % (menu.multiple_range[0], menu.multiple_range[1]))
     else:
         return read(msg.CHOICE)
         
@@ -554,8 +556,8 @@ class Menu(Interactive):
     """
     def __init__(self, items, title=None, uppanel=[], inpanel=[],
                  goback=False, validator=None, 
-                 keylist=None, backmethod=None, multiple=False, multiple_num=-1, 
-                 columns=1, width=50):
+                 keylist=None, backmethod=None, multiple=False, multiple_range=None, 
+                 columns=1, width=50, double_check=False):
 
         self.selected = 1
         
@@ -578,7 +580,9 @@ class Menu(Interactive):
         self.width = width
 
         self.multiple = multiple
-        self.multiple_num = multiple_num
+        self.multiple_range = multiple_range
+
+        self.double_check = double_check
 
         if backmethod is None:
             self.backmethod = backmenu
@@ -650,7 +654,8 @@ class Menu(Interactive):
             warn(msg.ERROR_CHOICE_INVALID)
             echo()
             return False
-        if self.multiple and self.multiple_num > 0 and len(ac_list) > self.multiple_num:
+        if self.multiple and self.multiple_range is not None and \
+           (len(ac_list) > self.multiple_range[1] or len(ac_list) < self.multiple_range[0]):
             warn(msg.ERROR_CHOICE_TOO_MUCH)
             echo()
             return False
@@ -660,7 +665,20 @@ class Menu(Interactive):
         while True:
             valid = True
             ac_raw = select_func(self)
-            ac_list = ac_raw.split()
+            if ac_raw == msg.SELECT_ALL:
+                if self.multiple_range is not None:
+                    ac_list = [str(r) for r in range(1, self.multiple_range[1] + 1)]
+                else:
+                    ac_list = [str(r) for r in range(1, len(self.items) + 1)]
+            else:
+                ac_list_raw = ac_raw.split()
+                ac_list = []
+                ac_set = set()
+                for ac in ac_list_raw:
+                    if ac in ac_set:
+                        continue
+                    ac_set.add(ac)
+                    ac_list.append(ac)
             valid = self.check_length(ac_list)
             if not valid:
                 continue
@@ -677,7 +695,7 @@ class Menu(Interactive):
                     break
             if not valid:
                 continue
-            elif self.multiple:
+            elif self.double_check:
                 echo()
                 echo(msg.CHOICE_MULTIPLE_ENSURE % "、".join(ac_list))
                 echo()
@@ -726,10 +744,10 @@ def menuitem(showword, bold=True, comments=None, value=None, goto=None, validato
 def menu(items, title=None, page=0, pagesize=9, uppanel=[], inpanel=[],
          goback=False, shownone=True, keylist=None,
          validator=None, highlights=None, backmethod=None, 
-         multiple=False, multiple_num=-1, columns=1, width=50):
+         multiple=False, multiple_range=None, columns=1, width=50, double_check=False):
     m = Menu(items, title=title, goback=goback, uppanel=uppanel, inpanel=inpanel, validator=validator, 
-             keylist=keylist, backmethod=backmethod, multiple=multiple, multiple_num=multiple_num, 
-             columns=columns, width=width)
+             keylist=keylist, backmethod=backmethod, multiple=multiple, multiple_range=multiple_range, 
+             columns=columns, width=width, double_check=double_check)
     m.render(page=page, pagesize=pagesize, shownone=shownone, highlights=highlights)
     return m.done()
 
@@ -767,4 +785,4 @@ if __name__ == "__main__":
     pmenu = [menuitem(p1.name, value=p1),
              menuitem(p2.name, value=p2),
              menuitem(p3.name, value=p3)]
-    ret = menu(pmenu, multiple=True, multiple_num=2)
+    ret = menu(pmenu, multiple=True, multiple_range=[2, 2])

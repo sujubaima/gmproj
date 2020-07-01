@@ -180,9 +180,24 @@ class WorldAttackEnsureOrder(WorldOrder):
         
     def callback(self, sure):
         if sure:
-            WorldAttackOrder(subject=self.subject, position=self.position)
+            #WorldAttackOrder(subject=self.subject, position=self.position)
+            WorldAttackSelectOrder(subject=self.subject, position=self.position)
         #else:
         #    WorldPlayerOrder()
+
+
+class WorldAttackSelectOrder(WorldOrder):
+
+    def carry(self):
+        MSG(style=MSG.WorldAttackSelect, subject=self.subject, 
+            number=min(6, len(self.subject.members))).callback = self.callback
+
+    def callback(self, subject_group):
+        if self.object is None:
+            self.object = self.subject.scenario.loc_entity[self.position]
+        if subject_group is not None:
+            WorldAttackOrder(subject=self.subject, subject_group=subject_group, 
+                             object=self.object, position=self.position)
 
 
 class WorldAttackOrder(WorldOrder):
@@ -190,7 +205,8 @@ class WorldAttackOrder(WorldOrder):
     def carry(self):
         if self.object is None:
             self.object = self.subject.scenario.loc_entity[self.position]           
-        WorldAttackAction(subject=self.subject, object=self.object, map=self.battle_map, death=True).do()
+        WorldAttackAction(subject=self.subject, subject_group=self.subject_group, 
+                          object=self.object, map=self.battle_map, death=True).do()
 
 
 class WorldExplorePositionOrder(WorldOrder):
@@ -251,14 +267,11 @@ class WorldBuildPlanOrder(WorldOrder):
         MSG(style=MSG.WorldBuildPlan)
 
 
-
 class WorldBuildOrder(WorldOrder):
-
     pass
 
 
 class WorldTerranOrder(WorldOrder):
-
     pass
 
 
