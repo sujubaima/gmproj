@@ -70,6 +70,7 @@ class SimpleAI(object):
         return max_attack_range, min_attack_range
 
     def angle_in_sector(self, start, end, angle):
+        # 需要考虑扇形弧度是否跨越象限一与象限四两种情况
         angle_beyond = start > end
         if not angle_beyond and (angle < start or angle > end):
             return False
@@ -83,18 +84,17 @@ class SimpleAI(object):
         q_distance = distance_function(q_info)
         q_angle = person_angle
         a_angle = attack_angle + scope_angle
-        angle_beyond = False
-        if a_angle > math.pi * 2:
+        # 修正扇形结束弧度
+        if a_angle > math.pi * 2 and scope_angle != 0:
             a_angle -= math.pi * 2
-            angle_beyond = True
         if q_distance > attack_range[1] or q_distance < attack_range[0]:
+            #print("exit10")
             return False
-        #if not angle_beyond and (q_angle < scope_angle or q_angle > a_angle):
-        #    return False
-        #if angle_beyond and q_angle > a_angle and q_angle < scope_angle:
-        #    return False
         if not self.angle_in_sector(scope_angle, a_angle, q_angle):
+            #print("exit11", scope_angle, a_angle, q_angle)
             return False
+        if attack_block == 0:
+            return True
         in_scope = True
         min_d = attack_range[1]
         for blk in self.object_info:
@@ -102,18 +102,16 @@ class SimpleAI(object):
             b_angle = blk[3]
             if b_distance < attack_range[0] or b_distance > attack_range[1]:
                 continue
-            #if not angle_beyond and (b_angle < scope_angle or b_angle > a_angle):
-            #    continue
-            #if angle_beyond and b_angle > a_angle and b_angle < scope_angle:
-            #    continue
             if not self.angle_in_sector(scope_angle, a_angle, b_angle):
                 continue
             if b_distance < min_d:
                 min_d = b_distance
             if attack_block == 1 and self.angle_in_sector(scope_angle, q_angle, b_angle) and q_info[2] >= min_d:
+                #print("exit20")
                 in_scope = False
                 break
             elif attack_block == 2 and q_angle == b_angle and q_info[2] >= b_distance:
+                #print("exit21")
                 in_scope = False
                 break
         return in_scope
@@ -268,13 +266,15 @@ class SimpleAI(object):
                     #test_scope = self.battle.map.shape(loc, scope, skill.shape)
                     if skill.shape.style == Shape.Point and skill.shape.sputter > 0:
                         attack_range = [0, skill.shape.sputter]
+                        # 防止精度误差导致范围判断错误，扇形角度 + 1
                         attack_angle = math.pi * 2 + math.pi / 180
                         scope_angle = None
                         distance_function = lambda x: self.battle.map.distance(scope, x[0])
                     else:
                         attack_range = skill.shape.attack_range(distance=self.battle.map.distance(loc, scope))
+                        # 防止精度误差导致范围判断错误，扇形角度 + 1
                         attack_angle = skill.shape.attack_angle() + math.pi / 180
-                        if loc != scope:
+                        if loc != scope and scope != (-1, -1):
                             scope_angle = self.battle.map.angle(loc, (loc[0] + 1, loc[1]), scope)
                         else:
                             scope_angle = 0
@@ -296,11 +296,11 @@ class SimpleAI(object):
                             else:
                                 person_angle = 0
                         if not self.person_in_scope(q_info, attack_range, attack_angle, attack_block, person_angle, scope_angle, distance_function):
-                            #if p.tpl_id == "PERSON_RAN_WUHUA" and q != p and self.battle.map.location(q) in test_scope:
-                            #    print(loc, scope, q.name, q_info, attack_range, attack_angle, attack_block, person_angle, scope_angle)
+                            #if q != p and self.battle.map.location(q) in test_scope:
+                            #    print("In-but-out", skill.name, loc, scope, q.name, q_info, attack_range, attack_angle, attack_block, person_angle, scope_angle)
                             continue
-                        #if p.tpl_id == "PERSON_CI_GUANG" and q != p and self.battle.map.location(q) not in test_scope:
-                        #    print(loc, scope, q.name, q_info, attack_range, attack_angle, attack_block, person_angle, scope_angle)
+                        #elif q != p and self.battle.map.location(q) not in test_scope:
+                        #    print("Out-but-in", skill.name, loc, scope, q.name, q_info, attack_range, attack_angle, attack_block, person_angle, scope_angle)
                         ql.append(q)
                         if not isitem and skill.power > 0:
                             score += skill.power * (min(1, 1 if skill.mp == 0 else p.mp / skill.mp))
