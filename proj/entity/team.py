@@ -13,6 +13,7 @@ class Team(Entity):
 
     def initialize(self):
         self.leader = None
+
         self.members = []
         
         self.battle = None

@@ -17,7 +17,20 @@ EFFECT_SHENGTIE_ATTR = \
 # 精铁-武器
 EFFECT_JINGTIE_ATTR = \
     {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
-     "attrs": [{"name": "attack_", "delta": 60}]}
+     "attrs": [{"name": "attack_", "delta": 50}]}
+
+
+# 细麻-防具
+EFFECT_XIMA_ATTR = \
+    {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
+     "attrs": [{"name": "defense_", "delta": 50}]}
+
+
+# 素纱-防具
+EFFECT_SUSHA = \
+    {"style": 1,
+     "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
+     "attrs": [{"name": "speed_factor_", "ratio": 1.25}]}
 
 
 # 拳套
@@ -38,10 +51,28 @@ EFFECT_CHANGJIAN_ATTR = \
      "attrs": [{"name": "attack_", "delta": 100}]}
 
 
+# 万字剑
+EFFECT_WANZIJIAN_ATTR = \
+    {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
+     "attrs": [{"name": "attack_", "delta": 130}]}
+
+
+# 单刀
+EFFECT_DANDAO_ATTR = \
+    {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
+     "attrs": [{"name": "attack_", "delta": 105}]}
+
+
 # 朴刀
 EFFECT_PODAO_ATTR = \
     {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
-     "attrs": [{"name": "attack_", "delta": 125}]}
+     "attrs": [{"name": "attack_", "delta": 130}]}
+
+
+# 工部刀
+EFFECT_GONGBUDAO_ATTR = \
+    {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
+     "attrs": [{"name": "attack_", "delta": 140}]}
 
 
 # 内弧刀
@@ -53,7 +84,7 @@ EFFECT_NEIHUDAO_ATTR = \
 # 长棍
 EFFECT_CHANGGUN_ATTR = \
     {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
-     "attrs": [{"name": "attack_", "delta": 160}]}
+     "attrs": [{"name": "attack_", "delta": 145}]}
 
 
 # 齐眉棍
@@ -206,6 +237,18 @@ EFFECT_SHUHE_ATTR = \
      "attrs": [{"name": "defense_", "delta": 50}]}
 
 
+# 直裰
+EFFECT_ZHIDUO_ATTR = \
+    {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
+     "attrs": [{"name": "defense_", "delta": 65}]}
+
+
+# 儒服
+EFFECT_RUFU_ATTR = \
+    {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
+     "attrs": [{"name": "defense_", "delta": 75}]}
+
+
 # 罩甲
 EFFECT_ZHAOJIA_ATTR = \
     {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
@@ -224,13 +267,19 @@ EFFECT_BAGUAPAO_ATTR = \
      "attrs": [{"name": "defense_", "delta": 100}]}
 
 
+# 鹤氅
+EFFECT_HECHANG_ATTR = \
+    {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
+     "attrs": [{"name": "defense_", "delta": 120}]}
+
+
 # 达摩法衣
 EFFECT_DAMOFAYI_ATTR = \
     {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
      "attrs": [{"name": "defense_", "delta": 100}]}
      
      
-# 锦衣
-EFFECT_JINYI_ATTR = \
+# 华服
+EFFECT_HUAFU_ATTR = \
     {"style": 1, "module": "proj.entity.effect", "class": "PersonChangeAttributeEffect",
-     "attrs": [{"name": "defense_", "delta": 75}]}
+     "attrs": [{"name": "defense_", "delta": 85}]}

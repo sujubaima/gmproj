@@ -117,7 +117,7 @@ DIALOG_LUANTAN_1 = \
      {"style": "Script", "breaking": True,
       "scripts": [{"type": "Action.EventSwitchOnAction", "event": "EVENT_BATTLE_LUANTAN_WIN"},
                   {"type": "Action.EventSwitchOnAction", "event": "EVENT_BATTLE_LUANTAN_LOSE"},
-                  {"type": "Order.WorldAttackOrder",
+                  {"type": "Order.WorldAttackSelectOrder",
                    "subject": "{TEAM_PERSON_PLAYER}", "object": "{TEAM_PERSON_LUAN_TAN}"}]},
      {"style": "Speak", "talker": "subject",
       "content": "还有这种好事？我也想来混日子。"},

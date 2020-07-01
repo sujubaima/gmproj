@@ -7,6 +7,15 @@ ITEM_SHUHE = \
      "effects": [{"id": "EXERT.LAMBDA.EFFECT_SHUHE_ATTR"}]}
 
 
+# 直裰
+ITEM_ZHIDUO = \
+    {"name": "直裰", "rank": 0, "shape": "Around,0,0,0", "tags": "Equip,Armor",
+     "weight": 3, "volume": 4, "durability": 50,
+     "inlays": [{"name": "外衬", "accept": "Fur|Fibre"}],
+     "inlays_prefix": "Fur|Fibre",
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_ZHIDUO_ATTR"}]}
+
+
 # 罩甲
 ITEM_ZHAOJIA = \
     {"name": "罩甲", "rank": 1, "shape": "Around,0,0,0", "tags": "Equip,Armor",
@@ -14,11 +23,20 @@ ITEM_ZHAOJIA = \
      "effects": [{"id": "EXERT.LAMBDA.EFFECT_ZHAOJIA_ATTR"}]}
 
 
-# 锦衣     
-ITEM_JINYI = \
-    {"name": "锦衣", "rank": 1, "shape": "Around,0,0,0", "tags": "Equip,Armor",
+# 儒服
+ITEM_RUFU = \
+    {"name": "儒服", "rank": 1, "shape": "Around,0,0,0", "tags": "Equip,Armor",
+     "weight": 3.5, "volume": 4, "durability": 50,
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_RUFU_ATTR"}]}
+
+
+# 华服 
+ITEM_HUAFU = \
+    {"name": "华服", "rank": 1, "shape": "Around,0,0,0", "tags": "Equip,Armor",
      "weight": 4, "volume": 5, "durability": 60,
-     "effects": [{"id": "EXERT.LAMBDA.EFFECT_JINYI_ATTR"}]}
+     "inlays": [{"name": "外衬", "accept": "Fur|Fibre"}],
+     "inlays_prefix": "Fur|Fibre",
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_HUAFU_ATTR"}]}
 
 
 # 七星袍
@@ -33,6 +51,13 @@ ITEM_BAGUAPAO = \
     {"name": "八卦袍", "rank": 2, "shape": "Around,0,0,0", "tags": "Equip,Armor",
      "weight": 4, "volume": 4.5, "durability": 55,
      "effects": [{"id": "EXERT.LAMBDA.EFFECT_QIXINGPAO_ATTR"}]}
+
+
+# 鹤氅
+ITEM_HECHANG = \
+    {"name": "鹤氅", "rank": 2, "shape": "Around,0,0,0", "tags": "Equip,Armor",
+     "weight": 4.5, "volume": 5.5, "durability": 50,
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_HECHANG_ATTR"}]}
 
 
 # 达摩法衣

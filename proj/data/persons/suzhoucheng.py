@@ -72,8 +72,7 @@ PERSON_LI_BUTONG = \
      
 # 赵衙役
 PERSON_ZHAO_YAYI_SUZHOU = \
-    {"firstname": "赵", "lastname": "衙役", "title": "普通百姓",
-     "conversation": "DIALOG_ZHAOYAYI_1"}
+    {"firstname": "赵", "lastname": "衙役", "title": "普通百姓"}
   
   
 # 丁铁匠

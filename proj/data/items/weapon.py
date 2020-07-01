@@ -32,6 +32,28 @@ ITEM_CHANGJIAN = \
      "description": "最常见的剑类武器，即使不练武的人也会买一把来配在身上"}
 
 
+# 万字剑
+ITEM_WANZIJIAN = \
+    {"name": "万字剑", "rank": 1, "tags": "Equip,Weapon,Jianfa", "shape": "Around,0,0,0",
+     "weight": 1.2, "volume": 1.2, "durability": 45, "money": 250,
+     "inlays": [{"name": "剑柄", "accept": "Wood|Jade|Metal"},
+                {"name": "剑身", "accept": "Jade|Metal"}],
+     "inlays_prefix": "Jade|Metal",
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_WANZIJIAN_ATTR"}],
+     "description": ""}
+
+
+# 单刀
+ITEM_DANDAO = \
+    {"name": "单刀", "rank": 0, "tags": "Equip,Weapon,Daofa", "shape": "Around,0,0,0",
+     "weight": 1.2, "volume": 1.2, "durability": 45, "money": 250,
+     "inlays": [{"name": "刀柄", "accept": "Wood|Jade|Metal"},
+                {"name": "刀刃", "accept": "Jade|Metal"}],
+     "inlays_prefix": "Jade|Metal",
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_DANDAO_ATTR"}],
+     "description": "最常见的刀类武器，形制轻巧，单手即很容易使用"}
+
+
 # 朴刀
 ITEM_PODAO = \
     {"name": "朴刀", "rank": 0, "tags": "Equip,Weapon,Daofa", "shape": "Around,0,0,0", "double_hand": True,
@@ -41,6 +63,17 @@ ITEM_PODAO = \
      "inlays_prefix": "Jade|Metal",
      "effects": [{"id": "EXERT.LAMBDA.EFFECT_PODAO_ATTR"}],
      "description": "流水线量产刀型，绿林好汉人手一把，需要双手持握"}
+
+
+# 工部刀
+ITEM_GONGBUDAO = \
+    {"name": "工部刀", "rank": 1, "tags": "Equip,Weapon,Daofa", "shape": "Around,0,0,0",
+     "weight": 1.2, "volume": 1.2, "durability": 45, "money": 250,
+     "inlays": [{"name": "刀柄", "accept": "Wood|Jade|Metal"},
+                {"name": "刀刃", "accept": "Jade|Metal"}],
+     "inlays_prefix": "Jade|Metal",
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_GONGBUDAO_ATTR"}],
+     "description": ""}
 
 
 # 内弧刀

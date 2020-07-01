@@ -70,7 +70,7 @@ class Entity(object):
         return Entity.Instances[cls][obj_id]
 
     def __init__(self, **kwargs):
-        self.id = uuid.uuid1()
+        self.id = str(uuid.uuid1())
         self.tpl_id = None
 
         self.stash = {}

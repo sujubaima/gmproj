@@ -373,7 +373,7 @@ class Person(Entity):
 
     @property
     def speed(self):
-        return round(self.speed_ * round(self.speed_exp.value(self.dongjing), 4)) * self.equip_ratio
+        return round(self.speed_ * self.speed_factor_ * round(self.speed_exp.value(self.dongjing), 4) * self.equip_ratio)
 
     @property
     def study_rate(self):

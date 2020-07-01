@@ -36,6 +36,7 @@ class SuperSkill(Entity):
                     nd.tags.update(ntpl["tags"].split(","))
                 if "required" in ntpl:
                     nd.required.extend(ntpl["required"])
+                nd.tpl_id = "%s-%s" % (self.tpl_id, len(ret))
                 ret.append(nd) 
             setattr(self, k, ret)
         else:
@@ -54,12 +55,6 @@ class SuperSkill(Entity):
         self.effects = []
         self.effects_battle = []
 
-    def add(self, node):
-        self.nodes.append(itm)
-        itm.belongs = self
-        itm.rank = self.rank
-        return self
-        
     def check_required(self, person, req):
         attr = getattr(person, req["attrname"])
         lower, upper = req["range"][1:-1].split(",")
@@ -81,14 +76,14 @@ class SuperSkill(Entity):
             if effe.skill is not None:
                 rerun = True
             effe.work(person, objects=[person])
-        person.learned.add(self.nodes[idx].id)
+        person.learned.add(self.nodes[idx].tpl_id)
         if rerun and person.running == self:
             person.unrun(person.running)
             person.run(person.running)
             
     def learn_status(self, person, idx):
         node = self.nodes[idx]
-        if node.id in person.learned:
+        if node.tpl_id in person.learned:
             return 0
         for t in node.tags:
             if not t.startswith("SKILL_"):
@@ -124,7 +119,7 @@ class SkillNode(Entity):
    def learn(self, person):
        for effe in self.effects:
            effe.work(person, objects=[person])
-       person.learned.add(self.id)
+       person.learned.add(self.tpl_id)
 
 
 class Skill(Entity):

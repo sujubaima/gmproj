@@ -39,7 +39,7 @@ SKILL_SHILIXIANGMOGUN_1 = \
 SKILL_SHILIXIANGMOGUN_2 = \
     {"name": "泰然无惧", "style": "Changbing",
      "mp": 240, "power": 800, "cd": 2, "yinyang": 1, "shape": "BigSector.Swap,1,1",
-     "effects": [{"id": "EXERT.STATUS_WUWEI", "targets": "Subject", "turns": 2}]}
+     "effects": [{"id": "EXERT.STATUS_WUWEI", "targets": "Subject", "turns": 1}]}
 
 
 # 打狗棒法-棒打狗头
@@ -57,5 +57,5 @@ SKILL_DAGOUBANGFA_2 = \
 # 打狗棒法-天下无狗
 SKILL_DAGOUBANGFA_3 = \
     {"name": "天下无狗", "style": "Changbing",
-     "mp": 1006, "power": 838, "cd": 2, "yinyang": 0, "shape": "Around.Seep,1,3",
+     "mp": 1006, "power": 838, "cd": 2, "yinyang": 0, "shape": "Around.Seep,1,2",
      "effects": [{"id": "EFFECT_DUANGOUWO"}]}

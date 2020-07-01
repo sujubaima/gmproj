@@ -48,7 +48,6 @@ SKILL_TIANLEIDIHUOYIN_3 = \
      "mp": 577, "power": 875, "cd": 3, "yinyang": 0, "shape": "Point.Seep,99,2"}
 
 
-
 # 日月双轮-偷天换日
 SKILL_RIYUESHUANGLUN_1 = \
     {"name": "偷天换日", "style": "Duanbing",
@@ -64,5 +63,5 @@ SKILL_RIYUESHUANGLUN_2 = \
 # 日月双轮-日月争辉
 SKILL_RIYUESHUANGLUN_3 = \
     {"name": "日月争辉", "style": "Duanbing", "double_weapon": ["Duanbing", "Duanbing"],
-     "mp": 840, "power": 750, "cd": 2, "yinyang": 0, "shape": "Around.Swap,1,2",
+     "mp": 840, "power": 750, "cd": 0, "yinyang": 0, "shape": "Around.Swap,1,2",
      "effects": [{"id": "EFFECT_RIYUEZHENGHUI"}]}

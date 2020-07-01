@@ -283,7 +283,7 @@ EFFECT_PIAOMIAO = \
     {"name": "缥缈", "style": 2,
      "module": "proj.builtin.effects", "class": "PiaoMiaoEffect",
      "text": "{subject}后退了一段距离",
-     "description": "攻击结束后退与目标距离相等的格数"}
+     "description": "攻击结束时后退与目标距离相等的格数"}
 
 
 # 盘根
@@ -798,10 +798,30 @@ EFFECT_SHENZHUN = \
   
 # 精剑
 EFFECT_JINGJIAN = \
-    {"name": "精剑", "style": 1,
-     "module": "proj.builtin.effects", "class": "JingWuEffect", "skill_style": "Jianfa", "level": 30,
-     "text": "剑法攻击伤害提升了{enhance}",
+    {"style": 1,
+     "module": "proj.builtin.effects", "class": "JingWuEffect", "skill_style": "Jianfa", "level": 25,
      "description": "剑法伤害大幅提高"}
+
+
+# 精刀
+EFFECT_JINGDAO = \
+    {"style": 1,
+     "module": "proj.builtin.effects", "class": "JingWuEffect", "skill_style": "Daofa", "level": 25,
+     "description": "刀法伤害大幅提高"}
+
+
+# 破剑
+EFFECT_POJIAN = \
+    {"name": "破剑", "style": 0,
+     "module": "proj.builtin.effects", "class": "PoWuEffect", "skill_style": "Jianfa", "level": 25,
+     "description": "对主手武器为剑类的目标伤害大幅提高"}
+
+
+# 破刀
+EFFECT_PODAO = \
+    {"name": "破刀", "style": 0,
+     "module": "proj.builtin.effects", "class": "PoWuEffect", "skill_style": "Daofa", "level": 25,
+     "description": "对主手武器为刀类的目标伤害大幅提高"}
 
 
 # 枪神

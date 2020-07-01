@@ -10,7 +10,7 @@ PERSON_CHEN_TINGZHI = \
                      {"id": "SUPERSKILL_PEIJIANGJUNJIAN", "learn": "All"}],
      "running": {"id": "SUPERSKILL_GAOYUANWUJIGONG"},
      "equipment": [{"id": "ITEM_ZHANLU", "position": "MainHand"},
-                   {"id": "ITEM_JINYI", "position": "Body"}],
+                   {"id": "ITEM_HUAFU", "position": "Body"}],
      "items": [],
      "criticaltxt": "天柱高而北辰远，地势极而南溟深！",
      "conversation": "DIALOG_CHENTINGZHI_1"}

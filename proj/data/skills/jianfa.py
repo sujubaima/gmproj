@@ -132,7 +132,7 @@ SKILL_BICHENGJIANFA_3 = \
     {"name": "玉轮生魄", "style": "Jianfa",
      "mp": 333, "power": 555, "cd": 1, "yinyang": -1, "shape": "Around.Seep,1,1",
      "effects": [{"id": "EFFECT_GONGQI"}]}
-     
+
 
 # 裴将军剑-左右交光
 SKILL_PEIJIANGJUNJIAN_1 = \
@@ -150,7 +150,7 @@ SKILL_PEIJIANGJUNJIAN_2 = \
 # 玉女素心剑-神女投壶
 SKILL_YUNVSUXINJIAN_1 = \
     {"name": "神女投壶", "style": "Jianfa",
-     "mp": 140, "power": 700, "cd": 0, "yinyang": -1, "shape": "Point.Emit,3,0",
+     "mp": 140, "power": 700, "cd": 0, "yinyang": -1, "shape": "Point.Emit,2,0",
      "effects": [{"id": "EFFECT_FEIDIAN", "turns": 2}]}
   
 # 玉女素心剑-窥窗扫月
@@ -164,7 +164,6 @@ SKILL_YUNVSUXINJIAN_3 = \
     {"name": "如虹似玉", "style": "Jianfa",
      "mp": 972, "power": 810, "cd": 2, "yinyang": -1, "shape": "BigSector.Swap,2,3,2",
      "effects": [{"id": "EFFECT_MEIRENRUYU"}]}
-     
                  
                  
 # 太岳三青峰-素手托莲
@@ -194,7 +193,7 @@ SKILL_YUENVJIANFA_1 = \
 SKILL_YUENVJIANFA_2 = \
     {"name": "决云断地", "style": "Jianfa",
      "mp": 180, "power": 900, "cd": 1, "yinyang": -1, "shape": "Line.Emit,1,2",
-     "effects": [{"id": "EFFECT_QUEBU", "level": 250}]}
+     "effects": [{"id": "EFFECT_QUEBU", "level": 400}]}
 
 # 越女剑法-逐影追形
 SKILL_YUENVJIANFA_3 = \

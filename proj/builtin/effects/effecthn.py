@@ -222,7 +222,7 @@ class JiTuiEffect(Effect):
             dire = battle.map.direction(sub_loc, obj_loc)
             obj_tgt = battle.map.neighbour(obj_loc, dire)
             #print(obj.name, obj_loc, obj_tgt)
-            if not battle.on_map(obj_tgt) or not battle.map.can_stay(obj, obj_tgt):
+            if not battle.map.on_map(obj_tgt) or not battle.map.can_stay(obj, obj_tgt):
                 continue
             current_distance = battle.map.distance(obj_tgt, sub_loc)
             if obj_tgt != obj_loc and current_distance > obj_distance:
@@ -256,7 +256,6 @@ class JuWuEffect(Effect):
         mp_enhance = int(subject.mp_delta * 0.01 * self.level)
         if not battle.silent:
             MSG(style=MSG.Effect, subject=subject, effect=self, details={"enhance": "%s%%" % self.level})
-
 
 
 # 涓流

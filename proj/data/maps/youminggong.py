@@ -1,7 +1,7 @@
 # -- coding: utf-8 --
 
 MAP_BTL_YOUMINGGONGSHANXIA = \
-    {"name": "幽冥宫山下", "width": 8, "height": 9,
+    {"name": "幽冥宫：山下", "width": 8, "height": 9,
      "terrans": [{"style": "TERRAN_WATER", 
                   "points": ["(3, 0)", "(3, 1)", "(3, 5)", "(3, 6)", 
                              "(4, 0)", "(4, 1)", "(4, 5)", "(4, 6)", 

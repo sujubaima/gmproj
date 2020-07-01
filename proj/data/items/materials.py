@@ -73,3 +73,19 @@ ITEM_TANMU = \
      "effects": [{"id": "EFFECT_ITEM_ADD_FUNCTION",
                   "effect": {"id": "EXERT.STATUS_ZHENJI"}}],
      "description": "紫檀树的树干加工成的木材，质地极其坚硬"}
+
+
+ITEM_XIMA = \
+    {"name": "细麻", "rank": 1, "tags": "Material,Fibre",
+     "weight": 0.2, "volume": 0.3,
+     "effects": [{"id": "EFFECT_ITEM_ADD_FUNCTION",
+                  "effect": {"id": "EXERT.LAMBDA.EFFECT_XIMA_ATTR"}}],
+     "description": ""}
+
+
+ITEM_SUSHA = \
+    {"name": "素纱", "rank": 2, "tags": "Material,Fibre",
+     "weight": 0.1, "volume": 0.2,
+     "effects": [{"id": "EFFECT_ITEM_ADD_FUNCTION",
+                  "effect": {"id": "EXERT.STATUS_NIYUN"}}],
+     "description": ""}

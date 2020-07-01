@@ -1409,7 +1409,7 @@ MAP_JIUXIPAI_BTL = \
 {
     "width": 8,
     "height": 9,
-    "name": "\u4e5d\u6eaa\u6d3e",
+    "name": "九溪派：浣花庐",
     "terrans": [
         {
             "style": "TERRAN_WATER",

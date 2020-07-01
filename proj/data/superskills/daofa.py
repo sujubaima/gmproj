@@ -36,6 +36,17 @@ SUPERSKILL_LANLUDAOFA = \
                {"name": "雷池勿越", "tags": "SKILL_LUANYINGDAOFA_1",
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_LUANYINGDAOFA_1"}],
                 "description": "习得招式【雷池勿越】"}]}
+
+
+# 刀剑攻
+SUPERSKILL_DAOJIANGONG = \
+    {"name": "刀剑攻", "rank": 2,
+     "nodes": [{"name": "上刀下剑法", "next": [1],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_DAOJIANGONG_1"}]},
+               {"name": "上剑下刀法", "next": [2],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_DAOJIANGONG_2"}]},
+               {"name": "刀剑合一法",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_DAOJIANGONG_3"}]}]}
                 
 
 # 猩红刀法

@@ -4,7 +4,7 @@ MAP_SHAOLINSI_BTL = \
 {
     "width": 8,
     "height": 9,
-    "name": "\u5c11\u6797\u5bfa",
+    "name": "少林寺：大殿",
     "terrans": [
         {
             "style": "TERRAN_FOREST",

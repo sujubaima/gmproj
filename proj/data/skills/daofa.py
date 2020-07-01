@@ -78,6 +78,26 @@ SKILL_POFENGBADAO_3 = \
     {"name": "奇锋破尽", "style": "Daofa",
      "mp": 165, "power": 550, "cd": 2, "yinyang": 0, "shape": "BigSector.Swap,1,1",
      "effects": [{"id": "EFFECT_CHUQI"}]}
+
+
+# 刀剑攻-上刀下剑法
+SKILL_DAOJIANGONG_1 = \
+    {"name": "上刀下剑法", "style": "Jianfa,Daofa", "double_weapon": ["Daofa", "Jianfa"],
+     "mp": 295, "power": 650, "cd": 0, "yinyang": 0, "shape": "BigSector.Swap,1,1",
+     "effects": [{"id": "EFFECT_POJIAN"}]}
+
+# 刀剑攻-上剑下刀法
+SKILL_DAOJIANGONG_2 = \
+    {"name": "上剑下刀法", "style": "Jianfa,Daofa", "double_weapon": ["Daofa", "Jianfa"],
+     "mp": 130, "power": 650, "cd": 0, "yinyang": 0, "shape": "Line.Emit,1,2",
+     "effects": [{"id": "EFFECT_PODAO"}]}
+
+# 刀剑攻-刀剑合一法
+SKILL_DAOJIANGONG_3 = \
+    {"name": "刀剑合一法", "style": "Jianfa,Daofa", "double_weapon": ["Daofa", "Jianfa"],
+     "mp": 375, "power": 750, "cd": 2, "yinyang": 0, "shape": "SmallSector,1,2",
+     "effects": [{"id": "EXERT.STATUS_JINGJIAN", "targets": "Subject", "turns": 1},
+                 {"id": "EXERT.STATUS_JINGDAO", "targets": "Subject", "turns": 1}]}
      
      
 # 猩红刀法-含血喷人

@@ -4,7 +4,7 @@ MAP_SUZHOUCHENG_BTL = \
 {
     "width": 8,
     "height": 9,
-    "name": "\u82cf\u5dde\u57ce",
+    "name": "苏州城：街道",
     "terrans": [
         {
             "style": "TERRAN_WATER",

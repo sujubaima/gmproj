@@ -121,6 +121,23 @@ class PiaoMiaoEffect(Effect):
                 details={"subject": subject.name})
 
 
+# 破武
+class PoWuEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if subject != battle.sequence[-1]["action"].subject:
+            return
+        if len(objects) == 0:
+            objects = battle.sequence[-1]["action"].objects
+        for obj in objects:
+            if obj.equipment[0] is None:
+                continue
+            if self.skill_style not in obj.equipment[0].tags:
+                continue
+            obj.hp_delta += int(obj.hp_delta * 0.01 * self.level)
+
+
 # 启用
 class QiYongEffect(Effect):
 

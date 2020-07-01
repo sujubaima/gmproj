@@ -354,6 +354,8 @@ class Battle(object):
               not self.rested[person.id]:
             if person not in self.alive:
                 break
+            if self.finished():
+                break
             #t1 = time.time()
             ai_list = self.ai.do(person)
             #t2 = time.time()

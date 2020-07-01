@@ -22,7 +22,7 @@ PERSON_XIE_HUI = \
 # 宋天勇
 PERSON_SONG_TIANYONG = \
     {"firstname": "宋", "lastname": "天勇", "title": "百兵堂铁枪舵舵主",
-     "hp_max":4800, "mp_max": 2100, "attack": 300, "defense": 250, "motion": 1,
+     "hp_max":4500, "mp_max": 2100, "attack": 300, "defense": 250, "motion": 0,
      "hit_rate": 1, "counter_rate": 0.08, "dodge_rate": 0.05, "critical_rate": 0.12, "anti_damage_rate": 0.05,
      "dongjing": 5, "gangrou": 12, "zhipu": -8, "yinyang": 33,
      "neigong": 43, "boji": 56, "jianfa": 34, "daofa": 35, "changbing": 70, "anqi": 14, "qimen": 30, 

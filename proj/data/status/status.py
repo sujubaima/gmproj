@@ -169,7 +169,7 @@ STATUS_HUANGU_ANONYMOUS = \
 STATUS_YUXUE = \
     {"name": "浴血", "phase": "AfterAttack", "style": 1,
      "functions": [{"id": "EFFECT_YUXUE"}],
-     "description": "受到攻击时，部分伤害会溅射给周身2格内所有敌方单位"}
+     "description": "受到攻击时，部分伤害会溅射给周身二格内所有敌方单位"}
 
 
 # 神准
@@ -207,14 +207,21 @@ STATUS_JUJIAN = \
 STATUS_JINGJIAN = \
     {"name": "精剑", "phase": "AfterDamage", "style": 1,
      "functions": [{"id": "EFFECT_JINGJIAN"}],
-     "description": "剑法类武学伤害+30%"}
+     "description": "运用剑法类武学时伤害大幅增加"}
+
+
+# 精刀     
+STATUS_JINGDAO = \
+    {"name": "精刀", "phase": "AfterDamage", "style": 1,
+     "functions": [{"id": "EFFECT_JINGDAO"}],
+     "description": "运用刀法类武学时伤害大幅增加"}
 
 
 # 剑气如霞     
 STATUS_JIANQIRUXIA = \
     {"name": "剑气如霞", "phase": "Start", "style": 1,
      "functions": [{"id": "EFFECT_JIANQIRUXIA"}],
-     "description": "剑法类武学溅射范围+1"}
+     "description": "剑法类武学增加一格溅射范围"}
 
 
 # 离魂不系     
@@ -378,8 +385,8 @@ STATUS_CHOUSUI_XIAO = \
 STATUS_CHOUSUI_XIAO_RATIO = \
     {"name": "紫电青霜", "phase": "AfterAttack", "style": 1,
      "ratio": 0.5, "influence": "Zhi", "factor_middle": 1, "factor_upper": 2,
-     "functions": [{"id": "EFFECT_XISUI_XIAO"}],
-     "description": "攻击时有一定几率吸取目标少量内力"}
+     "functions": [{"id": "EFFECT_XISUI"}],
+     "description": "攻击时有一定几率吸取目标内力"}
 
 
 STATUS_JUANLIU = \
@@ -415,25 +422,30 @@ STATUS_BASHANJIN = \
 STATUS_DUANJIN = \
     {"name": "断筋", "phase": "Instant", "style": 0,
      "functions": [{"id": "EFFECT_DUANJIN"}],
-     "description": "时序速度暂时减少"}
+     "description": "时序速度遭到减少"}
 
 
 STATUS_CUOGU = \
     {"name": "错骨", "phase": "Instant", "style": 0,
      "functions": [{"id": "EFFECT_CUOGU"}],
-     "description": "移动力暂时减少"}
+     "description": "移动力遭到减少"}
 
 
 STATUS_QIANCHAN = \
     {"name": "牵缠", "phase": "Instant", "style": 0,
      "functions": [{"id": "EFFECT_QIANCHAN"}],
-     "description": "闪避率暂时降低"}
+     "description": "闪避率遭到降低"}
 
 
 STATUS_XUNJI = \
     {"name": "迅疾", "phase": "Instant", "style": 1,
      "functions": [{"id": "EFFECT_XUNJI"}],
-     "description": "时序速度暂时提升"}
+     "description": "时序速度获得提升"}
+
+STATUS_NIYUN = \
+    {"name": "霓云", "phase": "Instant", "style": 1,
+     "functions": [{"id": "EFFECT_SUSHA"}],
+     "description": "时序速度获得小幅提升"}
 
 
 STATUS_HUBU = \
@@ -457,13 +469,13 @@ STATUS_GAOYUANWUJI = \
 STATUS_KANPO = \
     {"name": "看破", "phase": "Instant", "style": 1,
      "functions": [{"id": "EFFECT_KANPO"}],
-     "description": "拆招暂时提升"}
+     "description": "基础拆招获得提升"}
 
 
 STATUS_BAIZHONG = \
     {"name": "百中", "phase": "Instant", "style": 1,
      "functions": [{"id": "EFFECT_BAIZHONG"}],
-     "description": "命中暂时提升"}
+     "description": "基础命中获得提升"}
 
 
 STATUS_XIANJI = \

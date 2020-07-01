@@ -264,9 +264,10 @@ class WorldAttackAction(Action):
             map = self.battle_map
         context.teams[self.object.id] = self.object
         context.teams[self.subject.id] = self.subject
+        subject_group = self.subject_group if self.subject_group is not None else self.subject.members
         if self.object.battle is None:
             silent = self.subject != context.PLAYER.team and self.object != context.PLAYER.team
-            BattleStartAction(map=map, groups=[self.subject.members, self.object.members], death=self.death, silent=silent).do()
+            BattleStartAction(map=map, groups=[subject_group, self.object.members], death=self.death, silent=silent).do()
         else:
             allies = self.object.battle.allies
             new_group_index = len(self.object.battle.groups)
@@ -275,7 +276,7 @@ class WorldAttackAction(Action):
                 if enemy_group in al:
                     continue
                 al.append(new_group_index)
-            BattleJoinAction(battle=self.object.battle, group=self.subject.members, death=self.death, allies=allies).do()
+            BattleJoinAction(battle=self.object.battle, group=subject_group, death=self.death, allies=allies).do()
         
         
 class WorldRestAction(Action):

@@ -87,6 +87,7 @@ class MessageBase(Mutable):
     WorldBuildPlan = "world_build_plan"
 
     WorldAttackPosition = "world_attack_position"
+    WorldAttackSelect = "world_attack_select"
     WorldAttackEnsure = "world_attack_ensure"
     
     WorldScenarioChangeEnsure = "world_scenario_change_ensure"

@@ -11,7 +11,8 @@ PERSON_RAN_WUHUA = \
                      {"id": "SUPERSKILL_YUNVSUXINJIAN", "learn": "All"}],
      "running": {"id": "SUPERSKILL_BINGJIYUGUSHU"},
      "skill_counter": {"id": "SKILL_YUNVSUXINJIAN_1"},
-     "equipment": [{"id": "ITEM_ZIYING", "position": "MainHand"}],
+     "equipment": [{"id": "ITEM_ZIYING", "position": "MainHand"},
+                   {"id": "ITEM_HUAFU,0-ITEM_SUSHA", "position": "Body"}],
      "items": [],
      "criticaltxt": "美人如玉，剑气如虹。"}
 
@@ -27,6 +28,7 @@ PERSON_CI_GUANG = \
                      {"id": "SUPERSKILL_RIYUESHUANGLUN", "learn": "All"}],
      "running": {"id": "SUPERSKILL_LIULONGHUIRIGONG"},
      "equipment": [{"id": "ITEM_YURIFALUN", "position": "MainHand"},
-                   {"id": "ITEM_ZHIYUEFALUN", "position": "ViceHand"}],
+                   {"id": "ITEM_ZHIYUEFALUN", "position": "ViceHand"},
+                   {"id": "ITEM_ZHIDUO,0-ITEM_XIMA", "position": "Body"}],
      "items": [],
      "criticaltxt": "外六尘、内六根、中间六识，施主还有甚挂碍？"}
