@@ -800,7 +800,7 @@ class Map(Entity):
         costh = vdot(vector_a, vector_b) / (vlength(vector_a) * vlength(vector_b))
         #costh = round(costh, precision)
         costh = max(min(costh, 1), -1)
-        if vector_a[0] * vector_b[1] - vector_a[1] * vector_b[0] < 0:
+        if round(vector_a[0] * vector_b[1] - vector_a[1] * vector_b[0], precision) < 0:
             ret = 2 * math.pi - math.acos(costh)
         else:
             ret = math.acos(costh)
