@@ -139,7 +139,7 @@ def status(obj, grey=False):
 def skill(obj, grey=False):
     style_map = {"Boji": "搏击", "Jianfa": "剑法",
                  "Daofa": "刀法", "Changbing": "长兵",
-                 "Duanbing": "奇门", "Ruansuo": "奇门",
+                 "Duanbing": "短柄", "Ruansuo": "软索",
                  "Anqi": "暗器"}
     effe_str = []
     for effe in obj.effects:

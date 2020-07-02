@@ -227,9 +227,9 @@ class Map(Entity):
         elif k == "height":
             self.y = v
         elif k == "terrans":
-            self.stash["terrans"] = v
+            self.tmpdict["terrans"] = v
         elif k == "objects":
-            self.stash["objects"] = v
+            self.tmpdict["objects"] = v
         elif k == "start_locations":
             for info in v:
                 loc_list = []
@@ -270,16 +270,16 @@ class Map(Entity):
             for j in range(self.y):
                 self.xy[i].append(MapGrid())
                 
-        if "terrans" in self.stash:
-            v = self.stash.pop("terrans")
+        if "terrans" in self.tmpdict:
+            v = self.tmpdict.pop("terrans")
             for info in v:
                 terran = Terran.one(info["style"])
                 for pt in info["points"]:
                     pt_t = eval(pt)
                     self.xy[pt_t[0]][pt_t[1]].terran = terran
             
-        if "objects" in self.stash:
-            v = self.stash.pop("objects")
+        if "objects" in self.tmpdict:
+            v = self.tmpdict.pop("objects")
             for info in v:
                 name = info["name"]
                 obj = Element.one(info["style"])

@@ -41,7 +41,7 @@ aka.update({"name": "姓名", "sex": "性别",
 aka.update({"hp": "气血", "mp": "内力"})
 
 vaka = {}
-vaka["sex"] = Aka({"1": "男", "2": "女"})
+vaka["sex"] = Aka({"0": "男", "1": "女"})
 
 if options.USE_FULL_WIDTH_FONT:
     #vaka["direction"] = Aka({"1": "→", "2": "↘", "4": "↙",

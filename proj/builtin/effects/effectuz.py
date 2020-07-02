@@ -339,15 +339,15 @@ class YunJianEffect(ExertEffect):
         battle = kwargs["battle"]
         target = battle.sequence[-1]["action"].target
         stash_key = "YunJianStash"
-        if stash_key not in battle.map.stash:
-            battle.map.stash[stash_key] = {}
+        if stash_key not in battle.stash:
+            battle.stash[stash_key] = {}
         locations = []
         for loc in battle.map.circle(target, 2, mr=0):
             grid = battle.map.xy[loc[0]][loc[1]]
             if grid.object is not None:
                 continue
-            if not loc in battle.map.stash[stash_key]:
-                battle.map.stash[stash_key][loc] = grid.terran
+            if not loc in battle.stash[stash_key]:
+                battle.stash[stash_key][loc] = grid.terran
                 new_terran = Terran.template("TERRAN_CLOUD")
                 new_terran.tpl_id = grid.terran.tpl_id
                 grid.terran = new_terran
@@ -372,8 +372,8 @@ class YunJianAnonymousEffect(Effect):
         if battle.is_friend(subject, p):
             return
         p_loc = battle.map.location(p)
-        if stash_key not in battle.map.stash or \
-           p_loc not in battle.map.stash[stash_key]:
+        if stash_key not in battle.stash or \
+           p_loc not in battle.stash[stash_key]:
             return
         hp_delta = int(subject.attack_base * 0.75)
         p.hp_delta -= hp_delta
@@ -392,7 +392,7 @@ class YunJianAnonymousEffect(Effect):
         for loc in status.locations:
             if loc not in loc_set:
                 grid = battle.map.xy[loc[0]][loc[1]]
-                old_terran = battle.map.stash[stash_key].pop(loc)
+                old_terran = battle.stash[stash_key].pop(loc)
                 grid.terran = old_terran
        
 

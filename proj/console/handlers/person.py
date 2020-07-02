@@ -312,7 +312,7 @@ def recipe_menu(subject, persons, recipes, filter=None, sub=False):
         showword = ("方案%s" % str_list[idx]) if sub else recipe.name
         if enabled:
             if subject not in persons:
-                showword += "（费用：%s）" % ui.colored(str(25 + recipe.extensions.get("money", 0)), 
+                showword += "（费用：%s）" % ui.colored(str(25 + recipe.tmpdict.get("money", 0)), 
                                                         color="yellow", attrs=["bold"])
             rmenu.append(ui.menuitem(showword, value=recipe, comments=comments))
         else:

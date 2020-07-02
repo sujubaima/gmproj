@@ -73,9 +73,9 @@ class Entity(object):
         self.id = str(uuid.uuid1())
         self.tpl_id = None
 
-        self.stash = {}
         self.locked = set()
-        self.extensions = {}
+        self.stash = {}
+        self.tmpdict = {}
 
         self.initialize()
         self.load(**kwargs)

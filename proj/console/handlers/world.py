@@ -1,6 +1,8 @@
 # -- coding: utf-8 --
 
+import os
 import sys
+import time
 import platform
 
 from proj import options
@@ -41,7 +43,7 @@ system_menu = [ui.menuitem("事件", goto=lambda x: show_tasks()),
                ui.menuitem("地图", goto=lambda x: show_thumbnail()),
                ui.menuitem("成就", validator=lambda x: False),
                ui.menuitem("存档", goto=lambda x: False),#saveload.save()),
-               ui.menuitem("载入", validator=lambda x: False),
+               ui.menuitem("载入", goto=lambda x: files_menu()),
                ui.menuitem("退出", goto=lambda x: sys.exit(0))]
 
 
@@ -221,6 +223,20 @@ def recenter(team):
                                      new_start_y + t_map.window_y // 2))
 
 
+def files_menu():
+    load_menu = []
+    loaddir = options.SAVEFILE_PATH
+    for itm in os.listdir(loaddir):
+        apath = loaddir + "/" + itm
+        if not apath.endswith(".savefile"):
+            continue
+        mtime = os.stat(apath).st_mtime
+        mtime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(mtime))
+        showword = "%s (%s)" % (itm, mtime)
+        load_menu.append(ui.menuitem(showword, value=apath, goto=lambda x: saveload.load(x)))
+    ui.menu(load_menu, title="当前可用存档：", goback=True)
+
+
 def handler_world_map(ctx):
     ui.echo()
     ui.map(ctx.map, entities=team_info(ctx.map), show_trace=ctx.show_trace)
@@ -233,7 +249,8 @@ def handler_world_player(ctx):
     map = ctx.map
     ui.cleanmenu()
     recenter(ctx.subject)
-    ui.echo()
+    if not ui.blankline():
+        ui.echo()
     ui.echo("当前回合：%s" % context.timestamp)
     ui.echo()
     ui.map(map, entities=team_info(ctx.map), show_trace=True)
@@ -353,9 +370,9 @@ def handler_world_explore_position(ctx):
 
 def handler_world_explore_tool(ctx):
     itm_menu = [ui.menuitem("徒手", value="")]
-    itm_menu.extend(item_menu(ctx.subject.members, None, filter=ctx.filter, show_forbidden=False))
+    itm_menu.extend(item_menu(ctx.subject.members, None, filter=ctx.filter))
     if len(itm_menu) == 1:
-        ret = item_menu[0].value
+        ret = itm_menu[0].value
     else:
         ret = ui.menu(itm_menu, title="以下工具可用于该地块探索：", goback=True)
     return ret

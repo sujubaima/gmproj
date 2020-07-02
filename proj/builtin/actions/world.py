@@ -1,6 +1,7 @@
 # -- coding: utf-8 --
 
 import importlib
+import random
 
 from proj import options
 
@@ -225,32 +226,46 @@ class WorldExploreAction(Action):
     def do(self):
         s_id = self.subject.team.scenario.tpl_id
         terran = self.subject.team.scenario.grid(self.position).terran.tpl_id
+        if s_id not in context.explorations:
+            context.explorations[s_id] = {}
+        s_exp = context.explorations[s_id]
         found = False
         for dis in context.discoveries.get(s_id, []) + context.discoveries.get("ALL", []):
-            if "terrans" in dis and terran not in dis["terrans"]:
-                continue
-            if "locations" in dis and self.position not in dis["locations"]:
-                continue
-            if "tools" in dis and (self.tool is None or len(self.tool.tags & dis["tools"]) == 0):
-                continue
-            if "ratio" in dis:
-                rate = dis["ratio"]
+            dis_id = dis["id"]
+            if dis_id not in s_exp:
+                s_exp[dis_id] = {}
+            if self.position not in s_exp[dis_id]: 
+                if "terrans" in dis and terran not in dis["terrans"]:
+                    continue
+                if "locations" in dis and self.position not in dis["locations"]:
+                    continue
+                if "tools" in dis and (self.tool is None or len(self.tool.tags & dis["tools"]) == 0):
+                    continue
+            if "rate" in dis:
+                rate = dis["rate"]
             else:
                 rate = 1
             if not ratio.if_rate(rate):
                 continue
             if "quantity" in dis:
-                dis["quantity"] -= 1
+                if self.position not in s_exp[dis_id] or \
+                   ("refresh" in dis and s_exp[dis_id][self.position]["timestamp"] + dis["refresh"] <= context.timestamp):
+                    s_exp[dis_id][self.position] = {"quantity": dis["quantity"], 
+                                                    "timestamp": context.timestamp}
             if "range" in dis:
-                quantity = random.randint(*dis["range"])
+                quantity = min(random.randint(*dis["range"]), s_exp[dis_id][self.position]["quantity"])
             else:
-                quantity = 1
+                quantity = min(1, s_exp[dis_id][self.position]["quantity"])
+            if quantity == 0:
+                continue
+            s_exp[dis_id][self.position]["quantity"] -= quantity
             found = True
             item = Item.one(dis["item"])
             self.subject.add_item(item, quantity=quantity)
             MSG(style=MSG.PersonItemAcquire, subject=self.subject, item=item, quantity=quantity)
         if not found:
             MSG(style=MSG.PersonItemAcquire, subject=self.subject, item=None, quantity=0)
+        context.timeflow(1)
         
         
 class WorldAttackAction(Action):
@@ -298,6 +313,7 @@ class WorldScenarioChangeAction(Action):
         old_scene = self.team.scenario
         new_scene = Map.one(old_scene.transport_locs[self.team.location])
         tmp_locs = []
+        # 确定角色转换场景后的位置与方向
         if new_scene.tpl_id == "MAP_WORLD":
             for loc, tpl in new_scene.transport_locs.items():
                 if tpl == old_scene.tpl_id:

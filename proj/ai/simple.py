@@ -65,8 +65,10 @@ class SimpleAI(object):
                     max_attack_range[tkey] = tmp_range[1]
                 if min_attack_range[tkey] > tmp_range[0]:
                     min_attack_range[tkey] = tmp_range[0]
-        max_attack_range["All"] = max(max_attack_range["Friends"], max_attack_range["Enemies"])
-        min_attack_range["All"] = min(min_attack_range["Friends"], min_attack_range["Enemies"])
+        max_attack_range["All"] = max(max_attack_range["Friends"], 
+                                      max_attack_range["Enemies"])
+        min_attack_range["All"] = min(min_attack_range["Friends"], 
+                                      min_attack_range["Enemies"])
         return max_attack_range, min_attack_range
 
     def angle_in_sector(self, start, end, angle):

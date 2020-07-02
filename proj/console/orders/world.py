@@ -152,8 +152,6 @@ class WorldGivePositionOrder(WorldOrder):
             PersonItemObjectOrder(subject=self.subject.leader, persons=self.subject.members,  
                                   candidates=persons, order=PersonItemTransferOrder)
             #WorldProcessOrder()
-        #else:
-        #    WorldPlayerOrder()
         
 
 class WorldAttackPositionOrder(WorldOrder):               
@@ -169,8 +167,6 @@ class WorldAttackPositionOrder(WorldOrder):
     def callback(self, pos):
         if pos is not None:
             WorldAttackEnsureOrder(subject=self.subject, position=pos)
-        #else:
-        #    WorldPlayerOrder()
             
             
 class WorldAttackEnsureOrder(WorldOrder):
@@ -182,15 +178,13 @@ class WorldAttackEnsureOrder(WorldOrder):
         if sure:
             #WorldAttackOrder(subject=self.subject, position=self.position)
             WorldAttackSelectOrder(subject=self.subject, position=self.position)
-        #else:
-        #    WorldPlayerOrder()
 
 
 class WorldAttackSelectOrder(WorldOrder):
 
     def carry(self):
         MSG(style=MSG.WorldAttackSelect, subject=self.subject, 
-            number=min(6, len(self.subject.members))).callback = self.callback
+            number=min(options.BATTLE_MAX_PERSON_MAIN, len(self.subject.members))).callback = self.callback
 
     def callback(self, subject_group):
         if self.object is None:
@@ -222,7 +216,7 @@ class WorldExplorePositionOrder(WorldOrder):
     def callback(self, pos):
         if pos is not None:
             terran = self.subject.scenario.grid(pos).terran.tpl_id.split("_")[-1].capitalize()
-            filter = lambda p, q, itm: "Tool" in itm.tags and terran in itm.tags
+            filter = lambda p, q, itm, tags: 0 if "Tool" in itm.tags and terran in itm.tags else 2
             WorldExploreToolOrder(subject=self.subject, position=pos, filter=filter) 
 
 

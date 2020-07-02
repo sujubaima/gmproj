@@ -409,7 +409,7 @@ class PersonEquipRepairRecipeOrder(PersonItemBaseOrder, PersonRecipeChooseOrder)
             recipe = Recipe.one(recipe_id)
         item_ratio = 1 - self.item.durability_current / self.item.durability
         money_recipe = Recipe()
-        money_recipe.extensions["money"] = max(1, int(self.item.money * item_ratio))
+        money_recipe.tmpdict["money"] = max(1, int(self.item.money * item_ratio))
         recipes = [money_recipe]
         if recipe is not None and recipe.regular:
             recipes.append(recipe.repair(item_ratio))             
@@ -422,7 +422,7 @@ class PersonEquipRepairRecipeOrder(PersonItemBaseOrder, PersonRecipeChooseOrder)
     def callback(self, recipe):
         if recipe is not None:
             PersonRecipeAction(subject=self.subject, persons=self.persons, recipe=recipe).do()
-            money = recipe.extensions.get("money", 0) + 25
+            money = recipe.tmpdict.get("money", 0) + 25
             TeamItemTransferAction(team=self.subject.team, object=self.object, item=Item.one("ITEM_MONEY"), quantity=money).do()
             self.item.durability_current = self.item.durability
             MSG(style=MSG.PersonEquipRepair, item=self.item)

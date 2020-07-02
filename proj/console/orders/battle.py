@@ -67,8 +67,8 @@ class BattleNewTurnOrder(BattleOrder):
             self.turncount = 1
         BattleNewTurnAction(battle=self.battle).do()
         if self.battle.controllable():
-            self.battle.current.stash["original_position"] = self.battle.map.location(self.battle.current)
-            self.battle.current.stash["original_direction"] = self.battle.current.direction
+            self.battle.current.tmpdict["original_position"] = self.battle.map.location(self.battle.current)
+            self.battle.current.tmpdict["original_direction"] = self.battle.current.direction
             BattlePlayerOrder(battle=self.battle)
         else:
             # 非可控制人员，转入AI模块生成action并执行
@@ -280,8 +280,8 @@ class BattleRestOrder(BattleOrder):
 class BattleResetOrder(BattleOrder):
 
     def carry(self):
-        self.battle.map.locate(self.battle.current, self.battle.current.stash["original_position"])
-        self.battle.current.direction = self.battle.current.stash["original_direction"]
+        self.battle.map.locate(self.battle.current, self.battle.current.tmpdict["original_position"])
+        self.battle.current.direction = self.battle.current.tmpdict["original_direction"]
         self.battle.moved[self.battle.current.id] = False
         self.battle.reset = False
         MSG(style=MSG.BattleMap, battle=self.battle, persons=self.battle.snapshot(False))

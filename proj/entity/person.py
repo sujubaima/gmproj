@@ -41,15 +41,18 @@ class Person(Entity):
                     self.add_item(it, itpl["quantity"])
         elif k == "equipment":
             ret = [None] *5
-            self.stash["tpl_equipment"] = []
+            self.tmpdict["tpl_equipment"] = []
             for eqpl in v:
                 eq = Item.template(eqpl["id"])
                 pos = eval("EquipPosition.%s" % eqpl["position"])
-                self.stash["tpl_equipment"].append((eq, pos))
+                self.tmpdict["tpl_equipment"].append((eq, pos))
                 self.add_item(eq, 1)
         elif k == "running":
             ss = SuperSkill.one(v["id"])
             self.running = ss
+        elif k == "studying":
+            ss, nd = v.split("-")
+            self.studying = SuperSkill.one(ss).nodes[nd]
         elif k == "recipes":
             for rtpl in v:
                 self.recipes.append(Recipe.one(rtpl["id"]))
@@ -58,10 +61,10 @@ class Person(Entity):
                 self.status.append(Status.template(st["id"]))
         elif k in set(["dongjing", "gangrou", "zhipu", "yinyang", 
                        "neigong", "boji", "jianfa", "daofa", "changbing", "anqi", "qimen"]):
-            self.stash["tpl_%s" % k] = v
+            self.tmpdict["tpl_%s" % k] = v
         elif k in set(["hp_max", "mp_max", "attack", "defense", "motion", 
                        "counter_rate", "dodge_rate", "critical_rate", "anti_damage_rate", "hit_rate"]):
-            self.stash["tpl_%s_" % k] = v
+            self.tmpdict["tpl_%s_" % k] = v
         else:
             setattr(self, k, v)
 
@@ -77,10 +80,10 @@ class Person(Entity):
                        "hp_max_", "mp_max_", "attack_", "defense_", "motion_",
                        "counter_rate_", "dodge_rate_", "critical_rate_", "anti_damage_rate_", "hit_rate_"]):
             tpl_key = "tpl_%s" % k
-            if tpl_key in self.stash:
-                setattr(self, k, self.stash.pop(tpl_key))
-        if "tpl_equipment" in self.stash:
-            for eq, pos in self.stash.pop("tpl_equipment"):
+            if tpl_key in self.tmpdict:
+                setattr(self, k, self.tmpdict.pop(tpl_key))
+        if "tpl_equipment" in self.tmpdict:
+            for eq, pos in self.tmpdict.pop("tpl_equipment"):
                 #print(self.name, eq.name)
                 eq.work(self, position=pos)
         if self.running is not None:
@@ -260,6 +263,36 @@ class Person(Entity):
         setattr(self, "%s_exp" % name, Exponential(lower=lower, upper=upper, middle=middle, degree=degree, base=1))
         setattr(self, "%s_" % name, base)
         setattr(self, "%s_factor_" % name, 1)
+
+    def random(self, total=90, attrs=["boji", "jianfa", "daofa",
+                                      "changbing", "anqi", "qimen"]):
+        tmplist = []
+        lft = total
+        ceil = 30
+        floor = 1
+        for i in range(len(attrs) - 1):
+            p = random.randint(floor, min(ceil, lft, lft - len(attrs) + i + 1))
+            lft -= p
+            tmplist.append(p)
+        if lft > 30:
+            tmplist.append(30)
+            lft = lft - 30
+            for i in range(30 * len(tmplist)):
+                i = i % len(tmplist)
+                if tmplist[i] >= 30:
+                    continue
+                tmplist[i] += 1
+                lft -= 1
+                if lft == 0:
+                    break
+        else:
+            tmplist.append(lft)
+        for i in range(len(attrs)):
+            setattr(self, attrs[i], tmplist[i])
+        self.yinyang = random.randint(-49, 49)
+        self.dongjing = random.randint(-49, 49)
+        self.gangrou = random.randint(-49, 49)
+        self.zhipu = random.randint(-49, 49)
 
     @property
     def name(self):
