@@ -1,1 +1,1 @@
-CURRENT = "lite"
+CURRENT = "origin"

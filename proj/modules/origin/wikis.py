@@ -1,15 +1,16 @@
 # -- coding: utf-8 --
+
 import os
 
-from proj.console import control as inter
+from proj.console import ui
 
-menuitem = inter.MenuItem
+menuitem = ui.menuitem
 
 DOC_PATH = os.path.dirname(os.path.abspath(__file__)) + "/docs"
 
 def show_wiki(filepath):
     with open("%s/%s" % (DOC_PATH, filepath)) as fd:
-        inter.text(fd.read())
+        ui.text(fd.read())
 
 wiki_menu = [menuitem("人物属性", goto=lambda x: show_wiki("person_attrs.txt")),
              menuitem("战斗系统"),
@@ -32,4 +33,4 @@ menpai_menu = [menuitem("武林门派"),
 
 
 def run():
-    inter.menu(wiki_menu, title="游戏百科", goback=True) 
+    ui.menu(wiki_menu, title="游戏百科", goback=True) 
