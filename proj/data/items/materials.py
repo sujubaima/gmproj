@@ -1,22 +1,50 @@
 # -- coding: utf-8 --
 
+# 鲤鱼
+ITEM_LIYU = \
+    {"name": "鲤鱼", "tags": "Material,Food,Fish",
+     "rank": 0, "weight": 1, "volume": 0.5,
+     "description": "一种淡水鱼类"}
+
+
+# 鲫鱼
+ITEM_JIYU = \
+    {"name": "鲫鱼", "tags": "Material,Food,Fish",
+     "rank": 0, "weight": 0.5, "volume": 0.3,
+     "description": "一种淡水鱼类"}
+
+
+# 鲈鱼
 ITEM_LUYU = \
     {"name": "鲈鱼", "tags": "Material,Food,Fish",
      "rank": 1, "weight": 1, "volume": 0.5,
-     "description": "一种淡水鱼类"}
      
+     "description": "一种淡水鱼类"}
+
+
+# 鳜鱼
+ITEM_GUIYU = \
+    {"name": "鳜鱼", "tags": "Material,Food,Fish",
+     "rank": 2, "weight": 1, "volume": 0.5,
+
+     "description": "一种淡水鱼类"}
+
+
+# 盐     
 ITEM_YAN = \
     {"name": "盐", "tags": "Material,Condiment",
      "rank": 0, "weight": 0.1, "volume": 0.1,
      "description": "主要成分为氯化钠"}
      
 
+# 木炭
 ITEM_MUTAN = \
     {"name": "木炭", "tags": "Material,Catalyzer",
      "rank": 0, "weight": 0.1, "volume": 0.2,
      "description": "木材烧制后的碳化物，制作物品的材料"}
 
 
+# 生铁
 ITEM_SHENGTIE = \
     {"name": "生铁", "rank": 0, "tags": "Material,Metal",
      "weight": 0.4, "volume": 0.2,
@@ -25,6 +53,7 @@ ITEM_SHENGTIE = \
      "description": "深山里常见的金属矿物，打造武器的基本材料之一"}
 
 
+# 粗铜
 ITEM_CUTONG = \
     {"name": "粗铜", "rank": 0, "tags": "Material,Metal",
      "weight": 0.4, "volume": 0.2,
@@ -89,3 +118,27 @@ ITEM_SUSHA = \
      "effects": [{"id": "EFFECT_ITEM_ADD_FUNCTION",
                   "effect": {"id": "EXERT.STATUS_NIYUN"}}],
      "description": ""}
+
+
+ITEM_GANCAO = \
+    {"name": "甘草", "rank": 1, "tags": "Material,Herb",
+     "weight": 0.1, "volume": 0.2,
+     "description": "常见草药，性平，可用于清热解毒"}
+
+
+ITEM_HONGSHAO = \
+    {"name": "红芍", "rank": 1, "tags": "Material,Herb",
+     "weight": 0.1, "volume": 0.2,
+     "description": "常见草药，性微寒，可用于止痛散瘀"}
+
+
+ITEM_HUANGQI = \
+    {"name": "黄芪", "rank": 1, "tags": "Material,Herb",
+     "weight": 0.1, "volume": 0.2,
+     "description": "常见草药，性微寒，可用于益气补虚"}
+
+
+ITEM_DUZHONG = \
+    {"name": "杜仲", "rank": 2, "tags": "Material,Herb",
+     "weight": 0.1, "volume": 0.2,
+     "description": "常见草药，性微寒，可用于止痛散瘀"}
