@@ -1,11 +1,17 @@
 # -- coding: utf-8 --
 
+import os
+import sys
+
 # ----------------------------------------------
 # |                  基本选项                  |
 # ----------------------------------------------
 
 # 游戏数据目录
 DATA_PATH = "proj.data"
+
+# 游戏存档目录
+SAVEFILE_PATH = os.path.abspath(os.path.dirname(os.path.abspath(__file__))) + "/../savefiles"
 
 # 是否使用多线程
 MULTIPLE_THREAD = True
@@ -36,7 +42,7 @@ PLAY_AUTO_BATTLE = False
 # ----------------------------------------------
 
 # 控制台字体是否不会对全角字符进行显示优化（除lucida console外基本都为True）
-USE_FULL_WIDTH_FONT = True
+USE_FULL_WIDTH_FONT = False
 
 # ----------------------------------------------
 # |                  场景选项                  |

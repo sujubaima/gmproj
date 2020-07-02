@@ -8,6 +8,7 @@ from proj.entity import Person
 from proj.entity import Map
 from proj.entity import Terran
 from proj.entity import Team
+from proj.entity import Item
 
 from proj import engine
 
@@ -26,6 +27,10 @@ if __name__ == "__main__":
     pb = Person.one("PERSON_SONG_TIANYONG")
     pc = Person.one("PERSON_XIE_HUI")
     pd = Person.one("PERSON_ZHAO_SHENJI")
+
+    pa.add_item(Item.one("ITEM_DIAOGAN"), 1)
+    pa.add_item(Item.one("ITEM_LIANDAO"), 1)
+    pa.add_item(Item.one("ITEM_SHOUFU"), 1)
 
     #m = Map(x=120, y=80, window_x=7, window_y=7)
     #m.set_terran([(0, 0), (1, 0),

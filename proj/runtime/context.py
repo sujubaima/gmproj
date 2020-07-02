@@ -30,6 +30,8 @@ time_delta_ = 0
 
 variables = {}
 
+explorations = {}
+
 
 def timeflow(duration):
     global time_delta_, timestamp
@@ -73,25 +75,25 @@ def load_discoveries():
             continue 
         obj = getattr(data.discovery, d)
         tool_tag = obj.get("tools", None)
-        for plc in obj["places"]:
+        for idx, plc in enumerate(obj["places"]):
             scenario = plc.get("scenario", "ALL")
             if scenario not in discoveries:
                 discoveries[scenario] = []
-            newdis = {"item": obj["item"]}
+            newdis = {"id": "%s,PLACE-%s" % (d, idx), "item": obj["item"]}
             if tool_tag is not None:
                newdis["tools"] = set(tool_tag.split(","))
             if "terrans" in plc:
                 newdis["terrans"] = plc["terrans"]
             if "locations" in plc:
                 newdis["locations"] = set(map(lambda x: eval(x), plc["locations"]))
-            #if "tools" in plc:
-            #    newdis["tools"] = set(plc["tools"].split(","))
             if "rate" in plc:
                 newdis["rate"] = plc["rate"]
             if "quantity" in plc:
                 newdis["quantity"] = plc["quantity"]
             if "range" in plc:
                 newdis["range"] = plc["range"]
+            if "refresh" in plc:
+                newdis["refresh"] = plc["refresh"]
             discoveries[scenario].append(newdis)
 
 
