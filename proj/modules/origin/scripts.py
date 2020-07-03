@@ -9,10 +9,11 @@ from proj import console
 from proj import engine
 
 from proj.runtime import context
+from proj.runtime import saveload
 
 console.init()
 
-def start():
+def start(loadfile=None):
     m = Map.one("MAP_SUZHOUCHENG")
     player = Person.one("PERSON_PLAYER")
 
@@ -29,4 +30,7 @@ def start():
 
     m.window_center(m.location(team_player))
 
+    engine.load_events()
+    if loadfile is not None:
+        saveload.load(loadfile)
     engine.start()

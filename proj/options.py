@@ -26,10 +26,10 @@ CAMERA_WINDOW_WIDTH = 8
 CAMERA_WINDOW_HEIGHT = 9
 
 # 单次战斗主战方最大上场人数 
-BATTLE_MAX_PEOPLE_MAIN = 6
+BATTLE_MAX_PERSONS_MAIN = 6
 
 # 单次战斗援助方最大上场人数
-BATTLE_MAX_PEOPLE_SUPPORT = 3
+BATTLE_MAX_PERSONS_SUPPORT = 3
 
 # 指定NPC使用的AI脚本
 USE_AI = "proj.ai.simple.SimpleAI"
@@ -42,7 +42,7 @@ PLAY_AUTO_BATTLE = False
 # ----------------------------------------------
 
 # 控制台字体是否不会对全角字符进行显示优化（除lucida console外基本都为True）
-USE_FULL_WIDTH_FONT = False
+USE_FULL_WIDTH_FONT = True
 
 # ----------------------------------------------
 # |                  场景选项                  |

@@ -20,13 +20,12 @@ class Team(Entity):
 
         self.direction = 1
         self.scenario = None
-        self.target = None
         self.path = []
         self.step = 1
+
+        self.targets = []
        
         self.last_move = 0
- 
-        self.follow = None
 
         self.process = 0
 
@@ -78,3 +77,16 @@ class Team(Entity):
     @property
     def locativity(self):
         return self.leader.locativity
+
+    @property
+    def target(self):
+        if len(self.targets) == 0:
+            return None
+        if self.targets[-1][0] == 1:
+            if self.targets[-1][1].scenario == self.scenario:
+                return self.scenario.location(self.targets[-1][1])
+            else:
+                self.targets.pop()
+                return None
+        else:
+            return self.targets[-1][1]

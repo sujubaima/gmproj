@@ -47,6 +47,7 @@ class WorldProcessOrder(Order):
             WorldPlayerOrder()
         WorldProcessOrder()
 
+
 class WorldPlayerOrder(WorldOrder):
 
     def carry(self):
@@ -184,7 +185,7 @@ class WorldAttackSelectOrder(WorldOrder):
 
     def carry(self):
         MSG(style=MSG.WorldAttackSelect, subject=self.subject, 
-            number=min(options.BATTLE_MAX_PERSON_MAIN, len(self.subject.members))).callback = self.callback
+            number=min(options.BATTLE_MAX_PERSONS_MAIN, len(self.subject.members))).callback = self.callback
 
     def callback(self, subject_group):
         if self.object is None:

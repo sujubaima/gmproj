@@ -30,7 +30,7 @@ class Battle(object):
         return plib.Person.one(tpl_id[7:]).team.battle
 
     def __init__(self, map, groups, allies=None, death=False, silent=False):
-        self.id = uuid.uuid1()
+        self.id = str(uuid.uuid1())
 
         self.silent = False if silent is None else silent
         self.death = False if death is None else death
@@ -84,6 +84,13 @@ class Battle(object):
                 p.group_ally = self.group_allies[self.groups.index(p.group)]
                 #p.battle = self
 
+        for j in [0, 1]:
+            for idx, p in enumerate(self.groups[j]):
+                loc_x, loc_y = self.map.start_locs[j][idx]
+                self.map.locate(p, (loc_x, loc_y))
+                #p.direction = self.map.direction(self.map.entity_loc[p.id], 
+                #                                 self.map.center_point(self.map.start_locs[1 - j]))
+
     def update_group_ally(self):
         self.group_allies = [int(math.pow(2, idx)) for idx in range(len(self.groups))]
 
@@ -101,14 +108,6 @@ class Battle(object):
         for p in self.alive:
             p.battle = self
             p.team.battle = self
-            p.hp = p.hp_limit
-            p.mp = p.mp_limit
-        for j in [0, 1]:
-            for idx, p in enumerate(self.groups[j]):
-                loc_x, loc_y = self.map.start_locs[j][idx]
-                self.map.locate(p, (loc_x, loc_y))
-                #p.direction = self.map.direction(self.map.entity_loc[p.id], 
-                #                                 self.map.center_point(self.map.start_locs[1 - j]))
         for p in self.alive:
             enemies_locs = []
             for ene in self.enemies(p):
@@ -182,8 +181,6 @@ class Battle(object):
             self.map.locate(p, pos)
             p.battle = self
             p.team.battle = self
-            p.hp = p.hp_limit
-            p.mp = p.mp_limit
             self.moved[p.id] = False
             self.attacked[p.id] = False
             self.itemed[p.id] = False

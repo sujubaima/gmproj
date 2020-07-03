@@ -67,9 +67,7 @@ class OrderThread(threading.Thread):
 #            Order.nempty.set()           
 
 
-def start(events=True):
-    if events:
-        load_events()
+def start():
     ods = importlib.import_module("proj.console.orders.world")
     ods.WorldProcessOrder()
     if options.MULTIPLE_THREAD:       

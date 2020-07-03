@@ -62,7 +62,7 @@ class Person(Entity):
         elif k in set(["dongjing", "gangrou", "zhipu", "yinyang", 
                        "neigong", "boji", "jianfa", "daofa", "changbing", "anqi", "qimen"]):
             self.tmpdict["tpl_%s" % k] = v
-        elif k in set(["hp_max", "mp_max", "attack", "defense", "motion", 
+        elif k in set(["hp_max", "mp_max", "attack", "defense", "motion", "speed", 
                        "counter_rate", "dodge_rate", "critical_rate", "anti_damage_rate", "hit_rate"]):
             self.tmpdict["tpl_%s_" % k] = v
         else:
@@ -77,7 +77,7 @@ class Person(Entity):
                 ss.learn(self, n)
         for k in set(["dongjing", "gangrou", "zhipu", "yinyang",
                        "neigong", "boji", "jianfa", "daofa", "changbing", "anqi", "qimen",
-                       "hp_max_", "mp_max_", "attack_", "defense_", "motion_",
+                       "hp_max_", "mp_max_", "attack_", "defense_", "motion_", "speed_",
                        "counter_rate_", "dodge_rate_", "critical_rate_", "anti_damage_rate_", "hit_rate_"]):
             tpl_key = "tpl_%s" % k
             if tpl_key in self.tmpdict:
@@ -99,9 +99,10 @@ class Person(Entity):
         if self.team is None:
             self.team = Team()
             self.team.include(self)
+        if self.id not in Entity.Instances:
+            self.hp = self.hp_limit
+            self.mp = self.mp_limit
         context.strdict["%s_NAME" % self.tpl_id] = self.name
-        #if self.skill_counter is not None:
-        #    print(self.name, self.skill_counter)
     
     def initialize(self):
 

@@ -110,8 +110,7 @@ def show_mods(arg):
     ui.menu(mod_menu, title="当前可用模组：", goback=True)
 
 def load_file(f):
-    runtime.MODULE.scripts.start()
-    saveload.load(f)
+    runtime.MODULE.scripts.start(loadfile=f)
 
 def show_files(arg):
     load_menu = []
@@ -123,7 +122,7 @@ def show_files(arg):
         mtime = os.stat(apath).st_mtime
         mtime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(mtime))
         showword = "%s (%s)" % (itm, mtime)
-        load_menu.append(menuitem(showword, value=itm, goto=lambda x: load_file(x)))
+        load_menu.append(menuitem(showword, value=apath, goto=lambda x: load_file(x)))
     ui.menu(load_menu, title="当前可用存档：", goback=True)
 
 def show_wikis(arg):

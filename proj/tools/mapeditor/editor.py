@@ -1,4 +1,5 @@
 # -- coding: utf-8 --
+
 import os
 import sys
 import importlib
@@ -169,4 +170,4 @@ if __name__ == "__main__":
     
     MapEditorOrder(map=globals.MAP)
     
-    engine.start(events=False)
+    engine.start()

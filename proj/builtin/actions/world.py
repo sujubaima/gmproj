@@ -42,9 +42,6 @@ class WorldProcessAction(Action):
     def update_target(self, team):
         if team.scenario is None:
             return
-        if team.follow is not None:
-            if team.follow.scenario == team.scenario:
-                team.target = team.scenario.location(team.follow)
         circle_pts = team.scenario.circle(team.location, options.MOTION_SCENARIO)
         for pt in circle_pts:
             if pt not in team.scenario.loc_entity:
@@ -55,12 +52,7 @@ class WorldProcessAction(Action):
             if context.relationship(team, ent) >= 30:
                 continue
             elif team.scenario.distance(team.location, pt) > 1:
-                if team.target is not None and "target" not in team.stash:
-                    team.stash["target"] = team.target
-                if team.follow is not None and "follow" not in team.stash:
-                    team.stash["follow"] = team.follow
-                team.target = pt
-                team.follow = ent
+                team.targets.append((1, ent))
             else:
                 WorldAttackAction(subject=team, object=ent).do()
 
@@ -68,7 +60,7 @@ class WorldProcessAction(Action):
         min_time = context.timestamp
         min_team = []
         for team in context.teams.values():
-            if team.target is None and team.battle is None:
+            if len(team.targets) == 0 and team.battle is None:
                 continue
             if team.process < min_time:
                 min_time = team.process 
@@ -89,7 +81,7 @@ class WorldProcessAction(Action):
             else:
                 team.scenario.locate(team, team.next)
             if team.next == team.path[0]:
-                team.target = None
+                team.targets.pop()
                 self.update_scenario(team)
                 #self.recenter(team)
             else:
@@ -104,7 +96,7 @@ class WorldProcessAction(Action):
             team.path.append(path[0])
             team.scenario.locate(team, path[0])
             if path[0] == team.target:
-                team.target = None
+                team.targets.pop()
                 self.update_scenario(team)
             else:
                 team.process += team.step
@@ -162,10 +154,10 @@ class WorldProcessAction(Action):
                 context.timestamp_ = team.process
             if team.battle is not None:
                 self.process_battle(team)
-            elif team.target is not None and team.scenario is not None:
+            elif len(team.targets) != 0 and team.scenario is not None:
                 self.process_target(team)
             if team.leader != context.PLAYER and \
-               team.target is None and team.battle is None and team.follow is None:
+               len(team.targets) == 0 and team.battle is None:
                 context.teams.pop(team.id)
 
 
@@ -188,7 +180,7 @@ class WorldTimePauseAction(Action):
 class WorldMoveAction(Action):
 
     def do(self):
-        self.subject.target = self.target
+        self.subject.targets.append((0, self.target))
         if self.subject.scenario.tpl_id == "MAP_WORLD":
             self.subject.step = 30
         else:
@@ -249,7 +241,8 @@ class WorldExploreAction(Action):
                 continue
             if "quantity" in dis:
                 if self.position not in s_exp[dis_id] or \
-                   ("refresh" in dis and s_exp[dis_id][self.position]["timestamp"] + dis["refresh"] <= context.timestamp):
+                   ("refresh" in dis and s_exp[dis_id][self.position]["timestamp"] + \
+                                         dis["refresh"] <= context.timestamp):
                     s_exp[dis_id][self.position] = {"quantity": dis["quantity"], 
                                                     "timestamp": context.timestamp}
             if "range" in dis:
@@ -282,7 +275,8 @@ class WorldAttackAction(Action):
         subject_group = self.subject_group if self.subject_group is not None else self.subject.members
         if self.object.battle is None:
             silent = self.subject != context.PLAYER.team and self.object != context.PLAYER.team
-            BattleStartAction(map=map, groups=[subject_group, self.object.members], death=self.death, silent=silent).do()
+            BattleStartAction(map=map, groups=[subject_group, self.object.members], 
+                              death=self.death, silent=silent).do()
         else:
             allies = self.object.battle.allies
             new_group_index = len(self.object.battle.groups)
@@ -291,7 +285,8 @@ class WorldAttackAction(Action):
                 if enemy_group in al:
                     continue
                 al.append(new_group_index)
-            BattleJoinAction(battle=self.object.battle, group=subject_group, death=self.death, allies=allies).do()
+            BattleJoinAction(battle=self.object.battle, group=subject_group, 
+                             death=self.death, allies=allies).do()
         
         
 class WorldRestAction(Action):
