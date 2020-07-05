@@ -9,8 +9,8 @@ from proj import options
 
 from proj.engine.frame import Message
 from proj.engine.frame import Action
-from proj.engine.frame import Event
 from proj.engine.frame import Order
+from proj.engine.frame import Event
 from proj.engine.frame import Condition
 
 from proj import data

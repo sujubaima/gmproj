@@ -9,7 +9,6 @@ import inspect
 
 from proj import options
 from proj.runtime import context
-from proj.engine import script
 
 
 class Mutable(object):
@@ -262,6 +261,7 @@ class OrderBase(Mutable):
 
     def initialize(self):
         self.canceled = False
+        self.callback = None
 
     def solve(self):
         OrderBase.Current = self
@@ -277,7 +277,9 @@ class OrderBase(Mutable):
             while Event.pick(OrderBase.events[ordername][1], triggered) is not None:
                 Message.sync()
         OrderBase.Current = None
-
+        if self.callback is not None:
+            self.callback()
+        
     def carry(self):
         pass
         
@@ -365,8 +367,8 @@ if options.MULTIPLE_THREAD:
 else:
     Message = MessageSingleThread
     Order = OrderSingleThread
-
-
+        
+  
 class Event(Mutable):
     """
     事件模块，在每一个order执行前会进行检查，满足条件的事件会连锁触发；
@@ -374,20 +376,6 @@ class Event(Mutable):
     """
 
     All = {}
-    
-    def _handle(self, k, v):
-        actions = importlib.import_module("proj.builtin.actions")
-        conditions = importlib.import_module("proj.builtin.conditions")
-        if k == "scripts":
-            for vtpl in v:
-                tp = vtpl["type"]
-                self.actions.append(eval("actions.%s" % tp)(**script.entitify(vtpl)))
-        elif k == "conditions":
-            for vtpl in v:
-                tp = vtpl["type"]
-                self.conditions.append(eval("conditions.%s" % tp)(**script.entitify(vtpl)))
-        else:
-            setattr(self, k, v)
 
     def initialize(self):
         self.id = None
@@ -451,9 +439,11 @@ class Event(Mutable):
     def condition(self):
         if len(self.conditions) == 0:
             return True
+        script = importlib.import_module("proj.engine.script")
         return script.conditions(self.conditions)
 
     def run(self):
+        script = importlib.import_module("proj.engine.script")
         script.run(self.scripts)
         
         
@@ -463,8 +453,6 @@ class Condition(Mutable):
         self.expect = True
 
     def check(self):
-        return True
-        
-        
+        return True  
 
                                                 

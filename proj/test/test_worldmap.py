@@ -11,10 +11,12 @@ from proj.entity import Team
 from proj.entity import Item
 
 from proj import engine
+from proj.engine import script
 
 #from proj.builtin.actions import WorldMoveAction
 
 from proj import console
+from proj import data
 from proj.console import ui
 from proj.console.orders import WorldProcessOrder
 
@@ -53,6 +55,9 @@ if __name__ == "__main__":
     m.locate(team_a, (12, 37))
 
     m.window_center(m.location(team_a))
+    
+    #script.run(data.scripts.SCRIPT_INITIALIZE_1, subject=pa, object=pc)
+    #script.run(data.scripts.SCRIPT_INITIALIZE_2, subject=pa, object=pc)
 
     engine.load_events()
     engine.start()

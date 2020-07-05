@@ -13,9 +13,10 @@ from proj.console import ui
 def handler_show(ctx):
     if not ui.blankline():
         ui.echo()
-    ui.echo(ctx.text)
-    if ctx.wait:
+    if ctx.text is not None:
+        ui.echo(ctx.text)
         ui.echo()
+    if ctx.wait:
         ui.read("（回车继续）")
 
 

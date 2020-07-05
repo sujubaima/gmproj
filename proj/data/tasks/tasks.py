@@ -4,9 +4,9 @@ TASK_HUIGUIXIANSHI = "回归现实"
 
 TASK_HUIGUIXIANSHI_1 = "你在吴中客栈遇到同事万鹏飞，他告诉你现在所处的世界是一个虚幻的武侠世界。想要回到现实就必须找到传说中的出口。"
 
-TASK_SHENGCUNZHIDAO = "回归现实"
+TASK_SHENGCUNZHIDAO = "生存之道"
 
-TASK_SHENGCUNZHIDAO_1 = "你在吴中客栈遇到同事万鹏飞，他告诉你现在所处的世界是一个虚幻的武侠世界。想要回到现实就必须找到传说中的出口。"
+TASK_SHENGCUNZHIDAO_1 = "在苏州城里四处逛逛，了解一下如何在江湖里生存。"
 
 TASK_LUBANZAISHI = "鲁班再世"
 

@@ -70,7 +70,7 @@ class PersonConversationAction(Action):
             PersonSpeakAction(talker=None, content=None).do()
 
     def do(self):
-        conversations = importlib.import_module("%s.dialogs" % options.DATA_PATH)
+        conversations = importlib.import_module("%s.scripts" % options.DATA_PATH)
         conversplit = self.conversation.split(",")
         if len(conversplit) > 1:
             self.idx = int(conversplit[1])
@@ -81,6 +81,14 @@ class PersonConversationAction(Action):
     def callback(self, idx):
         self.idx = idx
         self.process_conversation()
+        
+        
+class PersonSessionAction(Action):
+
+    def do(self):
+        for sentence in self.sentences:
+            PersonSpeakAction(talker=sentence.get("talker", None), subject=self.subject, object=self.object,
+                              content=sentence["content"]).do()
 
 
 class PersonSpeakAction(Action):
@@ -103,20 +111,20 @@ class PersonSpeakAction(Action):
     def do(self):
         if self.talker is None:
             pass
-        elif len(self.talker) == 0:
-            self.talker = None
-        elif self.talker.startswith("{") and self.talker.endswith("}"):
-            self.talker = Person.one(self.talker[1:-1])
-        elif self.talker.startswith("[") and self.talker.endswith("]"):
-            teamstr, condstr = self.talker[1:-1].split("|")
-            team = Team.one(teamstr) 
-            cond = {}
-            for cstr in condstr.split(","):
-                ck, cv = cstr.split("=")
-                cond[ck] = cv 
-            self.talker = self.pick(team, **cond)
-        else:
-            self.talker = eval("self.%s" % self.talker)
+        #elif len(self.talker) == 0:
+        #    self.talker = None
+        #elif self.talker.startswith("{") and self.talker.endswith("}"):
+            # self.talker = Person.one(self.talker[1:-1])
+        # elif self.talker.startswith("[") and self.talker.endswith("]"):
+            # teamstr, condstr = self.talker[1:-1].split("|")
+            # team = Team.one(teamstr) 
+            # cond = {}
+            # for cstr in condstr.split(","):
+                # ck, cv = cstr.split("=")
+                # cond[ck] = cv 
+            # self.talker = self.pick(team, **cond)
+        # else:
+            # self.talker = eval("self.%s" % self.talker)
         MSG(style=MSG.PersonSpeak, talker=self.talker, content=self.content)
         
 
