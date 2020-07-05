@@ -44,7 +44,7 @@ SCRIPT_WANPENGFEI_1 = \
       "content": "十年磨一刀，霜刃未曾试。"},
      {"type": "Branch",
       "branches": [{"label": "SCRIPT_WANPENGFEI_BRANCH_A1"},
-                   {"label": "SCRIPT_WANPENGFEI_BRANCH_A2"}]}
+                   {"label": "SCRIPT_WANPENGFEI_BRANCH_A2"}]},
      {"style": "Speak", "talker": "object", "label": "SCRIPT_WANPENGFEI_BRANCH_A1",
       "content": "你念错了吧，明明是十年磨一剑。"},
      {"style": "Speak", "talker": "subject", "next": "SCRIPT_WANPENGFEI_HUB_A",
@@ -95,7 +95,7 @@ SCRIPT_WANPENGFEI_1 = \
      {"style": "Script", "next": 999,
       "type": "Action.PersonChangeConversationAction", 
       "person": "{PERSON_WAN_PENGFEI}", "conversation": "DIALOG_WANPENGFEI_2"},
-     {"style": "Speak", "talker": "subject", "label": "SCRIPT_WANPENGFEI_B"
+     {"style": "Speak", "talker": "subject", "label": "SCRIPT_WANPENGFEI_B",
       "content": "走，我们出发！"},
      {"style": "Script", 
       "scripts": [{"type": "Action.TeamIncludePersonAction", 
