@@ -106,16 +106,16 @@ class ScriptRunner(object):
                 final_result = self.conditions(line["conditions"])
                 rststr = str(final_result).lower()
                 if rststr in line["result"]:
-                    idx = line["result"][rststr]
+                    idx = self.labels[line["result"][rststr]]
                 else:
                     idx += 1   
                 continue                    
             elif line["style"] == "Branch":
-                MSG(style=MSG.PersonDialogBranch, subject=Order.Current.subject, branches=line["branches"], 
+                MSG(style=MSG.SessionBranch, subject=s.subject, branches=line["branches"], 
                     name=self.name).callback = self.callback
                 break
             if "next" in line:
-                idx = line["next"]
+                idx = self.labels[line["next"]]
             else:
                 idx += 1  
             if line.get("breaking", False):

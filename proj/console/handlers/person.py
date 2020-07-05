@@ -435,6 +435,22 @@ def handler_person_dialog_branch(ctx):
     ret = ui.menu(menulist)
     ui.echo()
     return ret
+    
+    
+def handler_session_branch(ctx):
+    menulist = []
+    ui.echo("%s：" % ctx.subject.name)
+    for b in ctx.branches:
+        if "content" in b:
+            content = b["content"]
+        elif "content" in script[b["label"]]:
+            content = script[b["label"]]["content"]
+        elif "scripts" in script[b["label"]] and "content" in script[b["label"]]["script"][0]:
+            content = script[b["label"]]["script"][0]["content"]
+        menulist.append(ui.menuitem(content, value=b))
+    ret = ui.menu(menulist)
+    ui.echo()
+    return ret
 
 
 def handler_person_item_choose(ctx):

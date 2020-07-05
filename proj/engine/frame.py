@@ -63,6 +63,8 @@ class MessageBase(Mutable):
 
     BackMenu = "backmenu"
     PopMenu = "popmenu"
+    
+    SessionBranch = "session_branch"
 
     WorldPlayer = "world_player"
     WorldThumbnail = "world_thumbnail"
