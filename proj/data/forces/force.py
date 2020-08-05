@@ -1,17 +1,103 @@
 # -- coding: utf-8 --
 
+# 幽冥宫 
+FORCE_YOUMINGGONG = \
+    {"name": "幽冥宫",
+     "relationship": {"FORCE_SHAOLINSI": 50,
+                      "FORCE_WUDANGPAI": 40,
+                      "FORCE_YUQINGGONG": 50,
+                      "FORCE_TIANTAIAN": 50,
+                      "FORCE_GAIBANG": 40,
+                      "FORCE_BEICHENPAI": 50,
+                      "FORCE_JIUXIPAI": 50,
+                      "FORCE_YOUMINGGONG": 100}}
+
+
+# 少林寺
+FORCE_SHAOLINSI = \
+    {"name": "少林寺",
+     "relationship": {"FORCE_SHAOLINSI": 100,
+                      "FORCE_WUDANGPAI": 75,
+                      "FORCE_YUQINGGONG": 70,
+                      "FORCE_TIANTAIAN": 75,
+                      "FORCE_GAIBANG": 75,
+                      "FORCE_BEICHENPAI": 70,
+                      "FORCE_JIUXIPAI": 50,
+                      "FORCE_YOUMINGGONG": 40}}
+
+
+# 武当派
+FORCE_WUDANGPAI = \
+    {"name": "武当派",
+     "relationship": {"FORCE_SHAOLINSI": 70,
+                      "FORCE_WUDANGPAI": 100,
+                      "FORCE_YUQINGGONG": 75,
+                      "FORCE_TIANTAIAN": 70,
+                      "FORCE_GAIBANG": 75,
+                      "FORCE_BEICHENPAI": 70,
+                      "FORCE_JIUXIPAI": 50,
+                      "FORCE_YOUMINGGONG": 25}}
+
+
+# 玉清宫
+FORCE_YUQINGGONG = \
+    {"name": "玉清宫",
+     "relationship": {"FORCE_SHAOLINSI": 70,
+                      "FORCE_WUDANGPAI": 70,
+                      "FORCE_YUQINGGONG": 100,
+                      "FORCE_TIANTAIAN": 50,
+                      "FORCE_GAIBANG": 65,
+                      "FORCE_BEICHENPAI": 75,
+                      "FORCE_JIUXIPAI": 50,
+                      "FORCE_YOUMINGGONG": 35}}
+
+
+# 天台庵
+FORCE_TIANTAIAN = \
+    {"name": "天台庵",
+     "relationship": {"FORCE_SHAOLINSI": 75,
+                      "FORCE_WUDANGPAI": 65,
+                      "FORCE_YUQINGGONG": 50,
+                      "FORCE_TIANTAIAN": 100,
+                      "FORCE_GAIBANG": 70,
+                      "FORCE_BEICHENPAI": 70,
+                      "FORCE_JIUXIPAI": 50,
+                      "FORCE_YOUMINGGONG": 30}}
+
+
+# 丐帮
+FORCE_GAIBANG = \
+    {"name": "丐帮",
+     "relationship": {"FORCE_SHAOLINSI": 70,
+                      "FORCE_WUDANGPAI": 70,
+                      "FORCE_YUQINGGONG": 70,
+                      "FORCE_TIANTAIAN": 70,
+                      "FORCE_GAIBANG": 100,
+                      "FORCE_BEICHENPAI": 60,
+                      "FORCE_JIUXIPAI": 50,
+                      "FORCE_YOUMINGGONG": 20}}
+
+
+# 九溪派
 FORCE_JIUXIPAI = \
     {"name": "九溪派",
-     "titles": ["掌门", "首徒", "弟子", "新进弟子"]
-     "description": ["位于杭州狮子峰下的小门派，因其在九溪傍筑有浣花庐，江湖上又称之为浣花门。",
-                     "九溪派武学以剑法为主，奇门、暗器亦有所兼顾。其中越女剑法为九溪派绝学，但因为该派常年隐居不出，以致名声日益埋没。",
-                     "九溪派数十年来只招女子入门，现任掌门为穆双清。"]}
+     "relationship": {"FORCE_SHAOLINSI": 60,
+                      "FORCE_WUDANGPAI": 60,
+                      "FORCE_YUQINGGONG": 65,
+                      "FORCE_TIANTAIAN": 65,
+                      "FORCE_GAIBANG": 55,
+                      "FORCE_BEICHENPAI": 40,
+                      "FORCE_JIUXIPAI": 100,
+                      "FORCE_YOUMINGGONG": 40}}
 
-
+# 北辰派
 FORCE_BEICHENPAI = \
     {"name": "北辰派",
-     "titles": ["首徒", "次徒", "弟子", "新进弟子"]
-     "description": ["姑苏城门派，创始人为剑法名家商河洛。十五年前，商河洛以一套西河剑法在华山大会上大放异彩，由此创立北辰派。",
-                     "商河洛本人除武学外亦好读书，因此建造了天柱阁与北极阁搜罗天下典籍。",
-                     "数年前商河洛去世，门下只有陈挺之、骆逸两名弟子，二人商议后决定不设掌门之位，陈挺之以北辰派首徒身份代行掌门之职。",
-                     "北辰派武学以剑法为主，虽然人数不众，但凭借西河剑法与北辰双阁之名，在江湖上有较高威望。"]}
+     "relationship": {"FORCE_SHAOLINSI": 75,
+                      "FORCE_WUDANGPAI": 75,
+                      "FORCE_YUQINGGONG": 70,
+                      "FORCE_TIANTAIAN": 70,
+                      "FORCE_GAIBANG": 75,
+                      "FORCE_BEICHENPAI": 100,
+                      "FORCE_JIUXIPAI": 50,
+                      "FORCE_YOUMINGGONG": 40}}

@@ -7,10 +7,10 @@ PERSON_WAN_PENGFEI = \
      "neigong": 24, "boji": 31, "jianfa": 16, "daofa": 34, "changbing": 29, "anqi": 8, "qimen": 13, "yinyang": 24,
      "superskills": [{"id": "SUPERSKILL_BOYUNJIANRIDAO", "learn": [0]},
                      {"id": "SUPERSKILL_XINGHONGDAOFA", "learn": "All"}],
-     "equipment": [{"id": "ITEM_PODAO", "position": "MainHand"}],
-     "items": [{"id": "ITEM_MONEY", "quantity": 72}],
+     "items": [{"id": "ITEM_YANLINGDAO", "quantity": 1, "position": "MainHand", "durability": 3},
+               {"id": "ITEM_MONEY", "quantity": 72}],
      "criticaltxt": "这一刀不敢说后无来者，至少也是前无古人了。",
-     "conversation": "DIALOG_WANPENGFEI_1"}
+     "conversation": "SCRIPT_WANPENGFEI_1"}
 
      
 # 黄金颊
@@ -22,7 +22,7 @@ PERSON_HUANG_JINJIA = \
                      {"id": "SUPERSKILL_BOYUNJIANRIDAO", "learn": [0, 1]}],
      "items": [],
      "criticaltxt": "人生何所为，当求无上道。",
-     "conversation": "DIALOG_HUANGJINJIA_1"}
+     "conversation": "SCRIPT_HUANGJINJIA_1"}
 
 
 # 薛四彭
@@ -84,13 +84,13 @@ PERSON_DING_TIEJIANG_SUZHOU = \
                {"id": "ITEM_CHANGJIAN", "quantity": 3},
                {"id": "ITEM_CHANGJIAN,0-ITEM_YUNMU", "quantity": 1}],
      "recipes": [{"id": "RECIPE_PODAO"}],
-     "conversation": "DIALOG_DINGTIEJIANG_1"}
+     "conversation": "SCRIPT_DINGTIEJIANG_1"}
     
     
 # 王阿娇
 PERSON_WANG_AJIAO_SUZHOU = \
     {"firstname": "王", "lastname": "阿娇", "sex": 1, "title": "普通百姓",
-     "conversation": "DIALOG_WANGAJIAO_1"}
+     "conversation": "SCRIPT_WANGAJIAO_1"}
     
     
 # 蔡婆子
@@ -126,7 +126,7 @@ PERSON_MA_YUESHI_SUZHOU = \
                {"id": "ITEM_DONGXIAO", "quantity": 10},
                {"id": "ITEM_PIPA", "quantity": 4},
                {"id": "ITEM_QIXIANQIN", "quantity": 2}],
-     "conversation": "DIALOG_MAYUESHI_1"}
+     "conversation": "SCRIPT_MAYUESHI_1"}
     
     
 # 朱裁缝
@@ -147,7 +147,7 @@ PERSON_XIE_ZHANGGUI_SUZHOU = \
 # 萧姨妈
 PERSON_XIAO_YIMA_SUZHOU = \
     {"firstname": "萧", "lastname": "姨妈", "sex": 1, "title": "普通百姓",
-     "conversation": "DIALOG_XIAOYIMA_1"}
+     "conversation": "SCRIPT_XIAOYIMA_1"}
     
     
 # 苏花魁
@@ -158,7 +158,7 @@ PERSON_SU_HUAKUI_SUZHOU = \
 # 周花魁
 PERSON_ZHOU_HUAKUI_SUZHOU = \
     {"firstname": "周", "lastname": "青霞", "sex": 1, "title": "普通百姓",
-     "conversation": "DIALOG_ZHOUHUAKUI_1"}
+     "conversation": "SCRIPT_ZHOUHUAKUI_1"}
 
     
 # 刘秀才
@@ -174,19 +174,19 @@ PERSON_HUANG_DAOSHI_SUZHOU = \
 # 梁子伶
 PERSON_LIANG_ZIYOU = \
     {"firstname": "梁", "lastname": "子伶", "sex": 1, "title": "普通百姓",
-     "conversation": "DIALOG_LIANGZIYOU_1"}
+     "conversation": "SCRIPT_LIANGZIYOU_1"}
     
     
 # 魏公生
 PERSON_WEI_GONGSHENG = \
     {"firstname": "魏", "lastname": "公生", "title": "普通百姓",
-     "conversation": "DIALOG_LIANGZIYOU_1"}
+     "conversation": "SCRIPT_LIANGZIYOU_1"}
    
    
 # 冯梦龙
 PERSON_FENG_MENGLONG = \
     {"firstname": "冯", "lastname": "梦龙", "title": "普通百姓",
-     "conversation": "DIALOG_FENGMENGLONG_1"}
+     "conversation": "SCRIPT_FENGMENGLONG_1"}
     
     
 # 袁无涯
@@ -194,37 +194,37 @@ PERSON_YUAN_WUYA = \
     {"firstname": "袁", "lastname": "无涯", "title": "普通百姓",
      "items": [{"id": "ITEM_WUYINGJIAO", "quantity": 1},
                {"id": "ITEM_FENJINXIGUDAO", "quantity": 1}],
-     "conversation": "DIALOG_YUANWUYA_1"}
+     "conversation": "SCRIPT_YUANWUYA_1"}
     
     
 # 邓马夫
 PERSON_DENG_MAFU_SUZHOU = \
     {"firstname": "邓", "lastname": "马夫", "title": "普通百姓",
-     "conversation": "DIALOG_DENGMAFU_1"}
+     "conversation": "SCRIPT_DENGMAFU_1"}
     
     
 # 宋公子
 PERSON_SONG_GONGZI_SUZHOU = \
     {"firstname": "宋", "lastname": "公子", "title": "纨绔子弟",
-     "conversation": "DIALOG_SONGGONGZI_1"}
+     "conversation": "SCRIPT_SONGGONGZI_1"}
      
      
 # 张新
 PERSON_ZHANG_XIN = \
     {"firstname": "张", "lastname": "新", "title": "普通百姓",
-     "conversation": "DIALOG_ZHANGXIN_1"}
+     "conversation": "SCRIPT_ZHANGXIN_1"}
      
      
 # 罗公子
 PERSON_LUO_GONGZI_SUZHOU = \
     {"firstname": "罗", "lastname": "公子", "title": "纨绔子弟",
-     "conversation": "DIALOG_LUOGONGZI_1"}
+     "conversation": "SCRIPT_LUOGONGZI_1"}
      
      
 # 赵举人
 PERSON_ZHAO_JUREN_SUZHOU = \
     {"firstname": "赵", "lastname": "举人", "title": "普通百姓",
-     "conversation": "DIALOG_LUOGONGZI_1"}
+     "conversation": "SCRIPT_LUOGONGZI_1"}
      
      
 # 叶忠
@@ -232,19 +232,19 @@ PERSON_YE_ZHONG = \
     {"firstname": "叶", "lastname": "忠", "title": "营造匠人",
      "dongjing": -10, "gangrou": 30, "zhipu": -5, "yinyang": 14,
      "neigong": 9, "boji": 15, "jianfa": 1, "daofa": 4, "changbing": 7, "anqi": 1, "qimen": 11,
-     "conversation": "DIALOG_YEZHONG_1"}
+     "conversation": "SCRIPT_YEZHONG_1"}
      
      
 # 李艄公
 PERSON_LI_SHAOGONG_SUZHOU = \
     {"firstname": "李", "lastname": "艄公", "title": "普通百姓",
-     "conversation": "DIALOG_LISHAOGONG_1"}
+     "conversation": "SCRIPT_LISHAOGONG_1"}
 
 
 # 王老汉
 PERSON_WANG_LAOHAN_SUZHOU = \
     {"firstname": "王", "lastname": "老汉", "title": "普通百姓",
-     "conversation": "DIALOG_WANGLAOHAN_1"}
+     "conversation": "SCRIPT_WANGLAOHAN_1"}
     
     
 # 诰墙

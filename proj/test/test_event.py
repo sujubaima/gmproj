@@ -8,4 +8,4 @@ from proj import engine
 
 console.init()
 
-engine.load_events()
+engine.init()

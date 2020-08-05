@@ -26,7 +26,7 @@ PERSON_GENG_ZHUQIAO = \
                    {"id": "ITEM_RUFU", "position": "Body"}],
      "items": [],
      "criticaltxt": "刀法外，剑法内，内外相辅，无往不利。",
-     "conversation": "DIALOG_GENGZHUQIAO_1"}
+     "conversation": "SCRIPT_GENGZHUQIAO_1"}
 
 
 # 石敬岩
@@ -55,4 +55,4 @@ PERSON_LUAN_TAN = \
      "equipment": [{"id": "ITEM_DANGONG", "position": "MainHand"}],
      "items": [{"id": "ITEM_MONEY", "quantity": 100}],
      "criticaltxt": "我什么都不会，刚刚只是不小心碰了你一下。",
-     "conversation": "DIALOG_LUANTAN_1"}
+     "conversation": "SCRIPT_LUANTAN_1"}

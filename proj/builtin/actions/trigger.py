@@ -3,21 +3,22 @@
 from proj.engine import Action
 from proj.engine import Event
 
-__all__ = ['EventSwitchAction', 'EventSwitchOnAction', 'EventSwitchOffAction']
+from proj.runtime import context
+
 
 class EventSwitchAction(Action):
 
-    def do(self):
-        Event.get(self.event).turn(self.state)
+    def take(self):
+        Event.get(self.event).turn(self.state, context.timestamp_)
       
 
 class EventSwitchOnAction(Action):
 
-    def do(self):
-        Event.get(self.event).turn("on")      
+    def take(self):
+        Event.get(self.event).turn("on", context.timestamp_)      
         
         
 class EventSwitchOffAction(Action):
 
-    def do(self):
-        Event.get(self.event).turn("off")   
+    def take(self):
+        Event.get(self.event).turn("off", context.timestamp_)   

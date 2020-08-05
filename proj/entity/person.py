@@ -4,15 +4,14 @@ from __future__ import division
 import math
 import random
 
-from proj.runtime import context
-
 from proj.entity.constants import EquipPosition
 from proj.entity.common import Entity
-from proj.entity.skill import SuperSkill
+from proj.entity.skill import Superskill
 from proj.entity.item import Item
 from proj.entity.recipe import Recipe
 from proj.entity.team import Team
 from proj.entity.effect import Status
+from proj.entity.force import Force
 
 from proj.utils import Exponential
 
@@ -22,6 +21,8 @@ class Person(Entity):
     def handle(self, k, v):
         if k == "tags":
             self.tags.update(v.split(","))
+        elif k == "force":
+            self.force = Force.one(v)
         elif k == "superskills":
             ret = []
             for stpl in v:
@@ -37,6 +38,11 @@ class Person(Entity):
                         self.add_item(it, 1)
                     if "durability" in itpl:
                         it.durability_current = itpl["durability"]
+                    if "position" in itpl:
+                        if "tpl_equipment" not in self.tmpdict:
+                            self.tmpdict["tpl_equipment"] = []
+                        pos = eval("EquipPosition.%s" % itpl["position"])
+                        self.tmpdict["tpl_equipment"].append((it, pos))
                 else:
                     self.add_item(it, itpl["quantity"])
         elif k == "equipment":
@@ -48,11 +54,11 @@ class Person(Entity):
                 self.tmpdict["tpl_equipment"].append((eq, pos))
                 self.add_item(eq, 1)
         elif k == "running":
-            ss = SuperSkill.one(v["id"])
+            ss = Superskill.one(v["id"])
             self.running = ss
         elif k == "studying":
             ss, nd = v.split("-")
-            self.studying = SuperSkill.one(ss).nodes[nd]
+            self.studying = Superskill.one(ss).nodes[nd]
         elif k == "recipes":
             for rtpl in v:
                 self.recipes.append(Recipe.one(rtpl["id"]))
@@ -70,7 +76,7 @@ class Person(Entity):
 
     def finish(self):
         for ssid, learnlist in self.superskills.items():
-            ss = SuperSkill.one(ssid)
+            ss = Superskill.one(ssid)
             if learnlist == "All":
                 learnlist = range(len(ss.nodes))
             for n in learnlist:
@@ -102,7 +108,6 @@ class Person(Entity):
         if self.id not in Entity.Instances:
             self.hp = self.hp_limit
             self.mp = self.mp_limit
-        context.strdict["%s_NAME" % self.tpl_id] = self.name
     
     def initialize(self):
 
@@ -110,6 +115,7 @@ class Person(Entity):
         self.lastname = ""
         self.sex = 0
         self.showname = None
+        self.force = None
         self.title = None
         self.tags = set()
 
@@ -182,8 +188,8 @@ class Person(Entity):
 
         self.superskills = {}
         self.studying = None
-        self.exp = 0
         self.learned = set()
+        self.exp = 0
 
         self.recipes = []
 
@@ -429,10 +435,6 @@ class Person(Entity):
     def equip_max(self):
         return self.weight_max * 2 / 3
         
-    @property
-    def player(self):
-        return self == context.PLAYER
-
     def already(self, status, exertor=None, source=None):
         ret = None
         for s in self.status:

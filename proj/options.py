@@ -13,9 +13,6 @@ DATA_PATH = "proj.data"
 # 游戏存档目录
 SAVEFILE_PATH = os.path.abspath(os.path.dirname(os.path.abspath(__file__))) + "/../savefiles"
 
-# 是否使用多线程
-MULTIPLE_THREAD = True
-
 # ----------------------------------------------
 # |                  战斗选项                  |
 # ----------------------------------------------
@@ -42,7 +39,7 @@ PLAY_AUTO_BATTLE = False
 # ----------------------------------------------
 
 # 控制台字体是否不会对全角字符进行显示优化（除lucida console外基本都为True）
-USE_FULL_WIDTH_FONT = True
+USE_FULL_WIDTH_FONT = False
 
 # ----------------------------------------------
 # |                  场景选项                  |
@@ -50,3 +47,10 @@ USE_FULL_WIDTH_FONT = True
 
 # 大地图玩家一次最多行走的步数（建议设置为地图窗口长宽的一半以下）
 MOTION_SCENARIO = 3
+
+# ----------------------------------------------
+# |                  系统选项                  |
+# ----------------------------------------------
+
+# 控件线程池大小，若设置为负数则不使用线程池
+THREADPOOL_SIZE = 8

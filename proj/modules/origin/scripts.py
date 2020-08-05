@@ -1,5 +1,6 @@
 # -- coding: utf-8 --
 
+from proj import entity
 from proj.entity import Person
 from proj.entity import Map
 from proj.entity import Team
@@ -11,9 +12,16 @@ from proj import engine
 from proj.runtime import context
 from proj.runtime import saveload
 
-console.init()
 
 def start(loadfile=None):
+    
+    print("引擎初始化中……\n")
+    console.init()
+    print("游戏数据载入中……\n")
+    entity.init()
+    print("世界构建中……\n")
+    context.init()
+
     m = Map.one("MAP_SUZHOUCHENG")
     player = Person.one("PERSON_PLAYER")
 
@@ -26,11 +34,11 @@ def start(loadfile=None):
     context.PLAYER = player
     context.teams[team_player.id] = team_player
 
-    m.locate(team_player, (12, 37))
+    m.locate(team_player, (25, 18))
 
     m.window_center(m.location(team_player))
 
-    engine.load_events()
     if loadfile is not None:
         saveload.load(loadfile)
+    engine.init()
     engine.start()

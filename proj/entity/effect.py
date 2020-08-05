@@ -3,8 +3,6 @@ import importlib
 import math
 import copy
 
-from proj.engine import Message as MSG
-
 from proj.entity.common import Entity
 from proj.entity.constants import BattleEvent
 from proj.entity.constants import BattlePhase
@@ -80,6 +78,15 @@ class Effect(InfluentedEntity):
         effeobj.id = effe_id
         return effeobj
 
+    def initialize(self):
+        self.id = None
+        self.name = None
+        self.text = ""
+        self.style = 0
+
+        self.level = 1
+        self.detail = {}
+
     def finish(self):
         super(Effect, self).finish()
         if self.phase is not None and not isinstance(self.phase, int):
@@ -89,14 +96,6 @@ class Effect(InfluentedEntity):
                 flag = flag | eval("BattlePhase.%s" % vs)
             self.phase = flag
         Effect.All[self.name] = self
-
-    def initialize(self):
-        self.id = None
-        self.name = None
-        self.text = ""
-        self.style = 0
-
-        self.level = 1
 
     # 如果是战斗中发动效果，objects为空，battle为当前战斗实例
     # 如果非战斗中发动效果，battle为空
@@ -308,14 +307,13 @@ class ExertEffect(Effect):
                 if "status" in kwargs:
                     kwargs.pop("status")
                 exertion.work(tgt, objects=objects, **kwargs)
-            if self.showmsg and battle is not None and not battle.silent and exertion.name is not None:
+            if self.showmsg and battle is not None and exertion.name is not None:
                 detail_map = {"subject": subject.name, "object": tgt.name, "status": exertion.name}
                 if exertion.phase & 1 != 0:
                     detail_map["text"] = exertion.text.format(**detail_map)
                 else:
                     detail_map["text"] = "%s%s" % (tgt.name, self.exertion.description)
-                MSG(style=MSG.Effect, subject=subject, effect=self, 
-                    details=detail_map)
+                self.details = detail_map
                 #for effe in exertion.effects:
                 #    effe.work(tgt, objects=objects, status=exertion, **kwargs)
         
@@ -341,7 +339,7 @@ class PersonAddSkillEffect(Effect):
         if skill.belongs is None:
             skill.belongs = self.belongs
         else:
-            skill.belongs = sllib.SuperSkill.one(skill.belongs)
+            skill.belongs = sllib.Superskill.one(skill.belongs)
         skill.rank = skill.belongs.rank
         subject.skills.append(skill)
         for idx, sk in enumerate(subject.skills_equipped):
@@ -550,9 +548,9 @@ class SkillStudyEffect(Effect):
     def work(self, subject, objects=[], **kwargs):
         person = objects[0]
         sllib = importlib.import_module("proj.entity.skill")
-        odlib = importlib.import_module("proj.console.orders")
-        superskill = sllib.SuperSkill.one(self.superskill)
-        odlib.PersonStudySkillOrder(subject=person, superskill=superskill)
+        odlib = importlib.import_module("proj.console.controls")
+        superskill = sllib.Superskill.one(self.superskill)
+        odlib.SkillNodeSelectControl(person=person, superskill=superskill).run()
 
     def leave(self, subject, objects=[], **kwargs):
         subject.studying = None

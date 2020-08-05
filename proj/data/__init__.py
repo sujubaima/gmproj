@@ -16,3 +16,5 @@ event = importlib.import_module("%s.events" % options.DATA_PATH)
 discovery = importlib.import_module("%s.discoveries" % options.DATA_PATH)
 task = importlib.import_module("%s.tasks" % options.DATA_PATH)
 scripts = importlib.import_module("%s.scripts" % options.DATA_PATH)
+force = importlib.import_module("%s.forces" % options.DATA_PATH)
+

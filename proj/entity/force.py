@@ -4,6 +4,8 @@ from proj.entity.common import Entity
 
 class Force(Entity):
 
+    All = []
+
     def initialize(self):
         self.name = None
         self.titles = []
@@ -14,3 +16,6 @@ class Force(Entity):
     def include(self, p):
         self.members.append(p) 
         p.force = self
+
+    def finish(self):
+        Force.All.append(self)

@@ -10,7 +10,7 @@ from proj.entity.effect import Status
 from proj.entity.map import Shape
 
 
-class SuperSkill(Entity):
+class Superskill(Entity):
 
     All = {}
 
@@ -46,7 +46,7 @@ class SuperSkill(Entity):
         for idx, nd in enumerate(self.nodes):
             for n in nd.next:
                 self.nodes[n].previous.append(idx)
-        SuperSkill.All[self.id] = self
+        Superskill.All[self.id] = self
     
     def initialize(self):
         self.name = None

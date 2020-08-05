@@ -8,6 +8,8 @@ from proj.console.ui.common import pages
 from proj.console.ui.common import menu
 from proj.console.ui.common import menuitem
 from proj.console.ui.common import colored
+from proj.console.ui.common import bgrey
+from proj.console.ui.common import byellow
 from proj.console.ui.common import strwidth
 from proj.console.ui.common import fixed
 from proj.console.ui.common import backmenu

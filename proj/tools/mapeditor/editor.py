@@ -4,6 +4,7 @@ import os
 import sys
 import importlib
 import json
+import threading
 
 sys.path.append(os.path.abspath(os.path.dirname(os.path.abspath(__file__)) + "/../../../"))
 
@@ -14,20 +15,26 @@ from proj.entity import Map
 from proj.entity import Terran
 
 from proj.tools.mapeditor import handlers
-from proj.tools.mapeditor.orders import MapEditorOrder
 from proj.tools.mapeditor import globals
+from proj.tools.mapeditor.control import MapEditorControl
 
 from proj.console import ui
-    
+
 
 def handler(ctx):
     ret = None
     if ctx.style != ctx.Null:
-        ret = eval("handlers.handler_%s" % ctx.style)(ctx)
+        if ctx.control is not None:
+            ctx_arg = ctx.control
+        elif ctx.action is not None:
+            ctx_arg = ctx.action
+        else:
+            ctx_arg = ctx
+        ret = eval("handlers.handler_%s" % ctx.style)(ctx_arg)
     if ctx.callback is not None:
         ctx.callback(ret)
- 
- 
+    
+
 def blank_map(arg):
     name = ui.read("请输入你想要建立的地图的名字：")
     ui.echo()   
@@ -162,12 +169,17 @@ main_menu = [ui.menuitem("空白地图", goto=blank_map),
              
 
 if __name__ == "__main__":
-    
+
     Message.handler = handler
     
     ui.echo()
     ui.menu(main_menu, title="欢迎使用地图编辑器！")
+  
+    control = MapEditorControl(map=globals.MAP)
+    th = threading.Thread(target=control.run, daemon=True)
+    th.start()
+
+    mth = engine.MSGThread()
+    mth.run()
+    mth.join()
     
-    MapEditorOrder(map=globals.MAP)
-    
-    engine.start()

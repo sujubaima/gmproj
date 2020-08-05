@@ -17,7 +17,7 @@ class TeamAction(Action):
 
 class TeamTransportAction(TeamAction):
 
-    def do(self):
+    def take(self):
         if self.team.scenario != self.scenario:
              self.team.scenario.remove(self.team)
              self.team.scenario = self.scenario
@@ -26,6 +26,6 @@ class TeamTransportAction(TeamAction):
 
 class TeamIncludePersonAction(TeamAction):
 
-    def do(self):
+    def take(self):
         self.team.include(self.person)
-        MSG(style=MSG.PersonJoinTeam, subject=self.person, leader=self.leader)
+        MSG(style=MSG.PersonJoinTeam, action=self)

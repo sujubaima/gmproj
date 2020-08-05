@@ -25,7 +25,7 @@ ITEM_HUSHOU = \
 ITEM_CHANGJIAN = \
     {"name": "长剑", "rank": 0, "tags": "Equip,Weapon,Jianfa", "shape": "Around,0,0,0",
      "weight": 1.2, "volume": 1.2, "durability": 45, "money": 250,
-     "inlays": [{"name": "剑柄", "accept": "Wood|Jade|Metal"},
+     "inlays": [{"name": "剑柄", "accept": "Wood|Jade"},
                 {"name": "剑身", "accept": "Jade|Metal"}],
      "inlays_prefix": "Jade|Metal",
      "effects": [{"id": "EXERT.LAMBDA.EFFECT_CHANGJIAN_ATTR"}],
@@ -36,7 +36,7 @@ ITEM_CHANGJIAN = \
 ITEM_WANZIJIAN = \
     {"name": "万字剑", "rank": 1, "tags": "Equip,Weapon,Jianfa", "shape": "Around,0,0,0",
      "weight": 1.2, "volume": 1.2, "durability": 45, "money": 250,
-     "inlays": [{"name": "剑柄", "accept": "Wood|Jade|Metal"},
+     "inlays": [{"name": "剑柄", "accept": "Wood|Jade"},
                 {"name": "剑身", "accept": "Jade|Metal"}],
      "inlays_prefix": "Jade|Metal",
      "effects": [{"id": "EXERT.LAMBDA.EFFECT_WANZIJIAN_ATTR"}],
@@ -63,6 +63,17 @@ ITEM_PODAO = \
      "inlays_prefix": "Jade|Metal",
      "effects": [{"id": "EXERT.LAMBDA.EFFECT_PODAO_ATTR"}],
      "description": "流水线量产刀型，绿林好汉人手一把，需要双手持握"}
+
+
+# 雁翎刀
+ITEM_YANLINGDAO = \
+    {"name": "工部刀", "rank": 1, "tags": "Equip,Weapon,Daofa", "shape": "Around,0,0,0",
+     "weight": 1.2, "volume": 1.2, "durability": 45, "money": 250,
+     "inlays": [{"name": "刀柄", "accept": "Wood|Jade|Metal"},
+                {"name": "刀刃", "accept": "Jade|Metal"}],
+     "inlays_prefix": "Jade|Metal",
+     "effects": [{"id": "EXERT.LAMBDA.EFFECT_YANLINGDAO_ATTR"}],
+     "description": ""}
 
 
 # 工部刀

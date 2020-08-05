@@ -111,7 +111,9 @@ def save(filepath):
            "teams": {}, 
            "events": {},
            "battles": {},
-           "discoveries": context.explorations}
+           "discoveries": context.explorations,
+           "script_status": context.script_status,
+           "script_branches": context.script_branches}
     team_dict = {}
     for entity in Entity.Instances.values():
         if not isinstance(entity, Person):
@@ -165,6 +167,8 @@ def load(filepath):
     context.timestamp = ret["timestamp"]
     context.timestamp_ = ret["timestamp"]
     context.explorations = ret["discoveries"]
+    context.script_status = ret["script_status"]
+    context.script_branches = ret["script_branches"]
     for k, evt in ret["events"].items():
         Event.All[k].triggered = evt["triggered"]
         Event.All[k].active = evt["active"]

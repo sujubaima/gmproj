@@ -2,6 +2,7 @@
 
 import os
 import sys
+import threading
 
 sys.path.append(os.path.abspath(os.path.dirname(os.path.abspath(__file__)) + "/../../"))
 
@@ -13,8 +14,6 @@ from proj.entity import Team
 from proj.entity import Status
 
 from proj.builtin.actions import BattleStartAction
-
-from proj.console.orders import WorldProcessOrder
 
 from proj import console
 from proj.console import ui
@@ -96,14 +95,6 @@ if __name__ == "__main__":
     m5 = Map.one("MAP_JIUXIPAI_BTL")
     m6 = Map.one("MAP_SHAOLINSI_BTL")
 
-    for sts in p_sjy.status:
-        name = sts.name
-        id = sts.id
-        exertor = sts.exertor.name if sts.exertor is not None else None
-        source = sts.source.name if sts.source is not None else None
-        effects = sts.effects 
-        print(name, id, exertor, source, effects)
-
     team_shaolin = Team(label="少林寺")
     team_wudang = Team(label="武当派")
     team_gaibang = Team(label="丐帮")
@@ -166,6 +157,4 @@ if __name__ == "__main__":
 
     BattleStartAction(map=ac, groups=[team_a.members, team_b.members]).do()
    
-    WorldProcessOrder()
-
     engine.start()

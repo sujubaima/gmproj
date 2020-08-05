@@ -1,15 +1,19 @@
 # -- coding: utf-8 --
 
 import importlib
+import math
 
 from proj import data
+
+from proj.entity import Force
+from proj.entity import Person
 
 
 PLAYER = None
 
 teams = {}
 
-battles = []
+battles = {}
 
 map = None
 
@@ -19,10 +23,11 @@ tasks_status = {}
 tasks_index = []
 tasks = {}
 
-attitudes = {}
+attitudes = {"force": {}, "person": {}}
 discoveries = {}
 
-conversation_status = {}
+script_status = {}
+script_branches = {}
 
 timestamp = 0
 timestamp_ = 0
@@ -44,29 +49,47 @@ def duration():
     return time_delta_
 
 
-def spoken(conv, idx):
-    global conversation_status
-    if conv not in conversation_status:
-        conversation_status[conv] = set()
-    conversation_status[conv].add(idx)
+def executed(script, label):
+    global script_status
+    if script not in script_status:
+        script_status[script] = set()
+    script_status[script].add(label)
+
+
+def relay_init(enttype, enta, entb):
+    if enttype == "force":
+        return 50
+    else:
+        atd_ceil = min(100, int(10 + relationship("force", enta.force, entb.force)))
+        diff = (enta.dongjing - entb.dongjing,
+                enta.gangrou - entb.gangrou,
+                enta.zhipu - entb.zhipu)
+        diff_dis = diff[0] * diff[0] + diff[1] * diff[1] + diff[2] * diff[2]
+        print(diff_dis)
+        diff_rate = math.sqrt(diff_dis / 30000)
+        return int(atd_ceil - (atd_ceil / 2) * diff_rate) 
     
 
-def _relationship(enta, entb):
-    if enta.id not in attitudes:
-        attitudes[enta.id] = {}
-    if entb.id not in attitudes[enta.id]:
-        attitudes[enta.id][entb.id] = 50
-    return attitudes[enta.id][entb.id]
+def relationship(enttype, enta, entb, val=None):
+    entdict = attitudes[enttype]
+    if enta.id not in entdict:
+        entdict[enta.id] = {}
+    if entb.id not in entdict[enta.id]:
+        entdict[enta.id][entb.id] = relay_init(enttype, enta, entb)
+    if val is None:
+        return entdict[enta.id][entb.id]
+    else:
+        entdict[enta.id][entb.id] += val
 
 
-def relationship(enta, entb):
-    if enta.leader.tpl_id == "PERSON_ZHAO_SHENJI" and \
-       entb.leader.tpl_id == "PERSON_YANG_LEI":
-        return 10
-    if enta.leader.tpl_id == "PERSON_YANG_LEI" and \
-       entb.leader.tpl_id == "PERSON_ZHAO_SHENJI":
-        return 10
-    return 50
+#def relationship(enta, entb):
+#    if enta.leader.tpl_id == "PERSON_ZHAO_SHENJI" and \
+#       entb.leader.tpl_id == "PERSON_YANG_LEI":
+#        return 10
+#    if enta.leader.tpl_id == "PERSON_YANG_LEI" and \
+#       entb.leader.tpl_id == "PERSON_ZHAO_SHENJI":
+#        return 10
+#    return 50
 
 
 def load_discoveries():
@@ -97,5 +120,26 @@ def load_discoveries():
             discoveries[scenario].append(newdis)
 
 
-load_discoveries()
+def load_attitudes():
+    for f in dir(data.force):
+        if not f.startswith("FORCE"):
+            continue
+        obj = getattr(data.force, f)
+        fsu = Force.one(f)
+        for k, v in obj["relationship"].items():
+            fob = Force.one(k) 
+            relationship("force", fsu, fob, v - 50)
 
+
+def load_strdict():
+    for p in dir(data.person):
+        if not p.startswith("PERSON"):
+            continue
+        pen = Person.one(p)
+        strdict["%s_NAME" % pen.tpl_id] = pen.name
+        
+
+def init():
+    load_strdict()
+    load_attitudes()
+    load_discoveries()

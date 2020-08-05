@@ -6,7 +6,6 @@ from proj.data.maps.suzhoucheng import *
 
 from proj.data.maps.testwithperson import *
 
-from proj.data.maps.suzhounew import *
 
 from proj.data.maps.hangzhoucheng import *
 

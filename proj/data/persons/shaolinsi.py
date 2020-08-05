@@ -3,7 +3,7 @@
 
 # 觉因
 PERSON_JUE_YIN = \
-    {"firstname": "觉", "lastname": "因", "showname": "觉因", "title": "少林寺方丈", "sex": 0,
+    {"firstname": "觉", "lastname": "因", "showname": "觉因", "force": "FORCE_SHAOLINSI", "title": "少林寺方丈", "sex": 0,
      "hp_max":8400, "mp_max": 3500, "attack": 400, "defense": 420, "motion": 1,
      "hit_rate": 1, "counter_rate": 0.12, "dodge_rate": 0.06, "critical_rate": 0.16, "anti_damage_rate": 0.12,
      "dongjing": -25, "gangrou": 30, "zhipu": -12,
@@ -19,7 +19,7 @@ PERSON_JUE_YIN = \
      
 # 觉澄
 PERSON_JUE_CHENG = \
-    {"firstname": "觉", "lastname": "澄", "showname": "觉澄", "title": "少林寺般若堂首座", "sex": 0,
+    {"firstname": "觉", "lastname": "澄", "showname": "觉澄", "force": "FORCE_SHAOLINSI", "title": "少林寺般若堂首座", "sex": 0,
      "hp_max":7800, "mp_max": 3000, "attack": 385, "defense": 450, "motion": 0,
      "hit_rate": 1, "counter_rate": 0.12, "dodge_rate": 0.05, "critical_rate": 0.15, "anti_damage_rate": 0.1,
      "dongjing": 0, "gangrou": 32, "zhipu": -10,
@@ -35,7 +35,7 @@ PERSON_JUE_CHENG = \
      
 # 圆隆
 PERSON_YUAN_LONG = \
-    {"firstname": "李", "lastname": "元隆", "showname": "圆隆", "title": "佛门沙弥", "sex": 0,
+    {"firstname": "李", "lastname": "元隆", "showname": "圆隆", "force": "FORCE_SHAOLINSI", "title": "佛门沙弥", "sex": 0,
      "dongjing": -5, "gangrou": 12, "zhipu": -8,
      "neigong": 40, "boji": 42, "jianfa": 10, "daofa": 18, "changbing": 35, "anqi": 3, "qimen": 12, "yinyang": 18,
      "superskills": [{"id": "SUPERSKILL_JIANGHUXINFA", "learn": [0, 1, 2]},
@@ -46,7 +46,7 @@ PERSON_YUAN_LONG = \
      
 # 彭宽
 PERSON_PENG_KUAN = \
-    {"firstname": "彭", "lastname": "宽", "showname": "彭宽", "title": "少林寺俗家弟子", "sex": 0,
+    {"firstname": "彭", "lastname": "宽", "showname": "彭宽", "force": "FORCE_SHAOLINSI", "title": "少林寺俗家弟子", "sex": 0,
      "hp_max":3000, "mp_max": 2000, "attack": 300, "defense": 300, "motion": 0,
      "hit_rate": 1, "counter_rate": 0.08, "dodge_rate": 0.05, "critical_rate": 0.08, "anti_damage_rate": 0.06,
      "dongjing": 4, "gangrou": 12, "zhipu": -2,

@@ -211,6 +211,14 @@ refresh_func = lambda x: None
 colored = termcolor.colored
 
 
+def byellow(content):
+    return colored(content, color="yellow", attrs=["bold"])
+
+
+def bgrey(content):
+    return colored(content, color="grey", attrs=["bold"])
+
+
 UNICODE_WIDTH = [
     (126, 1), (159, 0), (687, 1), (710, 0), (711, 1),
     (727, 0), (733, 1), (879, 0), (1154, 1), (1161, 0),
@@ -541,9 +549,9 @@ class MenuItem(object):
                 echo()
                 #words(fixed(width, n="       〈%s〉" % c))
                 if not self.choosable and c.find("\033[") < 0:
-                    comment_str = colored("       %s" % c, color="grey", attrs=["bold"])
+                    comment_str = colored("       □ %s" % c, color="grey", attrs=["bold"])
                 else:
-                    comment_str = "       %s" % c
+                    comment_str = "       □ %s" % c
                 words(fixed(width, n=comment_str))
         if colidx == columns - 1 or self.idx == total - 1 or self.idx == pagesize - 1:
             echo()
@@ -560,6 +568,7 @@ class Menu(Interactive):
                  columns=1, width=50, double_check=False):
 
         self.selected = 1
+        self.pushstack = True
         
         self.items = items
         self.title = title
@@ -587,6 +596,7 @@ class Menu(Interactive):
         if backmethod is None:
             self.backmethod = backmenu
         else:
+            self.pushstack = False
             self.backmethod = backmethod
 
         for i in range(len(self.items)):
@@ -596,9 +606,9 @@ class Menu(Interactive):
             self.keylist = [str(i) for i in range(1, 10)]
 
     def validate(self, itm):
-        if self.validator is not None and not self.validator(itm):
+        if self.validator is not None and not self.validator(itm.value):
             ret = False
-        elif itm.validator is not None and not itm.validator(itm):
+        elif itm.validator is not None and not itm.validator(itm.value):
             ret = False
         else:
             ret = True
@@ -643,7 +653,8 @@ class Menu(Interactive):
             self.controls["0"] = lambda: self.backmethod()
         if len(self.controls) > 0:
             echo()
-        BACK_MENU.append((self, [page, pagesize, shownone]))
+        if self.pushstack:
+            BACK_MENU.append((self, [page, pagesize, shownone]))
 
     def check_length(self, ac_list):
         if len(ac_list) == 0:
@@ -722,7 +733,8 @@ class Menu(Interactive):
                     #    return goto_ret
                 ret.append(itm.value)
             else:
-                BACK_MENU.pop()
+                if self.pushstack:
+                    BACK_MENU.pop()
                 #return self.controls[ac]()
                 if ac != '0':
                     return self.controls[ac]()

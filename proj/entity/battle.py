@@ -19,8 +19,6 @@ from proj.entity.constants import BattleEvent
 from proj.entity.constants import SkillStyle
 from proj.entity import common
 
-from proj.runtime import context
-
 
 class Battle(object):
 
@@ -29,8 +27,10 @@ class Battle(object):
         plib = importlib.import_module("proj.entity.person")
         return plib.Person.one(tpl_id[7:]).team.battle
 
-    def __init__(self, map, groups, allies=None, death=False, silent=False):
+    def __init__(self, map, groups, player, allies=None, death=False, silent=False):
         self.id = str(uuid.uuid1())
+
+        self.player = player
 
         self.silent = False if silent is None else silent
         self.death = False if death is None else death
@@ -129,12 +129,12 @@ class Battle(object):
                 p.team.battle = None
                 p.team.result = self.result(p.team)
                 teamset.add(p.team.id)
-            if p.group_ally & context.PLAYER.group_ally:
+            if p.group_ally & self.player.group_ally:
                 exp_total += int(round(10 * math.pow(1.008, p.neigong + p.boji + p.jianfa +
                                                      p.daofa + p.changbing + p.qimen + p.anqi)))
                 friend_count += 1
         for p in self.all:
-            if p.team == context.PLAYER.team:
+            if p.team == self.player.team:
                 self.exps[p.id] = int(exp_total * p.study_rate / friend_count)
         #self.reset_delta()
         #self.status_work(BattlePhase.Finish)
@@ -146,6 +146,12 @@ class Battle(object):
             for sts in p.status:
                 if sts.leftturn >= 0:
                     sts.leave(p, battle=self)
+
+    def active(self):
+        return not self.moved[self.current.id] or \
+               not self.attacked[self.current.id] or \
+               not self.itemed[self.current.id] or \
+               not self.rested[self.current.id]
 
     def start_turn(self):
         itm = self.pick()
@@ -211,15 +217,15 @@ class Battle(object):
         
     def controllable(self):
         #return True
-        return context.PLAYER is not None and \
-               self.current.group == context.PLAYER.group and \
+        return self.player is not None and \
+               self.current.group == self.player.group and \
                "group_ally" not in self.current.stash
 
     def snapshot(self, record_event=True):
         ret = {}
         for p in self.alive:
-            if context.PLAYER is not None:
-                group = 0 if self.is_friend(p, context.PLAYER) else 1
+            if self.player is not None:
+                group = 0 if self.is_friend(p, self.player) else 1
             else:
                 group = self.group_allies.index(p.group_ally)
             p_dict = {"name": p.name,

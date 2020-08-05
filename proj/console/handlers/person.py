@@ -6,24 +6,6 @@ from proj.runtime import context
 
 from proj.entity import Skill
 
-from proj.console.orders import PersonItemChooseOrder
-from proj.console.orders import PersonItemOrder
-from proj.console.orders import PersonItemTransferOrder
-from proj.console.orders import PersonStudySkillOrder
-from proj.console.orders import PersonEquipmentOrder
-from proj.console.orders import PersonEquipOnOrder
-from proj.console.orders import PersonEquipOffOrder
-from proj.console.orders import PersonEquipInlayChooseOrder
-from proj.console.orders import PersonEquipStrengthenOrder
-from proj.console.orders import PersonEquipRepairRecipeOrder
-from proj.console.orders import PersonRecipeChooseOrder
-from proj.console.orders import PersonSkillOrder
-from proj.console.orders import PersonSkillOnOrder
-from proj.console.orders import PersonSkillOffOrder
-from proj.console.orders import PersonBuyOrder
-from proj.console.orders import PersonSellOrder
-from proj.console.orders import PersonMakeOrder
-
 
 def digitcolor(digit):
     #if digit == 0:
@@ -415,6 +397,7 @@ def handler_person_speak(ctx):
         if ctx.talker is None:
             ui.words(content)
         else:
+            #print(ctx.talker, content)
             #prefix_str = (ctx.talker.name + "：") if idx == 0 else " "
             prefix_str = ctx.talker.name + "："
             #prefix = ui.fixed(ui.strwidth(prefix_str), n=(prefix_str if idx == 0 else " "))
@@ -429,30 +412,14 @@ def handler_person_dialog_branch(ctx):
     menulist = []
     ui.echo("%s：" % ctx.subject.name)
     for b in ctx.branches:
-        bold = ctx.name not in context.conversation_status or \
-               b not in context.conversation_status[ctx.name]
+        bold = ctx.name not in context.script_status or \
+               b not in context.script_status[ctx.name]
         menulist.append(ui.menuitem(ctx.conversation[b]["content"], value=b, bold=bold))
     ret = ui.menu(menulist)
     ui.echo()
     return ret
     
     
-def handler_session_branch(ctx):
-    menulist = []
-    ui.echo("%s：" % ctx.subject.name)
-    for b in ctx.branches:
-        if "content" in b:
-            content = b["content"]
-        elif "content" in script[b["label"]]:
-            content = script[b["label"]]["content"]
-        elif "scripts" in script[b["label"]] and "content" in script[b["label"]]["script"][0]:
-            content = script[b["label"]]["script"][0]["content"]
-        menulist.append(ui.menuitem(content, value=b))
-    ret = ui.menu(menulist)
-    ui.echo()
-    return ret
-
-
 def handler_person_item_choose(ctx):
     showname = "物品一览：%s队" if len(ctx.persons) > 1 else "物品一览：%s"
     if ctx.back:

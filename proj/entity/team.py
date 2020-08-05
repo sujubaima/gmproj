@@ -87,6 +87,6 @@ class Team(Entity):
                 return self.scenario.location(self.targets[-1][1])
             else:
                 self.targets.pop()
-                return None
+                return self.target
         else:
             return self.targets[-1][1]

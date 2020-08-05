@@ -9,7 +9,7 @@ MAP_WITHPERSON = \
     "objects": [],
     "persons": [
         {
-            "id": "PERSON_ZHAO_SHENJI",
+            "id": "PERSON_TIAN_WEI",
             "location": "(4, 4)"
         }
     ],

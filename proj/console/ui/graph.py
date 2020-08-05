@@ -11,7 +11,7 @@ import platform
 from proj.console import ui
 from proj import options
 
-from proj.entity import SuperSkill
+from proj.entity import Superskill
 from proj.entity import Person
 
 HOR = "─"
@@ -211,4 +211,4 @@ def superskill(superskill, subject=None):
         
 
 if __name__ == "__main__":
-    superskill(SuperSkill.one("SUPERSKILL_HUANGLUKUZHUJIAN"), Person.one("PERSON_GENG_ZHUQIAO"))
+    superskill(Superskill.one("SUPERSKILL_HUANGLUKUZHUJIAN"), Person.one("PERSON_GENG_ZHUQIAO"))

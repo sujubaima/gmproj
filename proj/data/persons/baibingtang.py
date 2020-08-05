@@ -43,7 +43,7 @@ PERSON_JU_LIU = \
      "superskills": [{"id": "SUPERSKILL_JIANGHUXINFA", "learn": [0, 1, 2]},
                      {"id": "SUPERSKILL_YOUXIAXINFA", "learn": [0, 1, 2]},
                      {"id": "SUPERSKILL_POFENGBADAO", "learn": [0, 1, 2]}],
-     "equipment": [{"id": "ITEM_BAZHANDAO", "position": "MainHand"}],
+     "equipment": [{"id": "ITEM_YANLINGDAO", "position": "MainHand"}],
      "items": [],
      "criticaltxt": "握好你的武器！"}
 

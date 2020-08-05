@@ -8,7 +8,6 @@ PERSON_PLAYER_TUITION = \
      "neigong": 15, "boji": 15, "jianfa": 15, "daofa": 15, "changbing": 15, "anqi": 15, "qimen": 15,
      "superskills": [{"id": "SUPERSKILL_WUMINGQUANFA", "learn": "All"},
                      {"id": "SUPERSKILL_WUMINGJIANFA", "learn": "All"}],
-     "equipment": [],
      "items": [],
      "criticaltxt": "当你看到这句话的时候，说明你暴击了！"}
 
@@ -20,7 +19,6 @@ PERSON_MURENZHUANG = \
      "dongjing": -50, "gangrou": 0, "zhipu": -50, "yinyang": 0,
      "neigong": 0, "boji": 0, "jianfa": 0, "daofa": 0, "changbing": 0, "anqi": 0, "qimen": 0,
      "superskills": [{"id": "SUPERSKILL_WANGBAQUAN", "learn": "All"}],
-     "equipment": [],
      "items": [],
      "recipes": []}
 
@@ -32,21 +30,22 @@ PERSON_PLAYER = \
      "neigong": 30, "boji": 18, "jianfa": 37, "daofa": 17, "changbing": 19, "anqi": 31, "qimen": 29,
      "superskills": [{"id": "SUPERSKILL_WANGBAQUAN", "learn": "All"},
                      {"id": "SUPERSKILL_TIESHAZHANG", "learn": "All"}],
-     "equipment": [{"id": "ITEM_DANGONG", "position": "MainHand"}],
-     "items": [{"id": "ITEM_MONEY", "quantity": 250},
+     "items": [{"id": "ITEM_DANGONG", "quantity": 1, "position": "MainHand", "durability": 10},
+               {"id": "ITEM_MONEY", "quantity": 250},
                {"id": "ITEM_XIZIPENGXINJUE", "quantity": 1},
                {"id": "ITEM_TUNYUNFEIYANJIAN", "quantity": 1},
                {"id": "ITEM_XILIUJIANFA", "quantity": 1},
                {"id": "ITEM_LOLITA", "quantity": 1, "durability": 23},
                {"id": "ITEM_CHANGJIAN", "quantity": 1, "durability": 15},
-               {"id": "ITEM_CHANGJIAN,0-ITEM_JINGTIE", "quantity": 1},
+               {"id": "ITEM_CHANGJIAN,1-ITEM_JINGTIE", "quantity": 1},
                {"id": "ITEM_YUNMU", "quantity": 2},
                {"id": "ITEM_SHENGTIE", "quantity": 10},
                {"id": "ITEM_TONGMU", "quantity": 9},
                {"id": "ITEM_LUYU", "quantity": 1},
                {"id": "ITEM_YAN", "quantity": 1},
                {"id": "ITEM_HUADIAO", "quantity": 1},
-               {"id": "ITEM_FENGGANGJIU", "quantity": 1}],
+               {"id": "ITEM_FENGGANGJIU", "quantity": 1},
+               {"id": "ITEM_SHOUFU", "quantity": 1}],
      "recipes": [{"id": "RECIPE_QINGZHENGLUYU"},
                  {"id": "RECIPE_CHANGJIAN"}],
      "criticaltxt": "我有主角光环，你们还能斗得过我？"}

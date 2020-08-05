@@ -1,8 +1,15 @@
 # -- coding: utf-8 --
 
+import os
+import sys
 import random
 
+sys.path.append(os.path.abspath(os.path.dirname(os.path.abspath(__file__)) + "/../../"))
+
+from proj import entity
 from proj.entity import Person
+
+from proj.runtime import context
 
 if __name__ == "__main__":
     #pa = Person()
@@ -32,13 +39,22 @@ if __name__ == "__main__":
     # ea * pa.hp_rate / (ea * pa.hp_rate + eb * pb.hp_rate), eb * pb.hp_rate / (ea * pa.hp_rate + eb * pb.hp_rate)
     # ""
 
-    p = Person()
-    print("灵动\t沉静\t刚猛\t柔易\t颖悟\t朴拙\t命中\t闪避\t反击\t破绽\t破绽伤害\t回复\t医治加成\t攻击加成\t防御加成\tHP加成\t移动力\t时序速度\t经验获得\n")
-    for i in range(-50, 51, 5):
-        p.gangrou = 0
-        p.dongjing = i
-        p.zhipu = 0
-        print("%s%%\t%s%%\t%s%%\t%s%%\t%s%%\t%s%%\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % \
-              (50 + p.dongjing, 50 - p.dongjing, 50 + p.gangrou, 50 - p.gangrou, 50 + p.zhipu, 50 - p.zhipu, 
-               p.hit_rate, p.dodge_rate, p.counter_rate, p.critical_rate, p.critical_damage,
-               p.hp_recover_rate, p.rescue_rate, p.attack_rate, p.defense_rate, p.hp_rate, p.motion, p.speed, p.study_rate))
+    #p = Person()
+    #print("灵动\t沉静\t刚猛\t柔易\t颖悟\t朴拙\t命中\t闪避\t反击\t破绽\t破绽伤害\t回复\t医治加成\t攻击加成\t防御加成\tHP加成\t移动力\t时序速度\t经验获得\n")
+    #for i in range(-50, 51, 5):
+    #    p.gangrou = 0
+    #    p.dongjing = i
+    #    p.zhipu = 0
+    #    print("%s%%\t%s%%\t%s%%\t%s%%\t%s%%\t%s%%\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % \
+    #          (50 + p.dongjing, 50 - p.dongjing, 50 + p.gangrou, 50 - p.gangrou, 50 + p.zhipu, 50 - p.zhipu, 
+    #           p.hit_rate, p.dodge_rate, p.counter_rate, p.critical_rate, p.critical_damage,
+    #           p.hp_recover_rate, p.rescue_rate, p.attack_rate, p.defense_rate, p.hp_rate, p.motion, p.speed, p.study_rate))
+    entity.init()
+    context.init()
+
+    p1 = Person.one("PERSON_ZHANG_YINSONG")
+    p2 = Person.one("PERSON_JUE_CHENG")
+    rel1 = context.relationship("person", p1, p2)
+    rel2 = context.relationship("person", p2, p1)
+    print(rel1, rel2)
+

@@ -10,6 +10,7 @@ import sys
 sys.path.append("/home/work/gmproj")
 
 from proj import options
+from proj import data
 
 from proj.entity.common import Entity
 
@@ -821,6 +822,9 @@ class Map(Entity):
 
     def location(self, p):
         return self.entity_loc[p.id]
+
+    def entity(self, loc):
+        return self.loc_entity[loc]
         
     def in_range(self, pt, center, range):
         x_pt, y_pt = pt
