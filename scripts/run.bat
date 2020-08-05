@@ -1,3 +1,3 @@
-.\Python27\python.exe .\proj\main.py
+..\Python38\python.exe ..\proj\main.py
 
 pause
