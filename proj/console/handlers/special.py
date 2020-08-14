@@ -10,7 +10,7 @@ def handler_superskill_select_control(ctrl):
     for sk in ctrl.superskills:
         comments = [Item.one("ITEM_%s" % sk.tpl_id[11:]).description]
         skmenu.append(ui.menuitem(ui.rank(sk), value=sk, comments=comments, goto=ctrl.select))
-    skmenu.append(ui.menuitem("离开", goto=ctrl.close))
+    skmenu.append(ui.menuitem("离开", value='', goto=ctrl.select))
     ui.menu(skmenu, title=ctrl.title)
     
 

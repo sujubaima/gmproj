@@ -14,8 +14,9 @@ class SuperskillSelectControl(Control):
 
     @Control.listener
     def select(self, superskill):
-        control = SuperskillControl(superskill=superskill)
-        control.run()
+        if superskill != '': 
+            control = SuperskillControl(superskill=superskill)
+            control.run()
         self.close()
 
 

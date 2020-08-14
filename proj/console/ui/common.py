@@ -549,9 +549,9 @@ class MenuItem(object):
                 echo()
                 #words(fixed(width, n="       〈%s〉" % c))
                 if not self.choosable and c.find("\033[") < 0:
-                    comment_str = colored("       □ %s" % c, color="grey", attrs=["bold"])
+                    comment_str = colored("       『%s』" % c, color="grey", attrs=["bold"])
                 else:
-                    comment_str = "       □ %s" % c
+                    comment_str = "       『%s』" % c
                 words(fixed(width, n=comment_str))
         if colidx == columns - 1 or self.idx == total - 1 or self.idx == pagesize - 1:
             echo()

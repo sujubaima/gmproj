@@ -24,7 +24,7 @@ ITEM_YECHAGUNFA = \
 ITEM_BAICHANSHOU = \
     {"name": "《百缠手》", "rank": 0, "tags": "Skillbook,Boji",
      "weight": 1.0, "volume": 0.5,
-     "effects": [{"id": "EFFECT_SUPERSKILL_STUDY", "superskill": "SUPERSKILL_BAICHANSHOU"}],
+     "superskill": "SUPERSKILL_BAICHANSHOU",
      "description": "丐帮小乞丐擅长的擒拿术，其实就是死缠烂打的功夫，不知道是哪个文化人起了这么个名字"}
  
  
@@ -73,7 +73,7 @@ ITEM_HUANGLUKUZHUJIAN = \
 ITEM_XILIUJIANFA = \
     {"name": "《细柳剑法》", "rank": 0, "tags": "Skillbook,Jianfa",
      "weight": 1.0, "volume": 0.5,
-     "effects": [{"id": "EFFECT_SUPERSKILL_STUDY", "superskill": "SUPERSKILL_XILIUJIANFA"}],
+     "superskill": "SUPERSKILL_XILIUJIANFA",
      "description": "九溪派为朱如碧量身定制的剑法，以一柄长剑化生杨柳千条之貌，教人无以招架"}
      
 
@@ -150,7 +150,7 @@ ITEM_MEIHUAXINYI = \
 ITEM_XIZIPENGXINJUE = \
     {"name": "《西子捧心诀》", "rank": 1, "tags": "Skillbook,Neigong",
      "weight": 1.0, "volume": 0.5,
-     "effects": [{"id": "EFFECT_SUPERSKILL_STUDY", "superskill": "SUPERSKILL_XIZIPENGXINJUE"}],
+     "superskill": "SUPERSKILL_XIZIPENGXINJUE",
      "description": "九溪派进阶心法，因其过分强调柔易腾挪之态，以至于修炼者大多气弱，留有心痛之症"}
     
      

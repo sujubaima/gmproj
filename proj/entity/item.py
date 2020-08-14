@@ -15,7 +15,8 @@ class Item(Entity):
                "Medicine": "药品", 
                "Equip": "装备", 
                "Skillbook": "技能书", 
-               "Material": "材料"}
+               "Material": "材料",
+               "Tool": "工具"}
 
     @classmethod
     def template(cls, tpl_id):

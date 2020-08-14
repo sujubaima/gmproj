@@ -442,7 +442,7 @@ def handler_pos_select_control(ctrl):
            coordinates=[{"positions": ctrl.positions},
                         {"positions": context.guide, "color": "yellow"}], show_trace=False)
     ui.echo()
-    rt = ui.read("%s（绿色表示可移动格子，坐标用空格分隔，输入#back可返回）：" % ctrl.text,
+    rt = ui.read("%s（绿色表示可用格子，坐标用空格分隔，输入#back可返回）：" % ctrl.text,
                  handler=ctrl.validator)
     ui.echo()
     if ctrl.ensure:

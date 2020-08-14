@@ -422,19 +422,19 @@ STATUS_BASHANJIN = \
 STATUS_DUANJIN = \
     {"name": "断筋", "phase": "Instant", "style": 0,
      "functions": [{"id": "EFFECT_DUANJIN"}],
-     "description": "时序速度遭到减少"}
+     "description": "时序速度减少"}
 
 
 STATUS_CUOGU = \
     {"name": "错骨", "phase": "Instant", "style": 0,
      "functions": [{"id": "EFFECT_CUOGU"}],
-     "description": "移动力遭到减少"}
+     "description": "移动力减少"}
 
 
 STATUS_QIANCHAN = \
     {"name": "牵缠", "phase": "Instant", "style": 0,
      "functions": [{"id": "EFFECT_QIANCHAN"}],
-     "description": "闪避率遭到降低"}
+     "description": "闪避率降低"}
 
 
 STATUS_XUNJI = \
