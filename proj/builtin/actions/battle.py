@@ -16,6 +16,7 @@ from proj.runtime import context
 class BattleAction(Action):
 
     def initialize(self):
+        super(BattleAction, self).initialize()
         self.person_hooked = []
         
     def finish(self):
@@ -517,6 +518,10 @@ class BattleRestAction(BattleAction):
             p.mp_delta = int(p.mp_limit * p.mp_recover_rate)
         p.hp_delta = max(0, p.hp_delta - p.poison_hp)
         p.mp_delta = max(0, p.mp_delta - p.poison_mp)
+        if p.hp_delta != 0 and p.mp_delta != 0:
+            self.showmap = True
+        else:
+            self.showmap = False
         p.correct()
         p.hp += p.hp_delta
         p.mp += p.mp_delta
@@ -542,7 +547,7 @@ class BattleRestAction(BattleAction):
         self.do_rest()
         self.snapshot = self.battle.snapshot()
         #self.battle.deal()
-        if not self.battle.silent:
+        if not self.battle.silent and self.showmap:
             MSG(style=MSG.BattleRest, action=self)
         self.postdo()
 

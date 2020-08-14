@@ -6,6 +6,7 @@ import time
 import queue
 import threading
 import inspect
+import traceback
 
 from concurrent.futures import ThreadPoolExecutor
 
@@ -52,6 +53,8 @@ class Message(Mutable):
 
     BackMenu = "backmenu"
     PopMenu = "popmenu"
+
+    ShowMacros = "show_macros"
     
     ControlTest = "control_test"
 
@@ -85,6 +88,10 @@ class Message(Mutable):
     RestControl = "rest_control"
 
     TeamControl = "team_control"
+
+    TransportControl = "transport_control"
+
+    TradeControl = "trade_control"
 
     BattleControl = "battle_control"
     BattleMapControl = "battle_map_control"
@@ -199,12 +206,18 @@ class Action(Mutable):
     def take(self):
         pass
 
-        
+
 class Control(Mutable):
 
     All = []
 
     thpool = ThreadPoolExecutor(max_workers=8)
+
+    @staticmethod
+    def showmsg(worker):
+        worker_exception = worker.exception()
+        if worker_exception:
+            print(traceback.format_exc(worker_exception))
 
     @staticmethod
     def listener(func):
@@ -214,25 +227,28 @@ class Control(Mutable):
         def _listener(*args, **kwargs):
             #th = threading.Thread(target=func, args=args, kwargs=kwargs, daemon=True)
             #th.start()
-            Control.thpool.submit(func, *args, **kwargs)
+            task = Control.thpool.submit(func, *args, **kwargs)
+            task.add_done_callback(Control.showmsg)
         return _listener
 
     def initialize(self):
         self.cond = threading.Condition() 
 
     def finish(self):
-        Control.All.append(self)
+        self.macs, self.macs_desc = self.macros()
+        self.macs["#macros"] = self.showmacros
+        self.macs_desc["#macros"] = "显示所有的宏指令"
+
+    def macros(self):
+        return {}, {}
+
+    def showmacros(self, macro):
+        Message(style=Message.ShowMacros, control=self)
 
     def launch(self):
         """
         控件初始化方法，向绘图线程队列发送信息
         各控件自行实现初始化逻辑
-        """
-        pass
-
-    def macros(self, macro):
-        """
-        用于处理控件的指令宏
         """
         pass
 
@@ -247,6 +263,7 @@ class Control(Mutable):
         Control.All.pop()
 
     def run(self):
+        Control.All.append(self)
         self.cond.acquire()
         self.launch()
         self.cond.wait()

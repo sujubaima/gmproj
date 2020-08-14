@@ -3,7 +3,7 @@
 ITEM_TAIYIXUANMENJIAN = \
     {"name": "《太乙玄门剑》", "rank": 0, "tags": "Skillbook,Jianfa",
      "weight": 1.0, "volume": 0.5,
-     "effects": [{"id": "EFFECT_SUPERSKILL_STUDY", "superskill": "SUPERSKILL_TAIYIXUANMENJIAN"}],
+     "superskill": "SUPERSKILL_TAIYUXUANMENJIAN",
      "description": "武当派开蒙所用的剑法，传说每个武当弟子都练到吐过"}
   
   
@@ -87,7 +87,7 @@ ITEM_BICHENGJIANFA = \
 ITEM_TUNYUNFEIYANJIAN = \
     {"name": "《屯云飞烟剑》", "rank": 1, "tags": "Skillbook,Jianfa",
      "weight": 1.0, "volume": 0.5,
-     "effects": [{"id": "EFFECT_SUPERSKILL_STUDY", "superskill": "SUPERSKILL_TUNYUNFEIYANJIAN"}],
+     "superskill": "SUPERSKILL_TUNYUNFEIYANJIAN",
      "description": "昆仑派著名剑法，剑势起时可见云烟万丈，招法多居高临下，一击制敌"}
      
      

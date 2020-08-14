@@ -7,6 +7,8 @@ from proj.engine import Message as MSG
 from proj.runtime import saveload
 from proj.runtime import context
 
+from proj.console.controls import PipeControl
+
 
 class SystemControl(Control):
 

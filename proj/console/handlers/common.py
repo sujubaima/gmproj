@@ -75,7 +75,7 @@ def person_status(ctrl):
     pf.append("")
     pf.append("【战斗数据】")
     pf.append("")
-    pf.append("  " + ui.fixed(18, n="攻击力：%s" % p.attack_base) + ui.fixed(15, n="防御力：%s" % p.defense_base))
+    pf.append("  " + ui.fixed(18, n="攻击力：%s" % p.attack) + ui.fixed(15, n="防御力：%s" % p.defense))
     pf.append("  " + ui.fixed(18, n="移动力：%s" % p.motion) + ui.fixed(15, n="速度：%s" % p.speed))
     pf.append("  " + ui.fixed(18, n="时序值：%s" % p.process))
     pf.append("")
@@ -109,9 +109,11 @@ def person_status(ctrl):
            goback=True, backmethod=ctrl.close)
 
 
-def team_info(map):
+def team_info(ctrl):
 
     retlist = []
+
+    map = ctrl.scenario
 
     for loc, entity in map.loc_entity.items():
         ret = {"location": None,
@@ -271,6 +273,20 @@ def handler_show(ctx):
         ui.read("（回车继续）")
 
 
+def handler_show_macros(ctrl):
+    ui.echo()
+    ui.echo("当前可用宏指令：")
+    ui.echo()
+    ui.echo(ui.fixed(20, n="#macros") + ctrl.macs_desc["#macros"])
+    for mac in sorted(list(ctrl.macs_desc.keys())):
+        if mac == "#macros":
+            continue
+        ui.echo(ui.fixed(20, n=mac) + ctrl.macs_desc[mac])
+    ui.echo()
+    ui.read("（回车继续）")
+    ctrl.launch()
+
+
 def handler_control_test(ctx):
     if not ui.blankline():
         ui.echo()
@@ -297,8 +313,8 @@ def handler_branch_control(ctrl):
             content = ctrl.script[label_idx]["script"][0]["content"]
         bold = ctrl.name not in context.script_status or \
                b["label"] not in context.script_status[ctrl.name]
-        menulist.append(ui.menuitem(content, value=label_idx, bold=bold, goto=ctrl.select))
-        context.executed(ctrl.name, b["label"])
+        menulist.append(ui.menuitem(content, value=(b["label"], label_idx), bold=bold, goto=ctrl.select))
+        #context.executed(ctrl.name, b["label"])
     ret = ui.menu(menulist)
     ui.echo()
 
@@ -348,14 +364,17 @@ def handler_halt(ctx):
 def handler_popmenu(ctx):
     ui.popmenu()
 
+
 def handler_backmenu(ctx):
     ui.echo()
     ui.backmenu()
+
 
 def hander_action_finish(ctx):
     if not ui.blankline():
         ui.echo()
     ui.read("（回车继续）")
+
 
 def handler_game_fail(ctx):
     if not ui.blankline():
@@ -393,7 +412,8 @@ def handler_person_select_multiple_control(ctrl):
 
 
 def handler_item_select_control(ctrl):
-    ui.menu(item_menu(ctrl), title=ui.byellow(ctrl.title), goback=True, backmethod=ctrl.close)
+    ui.menu(item_menu(ctrl), title=ui.byellow(ctrl.title), macros=ctrl.macs, 
+            goback=True, backmethod=ctrl.close)
 
 
 def handler_item_quantity_select_control(ctrl):
@@ -418,8 +438,9 @@ def handler_skill_select_control(ctrl):
 def handler_pos_select_control(ctrl):
     map = ctrl.scenario
     ui.echo()
-    ui.map(map, entities=team_info(map),
-           coordinates=ctrl.positions, coordinate_color="green", show_trace=False)
+    ui.map(map, entities=team_info(ctrl),
+           coordinates=[{"positions": ctrl.positions},
+                        {"positions": context.guide, "color": "yellow"}], show_trace=False)
     ui.echo()
     rt = ui.read("%s（绿色表示可移动格子，坐标用空格分隔，输入#back可返回）：" % ctrl.text,
                  handler=ctrl.validator)

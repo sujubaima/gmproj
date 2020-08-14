@@ -352,17 +352,17 @@ def warn(content=""):
 
 
 def read(tip="", fcolor=None, bcolor=None, attrs=None,
-         handler=None, canceler=None, errmsg=msg.ERROR_INPUT_INVALID):
+         handler=None, macros={}, errmsg=msg.ERROR_INPUT_INVALID):
     """
     读取用户输入操作
     """
     while True:
         rd = input_func(colored(tip, color=fcolor, on_color=bcolor, attrs=attrs))
-        if rd == msg.CANCEL:
-            if canceler is not None:
-                rd = canceler()
-            else:
-                rd = None
+        #if rd == msg.CANCEL:
+        #    rd = None
+        #    break
+        if rd in macros:
+            macros[rd](rd)
             break
         if handler is not None:
             try:
@@ -563,7 +563,7 @@ class Menu(Interactive):
     菜单封装控件
     """
     def __init__(self, items, title=None, uppanel=[], inpanel=[],
-                 goback=False, validator=None, 
+                 goback=False, validator=None, macros=None,
                  keylist=None, backmethod=None, multiple=False, multiple_range=None, 
                  columns=1, width=50, double_check=False):
 
@@ -590,6 +590,11 @@ class Menu(Interactive):
 
         self.multiple = multiple
         self.multiple_range = multiple_range
+
+        if macros is None:
+            self.macros = {}
+        else:
+            self.macros = macros
 
         self.double_check = double_check
 
@@ -676,6 +681,8 @@ class Menu(Interactive):
         while True:
             valid = True
             ac_raw = select_func(self)
+            if ac_raw in self.macros:
+                return [ac_raw]
             if ac_raw == msg.SELECT_ALL:
                 if self.multiple_range is not None:
                     ac_list = [str(r) for r in range(1, self.multiple_range[1] + 1)]
@@ -722,6 +729,8 @@ class Menu(Interactive):
     def handle(self, ac_list):
         ret = []
         for ac in ac_list:
+            if ac in self.macros:
+                return self.macros[ac](ac)
             if ac in self.acset:
                 #BACK_MENU.append((self, [self.page, self.pagesize, self.shownone]))
                 #itm = self.items[self.page * self.pagesize + int(ac) - 1]
@@ -754,12 +763,12 @@ def menuitem(showword, bold=True, comments=None, value=None, goto=None, validato
 
 
 def menu(items, title=None, page=0, pagesize=9, uppanel=[], inpanel=[],
-         goback=False, shownone=True, keylist=None,
+         goback=False, shownone=True, keylist=None, macros={},
          validator=None, highlights=None, backmethod=None, 
          multiple=False, multiple_range=None, columns=1, width=50, double_check=False):
     m = Menu(items, title=title, goback=goback, uppanel=uppanel, inpanel=inpanel, validator=validator, 
-             keylist=keylist, backmethod=backmethod, multiple=multiple, multiple_range=multiple_range, 
-             columns=columns, width=width, double_check=double_check)
+             macros=macros, keylist=keylist, backmethod=backmethod, multiple=multiple, 
+             multiple_range=multiple_range, columns=columns, width=width, double_check=double_check)
     m.render(page=page, pagesize=pagesize, shownone=shownone, highlights=highlights)
     return m.done()
 

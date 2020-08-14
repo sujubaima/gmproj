@@ -198,7 +198,7 @@ def handler_battle_skill_scope(ac):
         if ac.type != SkillType.Counter and ac.battle.current != ac.subject:
             ui.read("（回车继续）")
         ui.map(map, entities=battle_person_handler(ac.snapshot), 
-               coordinates=ac.scope, coordinate_color="yellow", show_trace=False)
+               coordinates=[{"positions": ac.scope, "color": "yellow"}], show_trace=False)
         #ui.echo()
         #ui.echo("%s使出" % ac.subject.name + ui.rank(ac.skill.belongs, txt="【%s】" % ac.skill.belongs.name) + \
         #        "中的一式" + ui.rank(ac.skill, txt="【%s】" % ac.skill.name))
@@ -237,7 +237,7 @@ def handler_battle_item_scope(ac):
     if ac.battle.current != ac.subject or not ac.battle.controllable():
         ui.echo()
         ui.map(map, entities=battle_person_handler(ac.snapshot), 
-               coordinates=ac.scope, coordinate_color="yellow", show_trace=False)
+               coordinates=[{"positions": ac.scope, "color": "yellow"}], show_trace=False)
         ui.echo()     
         fstr = "%s使用了物品" % ac.subject.name
         ui.echo(fstr + ui.colored(ui.rank(ac.item, txt="【%s】" % ac.item.name)))
@@ -326,7 +326,7 @@ def handler_battle_pos_select_control(ctrl):
     map = ctrl.battle.map
     ui.echo()
     ui.map(map, entities=battle_person_handler(ctrl.snapshot),
-           coordinates=ctrl.positions, coordinate_color="green", show_trace=False)
+           coordinates=[{"positions": ctrl.positions, "color": "green"}], show_trace=False)
     ui.echo()
     rt = ui.read("%s（绿色表示可移动格子，坐标用空格分隔，输入#back可返回）：" % ctrl.text,
                  handler=ctrl.validator)
@@ -342,7 +342,7 @@ def handler_battle_scope_control(ctrl):
     map = ctrl.battle.map
     ui.echo()
     ui.map(map, entities=battle_person_handler(ctrl.snapshot),
-           coordinates=ctrl.scope, coordinate_color="yellow", show_trace=False)
+           coordinates=[{"positions": ctrl.scope, "color": "yellow"}], show_trace=False)
     ui.echo()
     rt = ui.sure("黄色为作用范围，是否确认")
     ctrl.input(rt)

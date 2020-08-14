@@ -51,8 +51,8 @@ def handler_scenario_control(ctrl):
         ui.echo()
     ui.echo("当前回合：%s" % context.timestamp)
     ui.echo()
-    ui.map(scenario, entities=team_info(scenario), show_trace=True)
-    ui.menu(world_menu(ctrl), title="请选择你的行动方针：", columns=4, width=15)
+    ui.map(scenario, entities=team_info(ctrl), coordinates=[{"positions": context.guide, "color": "yellow"}], show_trace=True)
+    ui.menu(world_menu(ctrl), title="请选择你的行动方针：", macros=ctrl.macs, columns=4, width=15)
 
 
 def handler_explore_tool_select_control(ctrl):
@@ -64,7 +64,7 @@ def handler_explore_tool_select_control(ctrl):
 
 def handler_scenario_change_control(ctrl):
     map = ctrl.team.scenario
-    ui.map(map, entities=team_info(map), show_trace=True)
+    ui.map(map, entities=team_info(ctrl), show_trace=True)
     ui.echo()
     ret = ui.sure(ctrl.text)
     ctrl.input(ret)
@@ -72,7 +72,7 @@ def handler_scenario_change_control(ctrl):
 
 def handler_rest_control(ctrl):
     ui.echo()
-    ui.map(ctrl.team.scenario, entities=team_info(ctrl.team.scenario), show_trace=True)
+    ui.map(ctrl.team.scenario, entities=team_info(ctrl), show_trace=True)
     ui.echo()
     ret = ui.sure("你已经休息过了一段时间，是否继续休息？")
     ctrl.input(ret)
@@ -81,7 +81,7 @@ def handler_rest_control(ctrl):
 def handler_thumbnail_control(ctrl):
     if not ui.blankline():
         ui.echo()
-    ui.thumbnail(map=ctrl.scenario, entities=team_info(ctrl.scenario))
+    ui.thumbnail(map=ctrl.scenario, entities=team_info(ctrl))
     ui.echo()
     ui.read("（回车继续）")
     ctrl.close()

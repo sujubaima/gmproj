@@ -179,7 +179,7 @@ if __name__ == "__main__":
     th = threading.Thread(target=control.run, daemon=True)
     th.start()
 
+    engine.running = True
     mth = engine.MSGThread()
     mth.run()
-    mth.join()
     

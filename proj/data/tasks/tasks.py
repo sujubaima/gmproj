@@ -1,12 +1,8 @@
 # -- coding: utf-8 --
 
-TASK_HUIGUIXIANSHI = "回归现实"
+TASK_CHURUJIANGHU = "初入江湖"
 
-TASK_HUIGUIXIANSHI_1 = "你在吴中客栈遇到同事万鹏飞，他告诉你现在所处的世界是一个虚幻的武侠世界。想要回到现实就必须找到传说中的出口。"
-
-TASK_SHENGCUNZHIDAO = "生存之道"
-
-TASK_SHENGCUNZHIDAO_1 = "在苏州城里四处逛逛，了解一下如何在江湖里生存。"
+TASK_CHURUJIANGHU_1 = "因为盗贼作乱，你不得不滞留苏州。利用这段时间拜会一些苏州本地的武林人士确实是个不错的选择。"
 
 TASK_LUBANZAISHI = "鲁班再世"
 
@@ -16,7 +12,7 @@ TASK_BEICHENDIZI = "北辰弟子"
 
 TASK_BEICHENDIZI_1 = "你在苏州城遇到北辰派弟子唐兴，他似乎正因为每天都要读四书五经而烦躁。"
 
-TASK_BEICHENDIZI_2 = "唐兴偷学了一招大师兄的裴将军剑，但不敢在门派中练习，希望你能与他切磋过招，帮助他早日精熟。"
+TASK_BEICHENDIZI_2 = "唐兴偷学了一招大师兄使用的裴将军剑，但不敢在门派中练习，希望你能与他切磋过招，帮助他早日精熟。"
 
 TASK_SUZHOUJIDAO = "苏州缉盗"
 
@@ -50,8 +46,12 @@ TASK_XIONGDIHUI_4 = "苏州游侠黄金颊听见青袍会这个名字，反应�
 
 TASK_YANZHAOXING = "燕赵行"
 
-TASK_YANZHAOXING_1 = "耿朱桥让石敬岩替自己去燕赵镖局探望总镖头刘德长，如果感兴趣的话，你也可以顺路去看看。"
+TASK_YANZHAOXING_1 = "耿朱桥让石敬岩代自己去燕赵镖局探望总镖头刘德长，如果感兴趣的话，你也可以顺路去看看。"
 
 TASK_YINJIANTIEDI = "银剑铁笛"
 
 TASK_YINJIANTIEDI_1 = "传说中苏州知府耿朱桥武艺高强，但是却少有人知道他的师承，有空的话可以打听一下。"
+
+TASK_SHUIHUQUANZHUAN = "水浒全传"
+
+TASK_SHUIHUQUANZHUAN_1 = "苏州书商袁无涯想要补全水浒传，希望你能帮忙去丐帮寻访当年好汉的后人。"

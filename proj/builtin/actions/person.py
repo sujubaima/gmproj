@@ -9,6 +9,7 @@ from proj.runtime import context
 
 from proj.engine import Action
 from proj.engine import Message as MSG
+from proj.engine import JsonScript
 
 from proj.entity import Person
 from proj.entity import Item
@@ -55,43 +56,10 @@ class PersonChangeConversationAction(Action):
         self.person.conversation = self.conversation
         
         
-class PersonConversationAddBranchAction(Action):
-    """
-    人物对话增加分支
-    """
-    def take(self):
-        conversations = importlib.import_module("%s.dialogs" % options.DATA_PATH)
-        conversation = getattr(conversations, self.conversation)
-        if self.branch not in conversation[self.master]["branches"]:
-            if self.position is not None:
-                conversation[self.master]["branches"].insert(self.position, self.branch)
-            else:
-                conversation[self.master]["branches"].append(self.branch)
-        
-        
-class PersonConversationRemoveBranchAction(Action):
-    """
-    人物对话删除分支
-    """
-    def take(self):
-        conversations = importlib.import_module("%s.dialogs" % options.DATA_PATH)
-        conversation = getattr(conversations, self.conversation)
-        conversation[self.master]["branches"].remove(self.branch)
-        
-        
-class PersonConversationChangeContentAction(Action):
-    """
-    人物对话删除分支
-    """
-    def take(self):
-        conversations = importlib.import_module("%s.dialogs" % options.DATA_PATH)
-        conversation = getattr(conversations, self.conversation)
-        conversation[self.index]["content"] = self.content
-        
-        
 class PersonItemTransferAction(Action):
 
     def initialize(self):
+        super(PersonItemTransferAction, self).initialize()
         self.bag = True
 
     def take(self):
@@ -108,10 +76,15 @@ class PersonItemTransferAction(Action):
         MSG(style=MSG.PersonItemTransfer, action=self)
 
         
-class PersonItemAction(Action):
+class PersonItemUseAction(Action):
+
+    def initialize(self):
+        super(PersonItemUseAction, self).initialize()
+        self.itemargs = {}
 
     def take(self):
-        self.item.work(self.subject, objects=[self.object])
+        print(self.itemargs)
+        self.item.work(self.subject, objects=[self.object], **self.itemargs)
         context.timeflow(1)
 
 

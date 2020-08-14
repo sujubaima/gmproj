@@ -127,6 +127,8 @@ class JsonScript(object):
                 continue
             elif line["type"] == "Pause":
                 self.action(line, ac_class="PauseAction")
+            elif line["type"] == "Speak":
+                self.action(line, ac_class="PersonSpeakAction")
             if "next" in line:
                 idx = self.labels[line["next"]]
             else:

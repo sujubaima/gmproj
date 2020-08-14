@@ -11,6 +11,12 @@ from proj.entity.effect import Effect
 
 class Item(Entity):
 
+    AllTags = {"Food": "食物", 
+               "Medicine": "药品", 
+               "Equip": "装备", 
+               "Skillbook": "技能书", 
+               "Material": "材料"}
+
     @classmethod
     def template(cls, tpl_id):
         tplsplit = tpl_id.split(",")
@@ -100,34 +106,50 @@ class Item(Entity):
         self.durability = 1
         self.durability_current = 1
 
+    def work_equip(self, subject, objects, **kwargs):
+        pos = kwargs.get("position", None)
+        if pos is None:
+            pos = self.pos()
+        if subject.equipment[pos] is not None and subject.equipment[pos].double_hand:
+            subject.equipment[pos].leave(subject)
+        if pos == 0 and subject.equipment[pos] is not None:
+            pos = 1
+        if pos == 1 and self.double_hand:
+            pos = 0
+        if subject.equipment[pos] is not None:
+            subject.equipment[pos].leave(subject)
+        if self.double_hand and subject.equipment[1 - pos] is not None:
+            subject.equipment[1 - pos].leave(subject)
+        #if pos != 1 or subject.vice_enable:
+        #    for effe in self.effects:
+        for effe in self.effects:
+            if pos != 1 or subject.vice_enable or effe.vice_enable:
+                effe.work(subject, objects=[subject], source=self, **kwargs)
+        subject.equip_on(self, pos)
+        if "battle" in kwargs:
+            MSG(style=MSG.PersonItemEquip, subject=subject, item=self)
+
+    def work_skillbook(self, subject, objects, **kwargs):
+        node = kwargs["node"]
+        if self.node == self.subject.studying:
+            return
+        self.subject.expdict[self.subject.studying.id] = self.subject.exp
+        self.subject.exp = self.subject.expdict.get(node.id, 0)
+        self.subject.studying = self.node
+
+    def work_normal(self, subject, objects, **kwargs):
+        for effe in self.effects:
+            effe.work(subject, objects=objects, source=self, **kwargs)
+        if "Medicine" in self.tags:
+            subject.minus_item(self) 
+
     def work(self, subject, objects=[], **kwargs):
         if "Equip" in self.tags:
-            pos = kwargs.get("position", None)
-            if pos is None:
-                pos = self.pos()           
-            if subject.equipment[pos] is not None and subject.equipment[pos].double_hand:
-                subject.equipment[pos].leave(subject)
-            if pos == 0 and subject.equipment[pos] is not None:
-                pos = 1
-            if pos == 1 and self.double_hand:
-                pos = 0
-            if subject.equipment[pos] is not None:
-                subject.equipment[pos].leave(subject)
-            if self.double_hand and subject.equipment[1 - pos] is not None:
-                subject.equipment[1 - pos].leave(subject)
-            #if pos != 1 or subject.vice_enable:
-            #    for effe in self.effects:
-            for effe in self.effects:
-                if pos != 1 or subject.vice_enable or effe.vice_enable:
-                    effe.work(subject, objects=[subject], source=self, **kwargs)
-            subject.equip_on(self, pos)
-            if "battle" in kwargs:
-                MSG(style=MSG.PersonItemEquip, subject=subject, item=self)    
+            self.work_equip(subject, objects, **kwargs)
+        elif "Skillbook" in self.tags:
+            self.work_skillbook(subject, objects, **kwargs)
         else:
-            for effe in self.effects:
-                effe.work(subject, objects=objects, source=self, **kwargs)
-            if "Medicine" in self.tags:
-                subject.minus_item(self)
+            self.work_normal(subject, objects, **kwargs)
 
     def leave(self, subject, objects=[], **kwargs):
         if "Equip" in self.tags:

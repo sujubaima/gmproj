@@ -3,6 +3,9 @@
 from proj.engine import Control
 from proj.engine import Message as MSG
 
+from proj.entity import Item
+from proj.entity import Superskill
+
 from proj.console.controls.common import PipeControl
 from proj.console.controls.common import PersonSelectControl
 from proj.console.controls.common import ItemSelectControl
@@ -13,9 +16,11 @@ from proj.console.controls.common import PersonStatusControl
 
 from proj.builtin.actions import PersonItemTransferAction
 from proj.builtin.actions import PersonItemLostAction
+from proj.builtin.actions import PersonItemUseAction
 from proj.builtin.actions import PersonEquipOnAction
 from proj.builtin.actions import PersonEquipOffAction
 from proj.builtin.actions import PersonRecipeAction
+from proj.builtin.actions import TeamTransportAction
 
 
 class TeamControl(Control):
@@ -43,11 +48,12 @@ class TeamControl(Control):
         control.run()
         item = control.item
         if control.usage == 0:
-            person_title = "请选择需要使用此物品的角色："
-            control = PersonSelectControl(candidates=self.person.team.members, title=person_title)
+            #person_title = "请选择需要使用此物品的角色："
+            #control = PersonSelectControl(candidates=self.person.team.members, title=person_title)
+            control = ItemUseControl(person=control.owner, item=item)
             control.run()
             if control.person is not None:
-                PersonItemUseAction(subject=control.person, item=item, quantity=1).do()
+                PersonItemUseAction(subject=control.person, item=item, itemargs=control.itemargs, quantity=1).do()
         elif control.usage == 1:
             person_title = "请选择你想要给与的角色："
             quantity_text = "请输入你想要给与的数量"
@@ -106,7 +112,7 @@ class ItemUsageControl(Control):
 
     def validator(self, usage):
         if usage == 0:
-            return "Medicine" in self.item.tags or "Food" in self.item.tags
+            return len(set(["Medicine", "Food", "Skillbook"]) & self.item.tags) > 0
         if usage == 1:
             return len(self.owner.team.members) > 1
 
@@ -198,6 +204,42 @@ class SkillNodeSelectControl(Control):
 
     @Control.listener
     def select(self, node):
-        if node is not None:
-            PersonStudySkillAction(subject=self.person, node=node).do()
+        #if node is not None:
+        #    PersonStudySkillAction(subject=self.person, node=node).do()
+        self.node = node
+        self.close()
+
+
+class ItemUseControl(Control):
+
+    def run(self):
+        person_title = "请选择需要使用此物品的角色："
+        if "Skillbook" in self.item.tags:
+            superskill = Superskill.one(self.item.superskill)
+            control = PipeControl()
+            control.pipe(PersonSelectControl(candidates=self.person.team.members, canskip=False, 
+                             title=person_title), valves=["person"])
+            control.pipe(SkillNodeSelectControl(person=self.person, superskill=superskill), valves=["node"])
+            control.itemargs = {"node": control.node}
+        else:
+            control = PersonSelectControl(candidates=self.person.team.members, canskip=False,
+                          title=person_title)
+        control.run()
+        self.person = control.person
+        if control.itemargs is None:
+            self.itemargs = {}
+        else:
+            self.itemargs = control.itemargs
+
+
+class TeamTransportControl(Control):
+
+    def launch(self):
+        MSG(style=MSG.TransportControl, control=self)
+
+    @Control.listener
+    def select(self, selection):
+        if selection != "":
+            scenario, loc = selection
+            TeamTransportAction(team=self.team, scenario=scenario, location=loc).do()
         self.close()

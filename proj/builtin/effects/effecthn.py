@@ -484,7 +484,7 @@ class MingYueZhaoDaJiangEffect(Effect):
         if battle.event(subject, BattleEvent.ACTMissed) is not None:
             return
         attacker = battle.sequence[-1]["action"].subject
-        counter_base = round(1 + attacker.attack_base / 400, 2)
+        counter_base = round(1 + attacker.attack / 400, 2)
         effelib = importlib.import_module("proj.builtin.effects")
         sts_tpl = "STATUS_MINGYUEZHAODAJIANG_ANONYMOUS"
         sts = Status.template(sts_tpl)

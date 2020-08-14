@@ -52,10 +52,10 @@ class Map(ui.Interactive):
         else:
             return " ", {}
 
-    def render(self, entities=None, coordinates=None, coordinate_color="green", real_coordinates=False, show_trace=True):
+    def render(self, entities=None, coordinates=None, show_trace=True):
         #t1 = time.time()
         if coordinates is None:
-            coordinates = set()
+            coordinates = []
         if entities is None:
             entities = []
         entity_info = {}
@@ -87,12 +87,15 @@ class Map(ui.Interactive):
                 real_coor = self.map.point_to_real((i, j))
                 if show_trace and real_coor in trace_info:
                     contents[0] = ui.colored("(%s, %s)" % (i, j), color="blue", attrs=["bold"])
-                if real_coor in coordinates:
-                    if real_coordinates:
+                for coor_info in coordinates:
+                    if coor_info["positions"] is None or real_coor not in coor_info["positions"]:
+                        continue
+                    if coor_info.get("reality", False):
                         coor = real_coor
                     else:
                         coor = (i, j)
-                    contents[0] = ui.colored("(%s, %s)" % coor, color=coordinate_color, attrs=["bold"])
+                    contents[0] += ui.colored("(%s, %s)" % coor, color=coor_info.get("color", "green"), attrs=["bold"])
+                    #break
                 if (i, j) in entity_info:
                     for idx in range(self.gheight):
                         contents[idx] += entity_info[(i, j)]["contents"][idx]
@@ -228,10 +231,9 @@ class MapThumbnail(ui.Interactive):
         #print("Time used: %s" % (t2 - t1))
 
 
-def map(map, gwidth=None, gheight=None, entities=None, coordinates=None, coordinate_color="green", show_trace=True, real_coordinates=False):
+def map(map, gwidth=None, gheight=None, entities=None, coordinates=None, show_trace=True):
     m = Map(map, gwidth=gwidth, gheight=gheight)
-    m.render(entities=entities, coordinates=coordinates, 
-             coordinate_color=coordinate_color, real_coordinates=real_coordinates,
+    m.render(entities=entities, coordinates=coordinates,
              show_trace=show_trace)
     return m.done()
 

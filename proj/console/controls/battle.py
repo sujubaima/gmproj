@@ -139,7 +139,6 @@ class BattleNewTurnControl(Control):
             self.battle.current.tmpdict["original_direction"] = self.battle.current.direction
             control = BattleControl(battle=self.battle)
             control.run()
-            self.close()
         else:
             # 非可控制人员，转入AI模块生成action并执行
             self.ai_actions = self.battle.action(self.battle.current)
@@ -150,6 +149,7 @@ class BattleNewTurnControl(Control):
             if not self.battle.silent:
                 if not context.PLAYER.team.result and self.battle.death:
                     GameFailAction().do()
+        MSG.sync()
 
 
 class BattlePositionSelectControl(PositionSelectControl):

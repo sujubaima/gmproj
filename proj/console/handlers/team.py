@@ -21,11 +21,13 @@ def usage_menu(ctrl):
     return ret
 
 
-def transport_menu(targets):
+def transport_menu(ctrl):
+    targets = ctrl.targets
     tmenu = []
-    tmenu.append(ui.menuitem("留在原处", value=""))
+    tmenu.append(ui.menuitem("留在原处", value="", goto=ctrl.select))
     for target in targets:
-        tmenu.append(ui.menuitem("前往%s" % target["name"], value=(target["scenario"], target["location"])))
+        tmenu.append(ui.menuitem("前往%s" % target["name"], 
+                            value=(target["scenario"], target["location"]), goto=ctrl.select))
     return tmenu
 
 
@@ -35,8 +37,7 @@ def handler_team_control(ctrl):
 
 
 def handler_transport_control(ctrl):
-    ret = ui.menu(transport_menu(ctrl.targets))
-    return ret
+    ui.menu(transport_menu(ctrl))
 
 
 def handler_item_usage_control(ctrl):

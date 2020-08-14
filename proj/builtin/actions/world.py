@@ -28,6 +28,7 @@ class WorldProcessAction(Action):
     refresh_path = False
 
     def initialize(self):
+        super(WorldProcessAction, self).initialize()
         self.battles = set()
         
     def update_scenario(self, team):       
@@ -163,6 +164,7 @@ class WorldMoveAction(Action):
 class WorldShowMapAction(Action):
 
     def initialize(self):
+        super(WorldShowMapAction, self).initialize()
         if context.PLAYER is not None and context.PLAYER.team is not None:
             self.map = context.PLAYER.team.scenario
 

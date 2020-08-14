@@ -375,7 +375,7 @@ class YunJianAnonymousEffect(Effect):
         if stash_key not in battle.stash or \
            p_loc not in battle.stash[stash_key]:
             return
-        hp_delta = int(subject.attack_base * 0.75)
+        hp_delta = int(subject.attack * 0.75)
         p.hp_delta -= hp_delta
         if not battle.silent:
             MSG(style=MSG.Effect, subject=subject, effect=self,

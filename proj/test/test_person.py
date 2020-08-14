@@ -54,7 +54,9 @@ if __name__ == "__main__":
 
     p1 = Person.one("PERSON_ZHANG_YINSONG")
     p2 = Person.one("PERSON_JUE_CHENG")
-    rel1 = context.relationship("person", p1, p2)
-    rel2 = context.relationship("person", p2, p1)
-    print(rel1, rel2)
+    #rel1 = context.relationship("person", p1, p2)
+    #rel2 = context.relationship("person", p2, p1)
+    #print(rel1, rel2)
+    print(p1.dodge_rate, p2.dodge_rate)
+    print(p1.attack, p2.defense)
 

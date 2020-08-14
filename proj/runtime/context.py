@@ -37,6 +37,9 @@ variables = {}
 
 explorations = {}
 
+guide_dest = None
+guide = None
+
 
 def timeflow(duration):
     global time_delta_, timestamp

@@ -39,13 +39,13 @@ def handler_person_equip_repair(ctx):
 
 
 def handler_person_task_update(ctx):
-    ui.warn("奇怪的事件增加了！（事件『%s』有更新）" % ctx.task)
+    ui.warn("事件『%s』有更新！" % ctx.task)
     ui.echo()
 
 
 def handler_person_attitude_change(ctx):
     ui.warn("%s对你的好感度%s了！" % (ctx.subject.name, "提升" if ctx.delta > 0 else "下降"))
-    ui.read()
+    ui.echo()
 
 
 def handler_person_join_team(ctx):
@@ -89,7 +89,7 @@ def handler_person_speak(ctx):
 
 def handler_world_map(ctrl):
     ui.echo()
-    ui.map(ctrl.map, entities=team_info(ctrl.map), show_trace=ctrl.show_trace)
+    ui.map(ctrl.map, entities=team_info(ctrl), show_trace=ctrl.show_trace)
     ui.echo()
     ui.read("（回车继续）")
     ui.echo()

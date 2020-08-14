@@ -170,7 +170,7 @@ class QingFengFuShanGangEffect(Effect):
                 continue
             if battle.event(obj, BattleEvent.ACTMissed) is not None:
                 continue
-            wound = -1 * int(obj.defense_base * effe_factor * obj.anti_wound)
+            wound = -1 * int(obj.defense * effe_factor * obj.anti_wound)
             obj.wound -= wound
             if wound != 0 and not battle.silent:
                 MSG(style=MSG.Effect, subject=subject, effect=self, details={"wound": -1 * wound, "object": obj.name})

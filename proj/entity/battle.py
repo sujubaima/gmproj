@@ -430,8 +430,8 @@ class Battle(object):
         if skill.power == 0:
             return 0, 0, should_critical, False
         mp_rate = 1 if skill.mp == 0 else max(1, -1 * p.mp_delta / skill.mp)
-        real_attack = p.attack_base
-        real_defense = q.defense_base
+        real_attack = p.attack
+        real_defense = q.defense
         #vp = getattr(p, skill.style.lower())
         #vq = getattr(q, skill.style.lower())
         vp, vq = self.calculate_weapon(skill, p, q) 

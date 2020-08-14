@@ -8,6 +8,9 @@ from proj.engine import Message as MSG
 
 from proj.entity import Recipe
 from proj.entity import Item
+from proj.entity import Person
+
+from proj.runtime import context
 
 from proj.builtin.actions import PersonItemTransferAction
 
@@ -94,8 +97,9 @@ class BranchControl(Control):
         MSG(style=MSG.BranchControl, control=self)
 
     @Control.listener
-    def select(self, idx):
-        self.idx = idx
+    def select(self, label_idx):
+        self.label, self.idx = label_idx
+        context.executed(self.name, self.label) 
         self.close()
 
 
@@ -176,6 +180,56 @@ class ItemSelectControl(Control):
     """
     基础的物品选择控件
     """
+    def finish(self):
+        super(ItemSelectControl, self).finish()
+        self.tags_orig = self.tags
+        self.persons_orig = self.persons 
+
+    def macros(self):
+        macs = {}
+        descs = {}
+        if self.persons is not None:
+            for p in self.persons:
+                pkey = "#people." + p.tpl_id[7:].lower()
+                macs[pkey] = self.showperson
+                descs[pkey] = "只列出%s物品" % p.name
+        macs["#people.all"] = self.resetperson
+        descs["#people.all"] = "列出所有人物品"
+        for tag, desc in Item.AllTags.items():
+            ikey = "#item." + tag.lower()
+            macs[ikey] = self.showtag
+            descs[ikey] = "只列出%s" % desc
+        macs["#item.all"] = self.resettag
+        descs["#item.all"] = "列出所有物品"
+        return macs, descs
+
+    def showtag(self, tag):
+        tag = tag[6:].capitalize()
+        self.tags = set()
+        if self.tags_orig is not None:
+            for t in self.tags_orig:
+                self.tags.add(t)
+        else:
+            self.tags = set()
+        self.tags.add(tag)
+        self.items = None
+        self.launch()
+
+    def showperson(self, person):
+        person = Person.one("PERSON_" + tag[8:].upper())
+        self.persons = [person]
+        self.launch()
+
+    def resettag(self, macro):
+        self.tags = self.tags_
+        self.items = None
+        self.launch()
+
+    def resetperson(self, macro):
+        if self.persons_ is not None:
+            self.persons = self.persons_
+        self.launch()
+
     def filter(self, item):
         if self.tags is not None and len(item.tags & self.tags) == 0:
             return 2
@@ -329,6 +383,3 @@ class RecipeSelectControl(Control):
             self.launch()
         else:
             self.close()
-
-
-

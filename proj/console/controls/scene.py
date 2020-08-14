@@ -9,6 +9,7 @@ from proj.engine import Message as MSG
 from proj.engine import script
 
 from proj.entity import Map
+from proj.entity import Person
 
 from proj.builtin.actions import WorldMoveAction
 from proj.builtin.actions import WorldRestAction
@@ -32,7 +33,33 @@ from proj.runtime import context
 class ScenarioControl(Control):
 
     def launch(self):
+        if context.guide_dest is not None:
+            context.guide = set(self.scenario.connect_dynamic(self.team.location,
+                                   context.guide_dest.location, self.team.leader)[:-1])
+        else:
+            context.guide = None
         MSG(style=MSG.ScenarioControl, control=self)
+
+    def macros(self):
+        macs = {}
+        descs = {}
+        descs["#path.{person}"] = "显示到达特定人物的导航路径，需要该人物也处于当前场景中（例：#path.chen_tingzhi）"
+        for entity in self.scenario.loc_entity.values():
+            macs["#path.%s" % entity.leader.tpl_id[7:].lower()] = self.showpath
+        macs["#path.clean"] = self.cleanpath
+        descs["#path.clean"] = "清除导航路径"
+        return macs, descs
+
+    def showpath(self, tag):
+        person = Person.one("PERSON_%s" % tag[6:].upper())
+        if person.team.id not in self.scenario.entity_loc:
+            return
+        context.guide_dest = person.team
+        self.launch()
+
+    def cleanpath(self, tag):
+        context.guide_dest = None
+        self.launch()
 
     @Control.listener
     def move(self, arg):
@@ -102,9 +129,13 @@ class ScenarioControl(Control):
         ensure_text = ret = "动手之前要想清楚，是否进行攻击？（若插手NPC间的战斗，人物的初始位置将是随机的）"
         loc = self.scenario.location(self.team)
         allinscope = self.scenario.circle(loc, 1)
+        positions = []
+        for pos in allinscope:
+            if pos in self.scenario.loc_entity:
+                positions.append(pos)
         validator = lambda x: PositionSelectControl.validator(self.scenario, x, allinscope, True)
         control = PipeControl()
-        control.pipe(PositionSelectControl(positions=allinscope,
+        control.pipe(PositionSelectControl(positions=positions,
                          scenario=self.scenario, validator=validator, 
                          ensure_text=ensure_text, ensure=True,
                          text=position_text), valves=["target"])

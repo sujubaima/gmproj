@@ -34,11 +34,12 @@ def start(loadfile=None):
     context.PLAYER = player
     context.teams[team_player.id] = team_player
 
-    m.locate(team_player, (25, 18))
+    m.locate(team_player, (18, 27))
 
     m.window_center(m.location(team_player))
 
     if loadfile is not None:
+        print("存档文件加载中……\n")
         saveload.load(loadfile)
     engine.init()
     engine.start()

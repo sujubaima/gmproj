@@ -213,34 +213,56 @@ class Person(Entity):
         self.locativity = set(["TERRAN_BLANK", "TERRAN_ROAD", "TERRAN_GRASS", "TERRAN_FLOWER_RED", "TERRAN_FLOWER_YELLOW", 
                                "TERRAN_HILL", "TERRAN_FOREST", "TERRAN_DESERT", "TERRAN_SNOW", "TERRAN_CLOUD"])
 
+        #self.register("hit_rate", middle=0.96, upper=1.15)
+        self.register("hit_rate", attr="gangrou", attrfac=-1, middle=1, upper=1.04, base=0.94)
+        self.register("dodge_rate", attr="dongjing", middle=1, upper=1.5, base=0.04)
+        self.register("counter_rate", attr="dongjing", attrfac=-1, middle=1, upper=1.5, base=0.04)
+        self.register("anti_damage_rate", attr="zhipu", middle=1, upper=1.5, base=0.04)
+        self.register("anti_damage", attr="gangrou", attrfac=-1, middle=0.7, upper=0.85)
+        self.register("critical_rate", attr="zhipu", middle=1, upper=1.5, base=0.04)
+        self.register("critical_damage", attr="gangrou", lower=1.15, upper=1.75)
+        self.register("hp_recover_rate", attr="zhipu", attrfac=-1, middle=0.1, upper=0.2)
+        self.register("mp_recover_rate", attr="zhipu", attrfac=-1, middle=0.1, upper=0.2)
+        self.register("rescue_rate", attr="zhipu", middle=1, upper=2)
+        self.register("anti_injury_rate", attr="gangrou", attrfac=-1, lower=0.75, middle=1)
+        self.register("anti_wound_rate", attr="gangrou", attrfac=-1, lower=0.75, middle=1)
+        self.register("anti_poison_rate", attr="dongjing", attrfac=-1, lower=0.75, middle=1)
+        self.register("attack", attr="gangrou", middle=1, upper=1.5, base=200)
+        self.register("defense", attr="dongjing", attrfac=-1, middle=1, upper=2, base=200)
+        #self.register("hp_rate", middle=1, upper=1.4)
+        self.register("hp_max", attr="zhipu", attrfac=-1, middle=1, upper=1.4, base=1000)
+        #self.register("mp_rate", middle=1, upper=1.2)
+        self.register("mp_max", attr="zhipu", attrfac=-1, middle=1, upper=1.2, base=400)
+        #self.register("motion", lower=1, middle=3, upper=5.6, base=0)
+        self.register("motion", attr="dongjing", lower=1.9, middle=3.5, upper=5.1, base=-1)
+        self.register("speed", attr="dongjing", middle=1, upper=1.6, base=160)
+        self.register("study_rate", attr="zhipu", middle=1, upper=1.5)
+        self.register("weight_max", attr="gangrou", middle=30, upper=60)
+        self.register("volume_max", attr="gangrou", middle=60, upper=120)
+        self.register("yinyang_rate", middle=1, upper=1.5)
+
         self.hp = self.hp_limit
         self.mp = self.mp_limit
         
         self.conversation = None
 
-    def exp_multi(self, name, attr, attrfac=1, output=None):
-        prop_delta = getattr(self, "%s_delta_" % name)
-        prop_factor = getattr(self, "%s_factor_" % name)
-        prop_exp = getattr(self, "%s_exp_" % name)
-        prop_base = getattr(self, "%s_" % name)
-        attrval = getattr(self, attr)
-        ret = (prop_base + prop_delta) * prop_factor * round(prop_exp.value(attrfac * attrval), 4)
-        if output is None:
-            return ret
-        else:
-            return output(ret)
+    def register(self, name, attr, attrfac=1, lower=None, upper=None, middle=None, degree=50, base=1):
+        setattr(self, "%s_exp_" % name, Exponential(lower=lower, upper=upper, middle=middle, degree=degree, base=1))
+        setattr(self, "%s_" % name, base)
+        setattr(self, "%s_factor_" % name, 1)
+        setattr(self, "%s_delta_" % name, 0)
+        setattr(self, name, self.getproperty(name, attr))
+        #setattr(self, name, property(lambda: getproperty(name))
+        property(getattr(self, name))
 
-    def exp_add(self, name, attr, attrfac=1, output=None):
+    def getproperty(self, name, attr, attrfac=1):
         prop_delta = getattr(self, "%s_delta_" % name)
         prop_factor = getattr(self, "%s_factor_" % name)
         prop_exp = getattr(self, "%s_exp_" % name)
-        prop_base = getattr(self, "%s_" % name)
+        prop_base = getattr(self, "%S_" % name)
         attrval = getattr(self, attr)
-        ret = prop_base + prop_delta + round(prop_exp.value(attrfac * attrval), 4) * prop_factor
-        if output is None:
-            return ret
-        else:
-            return output(ret)
+        return int((prop_base + prop_delta) * prop_factor * round(prop_exp.value(attrfac * attrval), 4))
+        
 
     def random(self, total=90, attrs=["boji", "jianfa", "daofa",
                                       "changbing", "anqi", "qimen"]):
@@ -280,12 +302,127 @@ class Person(Entity):
             return self.firstname + self.lastname
 
     @property
+    def hp_max(self):
+        return int(self.hp_max_ * self.hp_max_factor_ * round(self.hp_max_exp.value(-1 * self.zhipu), 4))
+
+    @property
+    def mp_max(self):
+        return int(self.mp_max_ * math.pow(1.01, self.neigong) * self.mp_max_factor_ * round(self.mp_max_exp.value(-1 * self.zhipu), 4))
+
+    @property
     def hp_limit(self):
         return max(1, int(self.hp_max - self.injury))
 
     @property
     def mp_limit(self):
         return max(1, int(self.mp_max - self.wound))
+
+    @property
+    def attack_base(self):
+        #return int(self.attack_ * self.attack_rate)
+        return int(self.attack_ * self.attack_factor_ * round(self.attack_exp.value(self.gangrou), 4))
+
+    @property
+    def defense_base(self):
+        #return int(self.defense_ * self.defense_rate)
+        return int(self.defense_ * self.defense_factor_ * round(self.defense_exp.value(-1 * self.dongjing), 4))
+
+    @property
+    def hit_rate(self):
+        #return self.hit_rate_ * round(self.hit_rate_exp.value(-1 * self.dongjing), 4)
+        return self.hit_rate_ * self.hit_rate_factor_ * round(self.hit_rate_exp.value(-1 * self.gangrou), 4)
+
+    #@property
+    #def dodge_rate(self):
+    #    return self.dodge_rate_ * self.dodge_rate_factor_ * round(self.dodge_rate_exp.value(self.dongjing), 4) * self.equip_ratio
+    #    #return self.dodge_rate_ * round(self.dodge_rate_exp.value(-1 * self.gangrou), 4) * self.equip_ratio
+
+    @property
+    def counter_rate(self):
+        #return self.counter_rate_ * round(self.counter_rate_exp.value(-1 * self.gangrou), 4)
+        return self.counter_rate_ * self.counter_rate_factor_ * round(self.counter_rate_exp.value(-1 * self.dongjing), 4)
+        
+    @property
+    def anti_damage_rate(self):
+        return self.anti_damage_rate_ * self.anti_damage_rate_factor_ * round(self.anti_damage_rate_exp.value(self.zhipu), 4)
+        
+    @property
+    def anti_damage(self):
+        return self.anti_damage_ * round(self.anti_damage_exp.value(self.gangrou), 4)
+        #return self.counter_rate_ * round(self.counter_rate_exp.value(-1 * self.dongjing), 4)
+
+    @property
+    def critical_rate(self):
+        #return self.critical_rate_ * round(self.critical_rate_exp.value(self.zhipu), 4)
+        return self.critical_rate_ * self.critical_rate_factor_ * round(self.critical_rate_exp.value(self.zhipu), 4)
+
+    @property
+    def critical_damage(self):
+        return self.critical_damage_ * round(self.critical_damage_exp.value(self.gangrou), 4)
+
+    @property
+    def hp_recover_rate(self):
+        return self.hp_recover_rate_ * round(self.hp_recover_rate_exp.value(-1 * self.zhipu), 4)
+
+    @property
+    def mp_recover_rate(self):
+        return self.mp_recover_rate_ * round(self.mp_recover_rate_exp.value(-1 * self.zhipu), 4)
+
+    #@property
+    #def attack_rate(self):
+    #    return self.attack_rate_ * round(self.attack_rate_exp.value(self.gangrou), 4)
+  
+    #@property
+    #def defense_rate(self):
+    #    return self.defense_rate_ * round(self.defense_rate_exp.value(-1 * self.dongjing), 4)
+
+    #@property
+    #def hp_rate(self):
+    #    return self.hp_rate_ * round(self.hp_rate_exp.value(-1 * self.zhipu), 4)
+        
+    #@property
+    #def mp_rate(self):
+    #    return self.mp_rate_ * round(self.mp_rate_exp.value(-1 * self.zhipu), 4)
+
+    @property
+    def rescue_rate(self):
+        return self.rescue_rate_ * round(self.rescue_rate_exp.value(self.zhipu), 4)
+
+    @property
+    def anti_injury(self):
+        return self.anti_injury_rate_ * round(self.anti_injury_rate_exp.value(-1 * self.gangrou), 4)
+
+    @property
+    def anti_wound(self):
+        return self.anti_wound_rate_ * round(self.anti_wound_rate_exp.value(self.gangrou), 4)
+
+    @property
+    def anti_poison(self):
+        return self.anti_poison_rate_ * round(self.anti_poison_rate_exp.value(self.dongjing), 4)
+
+    @property
+    def motion(self):
+        return int((self.motion_ + self.motion_exp.value(self.dongjing)) * self.equip_ratio)
+
+    @property
+    def speed(self):
+        return round(self.speed_ * self.speed_factor_ * round(self.speed_exp.value(self.dongjing), 4) * self.equip_ratio)
+
+    @property
+    def study_rate(self):
+        return self.study_rate_ * round(self.study_rate_exp.value(self.zhipu), 4)
+
+    @property
+    def weight_max(self):
+        return self.weight_max_ * round(self.weight_max_exp.value(self.gangrou), 4)
+
+    @property
+    def volume_max(self):
+        return self.volume_max_ * round(self.volume_max_exp.value(self.gangrou), 4)
+
+    @property
+    def equip_ratio(self):
+       return 1 if self.weight_equip == 0 else min(1, self.equip_max / self.weight_equip)
 
     @property
     def equip_max(self):
@@ -385,45 +522,6 @@ class Person(Entity):
             self.skills_equipped.append(None)
         if self.counter_skill == skill:
             self.counter_skill = None
-
-
-def register(name, attr, attrfac=1, lower=None, upper=None, middle=None, degree=50, base=1, func=None, output=None):
-    setattr(Person, "%s_exp_" % name, Exponential(lower=lower, upper=upper, middle=middle, degree=degree, base=1))
-    setattr(Person, "%s_" % name, base)
-    setattr(Person, "%s_factor_" % name, 1)
-    setattr(Person, "%s_delta_" % name, 0)
-    if func is None:
-        func = Person.exp_multi
-    setattr(Person, name, property(lambda self: func(self, name, attr, attrfac, output)))
-
-
-#register("hit_rate", middle=0.96, upper=1.15)
-register("hit_rate", attr="gangrou", attrfac=-1, middle=1, upper=1.04, base=0.94)
-register("dodge_rate", attr="dongjing", middle=1, upper=1.5, base=0.04)
-register("counter_rate", attr="dongjing", attrfac=-1, middle=1, upper=1.5, base=0.04)
-register("anti_damage_rate", attr="zhipu", middle=1, upper=1.5, base=0.04)
-register("anti_damage", attr="gangrou", attrfac=-1, middle=0.7, upper=0.85)
-register("critical_rate", attr="zhipu", middle=1, upper=1.5, base=0.04)
-register("critical_damage", attr="gangrou", lower=1.15, upper=1.75)
-register("hp_recover_rate", attr="zhipu", attrfac=-1, middle=0.1, upper=0.2)
-register("mp_recover_rate", attr="zhipu", attrfac=-1, middle=0.1, upper=0.2)
-register("rescue_rate", attr="zhipu", middle=1, upper=2)
-register("anti_injury_rate", attr="gangrou", attrfac=-1, lower=0.75, middle=1)
-register("anti_wound_rate", attr="gangrou", attrfac=-1, lower=0.75, middle=1)
-register("anti_poison_rate", attr="dongjing", attrfac=-1, lower=0.75, middle=1)
-register("attack", attr="gangrou", middle=1, upper=1.5, base=200, output=int)
-register("defense", attr="dongjing", attrfac=-1, middle=1, upper=2, base=200, output=int)
-#register("hp_rate", middle=1, upper=1.4)
-register("hp_max", attr="zhipu", attrfac=-1, middle=1, upper=1.4, base=1000, output=int)
-#register("mp_rate", middle=1, upper=1.2)
-register("mp_max", attr="zhipu", attrfac=-1, middle=1, upper=1.2, base=400, output=int)
-#register("motion", lower=1, middle=3, upper=5.6, base=0)
-register("motion", attr="dongjing", lower=1.9, middle=3.5, upper=5.1, base=-1, func=Person.exp_add, output=int)
-register("speed", attr="dongjing", middle=1, upper=1.6, base=160, output=int)
-register("study_rate", attr="zhipu", middle=1, upper=1.5)
-register("weight_max", attr="gangrou", middle=30, upper=60)
-register("volume_max", attr="gangrou", middle=60, upper=120)
-register("yinyang_rate", attr="yinyang", middle=1, upper=1.5)
 
 
 if __name__ == "__main__":

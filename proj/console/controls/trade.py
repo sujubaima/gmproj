@@ -20,7 +20,6 @@ from proj.console.controls.common import ItemQuantitySelectControl
 from proj.console.controls.common import PersonSelectControl
 
 from proj.builtin.actions import PersonItemTransferAction
-from proj.builtin.actions import PersonItemAction
 from proj.builtin.actions import PersonRecipeAction
 from proj.builtin.actions import PersonItemBuyAction
 from proj.builtin.actions import PersonItemSellAction

@@ -122,7 +122,7 @@ def handler_map_editor_control(ctrl):
     if not ui.blankline():
         ui.echo()
     if ctrl.show_coordinates:
-        ui.map(map=ctrl.map, coordinates=ctrl.map.all(), real_coordinates=ctrl.real_coordinates,
+        ui.map(map=ctrl.map, coordinates=[{"positions": ctrl.map.all(), "real": ctrl.real_coordinates}],
                entities=entity_info(ctrl.map))
     else:
         ui.map(map=ctrl.map, entities=entity_info(ctrl.map))
@@ -138,7 +138,7 @@ def handler_map_terran_control(ctrl):
     ui.menu(terran_menu(ctrl), keylist=[chr(i) for i in range(ord('a'), ord('a') + 26)], 
             columns=6, width=15, pagesize=26, goback=True, backmethod=ctrl.close)
     ui.echo()
-    ui.map(map=ctrl.map, coordinates=ctrl.map.all(), entities=entity_info(ctrl.map))
+    ui.map(map=ctrl.map, coordinates=[{"positions": ctrl.map.all()}], entities=entity_info(ctrl.map))
     ui.echo()
     ret = ui.read("请输入需要添加地形的坐标（x与y用空格分隔，多个坐标用半角逗号分隔）：", 
                   handler=lambda x: validate_positions(x, ctrl.map))
@@ -152,7 +152,7 @@ def handler_map_element_control(ctrl):
     ctrl.elename(ret)
     ui.menu(element_menu(ctrl), goback=True, backmethod=ctrl.close)
     ui.echo()
-    ui.map(map=ctrl.map, coordinates=ctrl.map.all(), entities=entity_info(ctrl.map))
+    ui.map(map=ctrl.map, coordinates=[{"positions": ctrl.map.all()}], entities=entity_info(ctrl.map))
     ui.echo()
     ret = ui.read("请输入需要添加元素的坐标（x与y用空格分隔，多个坐标用半角逗号分隔）：", 
                   handler=lambda x: validate_positions(x, ctrl.map))
@@ -171,7 +171,7 @@ def handler_map_thumbnail_control(ctrl):
     
 def handler_map_camera_control(ctrl):
     ui.echo()
-    ui.map(map=ctrl.map, coordinates=ctrl.map.all(), entities=entity_info(ctrl.map))
+    ui.map(map=ctrl.map, coordinates=[{"positions": ctrl.map.all()}], entities=entity_info(ctrl.map))
     ui.echo()
     ret = ui.read("请输入镜头需要移动至的坐标（x与y用空格分隔）：", 
                   handler=lambda x: validate_position(x, ctrl.map))
@@ -184,7 +184,7 @@ def handler_map_person_control(ctrl):
     ui.echo()
     if not person.startswith("PERSON"):
         return None
-    ui.map(map=ctrl.map, coordinates=ctrl.map.all(), entities=entity_info(ctrl.map))
+    ui.map(map=ctrl.map, coordinates=[{"positions": ctrl.map.all()}], entities=entity_info(ctrl.map))
     ui.echo()
     loc = ui.read("请输入需要添加地形的坐标（x与y用空格分隔，多个坐标用半角逗号分隔）：", 
               handler=lambda x: validate_positions(x, ctrl.map))
@@ -193,7 +193,7 @@ def handler_map_person_control(ctrl):
     
 def handler_map_erase_control(ctrl):
     ui.echo()
-    ui.map(map=ctrl.map, coordinates=ctrl.map.all(), entities=entity_info(ctrl.map))
+    ui.map(map=ctrl.map, coordinates=[{"positions": ctrl.map.all()}], entities=entity_info(ctrl.map))
     ui.echo()
     ret = ui.read("请输入需要添加地形的坐标（x与y用空格分隔，多个坐标用半角逗号分隔）：", 
                   handler=lambda x: validate_positions(x, ctrl.map))

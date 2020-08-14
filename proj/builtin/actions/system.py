@@ -61,11 +61,14 @@ class ScriptAddBranchAction(ScriptAction):
     脚本增加分支选项
     """
     def take(self):
-        if self.branch not in self.script.by_label(self.branch)["branches"]:
-            if self.position is not None:
-                self.script.by_label(self.branch)["branches"].insert(self.position, self.option)
-            else:
-                self.script.by_label(self.branch)["branches"].append(self.option)
+        for brch in self.script.by_label(self.branch)["branches"]:
+            if self.option["label"] == brch["label"] and \
+               self.option.get("content", None) == brch.get("content", None):
+                 return
+        if self.position is not None:
+            self.script.by_label(self.branch)["branches"].insert(self.position, self.option)
+        else:
+            self.script.by_label(self.branch)["branches"].append(self.option)
         if self.script_id not in context.script_branches:
             context.script_branches[self.script_id] = {}
         context.script_branches[self.script_id][self.branch] = self.script.by_label(self.branch)["branches"]

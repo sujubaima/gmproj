@@ -74,7 +74,7 @@ def profile(p):
     pf.append("")
     pf.append("【战斗数据】")
     pf.append("")
-    pf.append("  " + ui.fixed(18, n="攻击力：%s" % p.attack_base) + ui.fixed(15, n="防御力：%s" % p.defense_base))
+    pf.append("  " + ui.fixed(18, n="攻击力：%s" % p.attack) + ui.fixed(15, n="防御力：%s" % p.defense))
     pf.append("  " + ui.fixed(18, n="移动力：%s" % p.motion) + ui.fixed(15, n="速度：%s" % p.speed))
     pf.append("  " + ui.fixed(18, n="时序值：%s" % p.process))
     pf.append("")
@@ -577,13 +577,13 @@ def handler_person_skill_choose(ctx):
     
     
 def handler_person_task_update(ctx):
-    ui.warn("奇怪的事件增加了！（事件『%s』有更新）" % ctx.task)
+    ui.warn("事件『%s』有更新！" % ctx.task)
     ui.echo()
     
     
 def handler_person_attitude_change(ctx):
     ui.warn("%s对你的好感度%s了！" % (ctx.subject.name, "提升" if ctx.delta > 0 else "下降"))
-    ui.read()
+    ui.echo()
     
     
 def handler_person_join_team(ctx):
