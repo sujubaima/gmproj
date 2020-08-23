@@ -29,7 +29,7 @@ PERSON_PLAYER = \
      "dongjing": 0, "gangrou": -17, "zhipu": 21, "yinyang": -33,
      "neigong": 30, "boji": 18, "jianfa": 37, "daofa": 17, "changbing": 19, "anqi": 31, "qimen": 29,
      "superskills": [{"id": "SUPERSKILL_WANGBAQUAN", "learn": "All"},
-                     {"id": "SUPERSKILL_TIESHAZHANG", "learn": "All"}],
+                     {"id": "SUPERSKILL_DAMIEJUEZHANG", "learn": "All"}],
      "items": [{"id": "ITEM_MONEY", "quantity": 250},
                {"id": "ITEM_DANGONG", "quantity": 1, "position": "MainHand", "durability": 10},
                {"id": "ITEM_JINCHUANGYAO", "quantity": 4},
@@ -55,7 +55,7 @@ PERSON_PLAYER = \
 # 赵神机
 PERSON_ZHAO_SHENJI = \
     {"firstname": "赵", "lastname": "神机", "title": "长生坛教主",
-     "hp_max": 7900, "mp_max": 3700, "attack": 400, "defense": 350,
+     "hp_max": 7900, "mp_max": 3700, "attack": 480, "defense": 420,
      "hit_rate": 0.96, "counter_rate": 0.08, "dodge_rate": 0.1, "critical_rate": 0.12, "anti_damage_rate": 0.06,
      "dongjing": 23, "gangrou": 5, "zhipu": 21, "yinyang": 0,
      "neigong": 83, "boji": 67, "jianfa": 20, "daofa": 73, "changbing": 4, "anqi": 66, "qimen": 69,
@@ -71,7 +71,7 @@ PERSON_ZHAO_SHENJI = \
 # 田威
 PERSON_TIAN_WEI = \
     {"firstname": "田", "lastname": "威", "showname": "田公公", "title": "东厂督主",
-     "hp_max": 6400, "mp_max": 3500, "attack": 380, "defense": 280,
+     "hp_max": 6400, "mp_max": 3500, "attack": 456, "defense": 336,
      "hit_rate": 1.05, "counter_rate": 0.06, "dodge_rate": 0.15, "critical_rate": 0.15, "anti_damage_rate": 0.1,
      "dongjing": 30, "gangrou": -34, "zhipu": 35, "yinyang": -37,
      "neigong": 29, "boji": 73, "jianfa": 43, "daofa": 31, "changbing": 10, "anqi": 74, "qimen": 61, 

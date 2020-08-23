@@ -34,7 +34,7 @@ class PanGenEffect(Effect):
             return
         debuffs = []
         for sts in subject.status:
-            if sts.name is not None and sts.style == 0:
+            if sts.name is not None and sts.style == 0 and sts.exertor != subject:
                 debuffs.append(sts)
         if len(debuffs) == 0:
             return
@@ -192,26 +192,6 @@ class QuFengEffect(Effect):
                     details={"object": obj.name, "poison_recover": poison_recover})
 
 
-
-# 却步
-class QueBuEffect(Effect):
-
-    def work(self, subject, objects=[], **kwargs):
-        battle = kwargs["battle"]
-        if subject != battle.sequence[-1]["action"].subject:
-            return
-        effe_factor = self.factor(subject)
-        for obj in battle.sequence[-1]["action"].objects:
-            if battle.event(obj, BattleEvent.ACTMissed) is not None:
-                continue
-            #process = int(battle.event(obj, BattleEvent.HPDamaged)["value"] * 0.01 * self.level * effe_factor)
-            process = int(self.level * effe_factor)
-            process = -1 * common.random_gap(process, 0.025)
-            obj.process += process
-            if not battle.silent:
-                MSG(style=MSG.Effect, subject=subject, effect=self, details={"process": -1 * process, "object": obj.name})
-
-
 # 日薄虞渊
 class RiBoYuYuanEffect(ExertEffect):
 
@@ -296,6 +276,27 @@ class ShenZhunEffect(Effect):
                 battle.remove_event(obj, BattleEvent.ACTMissed)
         if not battle.silent:
             MSG(style=MSG.Effect, subject=subject, effect=self)
+
+
+# 时序
+class ShiXuEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if subject != battle.sequence[-1]["action"].subject:
+            return
+        if len(objects) == 0:
+            objects = self.battle_objects(battle, subject)
+        effe_factor = self.factor(subject)
+        for obj in objects:
+            if battle.event(obj, BattleEvent.ACTMissed) is not None:
+                continue
+            process = int(self.level * effe_factor)
+            process = -1 * common.random_gap(process, 0.025)
+            obj.process += process
+            if not battle.silent:
+                MSG(style=MSG.Effect, subject=subject, effect=self, 
+                    details={"process": -1 * process, "object": obj.name})
 
 
 # 太极劲

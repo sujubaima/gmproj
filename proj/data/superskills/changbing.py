@@ -1,5 +1,9 @@
 # -- coding: utf-8 --
 
+
+# ------------------------------------- 分割线：C级长兵 -------------------------------------
+
+
 # 夜叉棍法
 SUPERSKILL_YECHAGUNFA = \
     {"name": "夜叉棍法", "rank": 0,
@@ -38,6 +42,9 @@ SUPERSKILL_WULANGGUN = \
                 "description": "习得招式【下马提拦】"}]}
 
 
+# ------------------------------------- 分割线：B级长兵 -------------------------------------
+
+
 # 西楚霸王枪
 SUPERSKILL_XICHUBAWANGQIANG = \
     {"name": "西楚霸王枪", "rank": 1,
@@ -48,6 +55,9 @@ SUPERSKILL_XICHUBAWANGQIANG = \
                {"name": "霸王别姬",
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_XICHUBAWANGQIANG_3"}]}]}
                 
+
+# ------------------------------------- 分割线：A级长兵 -------------------------------------
+
                 
 # 十力降魔棍
 SUPERSKILL_SHILIXIANGMOGUN = \
@@ -56,6 +66,9 @@ SUPERSKILL_SHILIXIANGMOGUN = \
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_SHILIXIANGMOGUN_1"}]},
                {"name": "泰然无惧", 
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_SHILIXIANGMOGUN_2"}]}]}
+
+
+# ------------------------------------- 分割线：S级长兵 -------------------------------------
 
 
 # 打狗棒法

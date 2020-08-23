@@ -29,6 +29,10 @@ def mohewuliang(p, q, effe, battle):
         return power * min(1, p.mp / power * 0.4)
     else:
         return 1
+
+
+def kurong(p, q, effe, battle):
+    return 9999
     
 
 class SimpleAI(object):
@@ -38,7 +42,8 @@ class SimpleAI(object):
                   "EFFECT_HUICHUN_XIAO": huichun,
                   "EFFECT_MOHEWULIANG": mohewuliang,
                   "EFFECT_MOHEWULIANG_DA": mohewuliang,
-                  "EFFECT_MOHEWULIANG_XIAO": mohewuliang,}
+                  "EFFECT_MOHEWULIANG_XIAO": mohewuliang,
+                  "EFFECT_KURONG": kurong}
 
     def __init__(self, battle):
         self.battle = battle
@@ -121,7 +126,7 @@ class SimpleAI(object):
 
     def do(self, p):
         if not self.battle.silent:
-            self.move_scope, self.connections = self.battle.map.move_scope(p, style=p.move_style)
+            self.move_scope, self.connections = self.battle.map.move_scope(p)
 
             self.person_info = []
             self.object_info = []

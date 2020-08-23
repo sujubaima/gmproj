@@ -319,7 +319,8 @@ def handler_battle_control(ctrl):
         ui.echo()
     ui.map(map, entities=battle_person_handler(ctrl.snapshot))
     ui.cleanmenu()
-    ui.menu(battle_menu(ctrl), title="请选择%s的行动方针：" % ctrl.battle.current.name, columns=2, width=15)
+    ui.menu(battle_menu(ctrl), title="请选择%s的行动方针：" % ctrl.battle.current.name, 
+            macros=ctrl.macs, columns=2, width=15)
    
 
 def handler_battle_pos_select_control(ctrl):
@@ -346,3 +347,20 @@ def handler_battle_scope_control(ctrl):
     ui.echo()
     rt = ui.sure("黄色为作用范围，是否确认")
     ctrl.input(rt)
+
+
+def handler_battle_sequence(ctrl):
+    if not ui.blankline():
+        ui.echo()
+    ret = []
+    for p in [ctrl.battle.current] + ctrl.acseq:
+        if ctrl.battle.is_friend(ctrl.battle.current, p):
+            ret.append(ui.colored(p.name, color="cyan", attrs=["bold"]))
+        else:
+            ret.append(ui.colored(p.name, color="red", attrs=["bold"]))
+    ui.echo("当前行动顺序如下：")
+    ui.echo()
+    ui.echo("->".join(ret))
+    ui.echo()
+    ui.read("（回车继续）")
+    ctrl.launch()

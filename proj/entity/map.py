@@ -65,36 +65,36 @@ class Shape(object):
             blockstr = "无视"
         if self.style == Shape.Point:
             if self.msputter <= 1:
-                ret = "单体%s%s" % (blockstr, self.scope)
+                ret = "单体%s%s格" % (blockstr, self.scope)
             else:
-                ret = "单体%s%s至%s" % (blockstr, self.msputter, self.scope)
+                ret = "单体%s%s至%s格" % (blockstr, self.msputter, self.scope)
             if self.sputter > 0:
-                ret += "溅射%s" % self.sputter
+                ret += "溅射%s格" % self.sputter
         elif self.style == Shape.Line:
             if self.msputter <= 1:
-                ret = "直线%s%s" % (blockstr, self.sputter)
+                ret = "直线%s%s格" % (blockstr, self.sputter)
             else:
-                ret = "直线%s%s至%s" % (blockstr, self.msputter, self.sputter)
+                ret = "直线%s%s至%s格" % (blockstr, self.msputter, self.sputter)
         elif self.style == Shape.BigSector:
             if self.msputter <= 1:
-                ret = "大扇形%s%s" % (blockstr, self.sputter)
+                ret = "大扇形%s%s格" % (blockstr, self.sputter)
             else:
-                ret = "大扇形%s%s至%s" % (blockstr, self.msputter, self.sputter)
+                ret = "大扇形%s%s至%s格" % (blockstr, self.msputter, self.sputter)
         elif self.style == Shape.SmallSector:
             if self.msputter <= 1:
-                ret = "小扇形%s%s" % (blockstr, self.sputter)
+                ret = "小扇形%s%s格" % (blockstr, self.sputter)
             else:
-                ret = "小扇形%s%s至%s" % (blockstr, self.msputter, self.sputter)
+                ret = "小扇形%s%s至%s格" % (blockstr, self.msputter, self.sputter)
         elif self.style == Shape.Round:
             if self.msputter <= 1:
-                ret = "超扇形%s%s" % (blockstr, self.sputter)
+                ret = "超扇形%s%s格" % (blockstr, self.sputter)
             else:
-                ret = "超扇形%s%s至%s" % (blockstr, self.msputter, self.sputter)
+                ret = "超扇形%s%s至%s格" % (blockstr, self.msputter, self.sputter)
         elif self.style == Shape.Around:
             if self.msputter <= 1:
-                ret = "周身%s%s" % (blockstr, self.sputter)
+                ret = "周身%s%s格" % (blockstr, self.sputter)
             else:
-                ret = "环形%s%s至%s" % (blockstr, self.msputter, self.sputter)
+                ret = "环形%s%s至%s格" % (blockstr, self.msputter, self.sputter)
         return ret
 
 
@@ -843,7 +843,7 @@ class Map(Entity):
                 ret.append((i, j))
         return ret
 
-    def move_scope(self, p, motion=None, enable_zoc=True, style="move"):
+    def move_scope(self, p, motion=None, enable_zoc=True):
         loc = self.location(p)
         if motion is None:
             real_motion = p.motion

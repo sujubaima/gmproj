@@ -102,17 +102,6 @@ SKILL_10_3 = {"name": "霸王别姬", "style": "Changbing",
              "mp": 140, "power": 700, "cd": 2, "yinyang": 0, "shape": "Point,1,0"}
 
 
-# 拨云见日刀-云归穴暝 
-SKILL_BOYUNJIANRIDAO_1 = \
-    {"name": "云归穴暝", "style": "Daofa",
-     "mp": 80, "power": 400, "cd": 0, "yinyang": 0, "shape": "Point,2,0"}
-
-# 拨云见日刀-日出林开
-SKILL_BOYUNJIANRIDAO_2 = \
-    {"name": "日出林开", "style": "Daofa",
-     "mp": 150, "power": 500, "cd": 0, "yinyang": 0, "shape": "BigSector,1,1"}
-
-
 # 兰阳剑法-秋兰可喻
 SKILL_LANYANGJIANFA_1 = \
     {"name": "秋兰可喻", "style": "Jianfa",

@@ -8,6 +8,7 @@ from proj.entity import Effect
 from proj.entity import Status
 from proj.entity import BattleEvent
 from proj.entity import BattlePhase
+from proj.entity import SkillType
 from proj.entity import Terran
 from proj.entity import common
 from proj.entity.effect import ExertEffect
@@ -308,6 +309,30 @@ class JueYingEffect(Effect):
                                                                          "object": obj.name})
 
 
+# 枯荣
+class KuRongEffect(Effect):
+
+    phase = BattlePhase.AfterDamage
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if subject != battle.sequence[-1]["action"].subject:
+            return
+        if len(objects) == 0:
+            objects = self.battle_objects(battle, subject)
+        for obj in objects:
+            if battle.event(obj, BattleEvent.ACTMissed) is not None:
+                continue
+            max_damage = min(9999, obj.hp_max)
+            damage_base = random.randint(1, max_damage)
+            mp_base = min(-1, int(damage_base * 0.35))
+            skill_ability = battle.calculate_weapon(battle.sequence[-1]["action"].skill, subject, subject)[0]
+            mp_skill = int(mp_base * math.pow(1.004, 100 - subject.neigong) * math.pow(1.004, 100 - skill_ability))
+            damage_base = int(damage_base * min(1, subject.mp / mp_skill))
+            subject.mp_delta -= min(mp_skill, subject.mp)
+            obj.hp_delta -= damage_base
+
+
 # 离魂 
 class LiHunEffect(Effect):
 
@@ -339,6 +364,11 @@ class LianJiEffect(Effect):
         battle = kwargs["battle"]
         if subject != battle.sequence[-1]["action"].subject:
             return
+        turbotime = battle.sequence[-1]["action"].turbotime
+        if turbotime is None:
+            turbotime = 1
+        if self.maxcount is not None and turbotime >= self.maxcount:
+            return
         effe_ratio = self.factor(subject) * self.level * 0.01
         if not common.if_rate(effe_ratio):
             return
@@ -355,7 +385,8 @@ class LianJiEffect(Effect):
         battle.attacked[subject.id] = False
         add_ac = BattleSkillAction(subject=subject, battle=battle,
                                    skill=skill, target=target, scope=scope,
-                                   objects=newobjs)
+                                   objects=newobjs, type=SkillType.Turbo, 
+                                   turbotime=turbotime+1)
         battle.additions.append(add_ac)
         #battle.attacked[subject.id] = False
         if not battle.silent:
@@ -545,7 +576,7 @@ class MoHeWuLiangEffect(Effect):
        for seq in battle.sequence:
            if not isinstance(seq["action"], BattleSkillAction):
                continue
-           if seq["action"].skill.tpl_id.startswith("SKILL_MOHEWULIANGZHANG"):
+           if seq["action"].skill.tpl_id.startswith("SKILL_MOHEWULIANGZHI"):
                continue
            if "results" not in seq:
                continue
@@ -562,7 +593,7 @@ class MoHeWuLiangEffect(Effect):
            damage_base = -1
        else:
            damage_base = damagelist[min(len(damagelist) - 1, self.level)]
-       mp_base = min(-1, int(damage_base * 0.3))
+       mp_base = min(-1, int(damage_base * 0.35))
        skill_ability = battle.calculate_weapon(battle.sequence[-1]["action"].skill, subject, subject)[0]
        mp_skill = -1 * int(mp_base * math.pow(1.004, 100 - subject.neigong) * math.pow(1.004, 100 - skill_ability))
        damage_base = int(damage_base * min(1, subject.mp / mp_skill))

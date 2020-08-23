@@ -14,6 +14,7 @@ EFFECT_DAGOUTOU = \
     {"name": "打狗头",
      "module": "proj.builtin.effects", "class": "DaGouTouEffect"}
 
+
 # 拔山劲    
 EFFECT_BASHANJIN = \
     {"style": 1, "module": "proj.builtin.effects", "class": "BattlePersonChangeAttributeEffect",
@@ -38,6 +39,14 @@ EFFECT_CHANGDAN_ANONYMOUS = \
      "attrs": [{"name": "critical_rate_", "delta": 0.03}]}
 
 
+# 超然
+EFFECT_CHAORAN = \
+    {"name": "超然", "style": 1,
+     "module": "proj.builtin.effects", "class": "ChaoRanEffect",
+     "text": "{subject}的负面状态被清空了",
+     "description": "清空{objstr}的负面状态"}
+
+
 # 错骨
 EFFECT_CUOGU = \
     {"style": 1, "module": "proj.builtin.effects", "class": "BattlePersonChangeAttributeEffect",
@@ -49,9 +58,19 @@ EFFECT_DINGSHEN = \
     {"style": 1, "module": "proj.builtin.effects", "class": "JinYongEffect", "action": "Move"}
 
 
-# 弃武
-EFFECT_QIWU = \
-    {"style": 1, "module": "proj.builtin.effects", "class": "JinYongEffect", "action": "Attack"}
+# 多段
+EFFECT_ERDUANJI = \
+    {"name": "二段击", "style": 1, 
+     "module": "proj.builtin.effects", "class": "LianJiEffect", "level": 100, "maxcount": 2,
+     "text": "对目标再次发动攻击",
+     "description": "本次攻击为二连击"}
+
+
+EFFECT_SANDUANJI = \
+    {"name": "三段击", "style": 1, 
+     "module": "proj.builtin.effects", "class": "LianJiEffect", "level": 100, "maxcount": 3,
+     "text": "对目标再次发动攻击",
+     "description": "本次攻击为三连击"}
 
 
 # 断筋
@@ -64,6 +83,15 @@ EFFECT_DUANJIN = \
 EFFECT_FEIDIAN = \
     {"name": "飞电", "style": 1, 
      "module": "proj.builtin.effects", "class": "FeiDianEffect"}
+
+
+# 奋进
+EFFECT_FENJIN = \
+    {"name": "奋进", "style": 1,
+     "module": "proj.builtin.effects", "class": "ShiXuEffect",
+     "influence": "Dong", "factor_middle": 1, "factor_upper": 1.5,
+     "text": "{object}的时序前进了{process}点",
+     "description": "使{objstr}时序前进，灵动值越高时序前进越多"}
 
 
 # 负心
@@ -170,6 +198,7 @@ EFFECT_GANGJIN_DA = \
      "description": "较大比例的伤害追加为外伤，刚猛值越高效果越佳"}
 
 
+# 击退
 EFFECT_JITUI = \
     {"name": "击退", "style": 0,
      "module": "proj.builtin.effects", "class": "JiTuiEffect",
@@ -211,9 +240,16 @@ EFFECT_JINGANGBUHUAI = \
      "text": "伤害减为1点"}
 
 
+# 惧拳
+EFFECT_JUQUAN = \
+    {"style": 1, "module": "proj.builtin.effects", "class": "JuWuEffect", "level": 25, "skill_style": "Boji",
+     "text": "{object}被搏击类武学攻击时会受到更多伤害",
+     "description": "被搏击类武学攻击时受到更多伤害"}
+
+
 # 惧剑
 EFFECT_JUJIAN = \
-    {"style": 1, "module": "proj.builtin.effects", "class": "JuWuEffect", "level": 30, "skill_style": "Jianfa",
+    {"style": 1, "module": "proj.builtin.effects", "class": "JuWuEffect", "level": 25, "skill_style": "Jianfa",
      "text": "{object}被剑法类武学攻击时会受到更多伤害",
      "description": "被剑法类武学攻击时受到更多伤害"}
 
@@ -241,15 +277,15 @@ EFFECT_MEIRENRUYU = \
 # 摩诃无量
 EFFECT_MOHEWULIANG_XIAO = \
     {"name": "恒河沙数", "style": 0, "module": "proj.builtin.effects", "class": "MoHeWuLiangEffect", "level": 2,
-     "description": "本次攻击伤害为当前战斗除本武学外，所有打出的伤害中排名第三高的数值，内力消耗视伤害与内功修为而定"}
+     "description": "给目标施加当前战斗中所有打出伤害里排名第三高的伤害，内力消耗视伤害与内功修为而定"}
 
 EFFECT_MOHEWULIANG = \
     {"name": "阿僧祇数", "style": 0, "module": "proj.builtin.effects", "class": "MoHeWuLiangEffect", "level": 1,
-     "description": "本次攻击伤害为当前战斗除本武学外，所有打出伤害里中排名第二高的数值，内力消耗视伤害与内功修为而定"}
+     "description": "给目标施加当前战斗中所有打出伤害里排名第二高的伤害，内力消耗视伤害与内功修为而定"}
 
 EFFECT_MOHEWULIANG_DA = \
     {"name": "不思议数", "style": 0, "module": "proj.builtin.effects", "class": "MoHeWuLiangEffect", "level": 0,
-     "description": "本次攻击伤害为当前战斗除本武学外，所有打出的伤害中排名第一高的数值，内力消耗视伤害与内功修为而定"}
+     "description": "给目标施加当前战斗中所有打出伤害里排名第一高的数值，内力消耗视伤害与内功修为而定"}
 
 
 # 目盲
@@ -443,6 +479,11 @@ EFFECT_XURUO = \
 EFFECT_XUNJI = \
     {"style": 1,
      "module": "proj.builtin.effects", "class": "BattlePersonChangeAttributeEffect",
+     "attrs": [{"name": "speed_factor_", "ratio": 1.5}]}
+
+EFFECT_XUNJI_DA = \
+    {"style": 1,
+     "module": "proj.builtin.effects", "class": "BattlePersonChangeAttributeEffect",
      "attrs": [{"name": "speed_factor_", "ratio": 2}]}
 
 
@@ -565,10 +606,17 @@ EFFECT_HUAYU = \
      "description": "为目标减少瘀毒值，颖悟值越高效果越佳"}
 
 
+# 枯荣
+EFFECT_KURONG = \
+    {"name": "枯荣",
+     "module": "proj.builtin.effects", "class": "KuRongEffect",
+     "description": "给目标随机造成1到9999点伤害，内力消耗视伤害与内功修为而定"}
+
+
 # 却步
 EFFECT_QUEBU = \
     {"name": "却步", "style": 0, 
-     "module": "proj.builtin.effects", "class": "QueBuEffect",
+     "module": "proj.builtin.effects", "class": "ShiXuEffect",
      "influence": "Rou", "factor_middle": 1, "factor_upper": 1.5,
      "text": "{object}的时序倒退了{process}点",
      "description": "使目标时序倒退，柔易值越高时序倒退越多"}
@@ -615,6 +663,11 @@ EFFECT_QIANCHAN = \
     {"style": 0, "module": "proj.builtin.effects", "class": "BattlePersonChangeAttributeEffect",
      "attrs": [{"name": "dodge_rate_factor_", "ratio": 0.6}],
      "influence": "Rou", "factor_lower": 1.2, "factor_middle": 1}
+
+
+# 弃武
+EFFECT_QIWU = \
+    {"style": 1, "module": "proj.builtin.effects", "class": "JinYongEffect", "action": "Attack"}
 
 
 # 日月
@@ -720,11 +773,6 @@ EFFECT_GAOYUANWUJI = \
      "attrs": [{"name": "zoc_scope", "delta": 1}]}
      
      
-# 俯仰俱陈
-EFFECT_FUYANGJUCHEN = \
-    {"style": 0, "module": "proj.builtin.effects", "class": "FeiXingEffect", "level": 10}
-
-
 # 百中
 EFFECT_BAIZHONG = \
     {"style": 1, "module": "proj.builtin.effects", "class": "BattlePersonChangeAttributeEffect",
@@ -794,6 +842,13 @@ EFFECT_SHENZHUN = \
      "module": "proj.builtin.effects", "class": "ShenZhunEffect",
      "text": "攻击必定命中",
      "description": "攻击必定命中，且不会被闪避"}
+
+
+# 精拳
+EFFECT_JINGQUAN = \
+    {"style": 1,
+     "module": "proj.builtin.effects", "class": "JingWuEffect", "skill_style": "Boji", "level": 25,
+     "description": "搏击伤害大幅提高"}
   
   
 # 精剑
@@ -916,6 +971,13 @@ EFFECT_NIFENG = \
     {"name": "逆风",
      "module": "proj.builtin.effects", "class": "FeiLianEffect", "mode": 1,
      "description": "目标气血值大于自身时伤害提升"}
+
+
+# 御五龙
+EFFECT_YUWULONG = \
+    {"name": "御五龙", "style": 1,
+     "module": "proj.builtin.effects", "class": "YuWuLongEffect",
+     "description": "友方全体成员技能CD时间刷新"}
 
 
 # 震慑

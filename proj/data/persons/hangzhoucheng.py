@@ -6,7 +6,7 @@ PERSON_GUIHAI_PING = \
      "dongjing": 10, "gangrou": 7, "zhipu": 19,
      "neigong": 34, "boji": 34, "jianfa": 16, "daofa": 38, "changbing": 29, "anqi": 8, "qimen": 13, "yinyang": 24,
      "superskills": [{"id": "SUPERSKILL_JIANGHUXINFA", "learn": [0, 1, 2]},
-                     {"id": "SUPERSKILL_BOYUNJIANRIDAO", "learn": [0, 1]}],
+                     {"id": "SUPERSKILL_QINGTIANDAOFA", "learn": [0, 1]}],
      "equipment": [{"id": "ITEM_PODAO", "position": "MainHand"}],
      "items": [],
      "criticaltxt": "我要向你们证明一下，刀法才是最厉害的武学！",
@@ -19,7 +19,7 @@ PERSON_YANG_FAN = \
      "dongjing": 20, "gangrou": 6, "zhipu": -18,
      "neigong": 20, "boji": 30, "jianfa": 2, "daofa": 5, "changbing": 32, "anqi": 12, "qimen": 18, "yinyang": 4,
      "superskills": [{"id": "SUPERSKILL_JIANGHUXINFA", "learn": [0, 1, 2]},
-                     {"id": "SUPERSKILL_BOYUNJIANRIDAO", "learn": [0, 1]}],
+                     {"id": "SUPERSKILL_QINGTIANDAOFA", "learn": [0, 1]}],
      "items": [],
      "conversation": "DIALOG_ZHAOQIER_1"}
 
@@ -30,7 +30,7 @@ PERSON_ZHUANG_KEXIE = \
      "dongjing": 17, "gangrou": 27, "zhipu": 8,
      "neigong": 20, "boji": 49, "jianfa": 20, "daofa": 28, "changbing": 30, "anqi": 17, "qimen": 21, "yinyang": 35,
      "superskills": [{"id": "SUPERSKILL_JIANGHUXINFA", "learn": [0, 1, 2]},
-                     {"id": "SUPERSKILL_BOYUNJIANRIDAO", "learn": [0, 1]}],
+                     {"id": "SUPERSKILL_QINGTIANDAOFA", "learn": [0, 1]}],
      "items": [],
      "criticaltxt": "人生何所为，当求无上道。",
      "conversation": "DIALOG_HUANGJINJIA_1"}

@@ -204,7 +204,7 @@ def item_menu(ctrl):
             suffix_list.append(ui.colored("装备中", color="green"))
         suffix = "（%s）" % "，".join(suffix_list)
         if not valid:
-            mitem = ui.menuitem(ui.rank(itm) + ui.bgrey(suffix), value=(itm, person), validator=lambda x: False)
+            mitem = ui.menuitem(itm.name + ui.bgrey(suffix), value=(itm, person), validator=lambda x: False)
         else:
             comments = ui.item(itm)
             mitem = ui.menuitem(ui.rank(itm) + suffix, comments=comments, value=(itm, person), goto=ctrl.select)
@@ -243,24 +243,18 @@ def recipe_menu(ctrl):
 
 def skill_menu(ctrl):
     smenu = []
-    if ctrl.type == 0:
-        skills = ctrl.person.skills
-    else:
-        tmp = set()
-        skills = []
-        for skill_inner in ctrl.person.skills_inner:
-            if skill_inner.belongs.tpl_id in tmp:
-                continue
-            skills.append(skill_inner.belongs)
-            tmp.add(skill_inner.belongs.tpl_id)
-    for sk in skills:
-        sk_str = "%s：%s" % (ui.rank(sk.belongs), ui.rank(sk))
+    skills = ctrl.skills
+    for sk, errormsg in skills:
         comments = [ui.skill(sk)]
         for effe in sk.effects:
             comments.append(ui.effect(effe))
-        smenu.append(ui.menuitem(sk_str, comments=comments, value=sk, goto=ctrl.select))
+        if errormsg is None:
+            sk_str = "%s：%s" % (ui.rank(sk.belongs), ui.rank(sk))
+            smenu.append(ui.menuitem(sk_str, comments=comments, value=sk, goto=ctrl.select))
+        else:
+            sk_str = "%s：%s（%s）" % (sk.belongs.name, sk.name, errormsg)
+            smenu.append(ui.menuitem(sk_str, validator=lambda x: False))
     return smenu
-
 
 
 def handler_show(ctx):

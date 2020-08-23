@@ -302,6 +302,26 @@ class YuDuEffect(Effect):
                 MSG(style=MSG.Effect, subject=subject, effect=self, details={"object": obj.name, "poison_mp": -1 * poison_mp})
 
 
+# 御五龙
+class YuWuLongEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if subject != battle.sequence[-1]["action"].subject:
+            return
+        if battle.event(subject, BattleEvent.ACTFault) is not None:
+            return
+        for p in battle.friends(subject):
+            if p.id not in battle.cdmap:
+                continue
+            for k in battle.cdmap[p.id].keys():
+                if p == subject and k == battle.sequence[-1]["action"].skill.tpl_id:
+                    continue
+                battle.cdmap[p.id][k] = 0
+        if not battle.silent:
+            MSG(style=MSG.Effect, subject=subject, effect=self)
+
+
 # 浴血
 class YuXueEffect(Effect):
 

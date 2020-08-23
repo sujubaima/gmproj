@@ -6,6 +6,7 @@ import random
 
 from proj.entity.constants import EquipPosition
 from proj.entity.common import Entity
+from proj.entity.common import HyperAttr
 from proj.entity.skill import Superskill
 from proj.entity.item import Item
 from proj.entity.recipe import Recipe
@@ -17,6 +18,11 @@ from proj.utils import Exponential
 
 
 class Person(Entity):
+
+    ATTR_SET = set(["dongjing", "gangrou", "zhipu", "yinyang",
+                    "neigong", "boji", "jianfa", "daofa", "changbing", "anqi", "qimen",
+                    "hp_max", "mp_max", "attack", "defense", "motion", "speed",
+                    "counter_rate", "dodge_rate", "critical_rate", "anti_damage_rate", "hit_rate"])
 
     def handle(self, k, v):
         if k == "tags":
@@ -65,11 +71,7 @@ class Person(Entity):
         elif k == "status":
             for st in v:
                 self.status.append(Status.template(st["id"]))
-        elif k in set(["dongjing", "gangrou", "zhipu", "yinyang", 
-                       "neigong", "boji", "jianfa", "daofa", "changbing", "anqi", "qimen"]):
-            self.tmpdict["tpl_%s" % k] = v
-        elif k in set(["hp_max", "mp_max", "attack", "defense", "motion", "speed", 
-                       "counter_rate", "dodge_rate", "critical_rate", "anti_damage_rate", "hit_rate"]):
+        elif k in Person.ATTR_SET:
             self.tmpdict["tpl_%s_" % k] = v
         else:
             setattr(self, k, v)
@@ -81,11 +83,8 @@ class Person(Entity):
                 learnlist = range(len(ss.nodes))
             for n in learnlist:
                 ss.learn(self, n)
-        for k in set(["dongjing", "gangrou", "zhipu", "yinyang",
-                       "neigong", "boji", "jianfa", "daofa", "changbing", "anqi", "qimen",
-                       "hp_max_", "mp_max_", "attack_", "defense_", "motion_", "speed_",
-                       "counter_rate_", "dodge_rate_", "critical_rate_", "anti_damage_rate_", "hit_rate_"]):
-            tpl_key = "tpl_%s" % k
+        for k in Person.ATTR_SET:
+            tpl_key = "tpl_%s_" % k
             if tpl_key in self.tmpdict:
                 setattr(self, k, self.tmpdict.pop(tpl_key))
         if "tpl_equipment" in self.tmpdict:
@@ -130,16 +129,8 @@ class Person(Entity):
 
         self.yinyang = 0
 
-        # 灵动值：影响时序速度、闪避率与移动步数
-        # 沉静值：影响基础防御与命中率
         self.dongjing = 0
-
-        # 刚猛值：影响基础攻击
-        # 柔易值：影响反击率与暴击伤害
         self.gangrou = 0
-
-        # 颖悟值：影响武学修炼速度、暴击率与医疗能力
-        # 朴拙值：影响气血因子与休息回复率
         self.zhipu = 0
 
         #self.hp_ = 1000
@@ -157,19 +148,11 @@ class Person(Entity):
         self.direction = 1
         self.process = 0
 
-        self.move_style = "move"
-
-        # 外伤值
         self.injury = 0
-        # 内伤值
         self.wound = 0
-        # 风毒值
         self.poison_hp = 0
-        # 瘀毒值
         self.poison_mp = 0
-        # 饥饿值
         self.hunger = 0
-        # 疲劳值
         self.fatigue = 0
         
         self.visible = True
@@ -208,10 +191,14 @@ class Person(Entity):
         # 该角色的ZOC范围与ZOC量
         self.zoc_scope = 1
         self.zoc_value = 99
-        self.movitivity = set(["TERRAN_BLANK", "TERRAN_ROAD", "TERRAN_GRASS", "TERRAN_FLOWER_RED", "TERRAN_FLOWER_YELLOW"
-                               "TERRAN_HILL", "TERRAN_FOREST", "TERRAN_DESERT", "TERRAN_SNOW", "TERRAN_CLOUD"])
-        self.locativity = set(["TERRAN_BLANK", "TERRAN_ROAD", "TERRAN_GRASS", "TERRAN_FLOWER_RED", "TERRAN_FLOWER_YELLOW", 
-                               "TERRAN_HILL", "TERRAN_FOREST", "TERRAN_DESERT", "TERRAN_SNOW", "TERRAN_CLOUD"])
+        self.movitivity = set(["TERRAN_BLANK", "TERRAN_ROAD", "TERRAN_GRASS", 
+                               "TERRAN_FLOWER_RED", "TERRAN_FLOWER_YELLOW"
+                               "TERRAN_HILL", "TERRAN_FOREST", "TERRAN_DESERT", 
+                               "TERRAN_SNOW", "TERRAN_CLOUD"])
+        self.locativity = set(["TERRAN_BLANK", "TERRAN_ROAD", "TERRAN_GRASS", 
+                               "TERRAN_FLOWER_RED", "TERRAN_FLOWER_YELLOW", 
+                               "TERRAN_HILL", "TERRAN_FOREST", "TERRAN_DESERT", 
+                               "TERRAN_SNOW", "TERRAN_CLOUD"])
 
         self.hp = self.hp_limit
         self.mp = self.mp_limit
@@ -219,24 +206,30 @@ class Person(Entity):
         self.conversation = None
 
     def exp_multi(self, name, attr, attrfac=1, output=None):
-        prop_delta = getattr(self, "%s_delta_" % name)
+        prop_locked = getattr(self, "%s_locked" % name)        
+        if prop_locked is not None:
+            return prop_locked
+        prop_base = getattr(self, "%s_" % name)
+        #prop_delta = getattr(self, "%s_delta_" % name)
         prop_factor = getattr(self, "%s_factor_" % name)
         prop_exp = getattr(self, "%s_exp_" % name)
-        prop_base = getattr(self, "%s_" % name)
         attrval = getattr(self, attr)
-        ret = (prop_base + prop_delta) * prop_factor * round(prop_exp.value(attrfac * attrval), 4)
+        ret = prop_base * prop_factor * round(prop_exp.value(attrfac * attrval), 4)
         if output is None:
             return ret
         else:
             return output(ret)
 
     def exp_add(self, name, attr, attrfac=1, output=None):
-        prop_delta = getattr(self, "%s_delta_" % name)
+        prop_locked = getattr(self, "%s_locked" % name)
+        if prop_locked is not None:
+            return prop_locked
+        prop_base = getattr(self, "%s_" % name)
+        #prop_delta = getattr(self, "%s_delta_" % name)
         prop_factor = getattr(self, "%s_factor_" % name)
         prop_exp = getattr(self, "%s_exp_" % name)
-        prop_base = getattr(self, "%s_" % name)
         attrval = getattr(self, attr)
-        ret = prop_base + prop_delta + round(prop_exp.value(attrfac * attrval), 4) * prop_factor
+        ret = prop_base + prop_factor * round(prop_exp.value(attrfac * attrval), 4)
         if output is None:
             return ret
         else:
@@ -290,6 +283,15 @@ class Person(Entity):
     @property
     def equip_max(self):
         return self.weight_max * 2 / 3
+
+    @property
+    def inner_superskills(self):
+        tmp = set()
+        for skill_inner in self.skills_inner:
+            if skill_inner.belongs.tpl_id in tmp:
+                continue
+            tmp.add(skill_inner.belongs.tpl_id)
+        return list(tmp)
         
     def already(self, status, exertor=None, source=None):
         ret = None
@@ -330,7 +332,7 @@ class Person(Entity):
             value = 50 - abs(self.yinyang)
         else:
             value = self.yinyang
-        return round(self.yinyang_rate_exp.value(yinyang * value), 4)
+        return round(self.yinyang_effect_exp_.value(yinyang * value), 4)
 
     def minus_item(self, item, quantity=1):
         self.quantities[item.tpl_id] -= quantity
@@ -387,43 +389,63 @@ class Person(Entity):
             self.counter_skill = None
 
 
-def register(name, attr, attrfac=1, lower=None, upper=None, middle=None, degree=50, base=1, func=None, output=None):
+def person_attr(name, attr, lower=None, upper=None, middle=None, degree=50, base=1, func=None, output=None):
+    if attr.startswith("-"):
+        attr = attr[1:]
+        attrfac = -1
+    else:
+        attrfac = 1
     setattr(Person, "%s_exp_" % name, Exponential(lower=lower, upper=upper, middle=middle, degree=degree, base=1))
     setattr(Person, "%s_" % name, base)
     setattr(Person, "%s_factor_" % name, 1)
-    setattr(Person, "%s_delta_" % name, 0)
+    #setattr(Person, "%s_delta_" % name, 0)
     if func is None:
         func = Person.exp_multi
-    setattr(Person, name, property(lambda self: func(self, name, attr, attrfac, output)))
+    prop = property(fget=lambda x: func(x, name, attr, attrfac, output),
+                    fset=lambda x, y: setattr(x, "%s_" % name, y))
+    setattr(Person, name, prop)
 
 
-#register("hit_rate", middle=0.96, upper=1.15)
-register("hit_rate", attr="gangrou", attrfac=-1, middle=1, upper=1.04, base=0.94)
-register("dodge_rate", attr="dongjing", middle=1, upper=1.5, base=0.04)
-register("counter_rate", attr="dongjing", attrfac=-1, middle=1, upper=1.5, base=0.04)
-register("anti_damage_rate", attr="zhipu", middle=1, upper=1.5, base=0.04)
-register("anti_damage", attr="gangrou", attrfac=-1, middle=0.7, upper=0.85)
-register("critical_rate", attr="zhipu", middle=1, upper=1.5, base=0.04)
-register("critical_damage", attr="gangrou", lower=1.15, upper=1.75)
-register("hp_recover_rate", attr="zhipu", attrfac=-1, middle=0.1, upper=0.2)
-register("mp_recover_rate", attr="zhipu", attrfac=-1, middle=0.1, upper=0.2)
-register("rescue_rate", attr="zhipu", middle=1, upper=2)
-register("anti_injury_rate", attr="gangrou", attrfac=-1, lower=0.75, middle=1)
-register("anti_wound_rate", attr="gangrou", attrfac=-1, lower=0.75, middle=1)
-register("anti_poison_rate", attr="dongjing", attrfac=-1, lower=0.75, middle=1)
-register("attack", attr="gangrou", middle=1, upper=1.5, base=200, output=int)
-register("defense", attr="dongjing", attrfac=-1, middle=1, upper=2, base=200, output=int)
-#register("hp_rate", middle=1, upper=1.4)
-register("hp_max", attr="zhipu", attrfac=-1, middle=1, upper=1.4, base=1000, output=int)
-#register("mp_rate", middle=1, upper=1.2)
-register("mp_max", attr="zhipu", attrfac=-1, middle=1, upper=1.2, base=400, output=int)
-#register("motion", lower=1, middle=3, upper=5.6, base=0)
-register("motion", attr="dongjing", lower=1.9, middle=3.5, upper=5.1, base=-1, func=Person.exp_add, output=int)
-register("speed", attr="dongjing", middle=1, upper=1.6, base=160, output=int)
-register("study_rate", attr="zhipu", middle=1, upper=1.5)
-register("weight_max", attr="gangrou", middle=30, upper=60)
-register("volume_max", attr="gangrou", middle=60, upper=120)
-register("yinyang_rate", attr="yinyang", middle=1, upper=1.5)
+def _person_attr(name, attr, lower=None, upper=None, middle=None, degree=50, base=1, func=None, output=None):
+    if attr.startswith("-"):
+        attr = attr[1:]
+        attrfac = -1
+    else:
+        attrfac = 1
+    exp = Exponential(lower=lower, upper=upper, middle=middle, degree=degree, base=1)
+    hyper = HyperAttr(base)
+    setattr(Person, "%s_" % name, hyper)
+    setattr(Person, "%s_exp_" % name, exp)
+    if func is None:
+        func = Person.exp_multi
+    prop = property(fget=lambda x: func(x, name, attr, attrfac, output),
+                    fset=lambda x, y: setattr(x, "%s_" % name, y))
+    setattr(Person, name, prop)
+
+
+person_attr("hit_rate", attr="-gangrou", middle=1, upper=1.04, base=0.94)
+person_attr("dodge_rate", attr="dongjing", middle=1, upper=1.5, base=0.04)
+person_attr("counter_rate", attr="-dongjing", middle=1, upper=1.5, base=0.04)
+person_attr("anti_damage_rate", attr="zhipu", middle=1, upper=1.5, base=0.04)
+person_attr("anti_damage", attr="-gangrou", middle=0.7, upper=0.85)
+person_attr("critical_rate", attr="zhipu", middle=1, upper=1.5, base=0.04)
+person_attr("critical_damage", attr="gangrou", lower=1.15, upper=1.75)
+person_attr("hp_recover_rate", attr="-zhipu", middle=0.1, upper=0.2)
+person_attr("mp_recover_rate", attr="-zhipu", middle=0.1, upper=0.2)
+person_attr("rescue_rate", attr="zhipu", middle=1, upper=2)
+person_attr("anti_injury", attr="-gangrou", lower=0.75, middle=1)
+person_attr("anti_wound", attr="-gangrou", lower=0.75, middle=1)
+person_attr("anti_poison_rate", attr="-dongjing", lower=0.75, middle=1)
+person_attr("attack", attr="gangrou", middle=1, upper=1.4, base=200, output=int)
+person_attr("defense", attr="-dongjing", middle=1, upper=2, base=200, output=int)
+person_attr("hp_max", attr="-zhipu", middle=1, upper=1.4, base=1000, output=int)
+person_attr("mp_max", attr="-zhipu", middle=1, upper=1.2, base=400, output=int)
+person_attr("motion", attr="dongjing", lower=1.9, middle=3.5, upper=5.1, base=-1, func=Person.exp_add, output=int)
+person_attr("speed", attr="dongjing", middle=1, upper=1.5, base=160, output=int)
+person_attr("study_rate", attr="zhipu", middle=1, upper=1.5)
+person_attr("weight_max", attr="gangrou", middle=30, upper=60)
+person_attr("volume_max", attr="gangrou", middle=60, upper=120)
+person_attr("yinyang_effect", attr="yinyang", middle=1, upper=1.5)
 
 
 if __name__ == "__main__":

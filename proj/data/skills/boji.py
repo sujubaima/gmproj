@@ -1,5 +1,9 @@
 # -- coding: utf-8 --
 
+
+# ------------------------------------- 分割线：C级搏击 -------------------------------------
+
+
 # 无名拳法-单体式
 SKILL_WUMINGQUANFA_1 = \
     {"name": "单体式", "style": "Boji",
@@ -22,6 +26,39 @@ SKILL_BAICHANSHOU_2 = \
      "mp": 80, "power": 400, "cd": 0, "yinyang": -1, "shape": "Point.Emit,2,0"}
 
 
+# 铁砂掌-崩山碎石
+SKILL_TIESHAZHANG_1 = \
+    {"name": "崩山碎石", "style": "Boji",
+     "mp": 110, "power": 550, "cd": 0, "yinyang": 1, "shape": "Point.Emit,1,0",
+     "effects": [{"id": "EFFECT_GANGJIN_DA"}]}
+
+
+# 窃钩术-妙手空空
+SKILL_QIEGOUSHU_1 = \
+    {"name": "妙手空空", "style": "Boji",
+     "mp": 0, "power": 0, "cd": 0, "yinyang": 0, "shape": "Point.Emit,1,0",
+     "effects": [{"id": "EFFECT_TOUDAO"}]}
+
+
+# ------------------------------------- 分割线：B级搏击 -------------------------------------
+
+
+# 长风拳法-大风扬旗
+SKILL_CHANGFENGQUANFA_1 = \
+    {"name": "大风扬旗", "style": "Boji",
+     "mp": 130, "power": 650, "cd": 0, "yinyang": 1, "shape": "Point.Emit,1,0",
+     "effects": [{"id": "EFFECT_GANGJIN"}]}
+
+# 长风拳法-乘风破浪
+SKILL_CHANGFENGQUANFA_2 = \
+    {"name": "乘风破浪", "style": "Boji",
+     "mp": 120, "power": 600, "cd": 0, "yinyang": 1, "shape": "Point.Emit,3,0",
+     "effects": [{"id": "EFFECT_TENGYUE"}]}
+
+
+# ------------------------------------- 分割线：A级搏击 -------------------------------------
+
+
 # 幽闭三击-金屋藏春色
 SKILL_YOUBISANJI_1 = \
     {"name": "金屋藏春色", "style": "Boji",
@@ -41,33 +78,6 @@ SKILL_YOUBISANJI_3 = \
      "effects": [{"id": "EFFECT_ROUJIN"}]}
      
      
-# 铁砂掌-崩山碎石
-SKILL_TIESHAZHANG_1 = \
-    {"name": "崩山碎石", "style": "Boji",
-     "mp": 110, "power": 550, "cd": 0, "yinyang": 1, "shape": "Point.Emit,1,0",
-     "effects": [{"id": "EFFECT_GANGJIN_DA"}]}
-
-
-# 窃钩术-妙手空空
-SKILL_QIEGOUSHU_1 = \
-    {"name": "妙手空空", "style": "Boji",
-     "mp": 0, "power": 0, "cd": 0, "yinyang": 0, "shape": "Point.Emit,1,0",
-     "effects": [{"id": "EFFECT_TOUDAO"}]}
-
-
-# 长风拳法-大风扬旗
-SKILL_CHANGFENGQUANFA_1 = \
-    {"name": "大风扬旗", "style": "Boji",
-     "mp": 130, "power": 650, "cd": 0, "yinyang": 1, "shape": "Point.Emit,1,0",
-     "effects": [{"id": "EFFECT_GANGJIN"}]}
-
-# 长风拳法-乘风破浪
-SKILL_CHANGFENGQUANFA_2 = \
-    {"name": "乘风破浪", "style": "Boji",
-     "mp": 120, "power": 600, "cd": 0, "yinyang": 1, "shape": "Point.Emit,3,0",
-     "effects": [{"id": "EFFECT_TENGYUE"}]}
-
-
 # 混元掌-混元一气
 SKILL_HUNYUANZHANG_1 = \
     {"name": "混元一气", "style": "Boji",
@@ -130,20 +140,38 @@ SKILL_QINGQIUZHIFA_3 = \
      "mp": 200, "power": 0, "cd": 0, "yinyang": 1, "shape": "Point.Seep,1,0"}
 
 
-# 摩诃无量掌-如恒河沙
-SKILL_MOHEWULIANGZHANG_1 = \
+# 大日如来掌-如来胎藏式
+SKILL_DARIRULAIZHANG_1 = \
+    {"name": "如来胎藏式", "style": "Boji",
+     "mp": 576, "power": 720, "cd": 1, "yinyang": 0, "shape": "Point.Emit,2,1",
+     "effects": [{"id":"EXERT.STATUS_JINGQUAN", "phase": "BeforeDamage", "targets": "Subject", "turns": 2},
+                {"id": "EFFECT_ROUJIN"}]}
+
+# 大日如来掌-如来金刚式
+SKILL_DARIRULAIZHANG_2 = \
+    {"name": "如来金刚式", "style": "Boji",
+     "mp": 576, "power": 720, "cd": 1, "yinyang": 0, "shape": "Point.Emit,2,1",
+     "effects": [{"id": "EXERT.STATUS_JUQUAN", "phase": "BeforeDamage", "turns": 2},
+                 {"id": "EFFECT_GANGJIN"}]}
+
+
+# ------------------------------------- 分割线：S级搏击 -------------------------------------
+
+
+# 摩诃无量指-如恒河沙
+SKILL_MOHEWULIANGZHI_1 = \
     {"name": "如恒河沙", "style": "Boji",
      "mp": 0, "power": 0, "cd": 0, "yinyang": 1, "shape": "Point.Emit,2,0",
      "effects": [{"id": "EFFECT_MOHEWULIANG_XIAO"}]}
 
-# 摩诃无量掌-如阿僧祇
-SKILL_MOHEWULIANGZHANG_2 = \
+# 摩诃无量指-如阿僧祇
+SKILL_MOHEWULIANGZHI_2 = \
     {"name": "如阿僧祇", "style": "Boji",
      "mp": 0, "power": 0, "cd": 1, "yinyang": 1, "shape": "Point.Emit,2,0",
      "effects": [{"id": "EFFECT_MOHEWULIANG"}]}
 
-# 摩诃无量掌-如不思议
-SKILL_MOHEWULIANGZHANG_3 = \
+# 摩诃无量指-如不思议
+SKILL_MOHEWULIANGZHI_3 = \
     {"name": "如不思议", "style": "Boji",
      "mp": 0, "power": 0, "cd": 2, "yinyang": 1, "shape": "Point.Emit,2,0",
      "effects": [{"id": "EFFECT_MOHEWULIANG_DA"}]}
@@ -170,22 +198,22 @@ SKILL_TAIJIQUAN_3 = \
                  {"id": "EXERT.STATUS_XIEJIN", "targets": "Subject", "turns": 1}]}
 
 
-# 降龙十八掌-亢龙有悔
-SKILL_XIANGLONGSHIBAZHANG_1 = \
+# 降龙手-亢龙有悔
+SKILL_XIANGLONGSHOU_1 = \
     {"name": "亢龙有悔", "style": "Boji",
      "mp": 165, "power": 825, "cd": 1, "yinyang": 1, "shape": "Point.Emit,2,0",
      "effects": [{"id": "EXERT.STATUS_XURUO", "name": "破攻", "turns": 2},
                  {"id": "EFFECT_GANGJIN"}]}
 
-# 降龙十八掌-见龙卸甲
-SKILL_XIANGLONGSHIBAZHANG_2 = \
+# 降龙手-见龙卸甲
+SKILL_XIANGLONGSHOU_2 = \
     {"name": "见龙卸甲", "style": "Boji",
      "mp": 180, "power": 900, "cd": 1, "yinyang": 1, "shape": "Line.Emit,1,2",
      "effects": [{"id": "EXERT.STATUS_XIEJIA", "name": "破防", "turns": 2},
                  {"id": "EFFECT_GANGJIN"}]}
 
-# 降龙十八掌-龙战于野
-SKILL_XIANGLONGSHIBAZHANG_3 = \
+# 降龙手-龙战于野
+SKILL_XIANGLONGSHOU_3 = \
     {"name": "龙战于野", "style": "Boji",
      "mp": 682, "power": 975, "cd": 2, "yinyang": 1, "shape": "Point.Emit,1,1",
      "effects": [{"id": "EXERT.STATUS_YUXUE", "name": "其血玄黄", "targets": "Subject", "turns": 2},
@@ -209,3 +237,10 @@ SKILL_WULEITIANYINZHANG_3 = \
     {"name": "五雷轰", "style": "Boji",
      "mp": 1200, "power": 999, "cd": 2, "yinyang": 0, "shape": "Around.Seep,0,20",
      "effects": []}
+
+
+# 大灭绝掌-成败枯荣
+SKILL_DAMIEJUEZHANG_1 = \
+    {"name": "成败枯荣", "style": "Boji",
+     "mp": 0, "power": 0, "cd": 2, "yinyang": 0, "shape": "Point.Emit,1,0",
+     "effects": [{"id": "EFFECT_KURONG"}]}

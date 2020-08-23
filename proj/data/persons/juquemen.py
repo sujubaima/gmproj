@@ -14,12 +14,12 @@ PERSON_YU_JIANQI = \
 # 耿朱桥
 PERSON_GENG_ZHUQIAO = \
     {"firstname": "耿", "lastname": "朱桥", "title": "铁笛先生",
-     "hp_max":5500, "mp_max": 1850, "attack": 330, "defense": 340, "motion": 0,
+     "hp_max":5500, "mp_max": 1850, "attack": 396, "defense": 408, "motion": 0,
      "hit_rate": 1, "counter_rate": 0.1, "dodge_rate": 0.06, "critical_rate": 0.1, "anti_damage_rate": 0.1,
      "dongjing": -19, "gangrou": -4, "zhipu": 32, "yinyang": 0,
      "neigong": 62, "boji": 31, "jianfa": 69, "daofa": 64, "changbing": 53, "anqi": 10, "qimen": 61,
      "superskills": [{"id": "SUPERSKILL_MEIHUAXINYI", "learn": "All"},
-                     {"id": "SUPERSKILL_DAOJIANGONG", "learn": "All"}],
+                     {"id": "SUPERSKILL_DAOJIANJUE", "learn": "All"}],
      "running": {"id": "SUPERSKILL_MEIHUAXINYI"},
      "equipment": [{"id": "ITEM_GONGBUDAO,0-ITEM_JINGTIE", "position": "MainHand"},
                    {"id": "ITEM_WANZIJIAN,0-ITEM_JINGTIE", "position": "ViceHand"},

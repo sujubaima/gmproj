@@ -1,5 +1,9 @@
 # -- coding: utf-8 --
 
+
+# ------------------------------------- 分割线：C级暗器 -------------------------------------
+
+
 # 弹弓术
 SUPERSKILL_DANGONGSHU = \
     {"name": "弹弓术", "rank": 0,
@@ -32,6 +36,10 @@ SUPERSKILL_QINGTINGDIANSHUISHI = \
                                "attrs": [{"name": "speed_", "delta": 50}]}],
                 "description": "基础速度+50"}]}
 
+
+# ------------------------------------- 分割线：B级暗器 -------------------------------------
+
+
 # 璇玑图
 SUPERSKILL_XUANJITU = \
     {"name": "璇玑图", "rank": 1,
@@ -48,3 +56,10 @@ SUPERSKILL_CHUNFENGJIUGUI = \
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_CHUNFENGJIUGUI_1"}]},
                {"name": "回风摇蕙",
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_CHUNFENGJIUGUI_2"}]}]}
+
+
+# ------------------------------------- 分割线：A级暗器 -------------------------------------
+
+
+
+# ------------------------------------- 分割线：S级暗器 -------------------------------------

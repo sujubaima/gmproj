@@ -1,6 +1,9 @@
 # -- coding: utf-8 --
 
 
+# ------------------------------------- 分割线：C级剑法 -------------------------------------
+
+
 # 太乙玄门剑
 SUPERSKILL_TAIYIXUANMENJIAN = \
     {"name": "太乙玄门剑", "rank": 0,
@@ -27,48 +30,6 @@ SUPERSKILL_TAIYIXUANMENJIAN = \
                                "attrs": [{"name": "yinyang", "delta": 5}]}],
                 "description": "内力阳性+3%，阴性-3%"},]}
                 
-                
-# 天音剑气
-SUPERSKILL_TIANYINJIANQI = \
-    {"name": "天音剑气", "rank": 2,
-     "nodes": [{"name": "空谷传声", "next": [1],
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TIANYINJIANQI_1"}]},
-               {"name": "风送轻云", "next": [2],
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TIANYINJIANQI_2"}]},
-               {"name": "振索鸣铃",
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TIANYINJIANQI_3"}]}]}
-
-
-# 卧龙剑法
-SUPERSKILL_WOLONGJIANFA = \
-    {"name": "卧龙剑法", "rank": 2,
-     "nodes": [{"name": "幽谷飞泉", "next": [1],
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_WOLONGJIANFA_1"}]},
-               {"name": "长沟冷月", "next": [2],
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_WOLONGJIANFA_2"}]},
-               {"name": "碧潭龙隐",
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_WOLONGJIANFA_3"}]}]}
-
-
-# 龙华剑术
-SUPERSKILL_LONGHUAJIANSHU = \
-    {"name": "龙华剑术", "rank": 1,
-     "nodes": [{"name": "指点迷津", "next": [1],
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_LONGHUAJIANSHU_1"}]},
-               {"name": "出幽入冥", "next": [2],
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_LONGHUAJIANSHU_2"}]},
-               {"name": "一气冲霄",
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_LONGHUAJIANSHU_3"}]}]}
-                
-                
-# 同归剑法
-SUPERSKILL_TONGGUIJIANFA = \
-    {"name": "同归剑法", "rank": 2,
-     "nodes": [{"name": "一别两宽", "next": [1],
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TONGGUIJIANFA_1"}]},
-               {"name": "殊途同归",
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TONGGUIJIANFA_2"}]}]}
-                          
 
 # 兰阳剑法
 SUPERSKILL_LANYANGJIANFA = \
@@ -152,13 +113,49 @@ SUPERSKILL_XILIUJIANFA = \
                 "functions": [{"type": "PersonSkillChangeAttribute", "skill": "SKILL_XILIUJIANFA_2",
                                "attrs": [{"name": "shape", "value": "SmallSector.Seep,1,3"}]}],
                 "description": "招式【满城风絮】增加1格溅射范围"}]}
+
+
+# ------------------------------------- 分割线：B级剑法 -------------------------------------
+
+
+# 卧龙剑法
+SUPERSKILL_WOLONGJIANFA = \
+    {"name": "卧龙剑法", "rank": 2,
+     "nodes": [{"name": "幽谷飞泉", "next": [1],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_WOLONGJIANFA_1"}]},
+               {"name": "长沟冷月", "next": [2],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_WOLONGJIANFA_2"}]},
+               {"name": "碧潭龙隐",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_WOLONGJIANFA_3"}]}]}
+
+
+# 龙华剑术
+SUPERSKILL_LONGHUAJIANSHU = \
+    {"name": "龙华剑术", "rank": 1,
+     "nodes": [{"name": "指点迷津", "next": [1],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_LONGHUAJIANSHU_1"}]},
+               {"name": "出幽入冥", "next": [2],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_LONGHUAJIANSHU_2"}]},
+               {"name": "一气冲霄",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_LONGHUAJIANSHU_3"}]}]}
+
+
+# 霜月快剑
+SUPERSKILL_SHUANGYUEKUAIJIAN = \
+    {"name": "霜月快剑", "rank": 1,
+     "nodes": [{"name": "新月剑", "next": [1],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_SHUANGYUEKUAIJIAN_1"}]},
+               {"name": "弦月剑", "next": [2],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_SHUANGYUEKUAIJIAN_2"}]},
+               {"name": "满月剑",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_SHUANGYUEKUAIJIAN_3"}]}]}
       
 
 # 屯云飞烟剑
 SUPERSKILL_TUNYUNFEIYANJIAN = \
     {"name": "屯云飞烟剑", "rank": 1,
-     "nodes": [{"name": "荡胸生层云", "exp": 750, "next": [1, 2],
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_LANYANGJIANFA_1"}],
+     "nodes": [{"name": "荡胸生层云", "exp": 750, "tags": "SKILL_TUNYUNFEIYANJIAN_1", "next": [1, 2],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TUNYUNFEIYANJIAN_1"}],
                 "description": "习得招式【荡胸生层云】"},
                {"name": "破绽", "exp": 500, "next": [3],
                 "functions": [{"type": "PersonChangeAttribute",
@@ -168,8 +165,8 @@ SUPERSKILL_TUNYUNFEIYANJIAN = \
                 "functions": [{"type": "PersonChangeAttribute",
                                "attrs": [{"name": "hit_rate_", "delta": 0.02}]}],
                 "description": "命中+2"},
-               {"name": "惊风涌飞流", "exp": 1000, "next": [4, 5],
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_LANYANGJIANFA_2"}],
+               {"name": "惊风涌飞流", "exp": 1000, "tags": "SKILL_TUNYUNFEIYANJIAN_2", "next": [4, 5],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TUNYUNFEIYANJIAN_2"}],
                 "description": "习得招式【惊风涌飞流】"},
                {"name": "利剑", "exp": 500, "next": [6],
                 "functions": [{"type": "PersonChangeAttribute",
@@ -179,33 +176,11 @@ SUPERSKILL_TUNYUNFEIYANJIAN = \
                 "functions": [{"type": "PersonChangeAttribute",
                                "attrs": [{"name": "jianfa", "delta": 4}]}],
                 "description": "剑法+4"},
-               {"name": "齐州九点烟", "exp": 1250,
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_LANYANGJIANFA_3"}],
+               {"name": "齐州九点烟", "exp": 1250, "tags": "SKILL_TUNYUNFEIYANJIAN_3",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TUNYUNFEIYANJIAN_3"}],
                 "description": "习得招式【齐州九点烟】"}]}
 
 
-# 太岳三青峰
-SUPERSKILL_TAIYUESANQINGFENG = \
-    {"name": "太岳三青峰", "rank": 2,
-     "nodes": [{"name": "素手托莲", "next": [1],
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TAIYUESANQINGFENG_1"}]},
-               {"name": "横眉观日", "next": [2],
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TAIYUESANQINGFENG_2"}]},
-               {"name": "高天落雁",
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TAIYUESANQINGFENG_3"}]}]}
-                
-                
-# 越女剑法
-SUPERSKILL_YUENVJIANFA = \
-    {"name": "越女剑法", "rank": 3,
-     "nodes": [{"name": "移花接木", "next": [1],
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_YUENVJIANFA_1"}]},
-               {"name": "决云断地", "next": [2],
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_YUENVJIANFA_2"}]},
-               {"name": "逐影追形",
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_YUENVJIANFA_3"}]}]}
-                
-                
 # 碧城剑法
 SUPERSKILL_BICHENGJIANFA = \
     {"name": "碧城剑法", "rank": 1,
@@ -221,6 +196,40 @@ SUPERSKILL_BICHENGJIANFA = \
                               {"type": "PersonSkillAddEffect",
                                "skill": "SKILL_BICHENGJIANFA_3", "effect": {"id": "EFFECT_GONGQI_DA"}}],
                 "description": "增强【玉轮生魄】的攻气效果"}]}
+
+
+# ------------------------------------- 分割线：A级剑法 -------------------------------------
+
+
+# 太岳三青峰
+SUPERSKILL_TAIYUESANQINGFENG = \
+    {"name": "太岳三青峰", "rank": 2,
+     "nodes": [{"name": "素手托莲", "next": [1],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TAIYUESANQINGFENG_1"}]},
+               {"name": "横眉观日", "next": [2],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TAIYUESANQINGFENG_2"}]},
+               {"name": "高天落雁",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TAIYUESANQINGFENG_3"}]}]}
+
+
+# 同归剑法
+SUPERSKILL_TONGGUIJIANFA = \
+    {"name": "同归剑法", "rank": 2,
+     "nodes": [{"name": "一别两宽", "next": [1],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TONGGUIJIANFA_1"}]},
+               {"name": "殊途同归",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TONGGUIJIANFA_2"}]}]}
+
+
+# 渔阳剑诀
+SUPERSKILL_YUYANGJIANJUE = \
+    {"name": "渔阳剑诀", "rank": 2,
+     "nodes": [{"name": "狡兔追风", "next": [1],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_YUYANGJIANJUE_1"}]},
+               {"name": "醒狮顿地", "next": [2],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_YUYANGJIANJUE_2"}]},
+               {"name": "龙翻虎跃",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_YUYANGJIANJUE_3"}]}]}
 
 
 # 玉女素心剑
@@ -243,6 +252,20 @@ SUPERSKILL_PEIJIANGJUNJIAN = \
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_PEIJIANGJUNJIAN_2"}]}]}
 
 
+# ------------------------------------- 分割线：S级剑法 -------------------------------------
+
+
+# 越女剑法
+SUPERSKILL_YUENVJIANFA = \
+    {"name": "越女剑法", "rank": 3,
+     "nodes": [{"name": "移花接木", "next": [1],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_YUENVJIANFA_1"}]},
+               {"name": "决云断地", "next": [2],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_YUENVJIANFA_2"}]},
+               {"name": "逐影追形",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_YUENVJIANFA_3"}]}]}
+
+
 # 太极剑意
 SUPERSKILL_TAIJIJIANYI = \
     {"name": "太极剑意", "rank": 3,
@@ -252,3 +275,14 @@ SUPERSKILL_TAIJIJIANYI = \
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TAIJIJIANYI_2"}]},
                {"name": "云摩三舞",
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TAIJIJIANYI_3"}]}]}
+
+
+# 西河剑法
+SUPERSKILL_XIHEJIANFA = \
+    {"name": "西河剑法", "rank": 3,
+     "nodes": [{"name": "一剑动四方", "next": [1],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_XIHEJIANFA_1"}]},
+               {"name": "羿射九日落", "next": [2],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_XIHEJIANFA_2"}]},
+               {"name": "群帝骖龙翔",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_XIHEJIANFA_3"}]}]}

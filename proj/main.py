@@ -47,6 +47,7 @@ def change_mod(new_mod):
 def person_info(p):
     pf = []
     pf.append("  " + "姓名：" + p.name)
+    pf.append("  " + "性别：男")
     pf.append("")
     pf.append("  " + ui.fixed(18, n="灵动：" + ui.colored("%s%%" % (50 + p.dongjing))) + \
                      ui.fixed(18, n="沉静：" + ui.colored("%s%%" % (50 - p.dongjing))))
@@ -93,7 +94,7 @@ def create_role(args):
         #lead = person.create_player(xing, ming, sex)
         lead.random()
         ui.echo()
-        ui.echo(ui.colored("你的初始属性如下", attrs=["bold"]))
+        ui.echo(ui.colored("你的初始特质如下", attrs=["bold"]))
         ui.echo()
         ui.echo(person_info(lead))
         ui.echo()

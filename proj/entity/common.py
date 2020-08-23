@@ -36,9 +36,9 @@ class Entity(object):
             if "module" in tpl:
                 tmp = importlib.import_module(tpl["module"])
             cls = eval("tmp.%s" % tpl["class"])
-        ret = cls()
-        ret.tpl_id = tpl_id
-        ret.load(**tpl)
+        ret = cls(tpl_id=tpl_id, **tpl)
+        #ret.tpl_id = tpl_id
+        #ret.load(**tpl)
         return ret
         
     @classmethod
@@ -99,6 +99,25 @@ class Entity(object):
 
     def __getattr__(self, k):
         return None
+
+
+class HyperAttr(object):
+
+    def __init__(self, base, delta=0, factor=1, type=None, fval=None):
+        self.base = base
+        self.delta = delta
+        self.factor = factor
+        if type is None:
+            self.type = lambda x: x
+        else:
+            self.type = type
+        if fval is None:
+            self.fval = lambda: self.type((self.base + self.delta) * self.factor)
+        else:
+            self.fval = lambda: self.type(fval(self))
+
+    def __call__(self):
+        return self.fval()
 
 
 def random_gap(base, gap):

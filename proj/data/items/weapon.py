@@ -350,8 +350,10 @@ ITEM_DINGHAI = \
      "description": "南少林方智所持宝棍，由月空神僧亲自挑选海石打造，因此命名定海，又兼有怀念抗倭诸将之意"}
      
      
+# 凤首
 ITEM_FENGSHOU = \
-    {"name": "凤首", "rank": 4, "tags": "Equip,Weapon,Yueqi", "shape": "Around,0,0,0", "bind": "PERSON_YING_QINGFENG",
+    {"name": "凤首", "rank": 4, "tags": "Equip,Weapon,Yueqi", "shape": "Around,0,0,0", "double_hand": True,
+     "bind": "PERSON_YING_QINGFENG",
      "weight": 4.5, "volume": 4, "durability": 50, 
      "effects": [{"id": "EXERT.LAMBDA.EFFECT_FENGSHOU_ATTR"}],
      "description": "幽冥宫玄狐使婴青凤所用的曲项琵琶，因琴头雕成凤凰模样而得名"}

@@ -4,7 +4,7 @@
 # 邢飞龙
 PERSON_XING_FEILONG = \
     {"firstname": "邢", "lastname": "飞龙", "force": "FORCE_GAIBANG", "title": "丐帮帮主",
-     "hp_max": 7800, "mp_max": 2900, "attack": 380, "defense": 340, "motion": 1,
+     "hp_max": 7800, "mp_max": 5800, "attack": 456, "defense": 408, "motion": 1,
      "hit_rate": 0.98, "counter_rate": 0.08, "dodge_rate": 0.09, "critical_rate": 0.1, "anti_damage_rate": 0.07,
      "dongjing": 14, "gangrou": 28, "zhipu": -16,
      "neigong": 72, "boji": 82, "jianfa": 21, "daofa": 32, "changbing": 87, "anqi": 35, "qimen": 49, "yinyang": 15,
@@ -21,12 +21,12 @@ PERSON_XING_FEILONG = \
 # 厉苍鹰
 PERSON_LI_CANGYING = \
     {"firstname": "厉", "lastname": "苍鹰", "force": "FORCE_GAIBANG", "title": "丐帮传功长老",
-     "hp_max": 7200, "mp_max": 2800, "attack": 395, "defense": 350, "motion": 0,
+     "hp_max": 7200, "mp_max": 5600, "attack": 474, "defense": 420, "motion": 0,
      "hit_rate": 1, "counter_rate": 0.1, "dodge_rate": 0.06, "critical_rate": 0.15, "anti_damage_rate": 0.08,
      "dongjing": -12, "gangrou": 32, "zhipu": 20,
      "neigong": 70, "boji": 88, "jianfa": 17, "daofa": 36, "changbing": 71, "anqi": 43, "qimen": 44, "yinyang": 35,
      "superskills": [{"id": "SUPERSKILL_QIURANXINFA", "learn": "All"},
-                     {"id": "SUPERSKILL_XIANGLONGSHIBAZHANG", "learn": "All"}],
+                     {"id": "SUPERSKILL_XIANGLONGSHOU", "learn": "All"}],
      "running": {"id": "SUPERSKILL_QIURANXINFA"},
      "items": [],
      "equipment": [{"id": "ITEM_ZHIHU,0-ITEM_JINGTIE", "position": "MainHand"},
@@ -35,10 +35,10 @@ PERSON_LI_CANGYING = \
 
 
 
-# 洪迎祥
-PERSON_HONG_YINGXIANG = \
-    {"firstname": "洪", "lastname": "迎祥", "force": "FORCE_GAIBANG", "title": "丐帮醉八仙",
-     "hp_max": 5400, "mp_max": 1600, "attack": 345, "defense": 315, "motion": 0,
+# 洪元祥
+PERSON_HONG_YUANXIANG = \
+    {"firstname": "洪", "lastname": "元祥", "force": "FORCE_GAIBANG", "title": "丐帮醉八仙",
+     "hp_max": 5400, "mp_max": 3200, "attack": 414, "defense": 378, "motion": 0,
      "hit_rate": 1, "counter_rate": 0.12, "dodge_rate": 0.12, "critical_rate": 0.08, "anti_damage_rate": 0.08,
      "dongjing": 10, "gangrou": -12, "zhipu": 21, "yinyang": 0,
      "neigong": 60, "boji": 62, "jianfa": 17, "daofa": 28, "changbing": 13, "anqi": 20, "qimen": 19,
@@ -52,7 +52,6 @@ PERSON_ZHAO_LING = \
     {"firstname": "赵", "lastname": "零", "showname": "赵乞儿", "force": "FORCE_GAIBANG", "title": "丐帮弟子",
      "dongjing": 20, "gangrou": 6, "zhipu": -18,
      "neigong": 20, "boji": 30, "jianfa": 2, "daofa": 5, "changbing": 32, "anqi": 12, "qimen": 18, "yinyang": 4,
-     "superskills": [{"id": "SUPERSKILL_JIANGHUXINFA", "learn": [0, 1, 2]},
-                     {"id": "SUPERSKILL_BOYUNJIANRIDAO", "learn": [0, 1]}],
+     "superskills": [{"id": "SUPERSKILL_BAICHANSHOU", "learn": "All"}],
      "items": [],
      "conversation": "DIALOG_ZHAOQIER_1"}

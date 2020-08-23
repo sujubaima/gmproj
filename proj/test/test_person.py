@@ -8,6 +8,7 @@ sys.path.append(os.path.abspath(os.path.dirname(os.path.abspath(__file__)) + "/.
 
 from proj import entity
 from proj.entity import Person
+from proj.entity import HyperAttr
 
 from proj.runtime import context
 
@@ -59,4 +60,7 @@ if __name__ == "__main__":
     #print(rel1, rel2)
     print(p1.dodge_rate, p2.dodge_rate)
     print(p1.attack, p2.defense)
+    p1.abc = HyperAttr(5, delta=0.5, factor=1.2, type=int, fval=lambda self: self.base + self.delta)
+    print(p1.abc())
+    print(getattr(p1.__class__, "dodge_rate"))
 

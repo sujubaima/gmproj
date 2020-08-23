@@ -5,8 +5,7 @@ PERSON_WAN_PENGFEI = \
     {"firstname": "万", "lastname": "鹏飞", "title": "无名小卒",
      "dongjing": 10, "gangrou": 7, "zhipu": 19,
      "neigong": 24, "boji": 31, "jianfa": 16, "daofa": 34, "changbing": 29, "anqi": 8, "qimen": 13, "yinyang": 24,
-     "superskills": [{"id": "SUPERSKILL_BOYUNJIANRIDAO", "learn": [0]},
-                     {"id": "SUPERSKILL_XINGHONGDAOFA", "learn": "All"}],
+     "superskills": [{"id": "SUPERSKILL_QINGTIANDAOFA", "learn": [0]}],
      "items": [{"id": "ITEM_YANLINGDAO", "quantity": 1, "position": "MainHand", "durability": 3},
                {"id": "ITEM_MONEY", "quantity": 72}],
      "criticaltxt": "这一刀不敢说后无来者，至少也是前无古人了。",
@@ -19,7 +18,7 @@ PERSON_HUANG_JINJIA = \
      "dongjing": 17, "gangrou": 27, "zhipu": 8,
      "neigong": 20, "boji": 49, "jianfa": 20, "daofa": 28, "changbing": 30, "anqi": 17, "qimen": 21, "yinyang": 35,
      "superskills": [{"id": "SUPERSKILL_JIANGHUXINFA", "learn": [0, 1, 2]},
-                     {"id": "SUPERSKILL_BOYUNJIANRIDAO", "learn": [0, 1]}],
+                     {"id": "SUPERSKILL_QINGTIANDAOFA", "learn": [0, 1]}],
      "items": [],
      "criticaltxt": "人生何所为，当求无上道。",
      "conversation": "SCRIPT_HUANGJINJIA_1"}

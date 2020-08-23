@@ -196,11 +196,25 @@ STATUS_GANGJIN = \
      "description": "攻击时有几率给目标施加外伤，刚猛值越高几率越大"}
 
 
+# 惧拳     
+STATUS_JUQUAN = \
+    {"name": "惧拳", "phase": "AfterDamage", "style": 0,
+     "functions": [{"id": "EFFECT_JUQUAN"}],
+     "description": "受到搏击类武学攻击时伤害增加"}
+
+
 # 惧剑     
 STATUS_JUJIAN = \
     {"name": "惧剑", "phase": "AfterDamage", "style": 0,
      "functions": [{"id": "EFFECT_JUJIAN"}],
      "description": "受到剑法类武学攻击时伤害增加"}
+
+
+# 精拳
+STATUS_JINGQUAN = \
+    {"name": "精拳", "phase": "AfterDamage", "style": 1,
+     "functions": [{"id": "EFFECT_JINGQUAN"}],
+     "description": "运用拳法类武学时伤害大幅增加"}
 
 
 # 精剑     
@@ -419,10 +433,11 @@ STATUS_BASHANJIN = \
      "description": "攻击提升25%"}
 
 
+# 断筋
 STATUS_DUANJIN = \
     {"name": "断筋", "phase": "Instant", "style": 0,
      "functions": [{"id": "EFFECT_DUANJIN"}],
-     "description": "时序速度减少"}
+     "description": "时序速度遭到削减"}
 
 
 STATUS_CUOGU = \
@@ -436,11 +451,6 @@ STATUS_QIANCHAN = \
      "functions": [{"id": "EFFECT_QIANCHAN"}],
      "description": "闪避率降低"}
 
-
-STATUS_XUNJI = \
-    {"name": "迅疾", "phase": "Instant", "style": 1,
-     "functions": [{"id": "EFFECT_XUNJI"}],
-     "description": "时序速度获得提升"}
 
 STATUS_NIYUN = \
     {"name": "霓云", "phase": "Instant", "style": 1,
@@ -487,6 +497,18 @@ STATUS_XIANJI = \
 STATUS_WUQIANG = \
     {"phase": "Finish", "style": 1,
      "functions": [{"id": "EFFECT_WUQIANG"}]}
+
+
+# 迅疾
+STATUS_XUNJI = \
+    {"name": "迅疾", "phase": "Instant", "style": 1,
+     "functions": [{"id": "EFFECT_XUNJI"}],
+     "description": "时序速度获得提升"}
+
+STATUS_XUNJI_DA = \
+    {"name": "大迅疾", "phase": "Instant", "style": 1,
+     "functions": [{"id": "EFFECT_XUNJI_DA"}],
+     "description": "时序速度获得大幅提升"}
 
 
 # 一苇渡江

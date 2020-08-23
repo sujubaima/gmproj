@@ -292,8 +292,37 @@ class ItemQuantitySelectControl(Control):
 
 
 class SkillSelectControl(Control):
+ 
+    def initialize(self):
+        super(SkillSelectControl, self).initialize()
+        self.type = 0
+
+    def filter(self, skill):
+        if self.tags is not None and len(skill.tags & self.tags) == 0:
+            return 2
+        return 0 
+
+    def errmsg(self, skill):
+        return None
+
+    def prepare(self):
+        if self.skills is None:
+            self.skills = []
+            if self.type == 0:
+                all_skills = self.person.skills
+            else:
+                all_skills = self.person.inner_superskills
+            for skill in all_skills:
+                if self.filter is not None:
+                    status = self.filter(skill)
+                else:
+                    status = 0
+                if status == 2:
+                    continue
+                self.skills.append((skill, self.errmsg(skill)))
 
     def launch(self):
+        self.prepare()
         MSG(style=MSG.SkillSelectControl, control=self)
 
     @Control.listener

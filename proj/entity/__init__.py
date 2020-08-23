@@ -18,6 +18,7 @@ from proj.entity.effect import Effect
 from proj.entity.effect import Status
 from proj.entity.force import Force
 from proj.entity.common import Entity
+from proj.entity.common import HyperAttr
 from proj.entity.item import Item
 from proj.entity.recipe import Recipe
 from proj.entity.team import Team

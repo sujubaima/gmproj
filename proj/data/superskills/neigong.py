@@ -1,5 +1,9 @@
 # -- coding: utf-8 --
 
+
+# ------------------------------------- 分割线：C级内功 -------------------------------------
+
+
 # 江湖心法
 SUPERSKILL_JIANGHUXINFA = \
     {"name": "江湖心法", "rank": 0,
@@ -105,165 +109,6 @@ SUPERSKILL_WUMINGXINFA = \
                                          {"name": "attack_", "delta": 16},
                                          {"name": "defense_", "delta": 8}]}]}]}
 
-
-# 紫霞神功
-SUPERSKILL_ZIXIASHENGONG = \
-    {"name": "紫霞神功", "rank": 3,
-     "nodes": [{"name": "功力精进", "next": [2],
-                "functions": [{"type": "PersonChangeAttribute", 
-                               "attrs": [{"name": "neigong", "delta": 8},
-                                         {"name": "hp_max_", "delta": 21},
-                                         {"name": "mp_max_", "delta": 21},
-                                         {"name": "attack_", "delta": 8},
-                                         {"name": "defense_", "delta": 4}]}]},
-               {"name": "功力精进", "next": [2],
-                "functions": [{"type": "PersonChangeAttribute",
-                               "attrs": [{"name": "neigong", "delta": 8},
-                                         {"name": "hp_max_", "delta": 21},
-                                         {"name": "mp_max_", "delta": 21},
-                                         {"name": "attack_", "delta": 8},
-                                         {"name": "defense_", "delta": 4}]}]},
-               {"name": "功力精进",
-                "functions": [{"type": "PersonChangeAttribute",
-                               "attrs": [{"name": "neigong", "delta": 16},
-                                         {"name": "hp_max_", "delta": 39},
-                                         {"name": "mp_max_", "delta": 39},
-                                         {"name": "attack_", "delta": 16},
-                                         {"name": "defense_", "delta": 8}]}]},
-               {"name": "剑气如霞",
-                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_ZIXIASHENGONG"}]}]}
-
-# 抽髓功
-SUPERSKILL_CHOUSUIGONG = \
-    {"name": "抽髓功", "rank": 2,
-     "nodes": [{"name": "功力精进", "next": [2],
-                "functions": [{"type": "PersonChangeAttribute",
-                               "attrs": [{"name": "neigong", "delta": 8},
-                                         {"name": "hp_max_", "delta": 10},
-                                         {"name": "mp_max_", "delta": 10},
-                                         {"name": "attack_", "delta": 8},
-                                         {"name": "defense_", "delta": 4}]}]},
-               {"name": "功力精进", "next": [2],
-                "functions": [{"type": "PersonChangeAttribute",
-                               "attrs": [{"name": "neigong", "delta": 8},
-                                         {"name": "hp_max_", "delta": 10},
-                                         {"name": "mp_max_", "delta": 10},
-                                         {"name": "attack_", "delta": 8},
-                                         {"name": "defense_", "delta": 4}]}]},
-               {"name": "功力精进",
-                "functions": [{"type": "PersonChangeAttribute", "next": [3, 4],
-                               "attrs": [{"name": "neigong", "delta": 8},
-                                         {"name": "hp_max_", "delta": 10},
-                                         {"name": "mp_max_", "delta": 10},
-                                         {"name": "attack_", "delta": 8},
-                                         {"name": "defense_", "delta": 4}]}]},
-               {"name": "功力精进",
-                "functions": [{"type": "PersonChangeAttribute",
-                               "attrs": [{"name": "neigong", "delta": 8},
-                                         {"name": "hp_max_", "delta": 10},
-                                         {"name": "mp_max_", "delta": 10},
-                                         {"name": "attack_", "delta": 8},
-                                         {"name": "defense_", "delta": 4}]}]},
-               {"name": "功力精进",
-                "functions": [{"type": "PersonChangeAttribute",
-                               "attrs": [{"name": "neigong", "delta": 8},
-                                         {"name": "hp_max_", "delta": 10},
-                                         {"name": "mp_max_", "delta": 10},
-                                         {"name": "attack_", "delta": 8},
-                                         {"name": "defense_", "delta": 4}]}]},
-               {"name": "敲骨吸髓",
-                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_CHOUSUIGONG"}]}]}
-
-
-# 七星逆脉
-SUPERSKILL_QIXINGNIMAI = \
-    {"name": "七星逆脉", "rank": 2,
-     "nodes": [{"name": "功力精进", "next": [2],
-                "functions": [{"type": "PersonChangeAttribute", 
-                               "attrs": [{"name": "neigong", "delta": 8},
-                                         {"name": "hp_max_", "delta": 16},
-                                         {"name": "mp_max_", "delta": 8}]}]},
-               {"name": "功力精进", "next": [2],
-                "functions": [{"type": "PersonChangeAttribute", 
-                               "attrs": [{"name": "neigong", "delta": 8},
-                                         {"name": "hp_max_", "delta": 16},
-                                         {"name": "mp_max_", "delta": 8}]}]},
-               {"name": "功力精进", "next": [3, 4],
-                "functions": [{"type": "PersonChangeAttribute", 
-                               "attrs": [{"name": "neigong", "delta": 8},
-                                         {"name": "hp_max_", "delta": 16},
-                                         {"name": "mp_max_", "delta": 16}]}]},
-               {"name": "功力精进",
-                "functions": [{"type": "PersonChangeAttribute",
-                               "attrs": [{"name": "neigong", "delta": 8},
-                                         {"name": "hp_max_", "delta": 16},
-                                         {"name": "mp_max_", "delta": 8}]}]},
-               {"name": "功力精进",
-                "functions": [{"type": "PersonChangeAttribute",
-                               "attrs": [{"name": "neigong", "delta": 8},
-                                         {"name": "hp_max_", "delta": 16},
-                                         {"name": "mp_max_", "delta": 8}]}]},
-               {"name": "逆运七星",
-                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_QIXINGNIMAI"}]}]}
-                
-                
-# 离魂术
-SUPERSKILL_LIHUNSHU = \
-    {"name": "离魂术", "rank": 1,
-     "nodes": [{"name": "功力精进", "next": [2],
-                "functions": [{"type": "PersonChangeAttribute",
-                               "attrs": [{"name": "neigong", "delta": 4},
-                                         {"name": "hp_max_", "delta": 9},
-                                         {"name": "mp_max_", "delta": 9},
-                                         {"name": "attack_", "delta": 4},
-                                         {"name": "defense_", "delta": 2}]}]},
-               {"name": "功力精进", "next": [2],
-                "functions": [{"type": "PersonChangeAttribute",
-                               "attrs": [{"name": "neigong", "delta": 4},
-                                         {"name": "hp_max_", "delta": 9},
-                                         {"name": "mp_max_", "delta": 9},
-                                         {"name": "attack_", "delta": 4},
-                                         {"name": "defense_", "delta": 2}]}]},
-               {"name": "功力精进",
-                "functions": [{"type": "PersonChangeAttribute",
-                               "attrs": [{"name": "neigong", "delta": 8},
-                                         {"name": "hp_max_", "delta": 18},
-                                         {"name": "mp_max_", "delta": 18},
-                                         {"name": "attack_", "delta": 8},
-                                         {"name": "defense_", "delta": 4}]}]},
-               {"name": "离魂不系",
-                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_LIHUNSHU"}]}]}
-                
-                
-# 金关玉锁诀
-SUPERSKILL_JINGUANYUSUOJUE = \
-    {"name": "金关玉锁诀", "rank": 1,
-     "nodes": [{"name": "功力精进", "next": [2],
-                "functions": [{"type": "PersonChangeAttribute",
-                               "attrs": [{"name": "neigong", "delta": 4},
-                                         {"name": "hp_max_", "delta": 9},
-                                         {"name": "mp_max_", "delta": 9},
-                                         {"name": "attack_", "delta": 4},
-                                         {"name": "defense_", "delta": 2}]}]},
-               {"name": "功力精进", "next": [2],
-                "functions": [{"type": "PersonChangeAttribute",
-                               "attrs": [{"name": "neigong", "delta": 4},
-                                         {"name": "hp_max_", "delta": 9},
-                                         {"name": "mp_max_", "delta": 9},
-                                         {"name": "attack_", "delta": 4},
-                                         {"name": "defense_", "delta": 2}]}]},
-               {"name": "功力精进",
-                "functions": [{"type": "PersonChangeAttribute",
-                               "attrs": [{"name": "neigong", "delta": 8},
-                                         {"name": "hp_max_", "delta": 18},
-                                         {"name": "mp_max_", "delta": 18},
-                                         {"name": "attack_", "delta": 8},
-                                         {"name": "defense_", "delta": 4}]}]},
-               {"name": "闭金关",
-                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_BIJINGUAN"}]},
-               {"name": "扣玉锁",
-                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_KOUYUSUO"}]}]}
-                
                 
 # 拔山劲
 SUPERSKILL_BASHANJIN = \
@@ -360,6 +205,67 @@ SUPERSKILL_MEIHUAXINYI = \
                 "functions": [{"type": "PersonChangeAttribute",
                                "attrs": [{"name": "anti_damage_rate_", "delta": 0.02}]}],
                 "description": "基础拆招+2"}]}
+
+
+# ------------------------------------- 分割线：B级内功 -------------------------------------
+
+
+# 离魂术
+SUPERSKILL_LIHUNSHU = \
+    {"name": "离魂术", "rank": 1,
+     "nodes": [{"name": "功力精进", "next": [2],
+                "functions": [{"type": "PersonChangeAttribute",
+                               "attrs": [{"name": "neigong", "delta": 4},
+                                         {"name": "hp_max_", "delta": 9},
+                                         {"name": "mp_max_", "delta": 9},
+                                         {"name": "attack_", "delta": 4},
+                                         {"name": "defense_", "delta": 2}]}]},
+               {"name": "功力精进", "next": [2],
+                "functions": [{"type": "PersonChangeAttribute",
+                               "attrs": [{"name": "neigong", "delta": 4},
+                                         {"name": "hp_max_", "delta": 9},
+                                         {"name": "mp_max_", "delta": 9},
+                                         {"name": "attack_", "delta": 4},
+                                         {"name": "defense_", "delta": 2}]}]},
+               {"name": "功力精进",
+                "functions": [{"type": "PersonChangeAttribute",
+                               "attrs": [{"name": "neigong", "delta": 8},
+                                         {"name": "hp_max_", "delta": 18},
+                                         {"name": "mp_max_", "delta": 18},
+                                         {"name": "attack_", "delta": 8},
+                                         {"name": "defense_", "delta": 4}]}]},
+               {"name": "离魂不系",
+                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_LIHUNSHU"}]}]}
+
+
+# 金关玉锁诀
+SUPERSKILL_JINGUANYUSUOJUE = \
+    {"name": "金关玉锁诀", "rank": 1,
+     "nodes": [{"name": "功力精进", "next": [2],
+                "functions": [{"type": "PersonChangeAttribute",
+                               "attrs": [{"name": "neigong", "delta": 4},
+                                         {"name": "hp_max_", "delta": 9},
+                                         {"name": "mp_max_", "delta": 9},
+                                         {"name": "attack_", "delta": 4},
+                                         {"name": "defense_", "delta": 2}]}]},
+               {"name": "功力精进", "next": [2],
+                "functions": [{"type": "PersonChangeAttribute",
+                               "attrs": [{"name": "neigong", "delta": 4},
+                                         {"name": "hp_max_", "delta": 9},
+                                         {"name": "mp_max_", "delta": 9},
+                                         {"name": "attack_", "delta": 4},
+                                         {"name": "defense_", "delta": 2}]}]},
+               {"name": "功力精进",
+                "functions": [{"type": "PersonChangeAttribute",
+                               "attrs": [{"name": "neigong", "delta": 8},
+                                         {"name": "hp_max_", "delta": 18},
+                                         {"name": "mp_max_", "delta": 18},
+                                         {"name": "attack_", "delta": 8},
+                                         {"name": "defense_", "delta": 4}]}]},
+               {"name": "闭金关",
+                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_BIJINGUAN"}]},
+               {"name": "扣玉锁",
+                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_KOUYUSUO"}]}]}
                 
                 
 # 西子捧心诀
@@ -419,15 +325,6 @@ SUPERSKILL_YIWEIDUJIANGGONG = \
                                "skill": "SKILL_YIWEIDUJIANGGONG_1", "effect": {"id": "EXERT.STATUS_YIWEIDUJIANG_STAY"}}]}]}
 
 
-# 越绝书
-SUPERSKILL_YUEJUESHU = \
-    {"name": "越绝书", "rank": 2,
-     "nodes": [{"name": "卧薪尝胆",
-                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_WOXINCHANGDAN"}]},
-               {"name": "越甲吞吴",
-                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_YUEJIATUNWU"}]}]}
-                
-
 # 高远无极功                
 SUPERSKILL_GAOYUANWUJIGONG = \
     {"name": "高远无极功", "rank": 1,
@@ -465,6 +362,92 @@ SUPERSKILL_GAOYUANWUJIGONG = \
                ]}
 
 
+# ------------------------------------- 分割线：A级内功 -------------------------------------
+
+
+# 越绝书
+SUPERSKILL_YUEJUESHU = \
+    {"name": "越绝书", "rank": 2,
+     "nodes": [{"name": "卧薪尝胆",
+                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_WOXINCHANGDAN"}]},
+               {"name": "越甲吞吴",
+                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_YUEJIATUNWU"}]}]}
+
+
+# 抽髓功
+SUPERSKILL_CHOUSUIGONG = \
+    {"name": "抽髓功", "rank": 2,
+     "nodes": [{"name": "功力精进", "next": [2],
+                "functions": [{"type": "PersonChangeAttribute",
+                               "attrs": [{"name": "neigong", "delta": 8},
+                                         {"name": "hp_max_", "delta": 10},
+                                         {"name": "mp_max_", "delta": 10},
+                                         {"name": "attack_", "delta": 8},
+                                         {"name": "defense_", "delta": 4}]}]},
+               {"name": "功力精进", "next": [2],
+                "functions": [{"type": "PersonChangeAttribute",
+                               "attrs": [{"name": "neigong", "delta": 8},
+                                         {"name": "hp_max_", "delta": 10},
+                                         {"name": "mp_max_", "delta": 10},
+                                         {"name": "attack_", "delta": 8},
+                                         {"name": "defense_", "delta": 4}]}]},
+               {"name": "功力精进",
+                "functions": [{"type": "PersonChangeAttribute", "next": [3, 4],
+                               "attrs": [{"name": "neigong", "delta": 8},
+                                         {"name": "hp_max_", "delta": 10},
+                                         {"name": "mp_max_", "delta": 10},
+                                         {"name": "attack_", "delta": 8},
+                                         {"name": "defense_", "delta": 4}]}]},
+               {"name": "功力精进",
+                "functions": [{"type": "PersonChangeAttribute",
+                               "attrs": [{"name": "neigong", "delta": 8},
+                                         {"name": "hp_max_", "delta": 10},
+                                         {"name": "mp_max_", "delta": 10},
+                                         {"name": "attack_", "delta": 8},
+                                         {"name": "defense_", "delta": 4}]}]},
+               {"name": "功力精进",
+                "functions": [{"type": "PersonChangeAttribute",
+                               "attrs": [{"name": "neigong", "delta": 8},
+                                         {"name": "hp_max_", "delta": 10},
+                                         {"name": "mp_max_", "delta": 10},
+                                         {"name": "attack_", "delta": 8},
+                                         {"name": "defense_", "delta": 4}]}]},
+               {"name": "敲骨吸髓",
+                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_CHOUSUIGONG"}]}]}
+
+
+# 七星逆脉
+SUPERSKILL_QIXINGNIMAI = \
+    {"name": "七星逆脉", "rank": 2,
+     "nodes": [{"name": "功力精进", "next": [2],
+                "functions": [{"type": "PersonChangeAttribute",
+                               "attrs": [{"name": "neigong", "delta": 8},
+                                         {"name": "hp_max_", "delta": 16},
+                                         {"name": "mp_max_", "delta": 8}]}]},
+               {"name": "功力精进", "next": [2],
+                "functions": [{"type": "PersonChangeAttribute",
+                               "attrs": [{"name": "neigong", "delta": 8},
+                                         {"name": "hp_max_", "delta": 16},
+                                         {"name": "mp_max_", "delta": 8}]}]},
+               {"name": "功力精进", "next": [3, 4],
+                "functions": [{"type": "PersonChangeAttribute",
+                               "attrs": [{"name": "neigong", "delta": 8},
+                                         {"name": "hp_max_", "delta": 16},
+                                         {"name": "mp_max_", "delta": 16}]}]},
+               {"name": "功力精进",
+                "functions": [{"type": "PersonChangeAttribute",
+                               "attrs": [{"name": "neigong", "delta": 8},
+                                         {"name": "hp_max_", "delta": 16},
+                                         {"name": "mp_max_", "delta": 8}]}]},
+               {"name": "功力精进",
+                "functions": [{"type": "PersonChangeAttribute",
+                               "attrs": [{"name": "neigong", "delta": 8},
+                                         {"name": "hp_max_", "delta": 16},
+                                         {"name": "mp_max_", "delta": 8}]}]},
+               {"name": "逆运七星",
+                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_QIXINGNIMAI"}]}]}
+
+
 # 金钟罩
 SUPERSKILL_JINZHONGZHAO = \
     {"name": "金钟罩", "rank": 2,
@@ -488,6 +471,37 @@ SUPERSKILL_QIURANXINFA = \
     {"name": "虬髯心法", "rank": 2,
      "nodes": [{"name": "豪气干云",
                 "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_QIURANXINFA_1"}]}]}
+
+
+# ------------------------------------- 分割线：S级内功 -------------------------------------
+
+
+# 紫霞神功
+SUPERSKILL_ZIXIASHENGONG = \
+    {"name": "紫霞神功", "rank": 3,
+     "nodes": [{"name": "功力精进", "next": [2],
+                "functions": [{"type": "PersonChangeAttribute",
+                               "attrs": [{"name": "neigong", "delta": 8},
+                                         {"name": "hp_max_", "delta": 21},
+                                         {"name": "mp_max_", "delta": 21},
+                                         {"name": "attack_", "delta": 8},
+                                         {"name": "defense_", "delta": 4}]}]},
+               {"name": "功力精进", "next": [2],
+                "functions": [{"type": "PersonChangeAttribute",
+                               "attrs": [{"name": "neigong", "delta": 8},
+                                         {"name": "hp_max_", "delta": 21},
+                                         {"name": "mp_max_", "delta": 21},
+                                         {"name": "attack_", "delta": 8},
+                                         {"name": "defense_", "delta": 4}]}]},
+               {"name": "功力精进",
+                "functions": [{"type": "PersonChangeAttribute",
+                               "attrs": [{"name": "neigong", "delta": 16},
+                                         {"name": "hp_max_", "delta": 39},
+                                         {"name": "mp_max_", "delta": 39},
+                                         {"name": "attack_", "delta": 16},
+                                         {"name": "defense_", "delta": 8}]}]},
+               {"name": "剑气如霞",
+                "functions": [{"type": "PersonAddInnerSkill", "skill": "SKILL_ZIXIASHENGONG"}]}]}
 
 
 # 冰肌玉骨术

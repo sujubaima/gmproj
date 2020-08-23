@@ -111,6 +111,7 @@ class Message(Mutable):
     BattleFinishTurn = "battle_finish_turn"
     BattleFinish = "battle_finish"
     BattleFinishSilent = "battle_finish_silent"
+    BattleSequence = "battle_sequence"
 
     BattleMove = "battle_move"
     BattleSkillScope = "battle_skill_scope"

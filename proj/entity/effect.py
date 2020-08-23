@@ -3,6 +3,8 @@ import importlib
 import math
 import copy
 
+from proj.engine import Message as MSG
+
 from proj.entity.common import Entity
 from proj.entity.constants import BattleEvent
 from proj.entity.constants import BattlePhase
@@ -53,20 +55,16 @@ class Effect(InfluentedEntity):
     #ratio_lower = None
     #ratio_middle = None
     #ratio_upper = None
-    
+
+    TargetFunc = {"Enemies": lambda battle, subject: battle.enemies(subject),
+                  "Friends": lambda battle, subject: battle.friends(subject),
+                  "Subject": lambda battle, subject: [battle.sequence[-1]["action"].subject],
+                  "Objects": lambda battle, subject: [obj for obj in battle.sequence[-1]["action"].objects \
+                                                          if battle.event(obj, BattleEvent.ACTMissed) is None]}
+
     @classmethod
     def fromjson(cls, etpl):
         tp = etpl["id"]
-        #tpsplit = tp.split(".")
-        #if tpsplit[0] == "EXERT" and len(tpsplit) == 3:
-        #    status = Status(effects=[Effect.template(tpsplit[2])])
-        #    effeobj = ExertEffect(exertion=status, **etpl)
-        #    effeobj.exertion.leftturn = etpl.get("turns", -1)
-        #elif tpsplit[0] == "EXERT":
-        #    effeobj = ExertEffect(exertion=Status.template(tpsplit[1]), **etpl)
-        #    effeobj.exertion.leftturn = etpl.get("turns", -1)
-        #else:
-        #    effeobj = Effect.template(tp)
         if tp.startswith("EXERT."):
             status = Status.template(tp[6:])
             effeobj = ExertEffect(exertion=status, **etpl)
@@ -82,6 +80,9 @@ class Effect(InfluentedEntity):
         self.id = None
         self.name = None
         self.text = ""
+        self.targets = "Objects"
+        self.tgtstr_obj = None
+        self.tgtstr_prep = None
         self.style = 0
 
         self.level = 1
@@ -96,6 +97,19 @@ class Effect(InfluentedEntity):
                 flag = flag | eval("BattlePhase.%s" % vs)
             self.phase = flag
         Effect.All[self.name] = self
+        if self.targets == "Subject":
+            self.objstr = "自身"
+            self.prepstr = "自身"
+        else:
+            self.objstr = "目标"
+            self.prepstr = "其"
+        if self.description_tpl is None and self.description is not None:
+            self.description_tpl = self.description
+        if self.description_tpl is not None:
+            self.description = self.description_tpl.format(objstr=self.objstr)
+
+    def battle_objects(self, battle, subject):
+        return Effect.TargetFunc[self.targets](battle, subject)
 
     # 如果是战斗中发动效果，objects为空，battle为当前战斗实例
     # 如果非战斗中发动效果，battle为空
@@ -232,20 +246,12 @@ class Status(InfluentedEntity):
 
 class ExertEffect(Effect):
 
-    TargetFunc = {"Enemies": lambda battle, subject: battle.enemies(subject),
-                  "Friends": lambda battle, subject: battle.friends(subject),
-                  "Subject": lambda battle, subject: [battle.sequence[-1]["action"].subject],
-                  "Objects": lambda battle, subject: [obj for obj in battle.sequence[-1]["action"].objects \
-                                                          if battle.event(obj, BattleEvent.ACTMissed) is None]}
-                                                           
     def initialize(self):                                  
         super(ExertEffect, self).initialize()              
-        self.targets = "Objects"
-        self.targetstr = None
         self.exertor = "Subject"
         self.exertion = None
         self.text_ = "对{object}施加了{status}状态"
-        self.description_ = "对{targetstr}施加{status}状态"
+        self.description_ = "对{objstr}施加{status}状态"
         self.style = None
         self.base_ratio = 1
         self.showmsg = True
@@ -258,19 +264,14 @@ class ExertEffect(Effect):
 
     def finish(self):
         super(ExertEffect, self).finish()
-        if self.targetstr is None and self.targets == "Subject":
-            self.targetstr = ("自身", "自身")
-        elif self.targetstr is None:
-            self.targetstr = ("目标", "其")
         if self.exertion is not None:
             if self.tpl_id is None:
                 self.tpl_id = "EXERT.%s" % self.exertion.tpl_id
             if self.name is None:
                 self.name = self.exertion.name
             if self.description is None and self.exertion.name is not None:
-                self.description = self.description_.format(targetstr=self.targetstr[0], status=self.exertion.name)
-                #self.description += "，使%s%s" % (self.targetstr, self.exertion.description)
-                self.description += "，使%s%s" % (self.targetstr[1], self.exertion.description)
+                self.description = self.description_.format(objstr=self.objstr, status=self.exertion.name)
+                self.description += "，使%s%s" % (self.prepstr, self.exertion.description)
                 self.text = self.text_ + "；{text}"
             if self.style is None:
                 self.style = self.exertion.style
@@ -284,7 +285,7 @@ class ExertEffect(Effect):
         if battle is None and len(objects) == 0:
             objects = [subject]
         elif len(objects) == 0:
-            objects = ExertEffect.TargetFunc[self.targets](battle, subject)
+            objects = self.battle_objects(battle, subject)
         for tgt in objects:
             #if not if_rate(ratio):
             #    continue
@@ -314,6 +315,8 @@ class ExertEffect(Effect):
                 else:
                     detail_map["text"] = "%s%s" % (tgt.name, self.exertion.description)
                 self.details = detail_map
+                MSG(style=MSG.Effect, subject=subject, effect=self,
+                    details=detail_map)
                 #for effe in exertion.effects:
                 #    effe.work(tgt, objects=objects, status=exertion, **kwargs)
         
@@ -386,55 +389,45 @@ class EntityChangeAttributeEffect(Effect):
         super(EntityChangeAttributeEffect, self).finish()
         self.attrs = copy.deepcopy(self.attrs)
 
+    def realname(self, attrname):
+        ret = attrname.replace("_delta_", "").replace("_factor_", "")
+        if ret.endswith("_"):
+            ret = ret[:-1]
+        return ret
+
     def modify(self, subject, reverse=False, **kwargs):
         status = kwargs.get("status", None)
         for attr in self.attrs:
             attrname = attr["name"]
             if "value" in attr:
+                value = attr["value"]
                 if reverse:
-                    if attr.get("locked", False):
-                        subject.locked.remove(attrname)
-                    if attrname not in subject.locked:
-                        newattr = subject.stash[attrname]
-                        setattr(subject, attrname, newattr)
+                    pass
                 else:
-                    newattr = attr["value"]
-                    if attrname not in subject.locked:
-                        oldattr = getattr(subject, attrname)
-                        subject.handle(attrname, newattr)
-                    subject.stash[attrname] = oldattr
-                    if attr.get("locked", False):
-                        subject.locked.add(attrname)
+                    subject.handle(attrname, value)
             elif "delta" in attr:
                 delta = (-1 * attr["delta"]) if reverse else attr["delta"]
-                #print(subject.name, attr, delta)
-                if attrname not in subject.locked:
-                    oldattr = getattr(subject, attrname)
-                    newattr = oldattr + delta
-                    setattr(subject, attrname, newattr)
-                    if status is not None and status.countable:
-                        deltaname = "delta_%s" % attrname
-                        subject.stash[deltaname] = subject.stash.get(deltaname, 0) + delta 
-                if attrname in subject.stash:
-                    subject.stash[attrname] += delta
+                oldattr = getattr(subject, attrname)
+                newattr = oldattr + delta
+                setattr(subject, attrname, newattr)
+                if status is not None and status.countable:
+                    deltaname = "delta_%s" % attrname
+                    subject.stash[deltaname] = subject.stash.get(deltaname, 0) + delta
             elif "ratio" in attr:
-                ratio = attr["ratio"]
-                #print(subject.name, attr, ratio)
-                if attrname not in subject.locked:
-                    oldattr = getattr(subject, attrname)
-                    newattr = oldattr / ratio if reverse else oldattr * ratio
-                    setattr(subject, attrname, newattr)
-                    if status is not None and status.countable:
-                        rationame = "ratio_%s" % attrname
-                        if reverse:
-                            subject.stash[rationame] = subject.stash.get(rationame, 1) / ratio
-                        else:
-                            subject.stash[rationame] = subject.stash.get(rationame, 1) * ratio
-                if attrname in subject.stash:
-                    if reverse:
-                        subject.stash[attrname] /= ratio
-                    else:
-                        subject.stash[attrname] *= ratio
+                ratio = (1 / attr["ratio"]) if reverse else attr["ratio"]
+                oldattr = getattr(subject, attrname)
+                newattr = oldattr * ratio
+                setattr(subject, attrname, newattr)
+                if status is not None and status.countable:
+                    rationame = "ratio_%s" % attrname
+                    subject.stash[rationame] = subject.stash.get(rationame, 1) * ratio
+            if attr.get("lock", True):
+                realname = self.realname(attrname)
+                if reverse:
+                    setattr(subject, "%s_lock_" % realname, None)
+                else:
+                    lockval = getattr(subject, realname)
+                    setattr(subject, "%s_lock_" % realname, lockval)
 
     def work(self, subject, objects=[], **kwargs):
         self.modify(subject, **kwargs)
@@ -442,9 +435,40 @@ class EntityChangeAttributeEffect(Effect):
     def leave(self, subject, objects=[], **kwargs):
         self.modify(subject, reverse=True, **kwargs)
 
-    
+
 class PersonChangeAttributeEffect(EntityChangeAttributeEffect):
-    pass
+
+    def _modify(self, subject, reverse=False, **kwargs):
+        status = kwargs.get("status", None)
+        for attr in self.attrs:
+            attrname = attr["name"]
+            if attrname.endswith("_"):
+                attrname = attrname[:-1]
+            attrha = getattr(subject, "%s_" % attrname)
+            if "value" in attr:
+                value = attr["value"]
+                if reverse:
+                    pass
+                else:
+                    attrha.base = value
+                    attrha.delta = 0
+                    attrha.factor = 1
+            elif "delta" in attr:
+                delta = (-1 * attr["delta"]) if reverse else attr["delta"]
+                if attr.get("basic", False):
+                    attrha.base += delta
+                else:
+                    attrha.delta += delta
+            elif "ratio" in attr:
+                ratio = (1 / attr["ratio"]) if reverse else attr["ratio"]
+                attrha.factor *= ratio
+            if attr.get("lock", True):
+                if reverse:
+                    attrha.fval = attrha.fval_
+                else:
+                    attrha.fval_ = attrha.fval
+                    attrha.val_ = attrha()
+                    attrha.fval = lambda x: x.val_
 
 
 class PersonSkillChangeAttributeEffect(EntityChangeAttributeEffect):

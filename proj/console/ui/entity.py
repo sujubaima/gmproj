@@ -140,7 +140,7 @@ def skill(obj, grey=False):
     style_map = {"Boji": "搏击", "Jianfa": "剑法",
                  "Daofa": "刀法", "Changbing": "长兵",
                  "Duanbing": "短柄", "Ruansuo": "软索",
-                 "Anqi": "暗器"}
+                 "Anqi": "暗器", "Yueqi": "乐曲"}
     effe_str = []
     for effe in obj.effects:
         effe_str.append(effectname(effe))
@@ -163,12 +163,12 @@ def skill(obj, grey=False):
 
 
 def item(obj, grey=False):
-    comments = [obj.description]
+    comments = ["『%s』" % obj.description]
     for inlay in obj.inlays:
         if "filled" in inlay:
-            comments.append("在%s处使用一枚%s进行了强化" % (inlay["name"], rank(inlay["filled"])))        
+            comments.append("『在%s处使用一枚%s进行了强化』" % (inlay["name"], rank(inlay["filled"])))        
     for effe in obj.effects:
         effestr = effect(effe, grey=grey) 
         if effestr is not None:
-            comments.append(effestr)
+            comments.append("『%s』" % effestr)
     return comments

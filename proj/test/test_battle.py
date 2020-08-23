@@ -45,6 +45,7 @@ if __name__ == "__main__":
     p_yl = Person.one("PERSON_YANG_LEI")
 
     # 幽冥宫
+    p_qcb = Person.one("PERSON_QI_CHENGBAI")
     p_yqf = Person.one("PERSON_YING_QINGFENG")
     
     # 九溪派
@@ -73,7 +74,7 @@ if __name__ == "__main__":
     # 丐帮
     p_lcy = Person.one("PERSON_LI_CANGYING")
     p_xfl = Person.one("PERSON_XING_FEILONG")
-    p_hyx = Person.one("PERSON_HONG_YINGXIANG")
+    p_hyx = Person.one("PERSON_HONG_YUANXIANG")
     
     # 峨眉派
     p_rwh = Person.one("PERSON_RAN_WUHUA")
@@ -86,6 +87,9 @@ if __name__ == "__main__":
     # 巨阙门
     p_gzq = Person.one("PERSON_GENG_ZHUQIAO")
     p_sjy = Person.one("PERSON_SHI_JINGYAN")
+
+    # 密宗
+    p_snrd = Person.one("PERSON_SUONAN_RAODAN")
     
     
     m1 = Map.one("MAP_BTL_BAIBINGTANGZONGDUO")
@@ -99,6 +103,7 @@ if __name__ == "__main__":
     team_wudang = Team(label="武当派")
     team_gaibang = Team(label="丐帮")
     team_emei = Team(label="峨眉派")
+    team_youminggong = Team(label="幽冥宫")
     team_huairen = Team()
     team_beichenpai = Team(label="北辰派")
     team_jiuxipai = Team(label="九溪派")
@@ -107,11 +112,12 @@ if __name__ == "__main__":
     team_juquemen = Team(label="巨阙门")
     team_caiji = Team()
     
-    team_shaolin.include(p_jy, p_jc)
+    team_shaolin.include(p_jy, p_jc, p_snrd)
     team_wudang.include(p_zys, p_lpf)
     team_gaibang.include(p_xfl, p_lcy)
     team_emei.include(p_rwh, p_cg)
     team_huairen.include(p_tw, p_zsj)
+    team_youminggong.include(p_qcb, p_yqf)
     team_baibingtang.include(p_sty, p_xh, p_jl)
     team_jialuozu.include(p_ld, p_ysq)
     team_juquemen.include(p_gzq, p_sjy)
@@ -127,7 +133,7 @@ if __name__ == "__main__":
                   ui.menuitem(team_wudang.label, value=team_wudang),
                   ui.menuitem(team_gaibang.label, value=team_gaibang),
                   ui.menuitem(team_emei.label, value=team_emei),
-                  ui.menuitem(team_baibingtang.label, value=team_baibingtang),
+                  ui.menuitem(team_youminggong.label, value=team_youminggong),
                   ui.menuitem(team_juquemen.label, value=team_juquemen),
                   ui.menuitem(team_beichenpai.label, value=team_beichenpai),
                   ui.menuitem(team_jiuxipai.label, value=team_jiuxipai),], title="请选择参战的阵营：",

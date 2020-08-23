@@ -1,5 +1,9 @@
 # -- coding: utf-8 --
 
+
+# ------------------------------------- 分割线：C级长兵 -------------------------------------
+
+
 # 夜叉棍法-飞天堕地
 SKILL_YECHAGUNFA_1 = \
     {"name": "飞天堕地", "style": "Changbing",
@@ -11,6 +15,9 @@ SKILL_YECHAGUNFA_2 = \
     {"name": "大力如风", "style": "Changbing",
      "mp": 108, "power": 540, "cd": 0, "yinyang": 1, "shape": "Point.Emit,3,0",
      "effects": [{"id": "EFFECT_GANGJIN"}]}
+
+
+# ------------------------------------- 分割线：B级长兵 -------------------------------------
      
      
 # 西楚霸王枪-以一当十
@@ -28,6 +35,9 @@ SKILL_XICHUBAWANGQIANG_3 = \
     {"name": "霸王别姬", "style": "Changbing",
      "mp": 140, "power": 700, "cd": 1, "yinyang": 0, "shape": "Point.Emit,3,0"}
      
+
+# ------------------------------------- 分割线：A级长兵 -------------------------------------
+
      
 # 十力降魔棍-十力具备
 SKILL_SHILIXIANGMOGUN_1 = \
@@ -40,6 +50,9 @@ SKILL_SHILIXIANGMOGUN_2 = \
     {"name": "泰然无惧", "style": "Changbing",
      "mp": 240, "power": 800, "cd": 2, "yinyang": 1, "shape": "BigSector.Swap,1,1",
      "effects": [{"id": "EXERT.STATUS_WUWEI", "targets": "Subject", "turns": 1}]}
+
+
+# ------------------------------------- 分割线：S级长兵 -------------------------------------
 
 
 # 打狗棒法-棒打狗头

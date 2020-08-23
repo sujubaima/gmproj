@@ -1,5 +1,9 @@
 # -- coding: utf-8 --
 
+
+# ------------------------------------- 分割线：C级刀法 -------------------------------------
+
+
 # 鸾影刀法
 SUPERSKILL_LUANYINGDAOFA = \
     {"name": "鸾影刀法", "rank": 0,
@@ -38,26 +42,25 @@ SUPERSKILL_LANLUDAOFA = \
                 "description": "习得招式【雷池勿越】"}]}
 
 
-# 刀剑攻
-SUPERSKILL_DAOJIANGONG = \
-    {"name": "刀剑攻", "rank": 2,
-     "nodes": [{"name": "上刀下剑法", "next": [1],
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_DAOJIANGONG_1"}]},
-               {"name": "上剑下刀法", "next": [2],
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_DAOJIANGONG_2"}]},
-               {"name": "刀剑合一法",
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_DAOJIANGONG_3"}]}]}
-                
+# 青天刀法
+SUPERSKILL_QINGTIANDAOFA = \
+    {"name": "青天刀法", "rank": 0,
+     "nodes": [{"name": "云归穴暝", "next": [1],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_QINGTIANDAOFA_1"}]},
+               {"name": "拨云见日",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_QINGTIANDAOFA_2"}]}]}
 
-# 猩红刀法
-SUPERSKILL_XINGHONGDAOFA = \
-    {"name": "猩红刀法", "rank": 2,
-     "nodes": [{"name": "含血喷人", "next": [1],
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_XINGHONGDAOFA_1"}]},
-               {"name": "磨牙吮血", "next": [2],
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_XINGHONGDAOFA_2"}]},
-               {"name": "血雨腥风", 
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_XINGHONGDAOFA_3"}]}]}
+
+# 分筋析骨刀
+SUPERSKILL_FENJINXIGUDAO = \
+    {"name": "分筋析骨刀", "rank": 0,
+     "nodes": [{"name": "分筋刀", "next": [1],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_FENJINXIGUDAO_1"}]},
+               {"name": "析骨刀",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_FENJINXIGUDAO_2"}]}]}
+
+
+# ------------------------------------- 分割线：B级刀法 -------------------------------------
 
 
 # 破锋八刀
@@ -69,15 +72,6 @@ SUPERSKILL_POFENGBADAO = \
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_POFENGBADAO_2"}]},
                {"name": "奇锋破尽",
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_POFENGBADAO_3"}]}]}
-
-
-# 拨云见日刀
-SUPERSKILL_BOYUNJIANRIDAO = \
-    {"name": "拨云见日刀", "rank": 0,
-     "nodes": [{"name": "云归穴暝", "next": [1],
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_BOYUNJIANRIDAO_1"}]},
-               {"name": "云散天开",
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_BOYUNJIANRIDAO_2"}]}]}
                 
                 
 # 黑风刀
@@ -102,15 +96,6 @@ SUPERSKILL_HEIFENGDAO = \
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_HEIFENGDAO_2"}],
                 "description": "习得技能【阴风阵阵】"}]}
                 
-                
-# 分筋析骨刀
-SUPERSKILL_FENJINXIGUDAO = \
-    {"name": "分筋析骨刀", "rank": 0,
-     "nodes": [{"name": "分筋刀", "next": [1],
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_FENJINXIGUDAO_1"}]},
-               {"name": "析骨刀",
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_FENJINXIGUDAO_2"}]}]}
-
 
 # 飞廉刀法
 SUPERSKILL_FEILIANDAOFA = \
@@ -120,3 +105,30 @@ SUPERSKILL_FEILIANDAOFA = \
                {"name": "逆风斩",
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_FEILIANDAOFA_2"}]}]}
 
+
+# ------------------------------------- 分割线：A级刀法 -------------------------------------
+
+
+# 刀剑攻
+SUPERSKILL_DAOJIANJUE = \
+    {"name": "刀剑攻", "rank": 2,
+     "nodes": [{"name": "上刀下剑法", "next": [1],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_DAOJIANJUE_1"}]},
+               {"name": "上剑下刀法", "next": [2],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_DAOJIANJUE_2"}]},
+               {"name": "刀剑合一法",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_DAOJIANJUE_3"}]}]}
+
+
+# 猩红刀法
+SUPERSKILL_XINGHONGDAOFA = \
+    {"name": "猩红刀法", "rank": 2,
+     "nodes": [{"name": "含血喷人", "next": [1],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_XINGHONGDAOFA_1"}]},
+               {"name": "磨牙吮血", "next": [2],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_XINGHONGDAOFA_2"}]},
+               {"name": "血雨腥风",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_XINGHONGDAOFA_3"}]}]}
+
+
+# ------------------------------------- 分割线：S级刀法 -------------------------------------

@@ -82,6 +82,26 @@ class ChangDanEffect(Effect):
         sts.work(subject)
 
 
+# 超然
+class ChaoRanEffect(Effect):
+
+    def work(self, subject, objects=[], **kwargs):
+        battle = kwargs["battle"]
+        if len(objects) == 0:
+            objects = self.battle_objects(battle, subject)
+        for obj in objects:
+            debuffs = []
+            for sts in obj.status:
+                if sts.name is not None and sts.style == 0 and sts.exertor != obj:
+                    debuffs.append(sts)
+            if len(debuffs) == 0:
+                return
+            for debuff in debuffs:
+                debuff.leave(obj)
+            if not battle.silent:
+                MSG(style=MSG.Effect, subject=obj, effect=self) 
+
+
 # 除械
 class ChuXieEffect(Effect):
 
@@ -109,7 +129,8 @@ class DaGouTouEffect(ExertEffect):
         super(DaGouTouEffect, self).initialize()
         sts_tpl = "STATUS_ZHENSHE"
         self.exertion = Status.template(sts_tpl)
-        self.targetstr = ("目标及其相邻敌方单位", "其")
+        self.objstr = "目标及其相邻敌方单位"
+        self.prepstr = "其"
 
     def work(self, subject, objects=[], **kwargs):
         battle = kwargs["battle"]

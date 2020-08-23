@@ -29,8 +29,6 @@ class Team(Entity):
 
         self.process = 0
 
-        self.move_style = "move"
-        
         self.idx_ = 0
 
     def go(self):

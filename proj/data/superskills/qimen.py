@@ -1,5 +1,9 @@
 # -- coding: utf-8 --
 
+
+# ------------------------------------- 分割线：C级奇门 -------------------------------------
+
+
 # 天罡刺
 SUPERSKILL_TIANGANGCI = \
     {"name": "天罡刺", "rank": 0,
@@ -25,6 +29,23 @@ SUPERSKILL_TIANGANGCI = \
                 "functions": [{"type": "PersonChangeAttribute",
                                "attrs": [{"name": "hit_rate", "ratio": 1.05}]}],
                 "description": "基础命中+5%"}]}
+
+
+# ------------------------------------- 分割线：B级奇门 -------------------------------------
+
+
+# ------------------------------------- 分割线：A级奇门 -------------------------------------
+
+
+# 天音剑气
+SUPERSKILL_TIANYINJIANQI = \
+    {"name": "天音剑气", "rank": 2,
+     "nodes": [{"name": "空谷传声", "next": [1],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TIANYINJIANQI_1"}]},
+               {"name": "风送轻云", "next": [2],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TIANYINJIANQI_2"}]},
+               {"name": "振索鸣铃",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TIANYINJIANQI_3"}]}]}
                 
                 
 # 越人歌
@@ -48,6 +69,9 @@ SUPERSKILL_RIYUESHUANGLUN = \
                {"name": "日月同辉",
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_RIYUESHUANGLUN_3"}]}]}
                 
+
+# ------------------------------------- 分割线：S级奇门 -------------------------------------
+
 
 # 天雷地火引
 SUPERSKILL_TIANLEIDIHUOYIN = \

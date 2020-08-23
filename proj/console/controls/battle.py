@@ -38,6 +38,36 @@ class BattleControl(Control):
     """
     战斗系统根控件
     """
+    def macros(self):
+        macs = {}
+        descs = {}
+        macs["#sequence"] = self.showseq
+        descs["#sequence"] = "显示当前时刻各角色行动顺序"
+        return macs, descs
+
+    def showseq(self, tag):
+        pset = set()
+        pmap = {}
+        for p in self.battle.alive:
+            pmap[p.id] = p.process
+            pset.add(p.id)
+        self.acseq = []
+        while len(pset) != 0:
+            min = (None, 1000) 
+            for p in self.battle.alive:
+                ctime = (1000 - pmap[p.id]) / p.speed
+                if ctime < min[1]:
+                    min = (p, ctime)
+            for p in self.battle.alive:
+                if p == min[0]:
+                    pmap[p.id] = -1 * max(0, p.fatigue - 500)
+                    if p.id in pset:
+                        pset.remove(p.id)
+                    self.acseq.append(p)
+                else:
+                    pmap[p.id] += int(min[1] * p.speed)
+        MSG(style=MSG.BattleSequence, control=self)
+
     def run(self):
         if not self.battle.active():
             return 
@@ -51,7 +81,7 @@ class BattleControl(Control):
     def move(self, arg):
         position_text = "请输入要移动的地块坐标"
         p = self.battle.current
-        allinscope, connections = self.battle.map.move_scope(p, style=p.move_style)
+        allinscope, connections = self.battle.map.move_scope(p)
         validator=lambda x: PositionSelectControl.validator(self.battle.map, x, allinscope, False)
         control = BattlePositionSelectControl(battle=self.battle, subject=self.battle.current,
                       validator=validator, positions=allinscope, text=position_text)
@@ -71,7 +101,7 @@ class BattleControl(Control):
     @Control.listener
     def useskill(self, arg):
         control = PipeControl()
-        control.pipe(SkillSelectControl(battle=self.battle, person=self.battle.current, type=0), 
+        control.pipe(BattleSkillSelectControl(battle=self.battle, person=self.battle.current), 
                      valves=["skill"])
         control.pipe(BattleSkillControl(battle=self.battle), valves=["target", "scope"])
         control.run()
@@ -101,8 +131,10 @@ class BattleControl(Control):
 
     @Control.listener
     def status(self, arg):
+        person_title = "请选择要查看状态的人物："
         control = PipeControl()
-        control.pipe(PersonSelectControl(candidates=self.battle.alive, canskip=False), valves=["person"])\
+        control.pipe(PersonSelectControl(candidates=self.battle.alive, 
+                         title=person_title, canskip=False), valves=["person"])\
                .pipe(PersonStatusControl(), valves=["notexist"])
         control.run()
         if self.battle.active():
@@ -157,6 +189,20 @@ class BattlePositionSelectControl(PositionSelectControl):
     def launch(self):
         self.snapshot = self.battle.snapshot(False)
         MSG(style=MSG.BattlePositionSelectControl, control=self)
+
+
+class BattleSkillSelectControl(SkillSelectControl):
+
+    def errmsg(self, skill):
+        if self.skill_ava is None:
+            self.skill_ava = self.battle.skill_available(self.person)
+        skill_cd = self.battle.skill_cd(self.person, skill)
+        if skill_cd > 0:
+            return "还需等待%s回合" % skill_cd
+        elif skill not in self.skill_ava:
+            return "你未装备合适的武器"
+        else:
+            return None
 
 
 class BattleSkillControl(Control):

@@ -1,6 +1,9 @@
 # -- coding: utf-8 --
 
 
+# ------------------------------------- 分割线：C级搏击 -------------------------------------
+
+
 # 百缠手
 SUPERSKILL_BAICHANSHOU = \
     {"name": "百缠手", "rank": 0,
@@ -28,6 +31,23 @@ SUPERSKILL_BAICHANSHOU = \
                 "description": "习得招式【死缠烂打】"}]}
 
 
+# 铁砂掌 
+SUPERSKILL_TIESHAZHANG = \
+    {"name": "铁砂掌", "rank": 0,
+     "nodes": [{"name": "崩山碎石",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TIESHAZHANG_1"}]}]}
+
+
+# 窃钩术
+SUPERSKILL_QIEGOUSHU = \
+    {"name": "窃钩术", "rank": 0,
+     "nodes": [{"name": "妙手空空",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_QIEGOUSHU_1"}]}]}
+
+
+# ------------------------------------- 分割线：B级搏击 -------------------------------------
+
+
 # 长风拳法
 SUPERSKILL_CHANGFENGQUANFA = \
     {"name": "长风拳法", "rank": 1,
@@ -35,6 +55,9 @@ SUPERSKILL_CHANGFENGQUANFA = \
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_CHANGFENGQUANFA_1"}]},
                {"name": "乘风破浪",
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_CHANGFENGQUANFA_2"}]}]}
+
+
+# ------------------------------------- 分割线：A级搏击 -------------------------------------
                 
                 
 # 幽闭三击 
@@ -46,6 +69,15 @@ SUPERSKILL_YOUBISANJI = \
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_YOUBISANJI_2"}]},
                {"name": "长门悬孤月",          
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_YOUBISANJI_3"}]}]}
+
+
+# 大日如来掌
+SUPERSKILL_DARIRULAIZHANG = \
+    {"name": "大日如来掌", "rank": 2,
+     "nodes": [{"name": "如来胎藏式", "next": [1],
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_DARIRULAIZHANG_1"}]},
+               {"name": "如来金刚式",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_DARIRULAIZHANG_2"}]}]}
 
 
 # 醉拳
@@ -61,29 +93,18 @@ SUPERSKILL_ZUIQUAN = \
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_ZUIQUAN_4"}]}]}
 
 
-# 铁砂掌 
-SUPERSKILL_TIESHAZHANG = \
-    {"name": "铁砂掌", "rank": 0,
-     "nodes": [{"name": "崩山碎石",
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TIESHAZHANG_1"}]}]}
+# ------------------------------------- 分割线：S级搏击 -------------------------------------
 
 
-# 窃钩术
-SUPERSKILL_QIEGOUSHU = \
-    {"name": "窃钩术", "rank": 0,
-     "nodes": [{"name": "妙手空空",
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_QIEGOUSHU_1"}]}]}
-
-
-# 摩诃无量掌
-SUPERSKILL_MOHEWULIANGZHANG = \
-    {"name": "摩诃无量掌", "rank": 3,
+# 摩诃无量指
+SUPERSKILL_MOHEWULIANGZHI = \
+    {"name": "摩诃无量指", "rank": 3,
      "nodes": [{"name": "如恒河沙", "next": [1],
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_MOHEWULIANGZHANG_1"}]},
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_MOHEWULIANGZHI_1"}]},
                {"name": "如阿僧祇", "next": [2],
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_MOHEWULIANGZHANG_2"}]},
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_MOHEWULIANGZHI_2"}]},
                {"name": "如不思议",
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_MOHEWULIANGZHANG_3"}]}]}
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_MOHEWULIANGZHI_3"}]}]}
 
 
 # 太极拳
@@ -97,12 +118,19 @@ SUPERSKILL_TAIJIQUAN = \
                 "functions": [{"type": "PersonAddSkill", "skill": "SKILL_TAIJIQUAN_3"}]}]}
 
 
-# 降龙十八掌
-SUPERSKILL_XIANGLONGSHIBAZHANG = \
-    {"name": "降龙十八掌", "rank": 3,
+# 降龙手
+SUPERSKILL_XIANGLONGSHOU = \
+    {"name": "降龙手", "rank": 3,
      "nodes": [{"name": "亢龙有悔", "next": [1],
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_XIANGLONGSHIBAZHANG_1"}]},
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_XIANGLONGSHOU_1"}]},
                {"name": "见龙卸甲", "next": [2],
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_XIANGLONGSHIBAZHANG_2"}]},
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_XIANGLONGSHOU_2"}]},
                {"name": "龙战于野",
-                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_XIANGLONGSHIBAZHANG_3"}]}]}
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_XIANGLONGSHOU_3"}]}]}
+
+
+# 大灭绝掌
+SUPERSKILL_DAMIEJUEZHANG = \
+    {"name": "大灭绝掌", "rank": 3,
+     "nodes": [{"name": "成败枯荣",
+                "functions": [{"type": "PersonAddSkill", "skill": "SKILL_DAMIEJUEZHANG_1"}]}]}

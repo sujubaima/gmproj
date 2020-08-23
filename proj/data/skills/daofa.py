@@ -1,5 +1,8 @@
 # -- coding: utf-8 --
 
+
+# ------------------------------------- 分割线：C级刀法 -------------------------------------
+
 # 鸾影刀法-鸣鸾佩玉
 SKILL_LUANYINGDAOFA_1 = \
     {"name": "鸣鸾佩玉", "style": "Daofa",
@@ -11,29 +14,16 @@ SKILL_LUANYINGDAOFA_2 = \
      "mp": 104, "power": 520, "cd": 0, "yinyang": -1, "shape": "SmallSector.Swap,1,2"}
      
 
-# 拨云见日刀-云归穴暝 
-SKILL_BOYUNJIANRIDAO_1 = \
+# 青天刀法-云归穴暝 
+SKILL_QINGTIANDAOFA_1 = \
     {"name": "云归穴暝", "style": "Daofa",
      "mp": 80, "power": 400, "cd": 0, "yinyang": 1, "shape": "Point.Emit,2,0"}
 
-# 拨云见日刀-日出天开
-SKILL_BOYUNJIANRIDAO_2 = \
-    {"name": "日出天开", "style": "Daofa",
+# 青天刀法-拨云见日
+SKILL_QINGTIANDAOFA_2 = \
+    {"name": "拨云见日", "style": "Daofa",
      "mp": 150, "power": 500, "cd": 0, "yinyang": 1, "shape": "BigSector.Swap,1,1"}
      
-     
-# 黑风刀-黑云压城
-SKILL_HEIFENGDAO_1 = \
-    {"name": "黑云压城", "style": "Daofa",
-     "mp": 225, "power": 450, "cd": 1, "yinyang": -1, "shape": "SmallSector.Swap,1,2",
-     "effects": [{"id": "EFFECT_ZHANGQI_XIAO", "from_damage": True}]}
-
-# 黑风刀-阴风阵阵
-SKILL_HEIFENGDAO_2 = \
-    {"name": "阴风阵阵", "style": "Daofa",
-     "mp": 360, "power": 450, "cd": 1, "yinyang": -1, "shape": "BigSector.Swap,1,2",
-     "effects": [{"id": "EFFECT_ZHANGQI", "from_damage": True}]}
-
 
 # 分筋析骨刀-分筋刀
 SKILL_FENJINXIGUDAO_1 = \
@@ -46,6 +36,22 @@ SKILL_FENJINXIGUDAO_2 = \
     {"name": "析骨刀", "style": "Daofa",
      "mp": 100, "power": 500, "cd": 0, "yinyang": -1, "shape": "Point.Emit,1,0",
      "effects": [{"id": "EXERT.STATUS_CUOGU", "turns": 3}]}
+
+
+# ------------------------------------- 分割线：B级刀法 -------------------------------------
+
+
+# 黑风刀-黑云压城
+SKILL_HEIFENGDAO_1 = \
+    {"name": "黑云压城", "style": "Daofa",
+     "mp": 225, "power": 450, "cd": 1, "yinyang": -1, "shape": "SmallSector.Swap,1,2",
+     "effects": [{"id": "EFFECT_ZHANGQI_XIAO", "from_damage": True}]}
+
+# 黑风刀-阴风阵阵
+SKILL_HEIFENGDAO_2 = \
+    {"name": "阴风阵阵", "style": "Daofa",
+     "mp": 360, "power": 450, "cd": 1, "yinyang": -1, "shape": "BigSector.Swap,1,2",
+     "effects": [{"id": "EFFECT_ZHANGQI", "from_damage": True}]}
 
 
 # 飞廉刀法-迎风斩
@@ -80,20 +86,23 @@ SKILL_POFENGBADAO_3 = \
      "effects": [{"id": "EFFECT_CHUQI"}]}
 
 
-# 刀剑攻-上刀下剑法
-SKILL_DAOJIANGONG_1 = \
+# ------------------------------------- 分割线：A级刀法 -------------------------------------
+
+
+# 刀剑诀-上刀下剑法
+SKILL_DAOJIANJUE_1 = \
     {"name": "上刀下剑法", "style": "Jianfa,Daofa", "double_weapon": ["Daofa", "Jianfa"],
      "mp": 295, "power": 650, "cd": 0, "yinyang": 0, "shape": "BigSector.Swap,1,1",
      "effects": [{"id": "EFFECT_POJIAN"}]}
 
-# 刀剑攻-上剑下刀法
-SKILL_DAOJIANGONG_2 = \
+# 刀剑诀-上剑下刀法
+SKILL_DAOJIANJUE_2 = \
     {"name": "上剑下刀法", "style": "Jianfa,Daofa", "double_weapon": ["Daofa", "Jianfa"],
      "mp": 130, "power": 650, "cd": 0, "yinyang": 0, "shape": "Line.Emit,1,2",
      "effects": [{"id": "EFFECT_PODAO"}]}
 
-# 刀剑攻-刀剑合一法
-SKILL_DAOJIANGONG_3 = \
+# 刀剑诀-刀剑合一法
+SKILL_DAOJIANJUE_3 = \
     {"name": "刀剑合一法", "style": "Jianfa,Daofa", "double_weapon": ["Daofa", "Jianfa"],
      "mp": 375, "power": 750, "cd": 2, "yinyang": 0, "shape": "SmallSector,1,2",
      "effects": [{"id": "EXERT.STATUS_JINGJIAN", "targets": "Subject", "turns": 1},
@@ -116,3 +125,6 @@ SKILL_XINGHONGDAOFA_3 = \
     {"name": "血雨腥风", "style": "Daofa",
      "mp": 960 , "power": 800, "cd": 3, "yinyang": -1, "shape": "Around.Seep,1,2",
      "effects": [{"id": "EFFECT_XIXUE"}]}
+
+
+# ------------------------------------- 分割线：S级刀法 -------------------------------------
